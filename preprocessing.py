@@ -64,7 +64,7 @@ def generate_id_author_name(index_path):
     	name = author['name']
     	pc = author['paper_count']
     	if aid in aids:
-    		print str(aid)+"\t"+name+"\t"+str(pc)
+    		print str(aid)+"\t"+unicode(name,errors='ignore')+"\t"+str(pc)
     
 
 
