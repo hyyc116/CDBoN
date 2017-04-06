@@ -60,8 +60,8 @@ mini_size= (1 if args.size=="" else int(args.size))
 
 #filter out small clusters
 for ll in all_data.keys():
-    # if len(all_data[ll])> int(mini_size):
-    labels.append(ll)
+    if len(all_data[ll])> int(mini_size):
+        labels.append(ll)
 
 clusters_count = len(labels) - (1 if -1 in labels else 0)
 colors = plt.cm.rainbow(numpy.linspace(0, 1, clusters_count))

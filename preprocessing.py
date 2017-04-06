@@ -19,6 +19,17 @@ def transform(path):
 			print line
 
 
+# parameter path: the path of files
+def transform_graph(path):
+	for line in open(path):
+		line = line.strip()
+		splits = line.split(" ")
+		if len(splits)!=3:
+			sys.stderr.write(splits[0]+"\n")
+			print " ".join(splits[1:])
+		else:
+			print line
+
 #clustering the 2D result of largevis by DBSCAN from scikit-learn
 def dbscan_clustering(path):
 	data = [line.strip().split(" ") for line in open(path)][1:]
@@ -62,6 +73,8 @@ if __name__=="__main__":
 	path = sys.argv[2]
 	if label=="transform":
 		transform(path)
+	elif label=='tg':
+		transform_graph(path)
 	elif label=="clustering":
 		dbscan_clustering(path)
 	elif label == "undirected":
