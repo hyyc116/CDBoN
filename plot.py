@@ -4,6 +4,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import argparse
 import math
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 parser = argparse.ArgumentParser()
 
