@@ -3,9 +3,10 @@ python preprocessing.py  undirected $1 > $1_twodirected.txt
 
 # run largevis
 echo "run largevis"
-python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
+# python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
 
 # preprocess
+echo 'transform'
 python preprocessing.py tg ${1}_graph.txt 1>${1}_graph_2D.txt 2>${1}_graph_index.txt
 
 # clustering data base on 2D result

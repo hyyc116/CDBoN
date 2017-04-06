@@ -25,7 +25,7 @@ def transform_graph(path):
 	for line in open(path):
 		line = line.strip()
 		splits = line.split(" ")
-		if len(splits)!=3:
+		if len(splits)==3:
 			sys.stderr.write(splits[0]+"\n")
 			print " ".join(splits[1:])
 		else:
