@@ -6,6 +6,7 @@ Preprocessing the result of node2vec
 import sys
 import numpy as np
 from sklearn.cluster import DBSCAN
+import json
 
 # parameter path: the path of files
 def transform(path):

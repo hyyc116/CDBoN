@@ -75,8 +75,12 @@ for color, ll in zip(colors, sorted(labels)):
         x = t[0]
         y = t[1]
         index = t[2]
-        count = index_pc[index]
-        author = index_author[index]
+        if index_pc.get(index,-1)==-1:
+            count=1
+            author='NONE'
+        else:
+            count = index_pc[index]
+            author = index_author[index]
         if int(count)>10:
             plt.plot(x, y, '.', color = color, markersize = math.log(int(count)/10))
             # plot the corresponding word at this position
