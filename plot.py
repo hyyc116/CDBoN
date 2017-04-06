@@ -87,10 +87,10 @@ for color, ll in zip(colors, sorted(labels)):
             count = index_pc[index]
             author = index_author[index]
         if int(count)>10:
-            plt.plot(x, y, '.', color = color, markersize = math.log(int(count)/10))
+            plt.plot(x, y, '.', color = color, markersize = math.log(int(count)/10)+1)
             # plot the corresponding word at this position
             if count>500:
-                plt.text(x, y, author, fontsize=int(int(count)/10)+1)
+                plt.text(x, y, author, fontsize=math.log(int(count)/10)+1)
 
 plt.title('Estimated number of clusters: %d' % len(labels))
 
