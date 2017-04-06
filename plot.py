@@ -1,9 +1,9 @@
 import numpy
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import argparse
 import math
-import matplotlib
-matplotlib.use('Agg')
 
 parser = argparse.ArgumentParser()
 
