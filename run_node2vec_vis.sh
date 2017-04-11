@@ -6,7 +6,7 @@ python ../node2vec/src/main.py --input $1_filtered.txt --output $1_emd.txt --wei
 
 # preprocess
 echo 'transform emb to index and embedding file'
-python preprocessing.py transform ${1} 1>${1}.emb 2>${1}_index.txt
+python preprocessing.py transform $1_emd.txt 1>${1}.emb 2>${1}_index.txt
 
 # run largevis
 echo "run largevis"
