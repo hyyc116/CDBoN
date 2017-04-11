@@ -1,7 +1,9 @@
 #filter out edge of which weight is 1
+echo 'filter out degree with 1'
 python preprocessing.py filtered $1 > $1_filtered.txt
 
 #train node2vec
+echo 'training node2vec'
 python ../node2vec/src/main.py --input $1_filtered.txt --output $1_emd.txt --weighted
 
 # preprocess

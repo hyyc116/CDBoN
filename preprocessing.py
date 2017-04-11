@@ -51,6 +51,7 @@ def dbscan_clustering(path):
 
 def filter_edges(path):
 	for line in open(path):
+		line - line.strip()
 		splits = line.split()
 		count = int(splits[2])
 		if count > 1:

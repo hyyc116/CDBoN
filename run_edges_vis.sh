@@ -1,7 +1,9 @@
 #filter out edge of which weight is 1
+echo 'filter out degrees with 1'
 python preprocessing.py filtered $1 > $1_filtered.txt
 
 # generate unweighted network base on the reuqirement of largevis
+echo 'transform two directed graph'
 python preprocessing.py  undirected $1_filtered.txt > $1_twodirected.txt
 
 # run largevis
