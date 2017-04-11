@@ -1,9 +1,12 @@
+#filter out edge of which weight is 1
+python preprocessing.py filtered $1 > $1_filtered.txt
+
 # generate unweighted network base on the reuqirement of largevis
-python preprocessing.py  undirected $1 > $1_twodirected.txt
+python preprocessing.py  undirected $1_filtered.txt > $1_twodirected.txt
 
 # run largevis
 echo "run largevis"
-# python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
+python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
 
 # preprocess
 echo 'transform'

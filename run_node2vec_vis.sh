@@ -1,16 +1,20 @@
+#filter out edge of which weight is 1
+python preprocessing.py filtered $1 > $1_filtered.txt
+
+#train node2vec
+python ../node2vec/src/main.py --input $1_filtered.txt --output $1_emd.txt --weighted
 
 # preprocess
-
 echo 'transform emb to index and embedding file'
-# python preprocessing.py transform ${1} 1>${1}.emb 2>${1}_index.txt
+python preprocessing.py transform ${1} 1>${1}.emb 2>${1}_index.txt
 
 # run largevis
 echo "run largevis"
-# python LargeVis_run.py -input ${1}.emb -output ${1}_2D.txt -threads 8
+python LargeVis_run.py -input ${1}.emb -output ${1}_2D.txt -threads 8
 
 # clustering data base on 2D result
 echo "run clustering base on 2D result "
-# python preprocessing.py clustering ${1}_2D.txt 1>${1}_labels.txt  
+python preprocessing.py clustering ${1}_2D.txt 1>${1}_labels.txt  
 
 # from index to author name and paper count
 echo 'get author name and their paper count'
