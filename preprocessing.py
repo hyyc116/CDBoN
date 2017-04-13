@@ -49,12 +49,12 @@ def dbscan_clustering(path):
 	#	sys.stderr.write(core+"\n")	
 
 
-def filter_edges(path):
+def filter_edges(path,N):
 	for line in open(path):
 		line = line.strip()
 		splits = line.split()
 		count = int(splits[2])
-		if count > 1:
+		if count > N:
 			print line 
 
 
@@ -93,7 +93,7 @@ if __name__=="__main__":
 	elif label == 'ac':
 		generate_id_author_name(path)
 	elif label =='filtered':
-		filter_edges(path)
+		filter_edges(path,int(sys.argv[3]))
 
 
 
