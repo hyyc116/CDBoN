@@ -72,13 +72,80 @@ def plot_top_N(citation_network_path,N):
     plt.tight_layout()
     plt.savefig('top_{:}_citation.png'.format(N),dpi=300)
 
-    
 
+def frictions(top_n_papers):
+    top_dict = json.loads(open(top_n_papers).read())
+    N = len(top_dict)
+    rows = N/5
+
+    #friction accumulative/delta_t
+    num = len(plt.get_fignums())
+    plt.figure(num)
+    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
+    ax_index=0
+    accum_count=0
+    for pid in top_dict.keys():
+        ax = axes[ax_index/5,ax_index%5-1]
+        cited_dict = top_dict[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        # print year_counter
+        publish_year = int(pid_year)
+        for year in sorted(year_counter.keys()):
+            delta_t = year-publish_year
+            count = year_counter[year]
+            accum_count+=count
+
+            years.append(delta_t)
+            counts.append(accum_count/delta_t)
+
+        ax.plot(years,counts)
+        ax.set_title(pid)
+
+        ax_index+=1
+
+    plt.tight_layout()
+    plt.savefig('top_{:}_accum.png'.format(N),dpi=300)
+
+    #friction delta_t/accumulative
+    num = len(plt.get_fignums())
+    plt.figure(num)
+    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
+    ax_index=0
+    accum_count=0
+    for pid in top_dict.keys():
+        ax = axes[ax_index/5,ax_index%5-1]
+        cited_dict = top_dict[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        # print year_counter
+        publish_year = int(pid_year)
+        for year in sorted(year_counter.keys()):
+            delta_t = year-publish_year
+            count = year_counter[year]
+            accum_count+=count
+
+            years.append(delta_t)
+            counts.append("{:.5f}".format(delta_t/float(accum_count)))
+
+        ax.plot(years,counts)
+        ax.set_title(pid)
+
+        ax_index+=1
+
+    plt.tight_layout()
+    plt.savefig('top_{:}_delta.png'.format(N),dpi=300)
+
+    
 if __name__ == '__main__':
     label = sys.argv[1]
     if label=='citation_network':
         build_citation_network(sys.argv[2])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
+    elif label =='friction':
+        frictions(sys.argv[2])
     else:
         print 'No such label'
