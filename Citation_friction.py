@@ -145,6 +145,40 @@ def frictions(top_n_papers):
     plt.tight_layout()
     plt.savefig('top_{:}_delta.png'.format(N),dpi=300)
 
+    #friction delta_t/count
+    num = len(plt.get_fignums())
+    plt.figure(num)
+    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
+    ax_index=0
+    
+
+    for pid in top_dict.keys():
+        ax = axes[ax_index/5,ax_index%5-1]
+        cited_dict = top_dict[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        # print year_counter
+        publish_year = int(pid_year)
+        years=[]
+        counts=[]
+        # accum_count=0
+        for year in sorted(year_counter.keys()):
+            delta_t = (year-publish_year)+0.5
+            count = year_counter[year]
+            # accum_count+=count
+
+            years.append(delta_t)
+            counts.append("{:.5f}".format(delta_t/float(count)))
+
+        ax.plot(years,counts)
+        ax.set_title(pid)
+
+        ax_index+=1
+
+    plt.tight_layout()
+    plt.savefig('top_{:}_count_delta.png'.format(N),dpi=300)
+
     
 if __name__ == '__main__':
     label = sys.argv[1]
