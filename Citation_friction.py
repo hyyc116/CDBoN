@@ -9,7 +9,7 @@ def build_citation_network(path):
     print 'Size of reference', len(reflist)
     count=0
     for ref in reflist:
-        cpimt+=1
+        count+=1
         if count%1000==1:
             print count
         pid = ref['cpid']
@@ -27,6 +27,8 @@ def build_citation_network(path):
 
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
+
+def 
 
 
 if __name__ == '__main__':
