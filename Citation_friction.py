@@ -92,6 +92,7 @@ def frictions(top_n_papers):
         year_counter = Counter(citation_year_list)
         # print year_counter
         years=[]
+        count=[]
         publish_year = int(pid_year)
         for year in sorted(year_counter.keys()):
             delta_t = year-publish_year
@@ -125,6 +126,7 @@ def frictions(top_n_papers):
         # print year_counter
         publish_year = int(pid_year)
         years=[]
+        counts=[]
         for year in sorted(year_counter.keys()):
             delta_t = year-publish_year
             count = year_counter[year]
