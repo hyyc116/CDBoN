@@ -2,6 +2,11 @@
 import sys
 import json
 from collections import defaultdict
+from collections import Counter
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
     data = json.loads(open(path).read())
@@ -36,6 +41,27 @@ def cal_friction(citation_network_path,N):
 
     open('data/aminer_top_{:}.json'.format(N),'w').write(top_dict)
     
+    fig,axes = plt.subplots(5,2)
+    ax_index=0
+    for pid in top_dict.keys():
+        ax = axes[ax_index/5,ax_index%5-1]
+        cited_dict = top_dict[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        years=[int(pid_year)]
+        counts=[1]
+        for year,count in sorted(year_counter.keys()):
+            years.append(year)
+            counts.append(count)
+
+        ax.plot(years,counts)
+        ax.set_title(pid)
+
+        ax_index+=1
+
+    plt.tight_layout()
+    plt.savefig('top_10_citation.png',dpi=300)
 
     
 
