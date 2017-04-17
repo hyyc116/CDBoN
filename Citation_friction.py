@@ -15,7 +15,7 @@ def build_citation_network(path):
     count=0
     for ref in reflist:
         count+=1
-        if count%1000==1:
+        if count%10000==1:
             print count
         pid = ref['cpid']
         pid_year = ref['cpid_year']
@@ -79,6 +79,6 @@ if __name__ == '__main__':
     if label=='citation_network':
         build_citation_network(sys.argv[2])
     elif label =='plot_top':
-        plot_top_N(sys.argv[1],int(sys.argv[2]))
+        plot_top_N(sys.argv[2],int(sys.argv[3]))
     else:
         print 'No such label'
