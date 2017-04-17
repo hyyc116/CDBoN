@@ -41,7 +41,7 @@ def cal_friction(citation_network_path,N):
 
     open('data/aminer_top_{:}.json'.format(N),'w').write(json.dumps(top_dict))
     
-    fig,axes = plt.subplots(2,5)
+    fig,axes = plt.subplots(2,5,figsize=(25,10))
     ax_index=0
     for pid in top_dict.keys():
         ax = axes[ax_index/5,ax_index%5-1]
