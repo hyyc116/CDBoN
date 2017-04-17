@@ -83,7 +83,7 @@ def frictions(top_n_papers):
     plt.figure(num)
     fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
     ax_index=0
-    accum_count=0
+    
     for pid in top_dict.keys():
         ax = axes[ax_index/5,ax_index%5-1]
         cited_dict = top_dict[pid]
@@ -93,6 +93,7 @@ def frictions(top_n_papers):
         # print year_counter
         years=[]
         counts=[]
+        accum_count=0
         publish_year = int(pid_year)
         for year in sorted(year_counter.keys()):
             delta_t = (year-publish_year)+0.5
@@ -115,7 +116,7 @@ def frictions(top_n_papers):
     plt.figure(num)
     fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
     ax_index=0
-    accum_count=0
+    
 
     for pid in top_dict.keys():
         ax = axes[ax_index/5,ax_index%5-1]
@@ -127,6 +128,7 @@ def frictions(top_n_papers):
         publish_year = int(pid_year)
         years=[]
         counts=[]
+        accum_count=0
         for year in sorted(year_counter.keys()):
             delta_t = (year-publish_year)+0.5
             count = year_counter[year]
