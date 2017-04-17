@@ -51,7 +51,11 @@ def cal_friction(citation_network_path,N):
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
         year_counter = Counter(citation_year_list)
         # print year_counter
-        years=[int(pid_year)]
+        publish_year = int(pid_year)
+        if publish_year==0:
+            publish_year=1900
+        years=[publish_year]
+
         counts=[1]
         for year in sorted(year_counter.keys()):
             count = year_counter[year]
