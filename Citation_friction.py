@@ -61,7 +61,7 @@ def cal_friction(citation_network_path,N):
             years.append(year)
             counts.append(count)
 
-        ax.scatter(years,counts)
+        ax.plot(years,counts)
         ax.set_title(pid)
 
         ax_index+=1
