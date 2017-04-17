@@ -28,7 +28,8 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
-def 
+def cal_friction():
+    pass
 
 
 if __name__ == '__main__':
