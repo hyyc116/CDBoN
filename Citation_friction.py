@@ -39,7 +39,7 @@ def cal_friction(citation_network_path,N):
     for k,v in sorted(data.items(),key= lambda x:len(x[1]['citations']),reverse=True)[:N]:
         top_dict[k] = v
 
-    open('data/aminer_top_{:}.json'.format(N),'w').write(top_dict)
+    open('data/aminer_top_{:}.json'.format(N),'w').write(json.dumps(top_dict))
     
     fig,axes = plt.subplots(5,2)
     ax_index=0
