@@ -35,7 +35,10 @@ def cal_friction(citation_network_path,N):
         top_dict[k] = v
 
     open('data/aminer_top_{:}.json'.format(N),'w').write(top_dict)
+    
 
+    
 
 if __name__ == '__main__':
-    build_citation_network(sys.argv[1])
+    # build_citation_network(sys.argv[1])
+    cal_friction(sys.argv[1],int(sys.argv[2]))
