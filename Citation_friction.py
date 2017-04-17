@@ -36,7 +36,7 @@ def build_citation_network(path):
 def cal_friction(citation_network_path,N):
     data = json.loads(open(citation_network_path).read())
     top_dict = {}
-    for k,v in sorted(data.items(),key=x:len(x[1][citations]),reverse=True)[:N]:
+    for k,v in sorted(data.items(),key= lambda x:len(x[1][citations]),reverse=True)[:N]:
         top_dict[k] = v
 
     open('data/aminer_top_{:}.json'.format(N),'w').write(top_dict)
@@ -61,7 +61,7 @@ def cal_friction(citation_network_path,N):
         ax_index+=1
 
     plt.tight_layout()
-    plt.savefig('top_10_citation.png',dpi=300)
+    plt.savefig('top_{:}_citation.png'.format(N),dpi=300)
 
     
 
