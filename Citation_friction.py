@@ -22,6 +22,9 @@ def build_citation_network(path):
         cited_pid = ref['pid']
         cited_pid_year = ref['pid_year']
 
+        if int(pid_year)<1900 or int(cited_pid_year)<1900 or int(pid_year)<int(cited_pid_year):
+            continue
+
         cited_dict = ref_dict.get(cited_pid,{})
         cited_dict['pid'] = cited_pid
         cited_dict['year'] = cited_pid_year
@@ -33,7 +36,7 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
-def cal_friction(citation_network_path,N):
+def plot_top_N(citation_network_path,N):
     data = json.loads(open(citation_network_path).read())
     top_dict = {}
     for k,v in sorted(data.items(),key= lambda x:len(x[1]['citations']),reverse=True)[:N]:
@@ -72,5 +75,10 @@ def cal_friction(citation_network_path,N):
     
 
 if __name__ == '__main__':
-    # build_citation_network(sys.argv[1])
-    cal_friction(sys.argv[1],int(sys.argv[2]))
+    label = sys.argv[1]
+    if label=='citation_network':
+        build_citation_network(sys.argv[2])
+    elif label =='plot_top':
+        plot_top_N(sys.argv[1],int(sys.argv[2]))
+    else:
+        print 'No such label'
