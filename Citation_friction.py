@@ -28,8 +28,13 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
-def cal_friction():
-    pass
+def cal_friction(citation_network_path,N):
+    data = json.loads(open(citation_network_path).read())
+    top_dict = {}
+    for k,v in sorted(data.items(),key=x:len(x[1][citations]),reverse=True)[:N]:
+        top_dict[k] = v
+
+    open('data/aminer_top_{:}.json'.format(N),'w').write(top_dict)
 
 
 if __name__ == '__main__':
