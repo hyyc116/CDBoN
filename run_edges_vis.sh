@@ -24,4 +24,4 @@ python preprocessing.py ac ${1}_graph_index.txt > ${1}_graph_sorted_words.txt
 
 # run visulization
 echo "plot 2D graph"
-python plot.py -input ${1}_graph_2D.txt -label ${1}_graph_labels.txt -output ${1}_graph_2D_plot.pdf -index ${1}_graph_index.txt -words ${1}_graph_sorted_words.txt
+python plot.py -input ${1}_graph_2D.txt -label ${1}_graph_labels.txt -output ${1}_graph_2D_plot.pdf -index ${1}_graph_index.txt -words ${1}_graph_sorted_words.txt -size 10
