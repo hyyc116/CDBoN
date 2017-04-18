@@ -96,7 +96,7 @@ def frictions(top_n_papers):
         accum_count=0
         publish_year = int(pid_year)
         for year in sorted(year_counter.keys()):
-            delta_t = (year-publish_year)+0.5
+            delta_t = (year-publish_year)+1
             count = year_counter[year]
             accum_count+=count
 
@@ -130,7 +130,7 @@ def frictions(top_n_papers):
         counts=[]
         accum_count=0
         for year in sorted(year_counter.keys()):
-            delta_t = (year-publish_year)
+            delta_t = (year-publish_year)+1
             count = year_counter[year]
             accum_count+=count
 
