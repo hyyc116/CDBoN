@@ -36,6 +36,18 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
+def citation_count_json(citation_network_path):
+    data = json.loads(open(citation_network_path).read())
+    citation_num_list = [] 
+    for k in data.keys():
+        citation_num_list.append(len(citation_num_list[k]['citations']))
+
+    num_counter = Counter(citation_num_list)
+
+    open('data/aminer_citation_num_dict.json','w').write(json.dumps(num_counter))
+
+
+
 def plot_top_N(citation_network_path,N):
     data = json.loads(open(citation_network_path).read())
     top_dict = {}
@@ -184,6 +196,8 @@ if __name__ == '__main__':
     label = sys.argv[1]
     if label=='citation_network':
         build_citation_network(sys.argv[2])
+    elif label == 'citation_num':
+        citation_count_json(sys.argv[2])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
