@@ -40,7 +40,7 @@ def citation_count_json(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     citation_num_list = [] 
     for k in data.keys():
-        citation_num_list.append(len(citation_num_list[k]['citations']))
+        citation_num_list.append(len(data[k]['citations']))
 
     num_counter = Counter(citation_num_list)
 
