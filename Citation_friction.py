@@ -4,8 +4,12 @@ import json
 from collections import defaultdict
 from collections import Counter
 import matplotlib
-matplotlib.use('Agg')
+# matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from sklearn.metrics import r2_score
+import math
+import numpy as np
 
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
@@ -46,7 +50,99 @@ def citation_count_json(citation_network_path):
 
     open('data/aminer_citation_num_dict.json','w').write(json.dumps(num_counter))
 
+def plot_citation_num():
+    data = json.loads(open('aminer_citation_num_dict.json').read())
+    xs=[]
+    ys=[]
+    total_count=0
+    low_citation_count=0
+    high_citation_count=0
+    low_count=0
+    for count in sorted([int(count) for count in data.keys()]):
+        # if count<10:
+        #     continue
+        xs.append(count)
+        total_count+=data[str(count)]
+        ys.append(data[str(count)])
 
+        if count <=10:
+            low_count +=data[str(count)]
+        if count<=10:
+            low_citation_count+=data[str(count)]
+        if count>1000:
+            high_citation_count+=data[str(count)]
+
+
+    # print xs
+    # print ys
+    print low_citation_count,low_citation_count/float(total_count)
+    print high_citation_count, high_citation_count/float(total_count)
+    print total_count
+    length=len(xs)
+    print length
+    popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
+
+    print popt
+    fig,axes = plt.subplots(1,2,figsize=(12,5))
+    ax = axes[0]
+    ax.plot(xs,ys,'o',fillstyle='none')
+    ax.plot(np.linspace(10, 1000, 10), power_low_func(np.linspace(10, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
+    # plt.plot([760]*10,np.linspace(np.min(ys), power_low_func(760,*popt), 10),'--',c='r')
+    # plt.plot([100]*10,np.linspace(np.min(ys), power_low_func(100,*popt), 10),'--',c='r')
+    ax.plot([10]*10,np.linspace(10**3, 10**5, 10),'--',c='r')
+    # plt.text()
+    ax.plot(xs,xs,'--',label='$y=x$')
+
+    ax.text(20,5*10**4,'$x_{low}$')
+    ax.text(100,2*10**2,'$x_{medium}$')
+    ax.text(2000,5*10**0,'$x_{high}$')
+
+
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlabel('$x$\n(a)')
+    ax.set_ylabel('$N(x)$')
+    ax.legend()
+
+    medium_count = total_count-high_citation_count-low_count
+    ax2 = axes[1]
+    xs=['Low','Medium','High']
+    ys=[low_citation_count,medium_count,high_citation_count]
+    x_pos = x_pos = np.arange(len(xs))
+    rects = ax2.bar(x_pos,ys,align='center',width=0.3)
+    ax2.set_xticks(x_pos)
+    ax2.set_xticklabels(xs)
+    ax2.set_xlabel('Levels\n(b)')
+    ax2.set_ylabel('Number of papers')
+    ax2.set_yscale('log')
+    ax2.set_ylim(1,10**6.5)
+    autolabel(rects,ax2,total_count)
+
+    # plot_margin = 0.25
+
+    # x0, x1, y0, y1 = plt.axis()
+    # plt.axis((x0 - plot_margin,
+    #     x1 + plot_margin,
+    #     y0 - plot_margin,
+    #     y1 + plot_margin))
+
+    plt.tight_layout()
+    plt.savefig('citation_dis.png',dpi=300)
+
+def autolabel(rects,ax,total_count,step=1,):
+    """
+    Attach a text label above each bar displaying its height
+    """
+    for index in np.arange(len(rects),step=step):
+        rect = rects[index]
+        height = rect.get_height()
+        # print height
+        ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
+                '{:}\n({:.6f})'.format(int(height),height/float(total_count)),
+                ha='center', va='bottom')
+
+def power_low_func(x,a,b):
+    return b*(x**(-a))
 
 def plot_top_N(citation_network_path,N):
     data = json.loads(open(citation_network_path).read())
@@ -83,6 +179,30 @@ def plot_top_N(citation_network_path,N):
 
     plt.tight_layout()
     plt.savefig('top_{:}_citation.png'.format(N),dpi=300)
+
+
+def divide_paper_level(citation_network_path):
+    data = json.loads(open(citation_network_path).read())
+    low_citations=[]
+    medium_citations=[]
+    high_citations=[]
+
+    for k in data.keys():
+        citation_num = len(data[k]['citations'])
+        if citation_num<5: 
+            continue
+        elif citation_num<=10:
+            low_citations.append(k)
+        elif citation_num<=1000:
+            medium_citations.append(k)
+        else:
+            high_citations.append(k)
+
+    print len(low_citations)
+    print len(medium_citations)
+    print len(high_citations)
+
+
 
 
 def frictions(top_n_papers):
@@ -191,8 +311,7 @@ def frictions(top_n_papers):
     plt.tight_layout()
     plt.savefig('top_{:}_count_delta.png'.format(N),dpi=300)
 
-    
-if __name__ == '__main__':
+def main():
     label = sys.argv[1]
     if label=='citation_network':
         build_citation_network(sys.argv[2])
@@ -202,5 +321,11 @@ if __name__ == '__main__':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
         frictions(sys.argv[2])
+    elif label=='paper_level':
+        divide_paper_level(sys.argv[2])
     else:
         print 'No such label'
+    
+if __name__ == '__main__':
+    plot_citation_num()
+    
