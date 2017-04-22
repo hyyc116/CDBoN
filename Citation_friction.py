@@ -10,6 +10,7 @@ from scipy.optimize import curve_fit
 from sklearn.metrics import r2_score
 import math
 import numpy as np
+import random
 
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
@@ -201,6 +202,23 @@ def divide_paper_level(citation_network_path):
     print len(low_citations)
     print len(medium_citations)
     print len(high_citations)
+
+    low_selected = random.sample(low_citations,1000)
+    low_selected_counter=defaultdict(int)
+    for pid in low_selected:
+        low_selected_counter[len(data[pid]['citations'])]+=1
+
+    print low_selected_counter
+
+    medium_selected = random.sample(medium_citations,1000)
+    medium_selected_counter = defaultdict(int)
+    for pid in medium_selected:
+        medium_selected_counter[len(data[pid]['citations'])]+=1
+
+    print medium_selected_counter
+
+
+
 
 
 
