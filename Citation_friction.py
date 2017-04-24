@@ -249,7 +249,7 @@ def first_citation_distribution(citation_network_path):
 
     ax1.plot(xs,ys)
 
-    ax2 = aces[1]
+    ax2 = axes[1]
     xs=[]
     ys=[]
     for year_delta in sorted(first_citation_dis.keys()):
