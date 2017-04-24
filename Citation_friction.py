@@ -181,7 +181,7 @@ def plot_top_N(citation_network_path,N):
     plt.tight_layout()
     plt.savefig('top_{:}_citation.png'.format(N),dpi=300)
 
-
+#divide paper with three point
 def divide_paper_level(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     low_citations=[]
@@ -219,7 +219,47 @@ def divide_paper_level(citation_network_path):
 
 
 
+#def first citation distribution
+def first_citation_distribution(citation_network_path):
+    data = json.loads(open(citation_network_path).read())
+    year_dis=defaultdict(int)
+    first_citation_dis = defaultdict(int)
+    first_citation_year_dis = defaultdict(dict)
+    for pid in data.keys():
+        one_dict = data[pid]
+        #year
+        year = one_dict['year']
+        year_dis[year]+=1
+        #first citation delta
+        citations = one_dict['citations']
 
+        first_citation = sorted(citations,key=lambda x:int(x.split(',')[1]))[0]
+        year_delta =  int(first_citation.split(',')[1]) - year
+        if not year_delta<0:
+            first_citation_dis[year_delta]+=1
+            first_citation_year_dis[year][year_delta]=first_citation_year_dis[year].get(year_delta,0)+1
+
+    fig,axes = plt.subplots(1,2,figsize=(15,5))
+    ax1 = axes[0]
+    xs = []
+    ys = []
+    for year in sorted(year_dis.keys()):
+        xs.append(year)
+        ys.append(year_dis[year])
+
+    ax1.plot(xs,ys)
+
+    ax2 = aces[1]
+    xs=[]
+    ys=[]
+    for year_delta in sorted(first_citation_dis.keys()):
+        xs.append(year_delta)
+        ys=[first_citation_dis[year_delta]]
+
+    ax2.plot(xs,ys)
+
+    plt.savefig('two_dis.pdf',dpi=300)
+    open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
 
 
 
@@ -341,6 +381,8 @@ def main():
         frictions(sys.argv[2])
     elif label=='paper_level':
         divide_paper_level(sys.argv[2])
+    elif label=='first_citation':
+        first_citation_distribution(sys.argv[2])
     else:
         print 'No such label'
     
