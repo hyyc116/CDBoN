@@ -248,6 +248,8 @@ def first_citation_distribution(citation_network_path):
         ys.append(year_dis[year])
 
     ax1.plot(xs,ys)
+    ax1.set_xlabel('year $t$')
+    ax1.set_ylabel('Number of published paper at year $t$')
 
     ax2 = axes[1]
     xs=[]
@@ -257,6 +259,9 @@ def first_citation_distribution(citation_network_path):
         ys.append(first_citation_dis[year_delta])
 
     ax2.plot(xs,ys)
+    ax2.set_xlabel('$\delta t$')
+    ax2.set_ylabel('Number of papers')
+    ax2.set_yscale('log')
 
     plt.savefig('two_dis.pdf',dpi=300)
     open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
