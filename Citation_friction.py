@@ -250,7 +250,7 @@ def first_citation_distribution(citation_network_path):
     ax1.plot(xs,ys)
     ax1.set_xlabel('year $t$')
     ax1.set_ylabel('Number of published paper at year $t$')
-    ax1.set_title('Published year distribution')
+    ax1.set_title('Paper distribution over published years')
 
     ax2 = axes[1]
     xs=[]
