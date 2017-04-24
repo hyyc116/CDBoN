@@ -251,6 +251,9 @@ def first_citation_distribution(citation_network_path):
     ax1.set_xlabel('year $t$')
     ax1.set_ylabel('Number of published paper at year $t$')
     ax1.set_title('Paper distribution over published years')
+    ax1.plot([1985]*10,np.linspace(0,np.max(ys),10),c='r')
+    ax1.plot([2000]*10,np.linspace(0,np.max(ys),10),c='r')
+    ax1.plot([2010]*10,np.linspace(0,np.max(ys),10),c='r')
 
     ax2 = axes[1]
     xs=[]
@@ -264,8 +267,9 @@ def first_citation_distribution(citation_network_path):
     ax2.set_ylabel('Number of papers')
     ax2.set_yscale('log')
     ax2.set_title('First citation distribution')
+    ax2.plot([1]*10,np.linspace(0,np.max(ys),10))
 
-    plt.savefig('two_dis.pdf',dpi=300)
+    plt.savefig('pdf/two_dis.pdf',dpi=300)
     open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
 
 
