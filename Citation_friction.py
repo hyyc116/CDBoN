@@ -268,7 +268,7 @@ def first_citation_distribution(citation_network_path):
     ax2.set_ylabel('Number of papers')
     ax2.set_yscale('log')
     ax2.set_title('First citation distribution')
-    ax2.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\inc t = 1$')
+    ax2.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
     ax2.legend()
 
     plt.savefig('pdf/two_dis.pdf',dpi=300)
