@@ -254,6 +254,7 @@ def first_citation_distribution(citation_network_path):
     ax1.plot([1980]*10,np.linspace(0,np.max(ys),10),'--',label='$t = 1980$')
     ax1.plot([2000]*10,np.linspace(0,np.max(ys),10),'--',label='$t = 2000$')
     ax1.plot([2010]*10,np.linspace(0,np.max(ys),10),'--',label='$t = 2010$')
+    ax1.legend()
 
     ax2 = axes[1]
     xs=[]
