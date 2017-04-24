@@ -264,7 +264,7 @@ def first_citation_distribution(citation_network_path):
         ys.append(first_citation_dis[year_delta])
 
     ax2.plot(xs,ys)
-    ax2.set_xlabel('$\inc t$')
+    ax2.set_xlabel('$\Delta t$')
     ax2.set_ylabel('Number of papers')
     ax2.set_yscale('log')
     ax2.set_title('First citation distribution')
