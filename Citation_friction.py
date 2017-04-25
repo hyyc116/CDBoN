@@ -327,6 +327,12 @@ def divide_paper_level(citation_network_path):
     plt.tight_layout()
     plt.savefig('pdf/selected_citation_dis.pdf',dpi=300)
 
+    high_dict = {}
+    for high_k in high_citations:
+        high_citations[k] = data[k]
+
+    open('data/high_dicts.json','w').write(json.dumps(high_dicts))
+
 
 #def first citation distribution
 def first_citation_distribution(citation_network_path):
@@ -541,7 +547,7 @@ def frictions(top_n_papers):
     plt.tight_layout()
     plt.savefig('top_{:}_delta.png'.format(N),dpi=300)
 
-    #friction delta_t/count
+    a#friction delta_t/count
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
