@@ -482,23 +482,9 @@ def frictions(top_n_papers):
     # rows = N/5+1
 
     #friction accumulative/delta_t
-    num = len(plt.get_fignums())
-    plt.figure(num)
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
-    ax_index=1
+    result_lines=[]
     for pid in top_dict.keys():
 
-        ax_x = (ax_index-1)/5
-        ax_y = ax_index%5-1
-        print ax_index,ax_x,ax_y
-        if ax_y==0 and ax_index>1:
-            plt.tight_layout()
-            plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
-            num = len(plt.get_fignums())
-            plt.figure(num)
-            fig,axes = plt.subplots(1,5,figsize=(25,5))
-
-        ax = axes[ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -517,34 +503,34 @@ def frictions(top_n_papers):
             counts.append(accum_count/delta_t)
 
         # ax.plot(years,counts)
-        plot_power_law(ax,years,counts)
-        ax.set_title(pid)
-        ax.legend()
+        result = plot_power_law(years,counts)
+        result_lines.append(result)
 
-        ax_index+=1
-
-    plt.tight_layout()
-    plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
-
-    #friction delta_t/accumulative
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
-    ax_index=1
-    
-    for pid in top_dict.keys():
+    for index,r in sorted(result_lines,key=lambda x:x[3],reverse=True):
+        ax_x = index/5
+        ax_y = (index+1)/5
 
-        ax_x = (ax_index-1)/5
-        ax_y = ax_index%5-1
-        # print ax_index,ax_x,ax_y
-        if ax_y==0 and ax_index>1:
+        if ax_y==0 and index>0:
             plt.tight_layout()
-            plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
+            plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
             num = len(plt.get_fignums())
             plt.figure(num)
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
         ax = axes[ax_y]
+        xs,ys,fit_y,r2,popt = r
+        ax.plot(xs,ys)
+        ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+
+    plt.tight_layout()
+    plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
+
+    #friction delta_t/accumulative
+    result_lines=[]    
+    for pid in top_dict.keys():
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -565,10 +551,27 @@ def frictions(top_n_papers):
         # ax.plot(years,counts)
         # print years 
         # print counts
-        plot_power_law(ax,years,counts)
-        ax.set_title(pid)
-        ax.legend()
-        ax_index+=1
+        result = plot_power_law(ax,years,counts)
+        result_lines.append(result)
+
+    num = len(plt.get_fignums())
+    plt.figure(num)
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    for index,r in sorted(result_lines,key=lambda x:x[3],reverse=True):
+        ax_x = index/5
+        ax_y = (index+1)/5
+
+        if ax_y==0 and index>0:
+            plt.tight_layout()
+            plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
+            num = len(plt.get_fignums())
+            plt.figure(num)
+            fig,axes = plt.subplots(1,5,figsize=(25,5))
+
+        ax = axes[ax_y]
+        xs,ys,fit_y,r2,popt = r
+        ax.plot(xs,ys)
+        ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
 
     plt.tight_layout()
     plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
@@ -617,15 +620,15 @@ def frictions(top_n_papers):
     # plt.tight_layout()
     # plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
 
-def plot_power_law(ax,xs,ys):
+def plot_power_law(xs,ys):
     popt,pcov = curve_fit(power_low_func,xs,ys)
     print 'adoptions:',popt
     fit_y = [power_low_func(xi,*popt) for xi in xs]
     r2 = r2_score(ys,fit_y)
     print 'R2',r2
+    return xs,ys,fit_y,r2,popt
     # return popt,r2
-    ax.plot(xs,ys)
-    ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+    
 
 
 def power_law(x,alpha):
