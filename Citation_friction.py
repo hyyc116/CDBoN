@@ -284,7 +284,7 @@ def first_citation_distribution(citation_network_path):
     ax2 = axes[0,1]
     # ax2.bar(np.arange(len(labels)),counts)
     rects = ax2.bar(np.arange(len(labels)),counts,align='center',width=0.3)
-    ax2.set_xticks(np.arnge(len(labels)))
+    ax2.set_xticks(np.arange(len(labels)))
     ax2.set_xticklabels(labels)
     # autolabel(rects)
     autolabel(rects,ax2,total_count)
