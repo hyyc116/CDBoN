@@ -219,7 +219,7 @@ def divide_paper_level(citation_network_path):
     ys=[]
     for num in sorted(num_counter.keys()):
         num_count = num_counter[num]
-        print num,num_count
+        # print num,num_count
         medium_selected.extend(random.sample(medium_citations[num],num_count))
         xs.append(num)
         ys.append(num_count)
@@ -249,10 +249,13 @@ def divide_paper_level(citation_network_path):
         
         xs = [] 
         ys = []
+        total_citation=0
         for year in sorted(year_counter.keys()):
-            delta_y = year - pid_year
+            delta_y = (year - pid_year)+1
+            total_citation+=year_counter[year]
+            difficulty = delta_y/total_citation
             xs.append(delta_y)
-            ys.append(year_counter[year])
+            ys.append(difficulty)
 
         ax2.plot(xs,ys)
 
