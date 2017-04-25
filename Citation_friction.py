@@ -323,7 +323,8 @@ def first_citation_distribution(citation_network_path):
     ax4=axes[1,1]
     for zone in labels:
         zone_citation_dis = first_citation_zone_dis[zone]
-
+        print zone
+        print zone_citation_dis
         xs=[]
         ys=[]
         for year_delta in sorted(zone_citation_dis.keys()):
