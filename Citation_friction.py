@@ -618,7 +618,7 @@ def frictions(top_n_papers):
 def plot_power_law(ax,xs,ys):
     popt,pcov = curve_fit(power_low_func,xs,ys)
     print 'adoptions:',popt
-    fit_y = [power_low_func(xi,*popt) for xi in x]
+    fit_y = [power_low_func(xi,*popt) for xi in xs]
     r2 = r2_score(ys,fit_y)
     # return popt,r2
     ax.plot(xs,ys)
