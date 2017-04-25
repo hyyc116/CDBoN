@@ -511,7 +511,7 @@ def frictions(top_n_papers):
     fig,axes = plt.subplots(1,5,figsize=(25,5))
     for index,r in enumerate(sorted(result_lines,key=lambda x:x[3],reverse=True)):
         ax_x = index/5
-        ax_y = (index+1)/5
+        ax_y = index%5
 
         if ax_y==0 and index>0:
             plt.tight_layout()
@@ -559,7 +559,7 @@ def frictions(top_n_papers):
     fig,axes = plt.subplots(1,5,figsize=(25,5))
     for index,r  in enumerate(sorted(result_lines,key=lambda x:x[3],reverse=True)):
         ax_x = index/5
-        ax_y = (index+1)/5
+        ax_y = index%5
 
         if ax_y==0 and index>0:
             plt.tight_layout()
