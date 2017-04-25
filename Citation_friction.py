@@ -563,8 +563,8 @@ def frictions(top_n_papers):
             counts.append(delta_t/float(accum_count))
 
         # ax.plot(years,counts)
-        print years 
-        print counts
+        # print years 
+        # print counts
         plot_power_law(ax,years,counts)
         ax.set_title(pid)
         ax.legend()
@@ -622,6 +622,7 @@ def plot_power_law(ax,xs,ys):
     print 'adoptions:',popt
     fit_y = [power_low_func(xi,*popt) for xi in xs]
     r2 = r2_score(ys,fit_y)
+    print 'R2',r2
     # return popt,r2
     ax.plot(xs,ys)
     ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
