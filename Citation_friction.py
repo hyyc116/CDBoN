@@ -130,7 +130,7 @@ def plot_citation_num():
     plt.tight_layout()
     plt.savefig('citation_dis.png',dpi=300)
 
-def autolabel(rects,ax,total_count,step=1,):
+def autolabel(rects,ax,total_count=None,step=1,):
     """
     Attach a text label above each bar displaying its height
     """
@@ -138,9 +138,14 @@ def autolabel(rects,ax,total_count,step=1,):
         rect = rects[index]
         height = rect.get_height()
         # print height
-        ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                '{:}\n({:.6f})'.format(int(height),height/float(total_count)),
-                ha='center', va='bottom')
+        if total_count is None:
+            ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
+                    '{:}\n({:.6f})'.format(int(height),height/float(total_count)),
+                    ha='center', va='bottom')
+        else:
+            ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
+                    '{:}'.format(int(height)),
+                    ha='center', va='bottom')
 
 def power_low_func(x,a,b):
     return b*(x**(-a))
@@ -239,13 +244,26 @@ def first_citation_distribution(citation_network_path):
             first_citation_dis[year_delta]+=1
             first_citation_year_dis[year][year_delta]=first_citation_year_dis[year].get(year_delta,0)+1
 
-    fig,axes = plt.subplots(1,2,figsize=(15,5))
-    ax1 = axes[0]
+    fig,axes = plt.subplots(2,2,figsize=(15,10))
+    ax1 = axes[0,0]
     xs = []
     ys = []
+    a_count=0
+    b_count=0
+    c_count=0
+    d_count=0
+
     for year in sorted(year_dis.keys()):
         xs.append(year)
         ys.append(year_dis[year])
+        if year<1981:
+            a_count+=year_dis[year]
+        elif year<2001:
+            b_count+=year_dis[year]
+        elif year<2011:
+            c_count+=year_dis[year]
+        else:
+            d_count+=year_dis[year]
 
     ax1.plot(xs,ys)
     ax1.set_xlabel('year $t$')
@@ -261,20 +279,30 @@ def first_citation_distribution(citation_network_path):
     ax1.text(2015,20000,'D')
     ax1.legend()
 
-    ax2 = axes[1]
+    labels=['A','B','C','D']
+    counts = [a_count,b_count,c_count,d_count]
+    ax2 = axes[0,1]
+    # ax2.bar(np.arange(len(labels)),counts)
+    rects = ax2.bar(np.arange(len(labels)),counts,align='center',width=0.3)
+    ax2.set_xticks(np.arnge(len(labels)))
+    ax2.set_xticklabels(labels)
+    # autolabel(rects)
+    autolabel(rects,ax2,total_count)
+
+    ax3 = axes[1,0]
     xs=[]
     ys=[]
     for year_delta in sorted(first_citation_dis.keys()):
         xs.append(year_delta)
         ys.append(first_citation_dis[year_delta])
 
-    ax2.plot(xs,ys)
-    ax2.set_xlabel('$\Delta t$')
-    ax2.set_ylabel('Number of papers')
-    ax2.set_yscale('log')
-    ax2.set_title('First citation distribution')
-    ax2.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
-    ax2.legend()
+    ax3.plot(xs,ys)
+    ax3.set_xlabel('$\Delta t$')
+    ax3.set_ylabel('Number of papers')
+    ax3.set_yscale('log')
+    ax3.set_title('First citation distribution')
+    ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
+    ax3.legend()
 
     plt.savefig('pdf/two_dis.pdf',dpi=300)
     open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
