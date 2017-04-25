@@ -516,8 +516,10 @@ def frictions(top_n_papers):
             years.append(delta_t)
             counts.append(accum_count/delta_t)
 
-        ax.plot(years,counts)
+        # ax.plot(years,counts)
+        plot_power_law(ax,years,counts)
         ax.set_title(pid)
+        ax.legend()
 
         ax_index+=1
 
@@ -560,57 +562,85 @@ def frictions(top_n_papers):
             years.append(delta_t)
             counts.append("{:.5f}".format(delta_t/float(accum_count)))
 
-        ax.plot(years,counts)
+        # ax.plot(years,counts)
+        plot_power_law(ax,years,counts)
         ax.set_title(pid)
-
+        ax.legend()
         ax_index+=1
 
     plt.tight_layout()
     plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
 
     #friction delta_t/count
-    num = len(plt.get_fignums())
-    plt.figure(num)
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
-    ax_index=1
+    # num = len(plt.get_fignums())
+    # plt.figure(num)
+    # fig,axes = plt.subplots(1,5,figsize=(25,5))
+    # ax_index=1
 
-    for pid in top_dict.keys():
+    # for pid in top_dict.keys():
 
-        ax_x = (ax_index-1)/5
-        ax_y = ax_index%5-1
-        print ax_index,ax_x,ax_y
-        if ax_y==0 and ax_index>1:
-            plt.tight_layout()
-            plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
-            num = len(plt.get_fignums())
-            plt.figure(num)
-            fig,axes = plt.subplots(1,5,figsize=(25,5))
+    #     ax_x = (ax_index-1)/5
+    #     ax_y = ax_index%5-1
+    #     print ax_index,ax_x,ax_y
+    #     if ax_y==0 and ax_index>1:
+    #         plt.tight_layout()
+    #         plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
+    #         num = len(plt.get_fignums())
+    #         plt.figure(num)
+    #         fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-        ax = axes[ax_y]
-        cited_dict = top_dict[pid]
-        pid_year = cited_dict['year']
-        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
-        year_counter = Counter(citation_year_list)
-        # print year_counter
-        publish_year = int(pid_year)
-        years=[]
-        counts=[]
-        # accum_count=0
-        for year in sorted(year_counter.keys()):
-            delta_t = (year-publish_year)+1
-            count = year_counter[year]
-            # accum_count+=count
+    #     ax = axes[ax_y]
+    #     cited_dict = top_dict[pid]
+    #     pid_year = cited_dict['year']
+    #     citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+    #     year_counter = Counter(citation_year_list)
+    #     # print year_counter
+    #     publish_year = int(pid_year)
+    #     years=[]
+    #     counts=[]
+    #     # accum_count=0
+    #     for year in sorted(year_counter.keys()):
+    #         delta_t = (year-publish_year)+1
+    #         count = year_counter[year]
+    #         # accum_count+=count
 
-            years.append(delta_t)
-            counts.append("{:.5f}".format(delta_t/float(count)))
+    #         years.append(delta_t)
+    #         counts.append("{:.5f}".format(delta_t/float(count)))
 
-        ax.plot(years,counts)
-        ax.set_title(pid)
+    #     ax.plot(years,counts)
+    #     ax.set_title(pid)
 
-        ax_index+=1
+    #     ax_index+=1
 
-    plt.tight_layout()
-    plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
+    # plt.tight_layout()
+    # plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
+
+def plot_power_law(ax,xs,ys):
+    popt,pcov = curve_fit(linear_func,xs,ys)
+    print 'adoptions:',popt
+    fit_y = [linear_func(xi,*popt) for xi in x]
+    r2 = r2_score(ys,fit_y)
+    # return popt,r2
+    ax.plot(xs,ys)
+    ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+
+
+def power_law(x,alpha):
+    return x**(-alpha)
+
+def plot_distributions():
+
+    fig,axes = plt.subplots(1,3,figsize=(20,5))
+
+    #plot power law
+    ax1 = axes[0]
+    xs = np.linspace(0,10,100)
+    ys = [power_law(x,3) for x in xs]
+    ax1.plot(xs,ys)
+
+    #plot 
+
+
 
 def main():
     label = sys.argv[1]
