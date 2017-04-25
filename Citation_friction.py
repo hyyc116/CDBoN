@@ -485,59 +485,59 @@ def cal_avg(delta_dis):
 
     return total_year/float(total_count)
 
-def frictions(top_n_papers):
+def frictions(top_n_papers,level='top'):
     top_dict = json.loads(open(top_n_papers).read())
     N = len(top_dict)
     print N
     # rows = N/5+1
 
     #friction accumulative/delta_t
-    result_lines=[]
-    for pid in top_dict.keys():
+    # result_lines=[]
+    # for pid in top_dict.keys():
 
-        cited_dict = top_dict[pid]
-        pid_year = cited_dict['year']
-        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
-        year_counter = Counter(citation_year_list)
-        # print year_counter
-        years=[]
-        counts=[]
-        accum_count=0
-        publish_year = int(pid_year)
-        for year in sorted(year_counter.keys()):
-            delta_t = (year-publish_year)+1
-            count = year_counter[year]
-            accum_count+=count
+    #     cited_dict = top_dict[pid]
+    #     pid_year = cited_dict['year']
+    #     citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+    #     year_counter = Counter(citation_year_list)
+    #     # print year_counter
+    #     years=[]
+    #     counts=[]
+    #     accum_count=0
+    #     publish_year = int(pid_year)
+    #     for year in sorted(year_counter.keys()):
+    #         delta_t = (year-publish_year)+1
+    #         count = year_counter[year]
+    #         accum_count+=count
 
-            years.append(delta_t)
-            counts.append(accum_count/delta_t)
+    #         years.append(delta_t)
+    #         counts.append(accum_count/delta_t)
 
-        # ax.plot(years,counts)
-        result = plot_power_law(years,counts)
-        result_lines.append(result)
+    #     # ax.plot(years,counts)
+    #     result = plot_power_law(years,counts)
+    #     result_lines.append(result)
 
-    num = len(plt.get_fignums())
-    plt.figure(num)
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
-    for index,r in enumerate(sorted(result_lines,key=lambda x:x[3],reverse=True)):
-        ax_x = index/5
-        ax_y = index%5
+    # num = len(plt.get_fignums())
+    # plt.figure(num)
+    # fig,axes = plt.subplots(1,5,figsize=(25,5))
+    # for index,r in enumerate(sorted(result_lines,key=lambda x:x[3],reverse=True)):
+    #     ax_x = index/5
+    #     ax_y = index%5
 
-        if ax_y==0 and index>0:
-            plt.tight_layout()
-            plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
-            num = len(plt.get_fignums())
-            plt.figure(num)
-            fig,axes = plt.subplots(1,5,figsize=(25,5))
+    #     if ax_y==0 and index>0:
+    #         plt.tight_layout()
+    #         plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
+    #         num = len(plt.get_fignums())
+    #         plt.figure(num)
+    #         fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-        ax = axes[ax_y]
-        xs,ys,fit_y,r2,popt = r[0],r[1],r[2],r[3],r[4]
-        ax.plot(xs,ys)
-        ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
-        ax.legend()
+    #     ax = axes[ax_y]
+    #     xs,ys,fit_y,r2,popt = r[0],r[1],r[2],r[3],r[4]
+    #     ax.plot(xs,ys)
+    #     ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+    #     ax.legend()
 
-    plt.tight_layout()
-    plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
+    # plt.tight_layout()
+    # plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
 
     #friction delta_t/accumulative
     result_lines=[]    
@@ -574,7 +574,7 @@ def frictions(top_n_papers):
 
         if ax_y==0 and index>0:
             plt.tight_layout()
-            plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
+            plt.savefig('fig/{:}_{:}_delta_{:}.png'.format(level,N,ax_x),dpi=300)
             num = len(plt.get_fignums())
             plt.figure(num)
             fig,axes = plt.subplots(1,5,figsize=(25,5))
@@ -586,7 +586,7 @@ def frictions(top_n_papers):
         ax.legend()
 
     plt.tight_layout()
-    plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
+    plt.savefig('fig/{:}_{:}_delta_{:}.png'.format(level,N,ax_x),dpi=300)
 
     #friction delta_t/count
     # num = len(plt.get_fignums())
@@ -669,7 +669,7 @@ def main():
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
-        frictions(sys.argv[2])
+        frictions(sys.argv[2],sys.argv[3])
     elif label=='paper_level':
         divide_paper_level(sys.argv[2])
     elif label=='first_citation':
