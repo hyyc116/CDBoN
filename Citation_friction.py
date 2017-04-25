@@ -563,6 +563,8 @@ def frictions(top_n_papers):
             counts.append("{:.5f}".format(delta_t/float(accum_count)))
 
         # ax.plot(years,counts)
+        print years 
+        print counts
         plot_power_law(ax,years,counts)
         ax.set_title(pid)
         ax.legend()
