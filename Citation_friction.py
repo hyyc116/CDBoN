@@ -253,7 +253,7 @@ def first_citation_distribution(citation_network_path):
             else:
                 zone = 'D'
 
-            first_citation_zone_dis['A'][year_delta] = first_citation_zone_dis[zone].get(year_delta,0)+1
+            first_citation_zone_dis[zoneß][year_delta] = first_citation_zone_dis[zone].get(year_delta,0)+1
 
 
     fig,axes = plt.subplots(2,2,figsize=(15,10))
