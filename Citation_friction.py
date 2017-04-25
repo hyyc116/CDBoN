@@ -256,8 +256,8 @@ def first_citation_distribution(citation_network_path):
             first_citation_zone_dis[zone][year_delta] = first_citation_zone_dis[zone].get(year_delta,0)+1
 
 
-    fig,axes = plt.subplots(2,2,figsize=(15,10))
-    ax1 = axes[0,0]
+    fig,axes = plt.subplots(1,4,figsize=(30,5))
+    ax1 = axes[0]
     xs = []
     ys = []
     a_count=0
@@ -293,7 +293,7 @@ def first_citation_distribution(citation_network_path):
 
     labels=['A','B','C','D']
     counts = [a_count,b_count,c_count,d_count]
-    ax2 = axes[0,1]
+    ax2 = axes[1]
     # ax2.bar(np.arange(len(labels)),counts)
     rects = ax2.bar(np.arange(len(labels)),counts,align='center',width=0.3)
     ax2.set_xticks(np.arange(len(labels)))
@@ -305,7 +305,7 @@ def first_citation_distribution(citation_network_path):
     ax2.set_ylabel('Number of Papers')
     ax2.set_yscale('log')
 
-    ax3 = axes[1,0]
+    ax3 = axes[2]
     xs=[]
     ys=[]
     for year_delta in sorted(first_citation_dis.keys()):
@@ -333,7 +333,7 @@ def first_citation_distribution(citation_network_path):
     
     ax3.legend()
 
-    ax4=axes[1,1]
+    ax4=axes[3]
     xs=[]
     ys=[]
     for year in sorted(first_citation_year_dis):
