@@ -241,6 +241,7 @@ def divide_paper_level(citation_network_path):
     #plot citation dentsity curve low selected paper
 
     ax2 = axes[0,1]
+    ax2.set_title('Low cited paper')
     for pid in low_selected:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
@@ -260,6 +261,7 @@ def divide_paper_level(citation_network_path):
         ax2.plot(xs,ys)
 
     ax3 = axes[1,0]
+    ax3.set_title('Medium cited paper')
     for pid in medium_selected:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
@@ -279,7 +281,8 @@ def divide_paper_level(citation_network_path):
         ax3.plot(xs,ys)
 
     ax4 = axes[1,1]
-    for pid in medium_selected:
+    ax4.set_title('High cited paper')
+    for pid in high_citations:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
