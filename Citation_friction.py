@@ -524,6 +524,7 @@ def frictions(top_n_papers):
         xs,ys,fit_y,r2,popt = r[0],r[1],r[2],r[3],r[4]
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+        ax.legend()
 
     plt.tight_layout()
     plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
@@ -572,6 +573,7 @@ def frictions(top_n_papers):
         xs,ys,fit_y,r2,popt = r[0],r[1],r[2],r[3],r[4]
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
+        ax.legend()
 
     plt.tight_layout()
     plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
