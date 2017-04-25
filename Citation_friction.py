@@ -479,7 +479,7 @@ def frictions(top_n_papers):
     top_dict = json.loads(open(top_n_papers).read())
     N = len(top_dict)
     print N
-    rows = N/5
+    rows = N/5+1
 
     #friction accumulative/delta_t
     num = len(plt.get_fignums())
