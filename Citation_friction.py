@@ -551,7 +551,7 @@ def frictions(top_n_papers):
         # ax.plot(years,counts)
         # print years 
         # print counts
-        result = plot_power_law(ax,years,counts)
+        result = plot_power_law(years,counts)
         result_lines.append(result)
 
     num = len(plt.get_fignums())
