@@ -208,16 +208,29 @@ def divide_paper_level(citation_network_path):
     # print len(medium_citations)
     print len(high_citations)
 
+
+    fig,axes = plt.subplots(1,2,figsize=(15,5))
+    ax1 = axes[0]
     #to randomly select paper, first select citation num with a normal distribution
     citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
     num_counter = Counter(citations_nums)
     medium_selected=[]
+    xs=[]
+    ys=[]
     for num in sorted(num_counter.keys()):
         num_count = num_counter[num]
         print num,num_count
         medium_selected.extend(random.sample(medium_citations[num],num_count))
+        xs.append(num)
+        ys.append(num_count)
+
+    ax1.plot(xs,ys)
+    ax1.set_xlabel('Citation Count')
+    ax1.set_ylabel('Number')
+    ax1.set_title('Citation Count Distribution of selected papers')
 
     print medium_selected
+
 
     # low_selected = random.sample(low_citations,1000)
     # low_selected_counter=defaultdict(int)
@@ -232,7 +245,8 @@ def divide_paper_level(citation_network_path):
     #     medium_selected_counter[len(data[pid]['citations'])]+=1
 
     # print medium_selected_counter
-
+    plt.tight_layout()
+    plt.savefig('pdf/selected_citation_dis.pdf',dpi=300)
 
 
 #def first citation distribution
