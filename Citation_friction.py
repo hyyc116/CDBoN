@@ -209,8 +209,10 @@ def divide_paper_level(citation_network_path):
     print len(high_citations)
 
     #to randomly select paper, first select citation num with a normal distribution
-    citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
-    print Counter(citations_nums)
+    citations_nums = [int(n) for n in np.random.normal(100,1,1000)]
+    num_counter = Counter(citations_nums)
+    for year in sorted(num_counter.keys()):
+        print year,num_counter[year]
 
 
 
