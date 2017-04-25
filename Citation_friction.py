@@ -509,7 +509,7 @@ def frictions(top_n_papers):
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
-    for index,r in sorted(result_lines,key=lambda x:x[3],reverse=True):
+    for index,xs,ys,fit_y,r2,popt in sorted(result_lines,key=lambda x:x[3],reverse=True):
         ax_x = index/5
         ax_y = (index+1)/5
 
@@ -557,7 +557,7 @@ def frictions(top_n_papers):
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
-    for index,r in sorted(result_lines,key=lambda x:x[3],reverse=True):
+    for index,xs,ys,fit_y,r2,popt  in sorted(result_lines,key=lambda x:x[3],reverse=True):
         ax_x = index/5
         ax_y = (index+1)/5
 
@@ -569,7 +569,7 @@ def frictions(top_n_papers):
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
         ax = axes[ax_y]
-        xs,ys,fit_y,r2,popt = r
+        = r
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
 
