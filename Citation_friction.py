@@ -560,7 +560,7 @@ def frictions(top_n_papers):
             accum_count+=count
 
             years.append(delta_t)
-            counts.append("{:.5f}".format(delta_t/float(accum_count)))
+            counts.append(delta_t/float(accum_count))
 
         # ax.plot(years,counts)
         print years 
