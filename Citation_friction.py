@@ -329,7 +329,7 @@ def divide_paper_level(citation_network_path):
 
     high_dict = {}
     for high_k in high_citations:
-        high_citations[k] = data[k]
+        high_dicts[k] = data[k]
 
     open('data/high_dicts.json','w').write(json.dumps(high_dicts))
 
