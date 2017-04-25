@@ -288,6 +288,10 @@ def first_citation_distribution(citation_network_path):
     ax2.set_xticklabels(labels)
     # autolabel(rects)
     autolabel(rects,ax2)
+    ax2.set_title('Distribution of four zone')
+    ax2.set_xlabel('Zone Label')
+    ax2.set_ylabel('Number of Papers')
+    ax2.set_yscale('log')
 
     ax3 = axes[1,0]
     xs=[]
