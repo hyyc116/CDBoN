@@ -242,6 +242,9 @@ def divide_paper_level(citation_network_path):
 
     ax2 = axes[0,1]
     ax2.set_title('Low cited paper')
+    ax2.set_xlabel('$\Delta t$')
+    ax2.set_ylabel('$Difficulty$')
+    ax2.set_yscale('log')
     for pid in low_selected:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
@@ -263,6 +266,9 @@ def divide_paper_level(citation_network_path):
 
     ax3 = axes[1,0]
     ax3.set_title('Medium cited paper')
+    ax3.set_xlabel('$\Delta t$')
+    ax3.set_ylabel('$Difficulty$')
+    ax3.set_yscale('log')
     for pid in medium_selected:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
@@ -284,6 +290,9 @@ def divide_paper_level(citation_network_path):
 
     ax4 = axes[1,1]
     ax4.set_title('High cited paper')
+    ax4.set_xlabel('$\Delta t$')
+    ax4.set_ylabel('$Difficulty$')
+    ax4.set_yscale('log')
     for pid in high_citations:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
