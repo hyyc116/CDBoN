@@ -328,7 +328,7 @@ def divide_paper_level(citation_network_path):
     plt.savefig('pdf/selected_citation_dis.pdf',dpi=300)
 
     high_dict = {}
-    for high_k in high_citations:
+    for k in high_citations:
         high_dicts[k] = data[k]
 
     open('data/high_dicts.json','w').write(json.dumps(high_dicts))
