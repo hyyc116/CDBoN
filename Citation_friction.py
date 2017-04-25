@@ -479,20 +479,26 @@ def frictions(top_n_papers):
     top_dict = json.loads(open(top_n_papers).read())
     N = len(top_dict)
     print N
-    rows = N/5+1
+    # rows = N/5+1
 
     #friction accumulative/delta_t
     num = len(plt.get_fignums())
     plt.figure(num)
-    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
-    ax_index=0
-    
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    ax_index=1
     for pid in top_dict.keys():
 
-        ax_x = ax_index/5
+        ax_x = (ax_index-1)/5
         ax_y = ax_index%5-1
         print ax_index,ax_x,ax_y
-        ax = axes[ax_index/5,ax_index%5-1]
+        if ax_y==0 and ax_index>1:
+            plt.tight_layout()
+            plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
+            num = len(plt.get_fignums())
+            plt.figure(num)
+            fig,axes = plt.subplots(1,5,figsize=(25,5))
+
+        ax = axes[ax_x,ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -516,17 +522,27 @@ def frictions(top_n_papers):
         ax_index+=1
 
     plt.tight_layout()
-    plt.savefig('top_{:}_accum.png'.format(N),dpi=300)
+    plt.savefig('fig/top_{:}_accum_{:}.png'.format(N,ax_x),dpi=300)
 
     #friction delta_t/accumulative
     num = len(plt.get_fignums())
     plt.figure(num)
-    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
-    ax_index=0
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    ax_index=1
     
-
     for pid in top_dict.keys():
-        ax = axes[ax_index/5,ax_index%5-1]
+
+        ax_x = (ax_index-1)/5
+        ax_y = ax_index%5-1
+        # print ax_index,ax_x,ax_y
+        if ax_y==0 and ax_index>1:
+            plt.tight_layout()
+            plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
+            num = len(plt.get_fignums())
+            plt.figure(num)
+            fig,axes = plt.subplots(1,5,figsize=(25,5))
+
+        ax = axes[ax_x,ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -550,17 +566,27 @@ def frictions(top_n_papers):
         ax_index+=1
 
     plt.tight_layout()
-    plt.savefig('top_{:}_delta.png'.format(N),dpi=300)
+    plt.savefig('fig/top_{:}_delta_{:}.png'.format(N,ax_x),dpi=300)
 
     #friction delta_t/count
     num = len(plt.get_fignums())
     plt.figure(num)
-    fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
-    ax_index=0
-    
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    ax_index=1
 
     for pid in top_dict.keys():
-        ax = axes[ax_index/5,ax_index%5-1]
+
+        ax_x = (ax_index-1)/5
+        ax_y = ax_index%5-1
+        print ax_index,ax_x,ax_y
+        if ax_y==0 and ax_index>1:
+            plt.tight_layout()
+            plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
+            num = len(plt.get_fignums())
+            plt.figure(num)
+            fig,axes = plt.subplots(1,5,figsize=(25,5))
+
+        ax = axes[ax_x,ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -584,7 +610,7 @@ def frictions(top_n_papers):
         ax_index+=1
 
     plt.tight_layout()
-    plt.savefig('top_{:}_count_delta.png'.format(N),dpi=300)
+    plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
 
 def main():
     label = sys.argv[1]
