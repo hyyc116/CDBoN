@@ -224,15 +224,38 @@ def divide_paper_level(citation_network_path):
         xs.append(num)
         ys.append(num_count)
 
+    open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+
     ax1.plot(xs,ys)
     ax1.set_xlabel('Citation Count')
     ax1.set_ylabel('Number')
     ax1.set_title('Citation Count Distribution of selected papers')
 
-    print medium_selected
+    # print medium_selected
+
+    # for num in range(5,11):
 
 
-    # low_selected = random.sample(low_citations,1000)
+    low_selected = random.sample(low_citations[10],1000)
+
+    #plot citation dentsity curve low selected paper
+
+    ax2 = axes[1]
+    for pid in low_selected:
+        cited_dict = data[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        
+        xs = [] 
+        ys = []
+        for year in sorted(year_counter.keys()):
+            delta_y = year - pid_year
+            xs.append(delta_y)
+            ys.append(year_counter[year])
+
+        ax2.plot(xs,ys)
+
     # low_selected_counter=defaultdict(int)
     # for pid in low_selected:
     #     low_selected_counter[len(data[pid]['citations'])]+=1
