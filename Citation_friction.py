@@ -189,8 +189,8 @@ def plot_top_N(citation_network_path,N):
 #divide paper with three point
 def divide_paper_level(citation_network_path):
     data = json.loads(open(citation_network_path).read())
-    low_citations=[]
-    medium_citations=[]
+    low_citations=defaultdict(list)
+    medium_citations=defaultdict(list)
     high_citations=[]
 
     for k in data.keys():
@@ -198,29 +198,19 @@ def divide_paper_level(citation_network_path):
         if citation_num<5: 
             continue
         elif citation_num<=10:
-            low_citations.append(k)
+            low_citations[citation_num].append(k)
         elif citation_num<=1000:
-            medium_citations.append(k)
+            medium_citations[citation_num].append(k)
         else:
             high_citations.append(k)
 
-    print len(low_citations)
-    print len(medium_citations)
+    # print low_citations
+    # print len(medium_citations)
     print len(high_citations)
 
-    low_selected = random.sample(low_citations,1000)
-    low_selected_counter=defaultdict(int)
-    for pid in low_selected:
-        low_selected_counter[len(data[pid]['citations'])]+=1
-
-    print low_selected_counter
-
-    medium_selected = random.sample(medium_citations,1000)
-    medium_selected_counter = defaultdict(int)
-    for pid in medium_selected:
-        medium_selected_counter[len(data[pid]['citations'])]+=1
-
-    print medium_selected_counter
+    #to randomly select paper, first select citation num with a normal distribution
+    citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
+    print Counter(citations_nums)
 
 
 
