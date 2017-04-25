@@ -327,7 +327,7 @@ def divide_paper_level(citation_network_path):
     plt.tight_layout()
     plt.savefig('pdf/selected_citation_dis.pdf',dpi=300)
 
-    high_dict = {}
+    high_dicts = {}
     for k in high_citations:
         high_dicts[k] = data[k]
 
