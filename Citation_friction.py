@@ -616,9 +616,9 @@ def frictions(top_n_papers):
     # plt.savefig('fig/top_{:}_count_delta_{:}.png'.format(N,ax_x),dpi=300)
 
 def plot_power_law(ax,xs,ys):
-    popt,pcov = curve_fit(linear_func,xs,ys)
+    popt,pcov = curve_fit(power_low_func,xs,ys)
     print 'adoptions:',popt
-    fit_y = [linear_func(xi,*popt) for xi in x]
+    fit_y = [power_low_func(xi,*popt) for xi in x]
     r2 = r2_score(ys,fit_y)
     # return popt,r2
     ax.plot(xs,ys)
