@@ -337,6 +337,8 @@ def first_citation_distribution(citation_network_path):
     xs=[]
     ys=[]
     for year in sorted(first_citation_year_dis):
+        if year<1981 or year >2010:
+            continue
         citation_year_dis = first_citation_year_dis[year]
         xs.append(year)
         avg = cal_avg(citation_year_dis)
