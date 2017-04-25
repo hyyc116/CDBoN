@@ -552,7 +552,7 @@ def frictions(top_n_papers):
     plt.tight_layout()
     plt.savefig('top_{:}_delta.png'.format(N),dpi=300)
 
-    a#friction delta_t/count
+    #friction delta_t/count
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(rows,5,figsize=(25,rows*5))
