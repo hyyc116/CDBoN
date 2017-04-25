@@ -478,7 +478,7 @@ def cal_avg(delta_dis):
 def frictions(top_n_papers):
     top_dict = json.loads(open(top_n_papers).read())
     N = len(top_dict)
-    print len(N)
+    print N
     rows = N/5
 
     #friction accumulative/delta_t
