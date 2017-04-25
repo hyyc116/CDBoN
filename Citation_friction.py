@@ -498,7 +498,7 @@ def frictions(top_n_papers):
             plt.figure(num)
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-        ax = axes[ax_x,ax_y]
+        ax = axes[ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -542,7 +542,7 @@ def frictions(top_n_papers):
             plt.figure(num)
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-        ax = axes[ax_x,ax_y]
+        ax = axes[ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
@@ -586,7 +586,7 @@ def frictions(top_n_papers):
             plt.figure(num)
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-        ax = axes[ax_x,ax_y]
+        ax = axes[ax_y]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
         citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
