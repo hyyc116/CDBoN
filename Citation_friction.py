@@ -254,7 +254,7 @@ def divide_paper_level(citation_network_path):
         for year in sorted(year_counter.keys()):
             delta_y = (year - pid_year)+1
             total_citation+=year_counter[year]
-            difficulty = delta_y/total_citation
+            difficulty = delta_y/float(total_citation)
             xs.append(delta_y)
             ys.append(difficulty)
 
@@ -274,7 +274,7 @@ def divide_paper_level(citation_network_path):
         for year in sorted(year_counter.keys()):
             delta_y = (year - pid_year)+1
             total_citation+=year_counter[year]
-            difficulty = delta_y/total_citation
+            difficulty = delta_y/float(total_citation)
             xs.append(delta_y)
             ys.append(difficulty)
 
@@ -294,7 +294,7 @@ def divide_paper_level(citation_network_path):
         for year in sorted(year_counter.keys()):
             delta_y = (year - pid_year)+1
             total_citation+=year_counter[year]
-            difficulty = delta_y/total_citation
+            difficulty = delta_y/float(total_citation)
             xs.append(delta_y)
             ys.append(difficulty)
 
