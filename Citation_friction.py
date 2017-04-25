@@ -521,7 +521,7 @@ def frictions(top_n_papers):
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
         ax = axes[ax_y]
-        xs,ys,fit_y,r2,popt = r
+        # xs,ys,fit_y,r2,popt = r
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
 
@@ -569,7 +569,7 @@ def frictions(top_n_papers):
             fig,axes = plt.subplots(1,5,figsize=(25,5))
 
         ax = axes[ax_y]
-        = r
+        # = r
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
 
