@@ -230,6 +230,7 @@ def first_citation_distribution(citation_network_path):
     year_dis=defaultdict(int)
     first_citation_dis = defaultdict(int)
     first_citation_year_dis = defaultdict(dict)
+    first_citation_zone_dis = defaultdict(dict)
     for pid in data.keys():
         one_dict = data[pid]
         #year
@@ -243,6 +244,17 @@ def first_citation_distribution(citation_network_path):
         if not year_delta<0:
             first_citation_dis[year_delta]+=1
             first_citation_year_dis[year][year_delta]=first_citation_year_dis[year].get(year_delta,0)+1
+            if year < 1981:
+                zone = 'A'
+            elif year<2001:
+                zone = 'B'
+            elif year <2011:
+                zone = 'C'
+            else:
+                zone = 'D'
+
+            first_citation_zone_dis['A'][year_delta] = first_citation_zone_dis[zone].get(year_delta,0)+1
+
 
     fig,axes = plt.subplots(2,2,figsize=(15,10))
     ax1 = axes[0,0]
@@ -307,6 +319,26 @@ def first_citation_distribution(citation_network_path):
     ax3.set_title('First citation distribution')
     ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
     ax3.legend()
+
+    ax4=axes[1,1]
+    for zone in labels:
+        zone_citation_dis = first_citation_zone_dis[zone]
+
+        xs=[]
+        ys=[]
+        for year_delta in sorted(first_citation_dis.keys()):
+            xs.append(year_delta)
+            ys.append(first_citation_dis[year_delta])
+
+        ax4.plot(xs,ys,label='Zone {:}'.format(zone))
+
+    ax4.set_xlabel('$\Delta t$')
+    ax4.set_ylabel('Number of papers')
+    ax4.set_yscale('log')
+    ax4.set_title('First citation distribution')
+    ax4.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
+    ax4.legend()  
+
 
     plt.savefig('pdf/two_dis.pdf',dpi=300)
     open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
