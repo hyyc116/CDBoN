@@ -313,14 +313,7 @@ def first_citation_distribution(citation_network_path):
         ys.append(first_citation_dis[year_delta])
 
     ax3.plot(xs,ys)
-    ax3.set_xlabel('$\Delta t$')
-    ax3.set_ylabel('Number of papers')
-    ax3.set_yscale('log')
-    ax3.set_title('First citation distribution')
-    ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
-    ax3.legend()
 
-    ax4=axes[1,1]
     for zone in labels:
         zone_citation_dis = first_citation_zone_dis[zone]
         print zone
@@ -331,10 +324,27 @@ def first_citation_distribution(citation_network_path):
             xs.append(year_delta)
             ys.append(zone_citation_dis[year_delta])
 
-        ax4.plot(xs,ys,label='Zone {:}'.format(zone))
+        ax3.plot(xs,ys,label='Zone {:}'.format(zone))
 
-    ax4.set_xlabel('$\Delta t$')
-    ax4.set_ylabel('Number of papers')
+    ax3.set_xlabel('$\Delta t$')
+    ax3.set_ylabel('Number of papers')
+    ax3.set_yscale('log')
+    ax3.set_title('First citation distribution')
+    ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
+    ax3.legend()
+
+    ax4=axes[1,1]
+    xs=[]
+    ys=[]
+    for year in sorted(first_citation_year_dis):
+        citation_year_dis = first_citation_year_dis[year]
+        xs.append(year)
+        avg = cal_avg(citation_year_dis)
+        ys.append(avg)
+
+    ax4.plot(xs,ys)
+    ax4.set_ylabel('$ Mean of \Delta t_1$')
+    ax4.set_xlabel('year $t$')
     ax4.set_yscale('log')
     ax4.set_title('First citation distribution')
     ax4.plot([1]*10,np.linspace(1,100000,10),'--',label='$\Delta t = 1$')
@@ -344,7 +354,14 @@ def first_citation_distribution(citation_network_path):
     plt.savefig('pdf/two_dis.pdf',dpi=300)
     open('data/year_first_citation.json','w').write(json.dumps(first_citation_year_dis))
 
+def cal_avg(delta_dis):
+    total_count=0
+    total_year=0
+    for year_delta in delta_dis:
+        total_year+=year_delta*delta_dis[year_delta]
+        total_count+=delta_dis[year_delta]
 
+    return total_year/float(total_count)
 
 def frictions(top_n_papers):
     top_dict = json.loads(open(top_n_papers).read())
