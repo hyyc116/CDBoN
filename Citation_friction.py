@@ -333,6 +333,16 @@ def divide_paper_level(citation_network_path):
 
     open('data/high_dicts.json','w').write(json.dumps(high_dicts))
 
+    medium_dicts={}
+    for k in medium_selected:
+        medium_dicts[k] = data[k]
+    open('data/medium_dicts.json','w').write(json.dumps(medium_dicts))
+
+    low_dicts={}
+    for k in low_selected:
+        low_dicts[k] = data[k]
+    open('data/low_dicts.json','w').write(json.dumps(low_dicts))
+
 
 #def first citation distribution
 def first_citation_distribution(citation_network_path):
