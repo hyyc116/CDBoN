@@ -345,9 +345,9 @@ def first_citation_distribution(citation_network_path):
     ax4.plot(xs,ys)
     ax4.set_ylabel('$ Mean of \Delta t_1$')
     ax4.set_xlabel('year $t$')
-    ax4.set_yscale('log')
+    # ax4.set_yscale('log')
     ax4.set_title('First citation distribution')
-    ax4.plot([1]*10,np.linspace(1,100000,10),'--',label='$\Delta t = 1$')
+    # ax4.plot([1]*10,np.linspace(1,100000,10),'--',label='$\Delta t = 1$')
     ax4.legend()  
 
 
