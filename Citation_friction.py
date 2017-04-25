@@ -258,6 +258,7 @@ def divide_paper_level(citation_network_path):
             xs.append(delta_y)
             ys.append(difficulty)
 
+        xs=[(x-xs[0])+1 for x in xs]
         ax2.plot(xs,ys)
 
     ax3 = axes[1,0]
@@ -278,6 +279,7 @@ def divide_paper_level(citation_network_path):
             xs.append(delta_y)
             ys.append(difficulty)
 
+        xs=[(x-xs[0])+1 for x in xs]
         ax3.plot(xs,ys)
 
     ax4 = axes[1,1]
@@ -298,6 +300,7 @@ def divide_paper_level(citation_network_path):
             xs.append(delta_y)
             ys.append(difficulty)
 
+        xs=[(x-xs[0])+1 for x in xs]
         ax4.plot(xs,ys)
 
     # low_selected_counter=defaultdict(int)
