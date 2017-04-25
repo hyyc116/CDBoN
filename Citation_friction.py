@@ -326,9 +326,9 @@ def first_citation_distribution(citation_network_path):
 
         xs=[]
         ys=[]
-        for year_delta in sorted(first_citation_dis.keys()):
+        for year_delta in sorted(zone_citation_dis.keys()):
             xs.append(year_delta)
-            ys.append(first_citation_dis[year_delta])
+            ys.append(zone_citation_dis[year_delta])
 
         ax4.plot(xs,ys,label='Zone {:}'.format(zone))
 
