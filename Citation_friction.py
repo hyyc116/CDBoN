@@ -209,8 +209,8 @@ def divide_paper_level(citation_network_path):
     print len(high_citations)
 
 
-    fig,axes = plt.subplots(1,2,figsize=(15,5))
-    ax1 = axes[0]
+    fig,axes = plt.subplots(2,2,figsize=(15,10))
+    ax1 = axes[0,0]
     #to randomly select paper, first select citation num with a normal distribution
     citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
     num_counter = Counter(citations_nums)
@@ -240,7 +240,7 @@ def divide_paper_level(citation_network_path):
 
     #plot citation dentsity curve low selected paper
 
-    ax2 = axes[1]
+    ax2 = axes[0,1]
     for pid in low_selected:
         cited_dict = data[pid]
         pid_year = cited_dict['year']
@@ -258,6 +258,44 @@ def divide_paper_level(citation_network_path):
             ys.append(difficulty)
 
         ax2.plot(xs,ys)
+
+    ax3 = axes[1,0]
+    for pid in medium_selected:
+        cited_dict = data[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        
+        xs = [] 
+        ys = []
+        total_citation=0
+        for year in sorted(year_counter.keys()):
+            delta_y = (year - pid_year)+1
+            total_citation+=year_counter[year]
+            difficulty = delta_y/total_citation
+            xs.append(delta_y)
+            ys.append(difficulty)
+
+        ax3.plot(xs,ys)
+
+    ax4 = axes[1,1]
+    for pid in medium_selected:
+        cited_dict = data[pid]
+        pid_year = cited_dict['year']
+        citation_year_list = [int(i.split(',')[1]) for i in cited_dict['citations']]
+        year_counter = Counter(citation_year_list)
+        
+        xs = [] 
+        ys = []
+        total_citation=0
+        for year in sorted(year_counter.keys()):
+            delta_y = (year - pid_year)+1
+            total_citation+=year_counter[year]
+            difficulty = delta_y/total_citation
+            xs.append(delta_y)
+            ys.append(difficulty)
+
+        ax4.plot(xs,ys)
 
     # low_selected_counter=defaultdict(int)
     # for pid in low_selected:
