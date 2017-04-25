@@ -313,7 +313,7 @@ def first_citation_distribution(citation_network_path):
         ys.append(first_citation_dis[year_delta])
 
     ax3.plot(xs,ys)
-
+    ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
     for zone in labels:
         zone_citation_dis = first_citation_zone_dis[zone]
         print zone
@@ -330,7 +330,7 @@ def first_citation_distribution(citation_network_path):
     ax3.set_ylabel('Number of papers')
     ax3.set_yscale('log')
     ax3.set_title('First citation distribution')
-    ax3.plot([1]*10,np.linspace(1,np.max(ys),10),'--',label='$\Delta t = 1$')
+    
     ax3.legend()
 
     ax4=axes[1,1]
