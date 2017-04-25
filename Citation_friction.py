@@ -488,6 +488,10 @@ def frictions(top_n_papers):
     ax_index=0
     
     for pid in top_dict.keys():
+
+        ax_x = ax_index/5
+        ax_y = ax_index%5-1
+        print ax_index,ax_x,ax_y
         ax = axes[ax_index/5,ax_index%5-1]
         cited_dict = top_dict[pid]
         pid_year = cited_dict['year']
