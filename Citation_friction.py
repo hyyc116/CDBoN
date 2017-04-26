@@ -565,6 +565,7 @@ def frictions(top_n_papers,level='top'):
         result = plot_power_law(years,counts)
         result_lines.append(result)
 
+    outlist=['num,alpha']
     num = len(plt.get_fignums())
     plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
@@ -583,7 +584,7 @@ def frictions(top_n_papers,level='top'):
         xs,ys,fit_y,r2,popt = r[0],r[1],r[2],r[3],r[4]
         
         if r2>0.8:
-            print ys[-1],popt[0]
+            outlist.append('{:},{:.5f}'.format(ys[-1],popt[0]))
 
         ax.plot(xs,ys)
         ax.plot(xs,fit_y,c='r',label='$R^2={:.5f},\\alpha={:}$'.format(r2,popt[0]))
@@ -591,6 +592,7 @@ def frictions(top_n_papers,level='top'):
 
     plt.tight_layout()
     plt.savefig('fig/{:}_{:}_delta_{:}.png'.format(level,N,ax_x),dpi=300)
+    open('{:}_{:}_delta_{:}.csv','w').write('\n'.join(outlist))
 
     #friction delta_t/count
     # num = len(plt.get_fignums())
