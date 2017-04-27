@@ -326,9 +326,9 @@ def citation_order(cited_papers_json,xyfunc=co_ti_t):
     cited_papers = json.loads(open(cited_papers_json).read())
     for k in cited_papers.keys():
         paper_dict = cited_papers[k]
-        pid = year_dict['pid']
-        year = year_dict['year']
-        citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in year_dict['citations']]
+        pid = paper_dict['pid']
+        year = paper_dict['year']
+        citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in paper_dict['citations']]
         xyfunc(citations,year)
 
 
