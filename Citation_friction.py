@@ -237,7 +237,7 @@ def get_three_levels_paper(citation_network_path):
     print 'low cited papers saved to data/low_selected_papers.json'
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
 
-    ax1.plot(xs,ys)
+    ax1.scatter(xs,ys)
     ax1.set_xlabel('Citation Count $x$')
     ax1.set_ylabel('$N(x)$')
     ax1.set_title('low cited papers')
@@ -261,7 +261,7 @@ def get_three_levels_paper(citation_network_path):
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
     print 'medium cited papers saved to data/medium_selected_papers.json'
 
-    ax2.plot(xs,ys)
+    ax2.scatter(xs,ys)
     ax2.set_xlabel('Citation Count $x$')
     ax2.set_ylabel('$N(x)$')
     ax2.set_title('medium cited papers')
@@ -284,7 +284,7 @@ def get_three_levels_paper(citation_network_path):
     open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
     print 'high cited papers saved to data/high_selected_papers.json'
 
-    ax3.plot(xs,ys)
+    ax3.scatter(xs,ys)
     ax3.set_xlabel('Citation Count $x$')
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('high cited papers')
