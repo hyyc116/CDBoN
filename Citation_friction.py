@@ -314,7 +314,7 @@ def get_three_levels_paper(citation_network_path):
 
 
 #citation order t_i vs i
-def co_ti_i(citations,year):
+def co_ti_all(citations,year):
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1]):
         ti_list.append(cyear-year+1)
@@ -328,6 +328,23 @@ def co_ti_i(citations,year):
         ys.append(ti)
 
     return xs,ys
+
+# git their first i citation
+def co_ti_i(citations,year,i=100):
+    ti_list = []
+    for cpid, cyear in sorted(citations,key=lambda x:x[1])[:i]:
+        ti_list.append(cyear-year+1)
+    
+    xs = []
+    ys = []
+
+    for i, ti in enumerate(ti_list):
+        order = i+1
+        xs.append(order)
+        ys.append(ti)
+
+    return xs,ys
+
 
 #from perspective of citation order
 def citation_order(cited_papers_json,xyfunc=co_ti_i):
@@ -345,10 +362,12 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i):
     return xs_ys_dict
 
 
-def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'):
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_all'):
 
-    if xyfunc_name=='co_ti_i':
-        xyfunc = co_ti_i
+    if xyfunc_name=='co_ti_all':
+        xyfunc = co_ti_all
+    elif xyfunc_name=='co_ti_i':
+        xyfunc_name = co_ti_i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
 
@@ -882,7 +901,7 @@ def main():
     elif label=='co':
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
-        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4])
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
