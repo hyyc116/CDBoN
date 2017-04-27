@@ -282,7 +282,7 @@ def get_three_levels_paper(citation_network_path):
         high_selected_papers[pid] = data[pid]
 
     open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
-     print 'high cited papers saved to data/high_selected_papers.json'
+    print 'high cited papers saved to data/high_selected_papers.json'
 
     ax3.plot(xs,ys)
     ax3.set_xlabel('Citation Count $x$')
