@@ -237,16 +237,16 @@ def get_three_levels_paper(citation_network_path):
     print 'low cited papers saved to data/low_selected_papers.json'
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
 
-    ax1.scatter(xs,ys)
-    # plot the distribution we used
-    norms = [int(n) for n in np.random.normal(10,1,10000)]
-    norms_counter=Counter(norms)
-    xs=[]
-    ys=[]
-    for norm in sorted(norms_counter.keys()):
-        xs.append(norm)
-        ys.append(norms_counter[norm])
-    ax1.plot(xs,ys,'--',c='r')
+    ax1.plot(xs,ys,'-.')
+    # # plot the distribution we used
+    # norms = [int(n) for n in np.random.normal(10,1,10000)]
+    # norms_counter=Counter(norms)
+    # xs=[]
+    # ys=[]
+    # for norm in sorted(norms_counter.keys()):
+    #     xs.append(norm)
+    #     ys.append(norms_counter[norm])
+    # ax1.plot(xs,ys,'--',c='r')
 
     ax1.set_xlabel('Citation Count $x$')
     ax1.set_ylabel('$N(x)$')
@@ -271,16 +271,16 @@ def get_three_levels_paper(citation_network_path):
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
     print 'medium cited papers saved to data/medium_selected_papers.json'
 
-    ax2.scatter(xs,ys)
-    # plot the distribution we used
-    norms = [int(n) for n in np.random.normal(100,10,10000)]
-    norms_counter=Counter(norms)
-    xs=[]
-    ys=[]
-    for norm in sorted(norms_counter.keys()):
-        xs.append(norm)
-        ys.append(norms_counter[norm])
-    ax2.plot(xs,ys,'--',c='r')
+    ax2.plot(xs,ys,'-.')
+    # # plot the distribution we used
+    # norms = [int(n) for n in np.random.normal(100,10,10000)]
+    # norms_counter=Counter(norms)
+    # xs=[]
+    # ys=[]
+    # for norm in sorted(norms_counter.keys()):
+    #     xs.append(norm)
+    #     ys.append(norms_counter[norm])
+    # ax2.plot(xs,ys,'--',c='r')
     
     ax2.set_xlabel('Citation Count $x$')
     ax2.set_ylabel('$N(x)$')
