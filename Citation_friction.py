@@ -367,10 +367,13 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
     if xyfunc_name=='co_ti_all':
         xyfunc = co_ti_all
     elif xyfunc_name=='co_ti_i':
-        xyfunc_name = co_ti_i
+        xyfunc = co_ti_i
+
+    print xyfunc_name,xyfunc
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
 
+    print 'low cited papers'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc)
     title = 'low cited papers'
@@ -379,6 +382,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
     plot_levels(ax1,low_xy_dict,title,xls,yls)
 
     ax2= axes[1]
+    print 'medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc)
     title = 'medium cited papers'
     xls = 'citation order $i$'
@@ -386,6 +390,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
     plot_levels(ax2,medium_xy_dict,title,xls,yls)
 
     ax3= axes[2]
+    print 'high cited papers'
     high_xy_dict = citation_order(high_json,xyfunc)
     title = 'high cited papers'
     xls = 'citation order $i$'
