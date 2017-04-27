@@ -191,27 +191,85 @@ def get_three_levels_paper(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     citation_num_list = defaultdict(list)
     high_cited_papers=[]
+    high_citation_nums = []
     for k in data.keys():
         citation_num = len(data[k]['citations'])
         citation_num_list[citation_num].append(k)
 
         if citation_num>1000:
             high_cited_papers.append(k)
+            high_citation_nums.append(citation_num)
 
     
 
     # to randomly select low cited paper with a normal distribution
     low_citations_nums = [int(n) for n in np.random.normal(10,1,1000)]
+    low_counter = Counter(low_citations_nums)
     print 'low Cited nums'
     print low_citations_nums
 
     # to randomly select medium cited nums
     mediumn_citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
+    medium_counter = Counter(mediumn_citations_nums)
     print 'Medium Cited nums'
     print mediumn_citations_nums
 
     #number of high cited papers
     print 'number of high cited papers', len(high_cited_papers)
+    high_counter = Counter(high_citation_nums)
+
+    #plot the citation num distribution of three cited levels
+    fig,axes = plt.subplots(1,3,figsize=(30,5))
+    ax1 = axes[0]
+    xs=[]
+    ys=[]
+    for num in sorted(low_counter.keys()):
+        num_count = low_counter[num]
+        # print num,num_count
+        # medium_selected.extend(random.sample(medium_citations[num],num_count))
+        xs.append(num)
+        ys.append(num_count)
+
+    # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+
+    ax1.plot(xs,ys)
+    ax1.set_xlabel('Citation Count $x$')
+    ax1.set_ylabel('$N(x)$')
+    ax1.set_title('Citation Count Distribution of selected low cited papers')
+
+    ax2 = axes[1]
+    xs=[]
+    ys=[]
+    for num in sorted(medium_counter.keys()):
+        num_count = medium_counter[num]
+        # print num,num_count
+        # medium_selected.extend(random.sample(medium_citations[num],num_count))
+        xs.append(num)
+        ys.append(num_count)
+
+    # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+
+    ax2.plot(xs,ys)
+    ax2.set_xlabel('Citation Count $x$')
+    ax2.set_ylabel('$N(x)$')
+    ax2.set_title('Citation Count Distribution of selected medium cited papers')
+
+    ax3 = axes[2]
+    xs=[]
+    ys=[]
+    for num in sorted(high_counter.keys()):
+        num_count = high_counter[num]
+        # print num,num_count
+        # medium_selected.extend(random.sample(medium_citations[num],num_count))
+        xs.append(num)
+        ys.append(num_count)
+
+    # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+
+    ax3.plot(xs,ys)
+    ax3.set_xlabel('Citation Count $x$')
+    ax3.set_ylabel('$N(x)$')
+    ax3.set_title('Citation Count Distribution of selected high cited papers')
 
 
 
