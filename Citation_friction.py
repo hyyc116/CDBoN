@@ -713,6 +713,6 @@ def main():
         print 'No such label'
     
 if __name__ == '__main__':
-    plot_citation_num()
-    # main()
+    # plot_citation_num()
+    main()
     
