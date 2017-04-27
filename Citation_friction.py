@@ -264,7 +264,7 @@ def get_three_levels_paper(citation_network_path):
         ys.append(num_count)
 
     medium_selected_papers = {}
-    for pid in low_selected:
+    for pid in medium_selected:
         medium_selected_papers[pid] = data[pid]
 
     open('data/medium_selected_papers.json','w').write(json.dumps(medium_selected_papers))
@@ -298,7 +298,7 @@ def get_three_levels_paper(citation_network_path):
 
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
     high_selected_papers = {}
-    for pid in low_selected:
+    for pid in high_selected:
         high_selected_papers[pid] = data[pid]
 
     open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
@@ -365,13 +365,13 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
 
     ax3= axes[2]
     high_xy_dict = citation_order(high_json,xyfunc)
-    title = 'medium cited papers'
+    title = 'high cited papers'
     xls = 'citation order $i$'
     yls = 'Citation time $t_i$'
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
-    plt.savefig('pdf/three_levels_{:}.pdf'.format(co_ti_i),dpi=300)
+    plt.savefig('pdf/three_levels_{:}.pdf'.format(str(co_ti_i)),dpi=300)
 
 
 def plot_levels(ax,xs_ys_dict,title,xls,yls):
