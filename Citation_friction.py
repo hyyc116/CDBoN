@@ -84,7 +84,7 @@ def plot_citation_num():
     popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
 
     print popt
-    fig,axes = plt.subplots(1,2,figsize=(12,5))
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax = axes[0]
     ax.plot(xs,ys,'o',fillstyle='none')
     ax.plot(np.linspace(10, 1000, 10), power_low_func(np.linspace(10, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
@@ -97,12 +97,11 @@ def plot_citation_num():
     ax.text(20,5*10**4,'$x_{low}$')
     ax.text(100,2*10**2,'$x_{medium}$')
     ax.text(2000,5*10**0,'$x_{high}$')
-
-
+    ax.set_title('Citation distribution',fontsize=15)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.set_xlabel('$x$\n(a)')
-    ax.set_ylabel('$N(x)$')
+    ax.set_xlabel('$x$\n(a)',fontsize=10)
+    ax.set_ylabel('$N(x)$',fontsize=10)
     ax.legend()
 
     medium_count = total_count-high_citation_count-low_count
@@ -113,8 +112,9 @@ def plot_citation_num():
     rects = ax2.bar(x_pos,ys,align='center',width=0.3)
     ax2.set_xticks(x_pos)
     ax2.set_xticklabels(xs)
-    ax2.set_xlabel('Levels\n(b)')
-    ax2.set_ylabel('Number of papers')
+    ax2.set_xlabel('Levels\n(b)',fontsize=10)
+    ax2.set_ylabel('Number of papers',fontsize=10)
+    ax2.set_title('Paper distribution',fontsize=15)
     ax2.set_yscale('log')
     ax2.set_ylim(1,10**6.5)
     autolabel(rects,ax2,total_count)
@@ -217,7 +217,7 @@ def get_three_levels_paper(citation_network_path):
     high_counter = Counter(high_citation_nums)
 
     #plot the citation num distribution of three cited levels
-    fig,axes = plt.subplots(1,3,figsize=(20,5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[0]
     xs=[]
     ys=[]
@@ -814,6 +814,6 @@ def main():
         print 'No such label'
     
 if __name__ == '__main__':
-    # plot_citation_num()
-    main()
+    plot_citation_num()
+    # main()
     
