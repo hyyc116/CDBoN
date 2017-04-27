@@ -250,7 +250,7 @@ def get_three_levels_paper(citation_network_path):
 
     ax1.set_xlabel('Citation Count $x$\n(a)',fontsize=15)
     ax1.set_ylabel('$N(x)$',fontsize=15)
-    ax1.set_title('low cited papers',fontsize=250)
+    ax1.set_title('low cited papers',fontsize=20)
 
     ax2 = axes[1]
     xs=[]
