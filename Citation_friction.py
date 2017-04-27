@@ -271,7 +271,8 @@ def get_three_levels_paper(citation_network_path):
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('Citation Count Distribution of selected high cited papers')
 
-
+    plt.tight_layout()
+    plt.savefig('pdf/cited_levels_dis.pdf',dpi=300)
 
 #divide paper with three point
 def divide_paper_level(citation_network_path):
