@@ -330,7 +330,7 @@ def co_ti_all(citations,year):
     return xs,ys
 
 # git their first i citation
-def co_ti_i(citations,year,i=100):
+def co_ti_i(citations,year,i=10):
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1])[:i]:
         ti_list.append(cyear-year+1)
