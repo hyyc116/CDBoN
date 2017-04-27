@@ -106,7 +106,7 @@ def plot_citation_num():
 
     medium_count = total_count-high_citation_count-low_count
     ax2 = axes[1]
-    xs=['$C<=x_{low}$','$x_{low}<C<x_{high}$','$C>=x_{high}$']
+    xs=['$x<=x_{low}$','$x_{low}<x<x_{high}$','$x>=x_{high}$']
     ys=[low_citation_count,medium_count,high_citation_count]
     x_pos = x_pos = np.arange(len(xs))
     rects = ax2.bar(x_pos,ys,align='center',width=0.3)
@@ -311,6 +311,25 @@ def get_three_levels_paper(citation_network_path):
 
     plt.tight_layout()
     plt.savefig('pdf/cited_levels_dis.pdf',dpi=300)
+
+
+#citation order t_i vs i
+def co_ti_t(citations,year):
+    ti_list = []
+    for cpid, cyear in sorted(citations,key=lambda x:x[1]):
+        ti.append(cyear-year)
+
+    print ti_list
+
+#from perspective of citation order
+def citation_order(cited_papers_json,xyfunc=co_ti_t):
+    cited_papers = json.loads(open(cited_papers_json).read())
+    for k in cited_papers.keys():
+        paper_dict = cited_papers[k]
+        pid = year_dict['pid']
+        year = year_dict['year']
+        citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in year_dict['citations']]
+        xyfunc(citations,year)
 
 
 
@@ -801,6 +820,8 @@ def main():
         build_citation_network(sys.argv[2])
     elif label == 'citation_num':
         citation_count_json(sys.argv[2])
+    elif label=='co':
+        citation_order(sys.argv[2])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
