@@ -225,7 +225,7 @@ def get_three_levels_paper(citation_network_path):
     for num in sorted(low_counter.keys()):
         num_count = low_counter[num]
         # print num,num_count
-        low_selected.extend(random.sample(medium_citations[num],num_count))
+        low_selected.extend(random.sample(citation_num_list[num],num_count))
         xs.append(num)
         ys.append(num_count)
 
@@ -249,7 +249,7 @@ def get_three_levels_paper(citation_network_path):
     for num in sorted(medium_counter.keys()):
         num_count = medium_counter[num]
         # print num,num_count
-        medium_selected.extend(random.sample(medium_citations[num],num_count))
+        medium_selected.extend(random.sample(citation_num_list[num],num_count))
         xs.append(num)
         ys.append(num_count)
 
