@@ -314,22 +314,78 @@ def get_three_levels_paper(citation_network_path):
 
 
 #citation order t_i vs i
-def co_ti_t(citations,year):
+def co_ti_i(citations,year):
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1]):
-        ti_list.append(cyear-year)
+        ti_list.append(cyear-year+1)
+    
+    xs = []
+    ys = []
 
-    print ti_list
+    for i, ti in enumerate(ti_list):
+        order = i+1
+        xs.append(order)
+        ys.append(ti)
+
+    return xs,ys
 
 #from perspective of citation order
-def citation_order(cited_papers_json,xyfunc=co_ti_t):
+def citation_order(cited_papers_json,xyfunc=co_ti_i):
     cited_papers = json.loads(open(cited_papers_json).read())
+    xs_ys_dict={}
+    
     for k in cited_papers.keys():
         paper_dict = cited_papers[k]
         pid = paper_dict['pid']
         year = paper_dict['year']
         citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in paper_dict['citations']]
-        xyfunc(citations,year)
+        xs,ys = xyfunc(citations,year)
+        xs_ys_dict[pid]=(xs,ys)
+
+    return xs_ys_dict
+
+
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
+
+    fig,axes = plt.subplots(1,3,figsize=(15，5))
+
+    ax1 = axes[0]
+    low_xy_dict = citation_order(low_json,xyfunc)
+    title = 'low cited papers'
+    xls = 'citation order $i$'
+    yls = 'Citation time $t_i$'
+    plot_levels(ax1,low_xy_dict,title,xls,yls)
+
+    ax2= axes[1]
+    medium_xy_dict = citation_order(medium_json,xyfunc)
+    title = 'medium cited papers'
+    xls = 'citation order $i$'
+    yls = 'Citation time $t_i$'
+    plot_levels(ax2,medium_xy_dict,title,xls,yls)
+
+    ax3= axes[3]
+    high_xy_dict = citation_order(high_json,xyfunc)
+    title = 'medium cited papers'
+    xls = 'citation order $i$'
+    yls = 'Citation time $t_i$'
+    plot_levels(ax3,high_xy_dict,title,xls,yls)
+
+    plt.tight_layout()
+    plt.savefig('pdf/three_levels_{:}.pdf'.format(co_ti_i),dpi=300)
+
+
+def plot_levels(ax,xs_ys_dict,title,xls,yls):
+    for key in xs_ys_dict.keys():
+        xs,ys = xs_ys_dict[key]
+        ax.plot(xs,ys)
+
+    ax.set_title(title)
+    ax.set_xlabel(xls)
+    ax.set_ylabel(yls)
+
+
+
+
 
 
 
@@ -822,6 +878,8 @@ def main():
         citation_count_json(sys.argv[2])
     elif label=='co':
         citation_order(sys.argv[2])
+    elif label=='co_three_levels':
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
