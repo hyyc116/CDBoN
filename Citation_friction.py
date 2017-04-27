@@ -107,7 +107,7 @@ def plot_citation_num():
 
     medium_count = total_count-high_citation_count-low_count
     ax2 = axes[1]
-    xs=['Low','Medium','High']
+    xs=['$C<=x_{low}$','$x_{low}<C<x_{high}$','$C>=x_{high}$']
     ys=[low_citation_count,medium_count,high_citation_count]
     x_pos = x_pos = np.arange(len(xs))
     rects = ax2.bar(x_pos,ys,align='center',width=0.3)
@@ -185,6 +185,35 @@ def plot_top_N(citation_network_path,N):
 
     plt.tight_layout()
     plt.savefig('top_{:}_citation.png'.format(N),dpi=300)
+
+#get three levels of papers
+def get_three_levels_paper(citation_network_path):
+    data = json.loads(open(citation_network_path).read())
+    citation_num_list = defaultdict(list)
+    high_cited_papers=[]
+    for k in data.keys():
+        citation_num = len(data[k]['citations'])
+        citation_num_list[citation_num].append(k)
+
+        if citation_num>1000:
+            high_cited_papers.append(k)
+
+    
+
+    # to randomly select low cited paper with a normal distribution
+    low_citations_nums = [int(n) for n in np.random.normal(10,1,1000)]
+    print 'low Cited nums'
+    print low_citations_nums
+
+    # to randomly select medium cited nums
+    mediumn_citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
+    print 'Medium Cited nums'
+    print mediumn_citations_nums
+
+    #number of high cited papers
+    print 'number of high cited papers', len(high_cited_papers)
+
+
 
 #divide paper with three point
 def divide_paper_level(citation_network_path):
@@ -662,8 +691,7 @@ def plot_distributions():
     ys = [power_law(x,3) for x in xs]
     ax1.plot(xs,ys)
 
-    #plot 
-
+    #plot     
 
 
 def main():
@@ -677,13 +705,14 @@ def main():
     elif label =='friction':
         frictions(sys.argv[2],sys.argv[3])
     elif label=='paper_level':
-        divide_paper_level(sys.argv[2])
+        # divide_paper_level(sys.argv[2])
+        get_three_levels_paper(sys.argv[2])
     elif label=='first_citation':
         first_citation_distribution(sys.argv[2])
     else:
         print 'No such label'
     
 if __name__ == '__main__':
-    # plot_citation_num()
-    main()
+    plot_citation_num()
+    # main()
     
