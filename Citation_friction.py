@@ -237,7 +237,7 @@ def get_three_levels_paper(citation_network_path):
     print 'low cited papers saved to data/low_selected_papers.json'
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
 
-    ax1.plot(xs,ys,'-.')
+    ax1.plot(xs,ys,'-o')
     # # plot the distribution we used
     # norms = [int(n) for n in np.random.normal(10,1,10000)]
     # norms_counter=Counter(norms)
@@ -271,7 +271,7 @@ def get_three_levels_paper(citation_network_path):
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
     print 'medium cited papers saved to data/medium_selected_papers.json'
 
-    ax2.plot(xs,ys,'-.')
+    ax2.plot(xs,ys,'-o')
     # # plot the distribution we used
     # norms = [int(n) for n in np.random.normal(100,10,10000)]
     # norms_counter=Counter(norms)
