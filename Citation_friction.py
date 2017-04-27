@@ -401,7 +401,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
     plt.savefig('pdf/three_levels_{:}.pdf'.format(str(xyfunc_name)),dpi=300)
 
 
-def plot_levels(ax,xs_ys_dict,title,xls,yls):
+def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
     for key in xs_ys_dict.keys():
         xs,ys = xs_ys_dict[key]
         ax.plot(xs,ys)
@@ -409,6 +409,7 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls):
     ax.set_title(title)
     ax.set_xlabel(xls)
     ax.set_ylabel(yls)
+    ax.set_ylim(0,ylims_up)
 
 
 
