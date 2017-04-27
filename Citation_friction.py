@@ -363,7 +363,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
     yls = 'Citation time $t_i$'
     plot_levels(ax2,medium_xy_dict,title,xls,yls)
 
-    ax3= axes[3]
+    ax3= axes[2]
     high_xy_dict = citation_order(high_json,xyfunc)
     title = 'medium cited papers'
     xls = 'citation order $i$'
