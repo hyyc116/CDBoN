@@ -190,14 +190,14 @@ def plot_top_N(citation_network_path,N):
 def get_three_levels_paper(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     citation_num_list = defaultdict(list)
-    high_cited_papers=[]
+    high_selected=[]
     high_citation_nums = []
     for k in data.keys():
         citation_num = len(data[k]['citations'])
         citation_num_list[citation_num].append(k)
 
         if citation_num>1000:
-            high_cited_papers.append(k)
+            high_selected.append(k)
             high_citation_nums.append(citation_num)
 
     
@@ -205,17 +205,15 @@ def get_three_levels_paper(citation_network_path):
     # to randomly select low cited paper with a normal distribution
     low_citations_nums = [int(n) for n in np.random.normal(10,1,1000)]
     low_counter = Counter(low_citations_nums)
-    print 'low Cited nums'
-    print low_citations_nums
+    print 'low Cited nums',len(low_citations_nums)
 
     # to randomly select medium cited nums
     mediumn_citations_nums = [int(n) for n in np.random.normal(100,10,1000)]
     medium_counter = Counter(mediumn_citations_nums)
-    print 'Medium Cited nums'
-    print mediumn_citations_nums
+    print 'Medium Cited nums',len(mediumn_citations_nums)
 
     #number of high cited papers
-    print 'number of high cited papers', len(high_cited_papers)
+    print 'number of high cited papers', len(high_selected)
     high_counter = Counter(high_citation_nums)
 
     #plot the citation num distribution of three cited levels
@@ -223,36 +221,50 @@ def get_three_levels_paper(citation_network_path):
     ax1 = axes[0]
     xs=[]
     ys=[]
+    low_selected=[]
     for num in sorted(low_counter.keys()):
         num_count = low_counter[num]
         # print num,num_count
-        # medium_selected.extend(random.sample(medium_citations[num],num_count))
+        low_selected.extend(random.sample(medium_citations[num],num_count))
         xs.append(num)
         ys.append(num_count)
 
+    low_selected_papers = {}
+    for pid in low_selected:
+        low_selected_papers[pid] = data[pid]
+
+    open('data/low_selected_papers.json','w').write(json.dumps(low_selected_papers))
+    print 'low cited papers saved to data/low_selected_papers.json'
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
 
     ax1.plot(xs,ys)
     ax1.set_xlabel('Citation Count $x$')
     ax1.set_ylabel('$N(x)$')
-    ax1.set_title('Citation Count Distribution of selected low cited papers')
+    ax1.set_title('low cited papers')
 
     ax2 = axes[1]
     xs=[]
     ys=[]
+    medium_selected=[]
     for num in sorted(medium_counter.keys()):
         num_count = medium_counter[num]
         # print num,num_count
-        # medium_selected.extend(random.sample(medium_citations[num],num_count))
+        medium_selected.extend(random.sample(medium_citations[num],num_count))
         xs.append(num)
         ys.append(num_count)
 
+    medium_selected_papers = {}
+    for pid in low_selected:
+        medium_selected_papers[pid] = data[pid]
+
+    open('data/medium_selected_papers.json','w').write(json.dumps(medium_selected_papers))
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+    print 'medium cited papers saved to data/medium_selected_papers.json'
 
     ax2.plot(xs,ys)
     ax2.set_xlabel('Citation Count $x$')
     ax2.set_ylabel('$N(x)$')
-    ax2.set_title('Citation Count Distribution of selected medium cited papers')
+    ax2.set_title('medium cited papers')
 
     ax3 = axes[2]
     xs=[]
@@ -265,14 +277,24 @@ def get_three_levels_paper(citation_network_path):
         ys.append(num_count)
 
     # open('data/medium_selected_counter.json','w').write(json.dumps(num_counter))
+    high_selected_papers = {}
+    for pid in low_selected:
+        high_selected_papers[pid] = data[pid]
+
+    open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
+     print 'high cited papers saved to data/high_selected_papers.json'
 
     ax3.plot(xs,ys)
     ax3.set_xlabel('Citation Count $x$')
     ax3.set_ylabel('$N(x)$')
-    ax3.set_title('Citation Count Distribution of selected high cited papers')
+    ax3.set_title('high cited papers')
 
     plt.tight_layout()
     plt.savefig('pdf/cited_levels_dis.pdf',dpi=300)
+
+
+
+
 
 #divide paper with three point
 def divide_paper_level(citation_network_path):
