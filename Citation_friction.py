@@ -248,9 +248,9 @@ def get_three_levels_paper(citation_network_path):
     #     ys.append(norms_counter[norm])
     # ax1.plot(xs,ys,'--',c='r')
 
-    ax1.set_xlabel('Citation Count $x$\n(a)',fontsize=10)
-    ax1.set_ylabel('$N(x)$',fontsize=10)
-    ax1.set_title('low cited papers',fontsize=15)
+    ax1.set_xlabel('Citation Count $x$\n(a)',fontsize=20)
+    ax1.set_ylabel('$N(x)$',fontsize=20)
+    ax1.set_title('low cited papers',fontsize=25)
 
     ax2 = axes[1]
     xs=[]
@@ -282,9 +282,9 @@ def get_three_levels_paper(citation_network_path):
     #     ys.append(norms_counter[norm])
     # ax2.plot(xs,ys,'--',c='r')
     
-    ax2.set_xlabel('Citation Count $x$\n(b)',fontsize=10)
-    ax2.set_ylabel('$N(x)$',fontsize=10)
-    ax2.set_title('medium cited papers',fontsize=15)
+    ax2.set_xlabel('Citation Count $x$\n(b)',fontsize=20)
+    ax2.set_ylabel('$N(x)$',fontsize=20)
+    ax2.set_title('medium cited papers',fontsize=25)
 
     ax3 = axes[2]
     xs=[]
@@ -305,9 +305,9 @@ def get_three_levels_paper(citation_network_path):
     print 'high cited papers saved to data/high_selected_papers.json'
 
     ax3.scatter(xs,ys,marker='.')
-    ax3.set_xlabel('Citation Count $x$\n(c)',fontsize=10)
-    ax3.set_ylabel('$N(x)$',fontsize=10)
-    ax3.set_title('high cited papers',fontsize=15)
+    ax3.set_xlabel('Citation Count $x$\n(c)',fontsize=20)
+    ax3.set_ylabel('$N(x)$',fontsize=20)
+    ax3.set_title('high cited papers',fontsize=25)
 
     plt.tight_layout()
     plt.savefig('pdf/cited_levels_dis.pdf',dpi=300)
