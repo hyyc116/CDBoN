@@ -280,7 +280,7 @@ def get_three_levels_paper(citation_network_path):
     for norm in sorted(norms_counter.keys()):
         xs.append(norm)
         ys.append(norms_counter[norm])
-    ax1.plot(xs,ys,'--',c='r')
+    ax2.plot(xs,ys,'--',c='r')
     
     ax2.set_xlabel('Citation Count $x$')
     ax2.set_ylabel('$N(x)$')
