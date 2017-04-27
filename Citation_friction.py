@@ -317,7 +317,7 @@ def get_three_levels_paper(citation_network_path):
 def co_ti_t(citations,year):
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1]):
-        ti.append(cyear-year)
+        ti_list.append(cyear-year)
 
     print ti_list
 
