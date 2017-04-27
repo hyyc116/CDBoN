@@ -345,7 +345,10 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i):
     return xs_ys_dict
 
 
-def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'):
+
+    if xyfunc_name=='co_ti_i':
+        xyfunc = co_ti_i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
 
@@ -371,7 +374,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
-    plt.savefig('pdf/three_levels_{:}.pdf'.format(str(co_ti_i)),dpi=300)
+    plt.savefig('pdf/three_levels_{:}.pdf'.format(str(xyfunc_name)),dpi=300)
 
 
 def plot_levels(ax,xs_ys_dict,title,xls,yls):
