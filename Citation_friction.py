@@ -347,7 +347,7 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i):
 
 def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc=co_ti_i):
 
-    fig,axes = plt.subplots(1,3,figsize=(15，5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
 
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc)
