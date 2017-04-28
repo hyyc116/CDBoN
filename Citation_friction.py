@@ -472,6 +472,27 @@ def cy_yi_dcyi(citations,year,i='all'):
 
     return xs,ys
 
+#citation year
+def cy_delta_yi(citations,year,i='all'):
+    yi_list =[]
+    for cpid, cyear in sorted(citations,key=lambda x:x[1]):
+        yi = cyear-year+1
+        yi_list.append(yi)
+
+    yi_counter = Counter(yi_list)
+    
+    xs = []
+    ys = []
+    acc_count=0
+    last_yi=0
+    for i,yi in enumerate(sorted(yi_counter.keys())):
+        xs.append(yi)
+        ys.append(yi-last_yi)
+        last_yi=yi
+
+    return xs,ys
+
+
 #from perspective of citation order
 def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
     cited_papers = json.loads(open(cited_papers_json).read())
@@ -518,6 +539,10 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
         xyfunc = cy_delta_cyi_yi
         xls='citation year $y_i$'
         yls='$\Delta C_{y_i}$'
+    elif xyfunc_name=='cy_delta_yi':
+        xyfunc = cy_delta_yi
+        xls='citation year $y_i$'
+        yls='$\Delta y_i$'
 
 
     print xyfunc_name,'with i=',i
