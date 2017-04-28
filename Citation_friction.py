@@ -582,9 +582,9 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
     ax.set_title(title)
     ax.set_xlabel(xls)
     ax.set_ylabel(yls)
-    ax.set_yscale('log')
-    ax.set_ylim(0.001,1000)
-    ax.set_xlim(0,50)
+    # ax.set_yscale('log')
+    # ax.set_ylim(0.001,1000)
+    # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
 
 
