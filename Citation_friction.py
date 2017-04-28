@@ -715,7 +715,7 @@ def citation_years(cited_papers_json):
     years_counter = Counter(years)
     for year in sorted(years_counter.keys()):
         xs.append(year)
-        ys.append(year_counter[year])
+        ys.append(years_counter[year])
 
     return xs,ys
 
