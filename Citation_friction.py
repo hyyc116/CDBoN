@@ -748,6 +748,7 @@ def citation_years(cited_papers_json):
         xs.append(year)
         ys.append(years_counter[year])
 
+    ys = [float(y)/sum(ys) for y in ys]
     return xs,ys
 
 
