@@ -659,7 +659,7 @@ def scatter_three_levels(low_json,medium_json,high_json):
     
     yls = '$y_T$'
     xls = 'C'
-    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[1]
     title = 'citation distribution  over total citation years'
     low_xs,low_ys = citation_num_yt(low_json)
@@ -684,6 +684,18 @@ def scatter_three_levels(low_json,medium_json,high_json):
     plot_year_dis(ax2,h_xs,h_ys,title,xls,yls,label='high cited papers')
     ax2.legend()
 
+    ax3 = axes[2]
+    title = 'citation distribution  over published years'
+    low_xs,low_ys = citation_num_year(low_json)
+    m_xs,m_ys = citation_num_year(medium_json)
+    h_xs,h_ys = citation_num_yt(high_json)
+    
+    scatter_levels(ax3,low_xs,low_ys,title,xls,yls,label='low cited papers')
+    scatter_levels(ax3,m_xs,m_ys,title,xls,yls,label='medium cited papers')
+    scatter_levels(ax3,h_xs,h_ys,title,xls,yls,label='high cited papers')
+    ax1.legend()
+
+
     plt.tight_layout()
     namepath = 'pdf/scatter_three_levels.pdf'
     plt.savefig(namepath,dpi=300)
@@ -702,6 +714,21 @@ def citation_num_yt(cited_papers_json):
         xs.append(np.max(citations_years)-year)
         ys.append(len(citations_years))
     return xs,ys
+
+#from perspective of citation order
+def citation_num_year(cited_papers_json):
+    cited_papers = json.loads(open(cited_papers_json).read())
+    xs=[]
+    ys=[]    
+    for k in cited_papers.keys():
+        paper_dict = cited_papers[k]
+        pid = paper_dict['pid']
+        year = paper_dict['year']
+        citations_years = [int(cit.split(',')[1]) for cit in paper_dict['citations']]
+        xs.append(np.max(citations_years))
+        ys.append(len(citations_years))
+    return xs,ys
+
 
 def citation_years(cited_papers_json):
     cited_papers = json.loads(open(cited_papers_json).read())
