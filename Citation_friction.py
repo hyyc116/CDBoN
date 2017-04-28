@@ -418,16 +418,19 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
 
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
+        yls = '$t_i$'
     elif xyfunc_name=='co_delta_ti':
         xyfunc = co_delta_ti
+        yls = '$\Delta t_i$'
     elif xyfunc_name=='co_ti_di':
         xyfunc = co_ti_di
+        yls = '$t_i/i$'
 
     print xyfunc_name,'with i=',i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
     xls = 'citation order $i$'
-    yls = '$\Delta t_i$'
+    
     print 'low cited papers'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc,i)
