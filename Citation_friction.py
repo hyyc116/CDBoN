@@ -45,11 +45,13 @@ def citation_count_json(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     citation_num_list = [] 
     for k in data.keys():
+        if data[k]['year']>2005:
+            continue
         citation_num_list.append(len(data[k]['citations']))
 
     num_counter = Counter(citation_num_list)
 
-    open('data/aminer_citation_num_dict.json','w').write(json.dumps(num_counter))
+    open('data/aminer_citation_num_dict_b2005.json','w').write(json.dumps(num_counter))
 
 def plot_citation_num():
     data = json.loads(open('aminer_citation_num_dict.json').read())
