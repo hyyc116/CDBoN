@@ -397,7 +397,6 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
 
 def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all'):
 
-
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
     elif xyfunc_name=='co_delta_ti':
@@ -406,29 +405,24 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     print xyfunc_name,'with i=',i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
-
+    xls = 'citation order $i$'
+    yls = '$\Delta t_i$'
     print 'low cited papers'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'low cited papers'
-    xls = 'citation order $i$'
-    yls = 'Citation time $t_i$'
     plot_levels(ax1,low_xy_dict,title,xls,yls)
 
     ax2= axes[1]
     print 'medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'medium cited papers'
-    xls = 'citation order $i$'
-    yls = 'Citation time $t_i$'
     plot_levels(ax2,medium_xy_dict,title,xls,yls)
 
     ax3= axes[2]
     print 'high cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'high cited papers'
-    xls = 'citation order $i$'
-    yls = 'Citation time $t_i$'
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
