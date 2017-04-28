@@ -774,8 +774,11 @@ def citation_ages(citation_network_path):
         ys.append(len(age_dict[year]))
 
     ax1.plot(xs,ys)
+    ax1.set_title('Paper distribution over published year')
     ax1.set_xlabel('published year')
     ax1.set_ylabel('Paper count')
+    ax1.set_xlim(1940,2020)
+    ax1.set_yscale('log')
 
     ax2=axes[1]
     xs = []
@@ -785,8 +788,12 @@ def citation_ages(citation_network_path):
         ys.append(sum(age_dict[year])/float(len(age_dict[year])))
 
     ax2.plot(xs,ys)
-    ax2.set_xlabel('published year')
+    ax2.plot(np.linspace(1960,2020,10),[sum(ys)/float(len(ys))]*10,'--',label='mean:{:.2f}'.format(sum(ys)/float(len(ys))))
+    ax2.set_title('Average Citation Age of papers published at year x')
+    ax2.set_xlabel('published year x')
     ax2.set_ylabel('Average Citation Age')
+    ax2.set_xlim(1960,2020)
+    ax2.set_yscale('log')
 
     plt.tight_layout()
     plt.savefig('pdf/citation_ages.png',dpi=300)
