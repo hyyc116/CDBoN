@@ -510,6 +510,10 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
         xyfunc = cy_cyi_dyi
         xls='citation year $y_i$'
         yls='$C_{y_i}/y_i$'
+    elif xyfunc_name=='cy_yi_dcyi':
+        xyfunc = cy_yi_dcyi
+        xls='citation year $y_i$'
+        yls='$y_i/C_{y_i}$'
     elif xyfunc_name=='cy_delta_cyi_yi':
         xyfunc = cy_delta_cyi_yi
         xls='citation year $y_i$'
