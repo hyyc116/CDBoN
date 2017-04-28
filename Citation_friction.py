@@ -660,7 +660,7 @@ def scatter_three_levels(low_json,medium_json,high_json):
     xls = '$y_T$'
     yls = 'C'
     fig,axes = plt.subplots(1,3,figsize=(15,5))
-    ax1 = axes[1]
+    ax1 = axes[2]
     title = 'citation distribution  over total citation years'
     low_xs,low_ys = citation_num_yt(low_json)
     m_xs,m_ys = citation_num_yt(medium_json)
@@ -684,10 +684,10 @@ def scatter_three_levels(low_json,medium_json,high_json):
     plot_year_dis(ax2,h_xs,h_ys,title,xls,yls,label='high cited papers')
     ax2.legend()
 
-    ax3 = axes[2]
-    xls = '$published year$'
-    yls = '$Citations$'
-    title = 'citation distribution  over published years'
+    ax3 = axes[1]
+    xls = '$y_0$'
+    yls = '$C$'
+    title = 'Citation distribution over published years'
     low_xs,low_ys = citation_num_year(low_json)
     m_xs,m_ys = citation_num_year(medium_json)
     h_xs,h_ys = citation_num_year(high_json)
