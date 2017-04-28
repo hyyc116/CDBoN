@@ -777,7 +777,7 @@ def citation_ages(citation_network_path):
     ax1.set_title('Paper distribution over published year')
     ax1.set_xlabel('published year')
     ax1.set_ylabel('Paper count')
-    ax1.set_xlim(1940,2020)
+    ax1.set_xlim(1930,2020)
     # ax1.set_yscale('log')
 
     ax2=axes[1]
@@ -796,7 +796,7 @@ def citation_ages(citation_network_path):
     ax2.set_title('Average Citation Age of papers published at year x')
     ax2.set_xlabel('published year x')
     ax2.set_ylabel('Average Citation Age')
-    ax2.set_xlim(1960,2020)
+    ax2.set_xlim(1930,2020)
     # ax2.set_yscale('log')
     ax2.legend()
 
