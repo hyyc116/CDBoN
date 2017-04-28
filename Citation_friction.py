@@ -637,6 +637,89 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
 
+def scatter_levels(ax,xs,ys,title,xls,yls,label='low cited papers'):
+    
+    ax.scatter(xs,ys,marker='.')
+
+    ax.set_title(title)
+    ax.set_xlabel(xls)
+    ax.set_ylabel(yls)
+    ax.set_yscale('log')
+
+def plot_year_dis(ax,xs,ys,title,xls,yls,label='low cited papers'):
+    
+    ax.plot(xs,ys)
+
+    ax.set_title(title)
+    ax.set_xlabel(xls)
+    ax.set_ylabel(yls)
+    # ax.set_yscale('log')
+
+def scatter_three_levels(low_json,medium_json,high_json):
+    
+    yls = '$y_T$'
+    xls = 'C'
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[1]
+    title = 'citation distribution  over total citation years'
+    low_xs,low_ys = citation_num_yt(low_json)
+    m_xs,m_ys = citation_num_yt(medium_json)
+    h_xs,h_ys = citation_num_yt(high_json)
+    
+    scatter_levels(ax1,low_xs,low_ys,title,xls,yls,label='low cited papers')
+    scatter_levels(ax1,m_xs,m_ys,title,xls,yls,label='medium cited papers')
+    scatter_levels(ax1,h_xs,h_ys,title,xls,yls,label='high cited papers')
+
+    ax2= axes[0]
+    yls = '$y_0$'
+    xls = '$N(y_0)$'
+    title = 'Paper distribution over published years'
+    low_xs,low_ys = citation_years(low_json)
+    m_xs,m_ys = citation_years(medium_json)
+    h_xs,h_ys = citation_years(high_json)
+    
+    plot_year_dis(ax2,low_xs,low_ys,title,xls,yls,label='low cited papers')
+    plot_year_dis(ax2,m_xs,m_ys,title,xls,yls,label='medium cited papers')
+    plot_year_dis(ax2,h_xs,h_ys,title,xls,yls,label='high cited papers')
+
+    plt.tight_layout()
+    namepath = 'pdf/scatter_three_levels.pdf'
+    plt.savefig(namepath,dpi=300)
+    print 'Result saved to',namepath
+
+#from perspective of citation order
+def citation_num_yt(cited_papers_json):
+    cited_papers = json.loads(open(cited_papers_json).read())
+    xs=[]
+    ys=[]    
+    for k in cited_papers.keys():
+        paper_dict = cited_papers[k]
+        pid = paper_dict['pid']
+        year = paper_dict['year']
+        citations_years = [int(cit.split(',')[1]) for cit in paper_dict['citations']]
+        xs.append(np.max(citations_years)-year)
+        ys.append(len(citations_years))
+    return xs,ys
+
+def citation_years(cited_papers_json):
+    cited_papers = json.loads(open(cited_papers_json).read())
+    xs=[]
+    ys=[]
+    years=[]    
+    for k in cited_papers.keys():
+        paper_dict = cited_papers[k]
+        pid = paper_dict['pid']
+        year = paper_dict['year']
+        years.append(year)
+    
+    years_counter = Counter(years)
+    for year in sorted(years_counter.keys()):
+        xs.apepnd(year)
+        ys.append(year_counter[year])
+
+    return xs,ys
+
+
 
 #divide paper with three point
 def divide_paper_level(citation_network_path):
@@ -1126,6 +1209,8 @@ def main():
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
         plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
+    elif label=='scatter_levels':
+        scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
