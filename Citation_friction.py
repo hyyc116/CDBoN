@@ -453,6 +453,24 @@ def cy_cyi_dyi(citations,year,i='all'):
 
     return xs,ys
 
+#citation year
+def cy_yi_dcyi(citations,year,i='all'):
+    yi_list =[]
+    for cpid, cyear in sorted(citations,key=lambda x:x[1]):
+        yi = cyear-year+1
+        yi_list.append(yi)
+
+    yi_counter = Counter(yi_list)
+    
+    xs = []
+    ys = []
+    acc_count=0
+    for yi in sorted(yi_counter.keys()):
+        xs.append(yi)
+        acc_count += yi_counter[yi]
+        ys.append(float(yi)/acc_count)
+
+    return xs,ys
 
 #from perspective of citation order
 def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
