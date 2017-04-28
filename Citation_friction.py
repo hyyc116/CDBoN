@@ -1266,7 +1266,7 @@ def main():
         plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
     elif label=='scatter_levels':
         scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
-    elif label='citation_ages':
+    elif label=='citation_ages':
         citation_ages(sys.argv[2])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
