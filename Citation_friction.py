@@ -394,7 +394,7 @@ def co_ti_di(citations,year,i='all'):
     for i, ti in enumerate(ti_list):
         order = i+1
         xs.append(order)
-        ys.append(ti/float(i))
+        ys.append(ti/float(order))
 
     return xs,ys
 
