@@ -657,8 +657,8 @@ def plot_year_dis(ax,xs,ys,title,xls,yls,label='low cited papers'):
 
 def scatter_three_levels(low_json,medium_json,high_json):
     
-    yls = '$y_T$'
-    xls = 'C'
+    xls = '$y_T$'
+    yls = 'C'
     fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[1]
     title = 'citation distribution  over total citation years'
