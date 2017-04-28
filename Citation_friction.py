@@ -350,6 +350,34 @@ def co_ti_i(citations,year,i='all'):
 
     return xs,ys
 
+def co_delta_ti(citations,year,i='all'):
+    if i=='all':
+        i = len(citations)
+    else:
+        i = int(i)
+
+    ti_list = []
+    delta_ti_list = []
+    for cpid, cyear in sorted(citations,key=lambda x:x[1])[:i]:
+        t_i = cyear-year+1
+        if len(ti_list)>0:
+            delta_ti = t_i - ti_list[-1]
+        else:
+            delta_ti = t_i
+
+        ti_list.append(t_i)
+        delta_ti_list.append(delta_ti)
+    
+    xs = []
+    ys = []
+
+    for i, ti in enumerate(delta_ti_list):
+        order = i+1
+        xs.append(order)
+        ys.append(ti)
+
+    return xs,ys
+
 
 #from perspective of citation order
 def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
@@ -372,6 +400,8 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
 
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
+    elif xyfunc_name=='co_delta_ti':
+        xyfunc = co_delta_ti
 
     print xyfunc_name,'with i=',i
 
