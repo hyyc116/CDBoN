@@ -725,7 +725,7 @@ def citation_num_year(cited_papers_json):
         pid = paper_dict['pid']
         year = paper_dict['year']
         citations_years = [int(cit.split(',')[1]) for cit in paper_dict['citations']]
-        xs.append(np.max(citations_years))
+        xs.append(year)
         ys.append(len(citations_years))
     return xs,ys
 
