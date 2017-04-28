@@ -314,23 +314,25 @@ def get_three_levels_paper(citation_network_path):
 
 
 #citation order t_i vs i
-def co_ti_all(citations,year):
-    ti_list = []
-    for cpid, cyear in sorted(citations,key=lambda x:x[1]):
-        ti_list.append(cyear-year+1)
+# def co_ti_all(citations,year):
+#     ti_list = []
+#     for cpid, cyear in sorted(citations,key=lambda x:x[1]):
+#         ti_list.append(cyear-year+1)
     
-    xs = []
-    ys = []
+#     xs = []
+#     ys = []
 
-    for i, ti in enumerate(ti_list):
-        order = i+1
-        xs.append(order)
-        ys.append(ti)
+#     for i, ti in enumerate(ti_list):
+#         order = i+1
+#         xs.append(order)
+#         ys.append(ti)
 
-    return xs,ys
+#     return xs,ys
 
 # git their first i citation
-def co_ti_i(citations,year,i=10):
+def co_ti_i(citations,year,i='all'):
+    if i=='all':
+        i=len(citations)
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1])[:i]:
         ti_list.append(cyear-year+1)
@@ -347,7 +349,7 @@ def co_ti_i(citations,year,i=10):
 
 
 #from perspective of citation order
-def citation_order(cited_papers_json,xyfunc=co_ti_i):
+def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
     cited_papers = json.loads(open(cited_papers_json).read())
     xs_ys_dict={}
     
@@ -356,17 +358,16 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i):
         pid = paper_dict['pid']
         year = paper_dict['year']
         citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in paper_dict['citations']]
-        xs,ys = xyfunc(citations,year)
+        xs,ys = xyfunc(citations,year,i)
         xs_ys_dict[pid]=(xs,ys)
 
     return xs_ys_dict
 
 
-def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_all'):
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all'):
 
-    if xyfunc_name=='co_ti_all':
-        xyfunc = co_ti_all
-    elif xyfunc_name=='co_ti_i':
+
+    if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
 
     print xyfunc_name,xyfunc
@@ -375,7 +376,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
 
     print 'low cited papers'
     ax1 = axes[0]
-    low_xy_dict = citation_order(low_json,xyfunc)
+    low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'low cited papers'
     xls = 'citation order $i$'
     yls = 'Citation time $t_i$'
@@ -383,7 +384,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
 
     ax2= axes[1]
     print 'medium cited papers'
-    medium_xy_dict = citation_order(medium_json,xyfunc)
+    medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'medium cited papers'
     xls = 'citation order $i$'
     yls = 'Citation time $t_i$'
@@ -391,14 +392,14 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_al
 
     ax3= axes[2]
     print 'high cited papers'
-    high_xy_dict = citation_order(high_json,xyfunc)
+    high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'high cited papers'
     xls = 'citation order $i$'
     yls = 'Citation time $t_i$'
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
-    plt.savefig('pdf/three_levels_{:}.pdf'.format(str(xyfunc_name)),dpi=300)
+    plt.savefig('pdf/three_levels_{:}_{:}.pdf'.format(xyfunc_name,i),dpi=300)
 
 
 def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
@@ -410,13 +411,6 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
     ax.set_xlabel(xls)
     ax.set_ylabel(yls)
     ax.set_ylim(0,ylims_up)
-
-
-
-
-
-
-
 
 
 #divide paper with three point
@@ -467,7 +461,6 @@ def divide_paper_level(citation_network_path):
     # print medium_selected
 
     # for num in range(5,11):
-
 
     low_selected = random.sample(low_citations[10],1000)
 
