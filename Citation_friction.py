@@ -41,7 +41,7 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
-def citation_count_json(citation_network_path):
+def _b2005citation_count_json(citation_network_path):
     data = json.loads(open(citation_network_path).read())
     citation_num_list = [] 
     for k in data.keys():
@@ -54,7 +54,7 @@ def citation_count_json(citation_network_path):
     open('data/aminer_citation_num_dict_b2005.json','w').write(json.dumps(num_counter))
 
 def plot_citation_num():
-    data = json.loads(open('aminer_citation_num_dict.json').read())
+    data = json.loads(open('aminer_citation_num_dict_b2005.json').read())
     xs=[]
     ys=[]
     total_count=0
@@ -130,7 +130,7 @@ def plot_citation_num():
     #     y1 + plot_margin))
 
     plt.tight_layout()
-    plt.savefig('citation_dis.png',dpi=300)
+    plt.savefig('citation_dis_b2005.png',dpi=300)
 
 def autolabel(rects,ax,total_count=None,step=1,):
     """
@@ -776,9 +776,9 @@ def citation_ages(citation_network_path):
         ys.append(len(age_dict[year]))
 
     ax1.plot(xs,ys)
-    ax1.set_title('Paper distribution over published year')
-    ax1.set_xlabel('published year')
-    ax1.set_ylabel('Paper count')
+    ax1.set_title('Paper distribution over published year',fontsize=15)
+    ax1.set_xlabel('published year',fontsize=10)
+    ax1.set_ylabel('Paper count',fontsize=10)
     ax1.set_xlim(1930,2020)
     # ax1.set_yscale('log')
 
@@ -795,9 +795,9 @@ def citation_ages(citation_network_path):
     a_avg = sum(avg)/float(len(avg))
     ax2.plot(xs,ys)
     ax2.plot(np.linspace(1960,2020,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
-    ax2.set_title('Average Citation Age of papers published at year x')
-    ax2.set_xlabel('published year x')
-    ax2.set_ylabel('Average Citation Age')
+    ax2.set_title('Average Citation Age of papers published at year x',fontsize=15)
+    ax2.set_xlabel('published year x',fontsize=10)
+    ax2.set_ylabel('Average Citation Age',fontsize=10)
     ax2.set_xlim(1930,2020)
     # ax2.set_yscale('log')
     ax2.legend()
@@ -1312,6 +1312,6 @@ def main():
         print 'No such label'
     
 if __name__ == '__main__':
-    # plot_citation_num()
-    main()
+    plot_citation_num()
+    # main()
     
