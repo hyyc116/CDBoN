@@ -672,8 +672,8 @@ def scatter_three_levels(low_json,medium_json,high_json):
     ax1.legend()
 
     ax2= axes[0]
-    yls = '$y_0$'
-    xls = '$N(y_0)$'
+    xls = '$y_0$'
+    yls = '$N(y_0)$'
     title = 'Paper distribution over published years'
     low_xs,low_ys = citation_years(low_json)
     m_xs,m_ys = citation_years(medium_json)
@@ -685,6 +685,8 @@ def scatter_three_levels(low_json,medium_json,high_json):
     ax2.legend()
 
     ax3 = axes[2]
+    xls = '$published year$'
+    yls = '$Citations$'
     title = 'citation distribution  over published years'
     low_xs,low_ys = citation_num_year(low_json)
     m_xs,m_ys = citation_num_year(medium_json)
