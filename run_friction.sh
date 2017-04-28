@@ -32,4 +32,8 @@
 # # 
 # python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_delta_yi_ddelta_cyi all
 
-python Citation_friction.py scatter_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json
+# python Citation_friction.py scatter_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json
+
+python Citation_friction.py citation_ages data/aminer_citation_dict.json
+
+

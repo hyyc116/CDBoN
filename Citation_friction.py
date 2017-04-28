@@ -752,6 +752,29 @@ def citation_years(cited_papers_json):
     return xs,ys
 
 
+#from perspective of citation order
+def citation_ages(citation_network_path):
+    cited_papers = json.loads(open(citation_network_path).read())
+    age_dict=defaultdict(list)
+    
+    for k in cited_papers.keys():
+        paper_dict = cited_papers[k]
+        pid = paper_dict['pid']
+        year = paper_dict['year']
+        citations = [int(cit.split(',')[1]) for cit in paper_dict['citations']]
+        age = np.max(citations)-year
+        age_dict[year].append(age)
+
+    xs = []
+    ys = []
+    for year in sorted(age_dict.keys()):
+        xs.append(year)
+        ys.append(sum(age_dict[year])/float(len(age_dict[year])))
+
+    plt.plot(xs,ys)
+    plt.save('pdf/citation_ages.png',dpi=300)
+
+
 
 #divide paper with three point
 def divide_paper_level(citation_network_path):
@@ -1243,6 +1266,8 @@ def main():
         plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
     elif label=='scatter_levels':
         scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
+    elif label='citation_ages':
+        citation_ages(sys.argv[2])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
