@@ -333,6 +333,9 @@ def get_three_levels_paper(citation_network_path):
 def co_ti_i(citations,year,i='all'):
     if i=='all':
         i=len(citations)
+    else:
+        i=int(i)
+
     ti_list = []
     for cpid, cyear in sorted(citations,key=lambda x:x[1])[:i]:
         ti_list.append(cyear-year+1)
@@ -370,7 +373,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
 
-    print xyfunc_name,xyfunc
+    print xyfunc_name,'with i=',i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
 
@@ -399,7 +402,9 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
-    plt.savefig('pdf/three_levels_{:}_{:}.pdf'.format(xyfunc_name,i),dpi=300)
+    namepath = 'pdf/three_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
+    plt.savefig(namepath,dpi=300)
+    print 'Result saved to',namepath
 
 
 def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
@@ -900,7 +905,7 @@ def main():
     elif label=='co':
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
-        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
     elif label =='plot_top':
         plot_top_N(sys.argv[2],int(sys.argv[3]))
     elif label =='friction':
