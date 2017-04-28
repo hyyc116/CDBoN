@@ -788,7 +788,7 @@ def citation_ages(citation_network_path):
     ax2.set_xlabel('published year')
     ax2.set_ylabel('Average Citation Age')
 
-
+    plt.tight_layout()
     plt.savefig('pdf/citation_ages.png',dpi=300)
 
 
