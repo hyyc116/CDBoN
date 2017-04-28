@@ -688,12 +688,12 @@ def scatter_three_levels(low_json,medium_json,high_json):
     title = 'citation distribution  over published years'
     low_xs,low_ys = citation_num_year(low_json)
     m_xs,m_ys = citation_num_year(medium_json)
-    h_xs,h_ys = citation_num_yt(high_json)
+    h_xs,h_ys = citation_num_year(high_json)
     
     scatter_levels(ax3,low_xs,low_ys,title,xls,yls,label='low cited papers')
     scatter_levels(ax3,m_xs,m_ys,title,xls,yls,label='medium cited papers')
     scatter_levels(ax3,h_xs,h_ys,title,xls,yls,label='high cited papers')
-    ax1.legend()
+    ax3.legend()
 
 
     plt.tight_layout()
