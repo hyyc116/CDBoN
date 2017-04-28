@@ -765,14 +765,31 @@ def citation_ages(citation_network_path):
         age = np.max(citations)-year
         age_dict[year].append(age)
 
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1=axes[0]
+    xs = []
+    ys = []
+    for year in sorted(age_dict.keys()):
+        xs.append(year)
+        ys.append(len(age_dict[year]))
+
+    ax1.plot(xs,ys)
+    ax1.set_xlabel('published year')
+    ax1.set_ylabel('Paper count')
+
+    ax2=axes[1]
     xs = []
     ys = []
     for year in sorted(age_dict.keys()):
         xs.append(year)
         ys.append(sum(age_dict[year])/float(len(age_dict[year])))
 
-    plt.plot(xs,ys)
-    plt.save('pdf/citation_ages.png',dpi=300)
+    ax2.plot(xs,ys)
+    ax2.set_xlabel('published year')
+    ax2.set_ylabel('Average Citation Age')
+
+
+    plt.savefig('pdf/citation_ages.png',dpi=300)
 
 
 
