@@ -398,6 +398,26 @@ def co_ti_di(citations,year,i='all'):
 
     return xs,ys
 
+#citation year
+def cy_cyi_yi(citations,year,i='all'):
+    yi_list =[]
+    for cpid, cyear in sorted(citations,key=lambda x:x[1]):
+        yi = cyear-year
+        yi_list.append(yi)
+
+    yi_counter = Counter(yi_list)
+    
+    xs = []
+    ys = []
+    acc_count=0
+    for yi in sorted(yi_counter.keys()):
+        xs.append(yi)
+        acc_count += yi_counter[yi]
+        ys.append(acc_count)
+
+    return xs,ys
+
+
 #from perspective of citation order
 def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
     cited_papers = json.loads(open(cited_papers_json).read())
@@ -419,17 +439,24 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
         yls = '$t_i$'
+        xls = 'citation order $i$'
     elif xyfunc_name=='co_delta_ti':
         xyfunc = co_delta_ti
         yls = '$\Delta t_i$'
+        xls = 'citation order $i$'
     elif xyfunc_name=='co_ti_di':
         xyfunc = co_ti_di
         yls = '$t_i/i$'
-
+        xls = 'citation order $i$'
+    elif xyfunc_name=='cy_cyi_yi':
+        xyfunc = cy_cyi_yi
+        xls='citation year $y_i$'
+        yls='$C_{y_i}$'
+        
     print xyfunc_name,'with i=',i
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
-    xls = 'citation order $i$'
+    
     
     print 'low cited papers'
     ax1 = axes[0]
