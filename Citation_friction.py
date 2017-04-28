@@ -669,6 +669,7 @@ def scatter_three_levels(low_json,medium_json,high_json):
     scatter_levels(ax1,low_xs,low_ys,title,xls,yls,label='low cited papers')
     scatter_levels(ax1,m_xs,m_ys,title,xls,yls,label='medium cited papers')
     scatter_levels(ax1,h_xs,h_ys,title,xls,yls,label='high cited papers')
+    ax1.legend()
 
     ax2= axes[0]
     yls = '$y_0$'
@@ -681,6 +682,7 @@ def scatter_three_levels(low_json,medium_json,high_json):
     plot_year_dis(ax2,low_xs,low_ys,title,xls,yls,label='low cited papers')
     plot_year_dis(ax2,m_xs,m_ys,title,xls,yls,label='medium cited papers')
     plot_year_dis(ax2,h_xs,h_ys,title,xls,yls,label='high cited papers')
+    ax2.legend()
 
     plt.tight_layout()
     namepath = 'pdf/scatter_three_levels.pdf'
