@@ -639,7 +639,7 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
 
 def scatter_levels(ax,xs,ys,title,xls,yls,label='low cited papers'):
     
-    ax.scatter(xs,ys,marker='.')
+    ax.scatter(xs,ys,marker='.',label=label)
 
     ax.set_title(title)
     ax.set_xlabel(xls)
@@ -648,7 +648,7 @@ def scatter_levels(ax,xs,ys,title,xls,yls,label='low cited papers'):
 
 def plot_year_dis(ax,xs,ys,title,xls,yls,label='low cited papers'):
     
-    ax.plot(xs,ys)
+    ax.plot(xs,ys,label=label)
 
     ax.set_title(title)
     ax.set_xlabel(xls)
