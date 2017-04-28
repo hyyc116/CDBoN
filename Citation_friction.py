@@ -438,7 +438,7 @@ def cy_delta_cyi_yi(citations,year,i='all'):
 def cy_cyi_dyi(citations,year,i='all'):
     yi_list =[]
     for cpid, cyear in sorted(citations,key=lambda x:x[1]):
-        yi = cyear-year
+        yi = cyear-year+1
         yi_list.append(yi)
 
     yi_counter = Counter(yi_list)
