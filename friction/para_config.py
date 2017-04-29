@@ -19,3 +19,21 @@ PREFIX='all'
 PROGRAM_ID='friction'
 FIGDIR='pdf'
 DATADIR='data'
+
+
+def autolabel(rects,ax,total_count=None,step=1,):
+    """
+    Attach a text label above each bar displaying its height
+    """
+    for index in np.arange(len(rects),step=step):
+        rect = rects[index]
+        height = rect.get_height()
+        # print height
+        if not total_count is None:
+            ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
+                    '{:}\n({:.6f})'.format(int(height),height/float(total_count)),
+                    ha='center', va='bottom')
+        else:
+            ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
+                    '{:}'.format(int(height)),
+                    ha='center', va='bottom')
