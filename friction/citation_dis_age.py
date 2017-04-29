@@ -20,9 +20,7 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
     for year in sorted(year_dict.keys()):
         xs.append(year)
         ys.append(year_dict[year])
-
     
-    ax1.plot(xs,ys)
     title = 'Paper distribution over published year'
     xls = 'published year'
     if index is not None:
@@ -70,8 +68,8 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
     yls = 'Average Citation Age'
     subplot_line(ax,xs,ys,title,xls,yls)
     ax.plot(np.linspace(1980,2020,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
-    ax2.set_xlim(1930,2020)
-    ax2.legend()
+    ax.set_xlim(1930,2020)
+    ax.legend()
 
     if ax is None:
         plt.tight_layout()
