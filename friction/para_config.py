@@ -12,7 +12,9 @@ from sklearn.metrics import r2_score
 import math
 import numpy as np
 import random
+import logging
 
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.DEBUG)
 PREFIX='all'
 PROGRAM_ID='friction'
 FIGDIR='pdf'

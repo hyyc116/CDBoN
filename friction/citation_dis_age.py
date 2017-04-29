@@ -21,6 +21,8 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
         xs.append(year)
         ys.append(year_dict[year])
     
+    logging.info('paper distribution...')
+
     title = 'Paper distribution over published year'
     xls = 'published year'
     if index is not None:
@@ -28,7 +30,7 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
     yls = 'Number of papers'
     subplot_line(ax,xs,ys,title,xls,yls)
     ax.set_xlim(1930,2020)
-
+    logging.info('plot done...')
     if ax is None:
         plt.tight_layout()
         fig_path = '{:}/{:}_{:}_citation_dis.pdf'.format(FIGDIR,PROGRAM_ID,PREFIX)
@@ -37,6 +39,7 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
 
 #calculate the period of citation age
 def citation_ages(loaded_papers_json,ax=None,index=None):
+    logging.info('citation age with index {:}'.format(index))
     age_dict=defaultdict(list)
     for k in loaded_papers_json.keys():
         paper_dict = loaded_papers_json[k]
@@ -70,7 +73,7 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
     ax.plot(np.linspace(1980,2020,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
     ax.set_xlim(1930,2020)
     ax.legend()
-
+    logging.info('plot done...')
     if ax is None:
         plt.tight_layout()
         fig_path = '{:}/{:}_{:}_citation_ages.pdf'.format(FIGDIR,PROGRAM_ID,PREFIX)
@@ -78,6 +81,7 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
 
 
 def citation_dis_age(citation_network_path):
+    logging.info('plot paper distribution and citation ages dis...')
     cited_papers = json.loads(open(citation_network_path).read())
     num = len(plt.get_fignums())
     plt.figure(num)
@@ -92,6 +96,7 @@ def citation_dis_age(citation_network_path):
 
     plt.tight_layout()
     fig_path = '{:}/{:}_{:}_citation_dis_ages.pdf'.format(FIGDIR,PROGRAM_ID,PREFIX)
+    logging.info('fig saved to {:}'.format(fig_path))
     plt.savefig(fig_path,dpi=300)
 
 if __name__ == '__main__':
