@@ -1,6 +1,6 @@
 #coding:utf-8
 from para_config import *
-from citation_friction import *
+from friction_plots import *
 
 def paper_distribution(loaded_papers_json,ax=None,index=None):
     year_dict=defaultdict(int)
