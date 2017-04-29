@@ -1,5 +1,6 @@
 #coding:utf-8
 from para_config import *
+from friction_plots.py import *
 
 #get three levels of papers
 def get_three_levels_paper(citation_network_path,N):
