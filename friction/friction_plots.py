@@ -18,7 +18,7 @@ def subplot_line(ax,xs,ys,title,xls,yls):
     ax.set_ylabel(yls,fontsize=10)
 
 def subplot_scatter(ax,xs,ys,title,xls,yls):
-    ax.scatter(xs,ys,marker=add'.')
+    ax.scatter(xs,ys,marker='.')
     ax.set_title(title,fontsize=15)
     ax.set_xlabel(xls,fontsize=10)
     ax.set_ylabel(yls,fontsize=10)
