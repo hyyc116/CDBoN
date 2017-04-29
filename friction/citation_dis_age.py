@@ -83,7 +83,7 @@ def citation_dis_age(citation_network_path):
     cited_papers = json.loads(open(citation_network_path).read())
     num = len(plt.get_fignums())
     plt.figure(num)
-    fig,axes = plt.subplots(1,2,figsize(10,5))
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax1 = axes[0]
     index = '(a)'
     # citation distribution
