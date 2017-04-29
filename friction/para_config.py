@@ -21,6 +21,9 @@ FIGDIR='pdf'
 DATADIR='data'
 
 
+def power_low_func(x,a,b):
+    return b*(x**(-a))
+
 def autolabel(rects,ax,total_count=None,step=1,):
     """
     Attach a text label above each bar displaying its height
