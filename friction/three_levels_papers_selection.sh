@@ -1,10 +1,10 @@
-## run paper distribution and citation
-python citation_dis_age.py data/aminer_citation_dict.json
+# ## run paper distribution and citation
+# python citation_dis_age.py data/aminer_citation_dict.json
 
-## after analyzing the paper distribution and citation age of this dataset, we first do the data statistics before 2006
+# ## after analyzing the paper distribution and citation age of this dataset, we first do the data statistics before 2006
 
-## get statistics of citation distribution and plot figures
-python citation_nums.py data/aminer_citation_dict.json 2005
+# ## get statistics of citation distribution and plot figures
+# python citation_nums.py data/aminer_citation_dict.json 2005
 
 
 ## random select three cited levels papers
