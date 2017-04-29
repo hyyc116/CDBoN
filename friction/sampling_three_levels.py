@@ -104,8 +104,8 @@ def get_three_levels_paper(citation_network_path,N):
     subplot_scatter(ax3,xs,ys,title,xls,yls)
 
     ax4= axes[3]
-    xls = '$year x\n(d)$'
-    yls = '$N(x)$'
+    xls = '$year x$\n(d)'
+    yls = 'Percentage $P(x)$'
     title = 'Selected paper distribution'
     low_xs,low_ys = citation_years(low_selected_papers)
     m_xs,m_ys = citation_years(medium_selected_papers)
