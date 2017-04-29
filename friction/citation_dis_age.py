@@ -21,15 +21,15 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
         xs.append(year)
         ys.append(year_dict[year])
     
-    logging.info('paper distribution...')
+    logging.info('paper distribution with index {:} ...'.format(index))
 
-    title = 'Paper distribution over published year'
+    title = 'Paper distribution'
     xls = 'published year'
     if index is not None:
         xls += '\n{:}'.format(index)
     yls = 'Number of papers'
     subplot_line(ax,xs,ys,title,xls,yls)
-    ax.set_xlim(1930,2020)
+    # ax.set_xlim(1930,2020)
     logging.info('plot done...')
     if ax is None:
         plt.tight_layout()
@@ -64,14 +64,14 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
             avg.append(sum(age_dict[year])/float(len(age_dict[year])))
 
     a_avg = sum(avg)/float(len(avg))
-    title = 'Average Citation Age of papers published at year x'
+    title = 'Average Citation Age'
     xls = 'published year x'
     if index is not None:
         xls += '\n{:}'.format(index)
     yls = 'Average Citation Age'
     subplot_line(ax,xs,ys,title,xls,yls)
-    ax.plot(np.linspace(1980,2020,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
-    ax.set_xlim(1930,2020)
+    ax.plot(np.linspace(1980,2015,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
+    # ax.set_xlim(1930,2020)
     ax.legend()
     logging.info('plot done...')
     if ax is None:
