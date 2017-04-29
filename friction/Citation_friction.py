@@ -12,6 +12,12 @@ import math
 import numpy as np
 import random
 
+PREFIX='all'
+PROGRAM_ID='friction'
+PAGEDIR='pdf'
+DATADIR='data'
+
+#from the aminer_refence to build citation network
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
     data = json.loads(open(path).read())
@@ -41,17 +47,7 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
-def _b2005citation_count_json(citation_network_path):
-    data = json.loads(open(citation_network_path).read())
-    citation_num_list = [] 
-    for k in data.keys():
-        if data[k]['year']>2005:
-            continue
-        citation_num_list.append(len(data[k]['citations']))
 
-    num_counter = Counter(citation_num_list)
-
-    open('data/aminer_citation_num_dict_b2005.json','w').write(json.dumps(num_counter))
 
 def plot_citation_num():
     data = json.loads(open('aminer_citation_num_dict_b2005.json').read())
@@ -1312,6 +1308,6 @@ def main():
         print 'No such label'
     
 if __name__ == '__main__':
-    plot_citation_num()
-    # main()
+    # plot_citation_num()
+    main()
     
