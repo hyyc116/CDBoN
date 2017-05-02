@@ -76,12 +76,16 @@ def cascade_size_distribution(citation_cascade):
     logging.info('data loaded...')
     cnum_dict=defaultdict(int)
     enum_dict=defaultdict(int)
+    cxs=[]
+    eys=[]
     for pid in cc.keys():
         cnum_dict[cc[pid]['cnum']]+=1
-        enum_dict[cc[pid]['enum']]+=1
+        cxs.append(cc[pid]['cnum'])
+        enum_dict[cc[pid]['cnum']]+=1
+        eys.append(cc[pid]['cnum'])
 
     logging.info('plot data...')
-    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[0]
     xs=[]
     ys=[]
@@ -90,6 +94,8 @@ def cascade_size_distribution(citation_cascade):
         ys.append(cnum_dict[num])
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('Citation Count Distribution')
+    ax1.set_xlabel('Citation Count')
+    ax1.set_ylabel('Number')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
 
@@ -100,8 +106,19 @@ def cascade_size_distribution(citation_cascade):
 
     ax2.plot(xs,ys,'o',fillstyle='none')
     ax2.set_title('Cascade Size Distribution')
+    ax2.set_xlabel('Cascade Size')
+    ax2.set_ylabel('Number')
     ax2.set_yscale('log')
     ax2.set_xscale('log')
+
+    ax3 = axes[2]
+    ax3.plot(cxs,eys,'o',fillstyle='None')
+    ax3.set_xscale('log')
+    ax3.set_yscale('log')
+    ax3.set_title('Citation Count vs. Cascade Size')
+    ax1.set_xlabel('Citation Count')
+    ax1.set_ylabel('Cascade Size')
+
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
