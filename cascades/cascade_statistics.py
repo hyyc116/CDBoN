@@ -54,11 +54,11 @@ def build_cascades(citation_network):
             cp_dict = cn[cpid]['citations']
             j=i+1
             while j<len(citing_pids):
-                j+=1
+                
                 scpid = citing_pids[j]
+                j+=1
                 if cp_dict.get(scpid,'-1')=='-1':
                     continue
-
                 else:
                     edges.append([cpid,scpid])
 
