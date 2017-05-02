@@ -1,8 +1,7 @@
 #coding:utf-8
 
-import sys
-import json
-from collections import defaultdict
+from basic_config import *
+
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -34,6 +33,40 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
+#after building the citation network, we build citation cascade
+def build_cascades(citation_network):
+    cn = json.loads(open(citation_network).read())
+    for pid in cn.keys():
+        # for a paper, get its dict
+        pdict = cn[pid]
+        # for its citation dict
+        c_dict = pdict['citations']
+        citing_pids = c_dict.keys()
+        edges = []
+        for i,cpid in enumerate(citing_pids):
+            edges.append([pid,cpid])
+            #get cpid's citation dict
+            cp_dict = cn[cpid]['citations']
+            j=i+1
+            while j<len(citing_pids):
+                scpid = citing_pids[j]
+                if cp_dict.get(scpid,'-1')=='-1':
+                    continue
+                else
+                edges.append([cpid,scipd])
+
+        pdict['edges'] = edges
+        pdict['cnum'] = len(citing_pids)
+        pdict['enum'] = len(edges)
+
+        cn[pid] = pdict
+
+    open('data/aminer_citation_cascade.json','w').write(json.dumps(cn))
+    logging.info('citation cascade saved to data/aminer_citation_cascade.json.')
+
 
 if __name__ == '__main__':
-    build_citation_network(sys.argv[1])
+    # build_citation_network(sys.argv[1])
+    build_cascades(sys.argv[1])
+
+
