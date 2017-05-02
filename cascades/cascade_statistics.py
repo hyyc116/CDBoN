@@ -71,9 +71,44 @@ def build_cascades(citation_network):
     open('data/aminer_citation_cascade.json','w').write(json.dumps(cn))
     logging.info('citation cascade saved to data/aminer_citation_cascade.json.')
 
+def cascade_size_distribution(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+    cnum_dict=defaultdict(int)
+    enum_dict=defaultdict(int)
+    for pid in cc.keys():
+        cnum_dict[cc[pid]['cnum']]+=1
+        enum_dict[cc[pid]['enum']]+=1
+
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[0]
+    xs=[]
+    ys=[]
+    for num in sorted(cnum_dict.keys()):
+        xs.append(num)
+        ys.append(cnum_dict[num])
+    ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.set_title('Citation Count Distribution')
+
+    ax2 = axes[1]
+    for num in sorted(enum_dict.keys()):
+        xs.append(num)
+        ys.append(enum_dict[num])
+
+    ax2.plot(xs,ys,'o',fillstyle='none')
+    ax2.set_title('Cascade Size Distribution')
+
+    plt.tight_layout()
+    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+
+
 
 if __name__ == '__main__':
     # build_citation_network(sys.argv[1])
-    build_cascades(sys.argv[1])
+    # build_cascades(sys.argv[1])
+    label = sys.argv[1]
+    if label=='cascade_size':
+        cascade_size_distribution(sys.argv[2])
+
 
 
