@@ -46,6 +46,8 @@ def build_cascades(citation_network):
         for i,cpid in enumerate(citing_pids):
             edges.append([pid,cpid])
             #get cpid's citation dict
+            if cp.get(cpid,-1)==-1:
+                continue
             cp_dict = cn[cpid]['citations']
             j=i+1
             while j<len(citing_pids):
@@ -54,6 +56,8 @@ def build_cascades(citation_network):
                     continue
                 else:
                     edges.append([cpid,scipd])
+
+                j+=1
 
         pdict['edges'] = edges
         pdict['cnum'] = len(citing_pids)
