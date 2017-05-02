@@ -52,8 +52,8 @@ def build_cascades(citation_network):
                 scpid = citing_pids[j]
                 if cp_dict.get(scpid,'-1')=='-1':
                     continue
-                else
-                edges.append([cpid,scipd])
+                else:
+                    edges.append([cpid,scipd])
 
         pdict['edges'] = edges
         pdict['cnum'] = len(citing_pids)
