@@ -36,7 +36,9 @@ def build_citation_network(path):
 #after building the citation network, we build citation cascade
 def build_cascades(citation_network):
     cn = json.loads(open(citation_network).read())
+    logging.info('data loaded...')
     for pid in cn.keys():
+        logging.info('paper id:'+str(pid))
         # for a paper, get its dict
         pdict = cn[pid]
         # for its citation dict
@@ -46,7 +48,7 @@ def build_cascades(citation_network):
         for i,cpid in enumerate(citing_pids):
             edges.append([pid,cpid])
             #get cpid's citation dict
-            if cp.get(cpid,-1)==-1:
+            if cn.get(cpid,-1)==-1:
                 continue
             cp_dict = cn[cpid]['citations']
             j=i+1
