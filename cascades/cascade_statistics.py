@@ -90,6 +90,8 @@ def cascade_size_distribution(citation_cascade):
         ys.append(cnum_dict[num])
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('Citation Count Distribution')
+    ax1.set_yscale('log')
+    ax1.set_xscale('log')
 
     ax2 = axes[1]
     for num in sorted(enum_dict.keys()):
@@ -98,6 +100,8 @@ def cascade_size_distribution(citation_cascade):
 
     ax2.plot(xs,ys,'o',fillstyle='none')
     ax2.set_title('Cascade Size Distribution')
+    ax2.set_yscale('log')
+    ax2.set_xscale('log')
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
