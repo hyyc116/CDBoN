@@ -80,6 +80,7 @@ def cascade_size_distribution(citation_cascade):
         cnum_dict[cc[pid]['cnum']]+=1
         enum_dict[cc[pid]['enum']]+=1
 
+    logging.info('plot data...')
     fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax1 = axes[0]
     xs=[]
@@ -100,6 +101,7 @@ def cascade_size_distribution(citation_cascade):
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    logging.info('figures saved to pdf/cascade_size_dis.pdf.')
 
 
 
