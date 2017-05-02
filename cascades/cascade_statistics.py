@@ -1,5 +1,9 @@
 #coding:utf-8
 
+import sys
+import json
+from collections import defaultdict
+
 #from the aminer_refence to build citation network
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
@@ -30,3 +34,6 @@ def build_citation_network(path):
     open('data/aminer_citation_dict.json','w').write(json.dumps(ref_dict))
     print 'done'
 
+
+if __name__ == '__main__':
+    build_citation_network(sys.argv[1])
