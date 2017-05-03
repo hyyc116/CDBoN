@@ -133,7 +133,7 @@ def cascade_size_distribution(citation_cascade):
         # print '===',d
         # xs.append(d)
         # ys.append(np.mean(bucket_dict[d]))
-        all_data[d]=bucket_dict[d]
+        all_data.append(bucket_dict[d])
 
     logging.info('Number of boxes: {:}'.format(len(sorted_keys)))
     # print all_data
@@ -144,8 +144,8 @@ def cascade_size_distribution(citation_cascade):
     # ax.set_xlim(0,11)
     # ax3.plot(xs,ys)
     ax3.boxplot(all_data)
-    # ax3.set_xticks([i for i in np.arange(len(bucket_dict.keys()),500)])
-    # ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
+    ax3.set_xticks([i+1 for i in np.arange(len(bucket_dict.keys()),500)])
+    ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
     ax3.set_title('Cascade Size vs. Citation Count')
 
 
