@@ -157,8 +157,9 @@ def cascade_size_distribution(citation_cascade):
 def cascade_depth_distribution(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
-    cascade_depths=[]
-    cascade_sizes=[]
+    # cascade_depths=[]
+    # cascade_sizes=[]
+    size_depth_dict=defaultdict(list)
     depth_dict=defaultdict(int)
     logi = 0
     for pid in cc.keys():
@@ -170,9 +171,10 @@ def cascade_depth_distribution(citation_cascade):
         diG.add_edges_from(edges)
         if nx.is_directed_acyclic_graph(diG):
             depth=nx.dag_longest_path_length(diG)
-            cascade_depths.append(depth)
+            # cascade_depths.append(depth)
             depth_dict[depth]+=1
-            cascade_sizes.append(len(edges))
+            # cascade_sizes.append(len(edges))
+            size_depth_dict[len(edges)].append(depth)
 
     logging.info('plot data...')
     fig,ax1 = plt.subplots(figsize=(5,5))
@@ -188,10 +190,24 @@ def cascade_depth_distribution(citation_cascade):
     ax1.set_ylabel('Count')
     ax1.set_title('Cascade depth distribution')
     ax1.set_yscale('log')
-    ax1.set_xscale('log')
+    # ax1.set_xscale('log')
 
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
+
+    ax2=axes[1]
+    xs=[]
+    ys=[]
+    for size in sorted(size_depth_dict.keys()):
+        xs.append(size)
+        ys.append(np.mean(size_depth_dict[size]))
+
+    ax2.scatter(xs,ys,'.')
+    ax2.set_title('Depth vs. Cascade Size')
+    ax2.set_xlabel('Cascade Size')
+    ax2.set_ylabel('Mean of Cascade depth')
+
+
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_depth.pdf',dpi=300)
