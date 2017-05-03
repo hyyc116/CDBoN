@@ -157,11 +157,39 @@ def cascade_size_distribution(citation_cascade):
 def cascade_depth_distribution(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
+    cascade_depths=[]
+    cascade_sizes=[]
+    depth_dict=defaultdict(int)
+    logi = 0
     for pid in cc.keys():
+        logi+=1
+        if logi%10000==1:
+            logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
-        print nx.is_directed_acyclic_graph(diG)
+        if nx.is_directed_acyclic_graph(diG):
+            depth=dag_longest_path_length(diG)
+            cascade_depths.append(depth)
+            depth_dict[depth]+=1
+            cascade_sizes.append(len(edges))
+
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[0]
+    xs=[]
+    ys=[]
+    for depth in sorted(depth_dict.keys()):
+        xs.append(depth)
+        ys.append(depth_dict[depth])
+
+    ax1.scatter(xs,ys,marker='o',fillstyle='none')
+
+    ax2=axes[1]
+    ax2.scatter(cascade_sizes,cascade_depths,marker='.')
+
+    plt.tight_layout()
+    plt.savefig('pdf/cascade_depth.pdf',dpi=300)
+    logging.info('figure saved to pdf/cascade_depth.pdf.')
 
 
 
