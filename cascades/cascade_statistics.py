@@ -120,7 +120,7 @@ def cascade_size_distribution(citation_cascade):
     num = len(plt.get_fignums())
     plt.figure(num)
 
-    fig,ax3 = plt.subplots(figsize=(50,5))
+    fig,ax3 = plt.subplots(figsize=(10,5))
     bucket_dict=defaultdict(list)
     for i,x in enumerate(cxs):
         bucket_dict[x].append(eys[i]/x)
@@ -137,7 +137,7 @@ def cascade_size_distribution(citation_cascade):
     # print all_data
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Mean of Cascade Size / Citation Count')
-    # ax.set_yscale('log')
+    ax.set_xscale('log')
     # ax.set_ylim(1,1000)
     # ax.set_xlim(0,11)
     ax3.plot(xs,ys)
