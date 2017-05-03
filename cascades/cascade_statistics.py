@@ -87,7 +87,7 @@ def cascade_size_distribution(citation_cascade):
     logging.info('plot data...')
     num = len(plt.get_fignums())
     plt.figure(num)
-    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[0]
     xs=[]
     ys=[]
@@ -113,14 +113,15 @@ def cascade_size_distribution(citation_cascade):
     ax2.set_yscale('log')
     ax2.set_xscale('log')
 
-    plt.tight_layout()
-    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
-    logging.info('figures saved to pdf/cascade_size_dis.pdf.')
+    # plt.tight_layout()
+    # plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    # logging.info('figures saved to pdf/cascade_size_dis.pdf.')
 
-    num = len(plt.get_fignums())
-    plt.figure(num)
+    # num = len(plt.get_fignums())
+    # plt.figure(num)
 
-    fig,ax3 = plt.subplots(figsize=(50,5))
+    # fig,ax3 = plt.subplots(figsize=(5,5))
+    ax3=axes[2]
     bucket_dict=defaultdict(list)
     for i,x in enumerate(cxs):
         bucket_dict[x].append(eys[i]/float(x))
@@ -150,8 +151,8 @@ def cascade_size_distribution(citation_cascade):
 
 
     plt.tight_layout()
-    plt.savefig('pdf/cascade_size_ratio_dis.pdf',dpi=300)
-    logging.info('figures saved to pdf/cascade_size_ratio_dis.pdf.')
+    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    logging.info('figures saved to pdf/cascade_size_dis.pdf.')
 
 
 
