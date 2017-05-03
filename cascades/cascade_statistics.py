@@ -202,7 +202,7 @@ def cascade_depth_distribution(citation_cascade):
         xs.append(size)
         ys.append(np.mean(size_depth_dict[size]))
 
-    ax2.scatter(xs,ys,'.')
+    ax2.plot(xs,ys,'.')
     ax2.set_title('Depth vs. Cascade Size')
     ax2.set_xlabel('Cascade Size')
     ax2.set_ylabel('Mean of Cascade depth')
