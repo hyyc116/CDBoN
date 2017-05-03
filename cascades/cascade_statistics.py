@@ -86,7 +86,7 @@ def cascade_size_distribution(citation_cascade):
 
     logging.info('plot data...')
     fig,axes = plt.subplots(2,2,figsize=(10,10))
-    ax1 = axes[0]
+    ax1 = axes[0,0]
     xs=[]
     ys=[]
     for num in sorted(cnum_dict.keys()):
@@ -99,7 +99,7 @@ def cascade_size_distribution(citation_cascade):
     ax1.set_yscale('log')
     ax1.set_xscale('log')
 
-    ax2 = axes[1]
+    ax2 = axes[0,1]
     for num in sorted(enum_dict.keys()):
         xs.append(num)
         ys.append(enum_dict[num])
