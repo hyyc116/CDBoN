@@ -175,8 +175,8 @@ def cascade_depth_distribution(citation_cascade):
             cascade_sizes.append(len(edges))
 
     logging.info('plot data...')
-    fig,axes = plt.subplots(1,2,figsize=(10,5))
-    ax1 = axes[0]
+    fig,ax1 = plt.subplots(figsize=(5,5))
+    # ax1 = axes[0]
     xs=[]
     ys=[]
     for depth in sorted(depth_dict.keys()):
@@ -184,9 +184,12 @@ def cascade_depth_distribution(citation_cascade):
         ys.append(depth_dict[depth])
 
     ax1.plot(xs,ys,marker='o',fillstyle='none')
+    ax1.set_xlabel('Cascade depth')
+    ax1.set_ylabel('Count')
+    ax1.set_title('Cascade depth distribution')
 
-    ax2=axes[1]
-    ax2.scatter(cascade_sizes,cascade_depths,marker='.')
+    # ax2=axes[1]
+    # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_depth.pdf',dpi=300)
