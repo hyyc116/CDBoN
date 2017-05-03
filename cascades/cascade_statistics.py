@@ -137,7 +137,7 @@ def cascade_size_distribution(citation_cascade):
     # print all_data
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Mean of Cascade Size / Citation Count')
-    ax.set_xscale('log')
+    ax3.set_xscale('log')
     # ax.set_ylim(1,1000)
     # ax.set_xlim(0,11)
     ax3.plot(xs,ys)
