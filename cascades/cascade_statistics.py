@@ -177,8 +177,8 @@ def cascade_depth_distribution(citation_cascade):
             size_depth_dict[len(edges)].append(depth)
 
     logging.info('plot data...')
-    fig,ax1 = plt.subplots(figsize=(5,5))
-    # ax1 = axes[0]
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[0]
     xs=[]
     ys=[]
     for depth in sorted(depth_dict.keys()):
