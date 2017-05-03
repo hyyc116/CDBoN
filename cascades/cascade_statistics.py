@@ -133,10 +133,10 @@ def cascade_size_distribution(citation_cascade):
         xs.append(d)
         ys.append(np.mean(bucket_dict[d]))
 
-    logging.info('Number of boxes: {:}'.format(len(all_data)))
+    logging.info('Number of boxes: {:}'.format(len(sorted_keys)))
     # print all_data
     ax3.set_xlabel('Citation Count')
-    ax3.set_ylabel('Cascade Size / Citation Count')
+    ax3.set_ylabel('Mean of Cascade Size / Citation Count')
     # ax.set_yscale('log')
     # ax.set_ylim(1,1000)
     # ax.set_xlim(0,11)
