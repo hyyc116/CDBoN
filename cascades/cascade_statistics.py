@@ -85,8 +85,10 @@ def cascade_size_distribution(citation_cascade):
         eys.append(cc[pid]['enum'])
 
     logging.info('plot data...')
-    fig,axes = plt.subplots(2,2,figsize=(10,10))
-    ax1 = axes[0,0]
+    num = len(plt.get_fignums())
+    plt.figure(num)
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
+    ax1 = axes[0]
     xs=[]
     ys=[]
     for num in sorted(cnum_dict.keys()):
@@ -99,7 +101,7 @@ def cascade_size_distribution(citation_cascade):
     ax1.set_yscale('log')
     ax1.set_xscale('log')
 
-    ax2 = axes[0,1]
+    ax2 = axes[1]
     for num in sorted(enum_dict.keys()):
         xs.append(num)
         ys.append(enum_dict[num])
@@ -111,7 +113,14 @@ def cascade_size_distribution(citation_cascade):
     ax2.set_yscale('log')
     ax2.set_xscale('log')
 
-    plt.subplots(212)
+    plt.tight_layout()
+    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    logging.info('figures saved to pdf/cascade_size_dis.pdf.')
+
+    num = len(plt.get_fignums())
+    plt.figure(num)
+
+    fig,ax3 = plt.subplots(figsize=(10,5))
     bucket_dict=defaultdict(list)
     for i,x in enumerate(cxs):
         bucket_dict[x].append(eys[i]/x)
@@ -124,20 +133,20 @@ def cascade_size_distribution(citation_cascade):
 
     logging.info('Number of boxes: {:}'.format(len(all_data)))
     # print all_data
-    plt.xlabel('Citation Count')
-    plt.ylabel('Cascade Size / Citation Count')
+    ax3.set_xlabel('Citation Count')
+    ax3.set_ylabel('Cascade Size / Citation Count')
     # ax.set_yscale('log')
     # ax.set_ylim(1,1000)
     # ax.set_xlim(0,11)
-    plt.boxplot(all_data,showfliers=False)
-    # ax3.set_xticks([i for i in np.arange(len(bucket_dict.keys()),500)])
-    # ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
-    plt.title('Cascade Size vs. Citation Count')
+    ax3.boxplot(all_data,showfliers=False)
+    ax3.set_xticks([i for i in np.arange(len(bucket_dict.keys()),500)])
+    ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
+    ax3.set_title('Cascade Size vs. Citation Count')
 
 
     plt.tight_layout()
-    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
-    logging.info('figures saved to pdf/cascade_size_dis.pdf.')
+    plt.savefig('pdf/cascade_size_ratio_dis.pdf',dpi=300)
+    logging.info('figures saved to pdf/cascade_size_ratio_dis.pdf.')
 
 
 
