@@ -85,7 +85,7 @@ def cascade_size_distribution(citation_cascade):
         eys.append(cc[pid]['enum'])
 
     logging.info('plot data...')
-    fig,axes = plt.subplots(1,3,figsize=(15,5))
+    fig,axes = plt.subplots(2,2,figsize=(10,10))
     ax1 = axes[0]
     xs=[]
     ys=[]
@@ -111,7 +111,7 @@ def cascade_size_distribution(citation_cascade):
     ax2.set_yscale('log')
     ax2.set_xscale('log')
 
-    ax3 = axes[2]
+    ax3 = plt.subplots(212)
     bucket_dict=defaultdict(list)
     for i,x in enumerate(cxs):
         bucket_dict[x].append(eys[i]/x)
@@ -132,7 +132,7 @@ def cascade_size_distribution(citation_cascade):
     ax3.boxplot(all_data,showfliers=False)
     ax3.set_xticks([i for i in np.arange(len(bucket_dict.keys()),500)])
     ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
-    ax3.set_title('Citation Count vs. Cascade Size')
+    ax3.set_title('Cascade Size vs. Citation Count')
 
 
     plt.tight_layout()
