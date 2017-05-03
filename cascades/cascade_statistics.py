@@ -206,6 +206,7 @@ def cascade_depth_distribution(citation_cascade):
     ax2.set_title('Depth vs. Cascade Size')
     ax2.set_xlabel('Cascade Size')
     ax2.set_ylabel('Mean of Cascade depth')
+    ax2.set_xscale('log')
 
 
 
