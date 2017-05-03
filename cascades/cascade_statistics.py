@@ -81,8 +81,8 @@ def cascade_size_distribution(citation_cascade):
     for pid in cc.keys():
         cnum_dict[cc[pid]['cnum']]+=1
         cxs.append(cc[pid]['cnum'])
-        enum_dict[cc[pid]['cnum']]+=1
-        eys.append(cc[pid]['cnum'])
+        enum_dict[cc[pid]['enum']]+=1
+        eys.append(cc[pid]['enum'])
 
     logging.info('plot data...')
     fig,axes = plt.subplots(1,3,figsize=(15,5))
