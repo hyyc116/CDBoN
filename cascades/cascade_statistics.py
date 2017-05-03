@@ -154,6 +154,16 @@ def cascade_size_distribution(citation_cascade):
     plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
     logging.info('figures saved to pdf/cascade_size_dis.pdf.')
 
+def cascade_depth_distribution(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+    for pid in cc.keys():
+        diG = nx.DiGraph()
+        edges = cc[pid]['edges']
+        diG.add_edges_from(edges)
+        print nx.is_directed_acyclic_graph(diG)
+
+
 
 
 if __name__ == '__main__':
@@ -162,6 +172,8 @@ if __name__ == '__main__':
     label = sys.argv[1]
     if label=='cascade_size':
         cascade_size_distribution(sys.argv[2])
+    elif label == 'cascade_depth':
+        cascade_depth_distribution(sys.argv[2])
 
 
 
