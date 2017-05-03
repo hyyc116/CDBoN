@@ -123,7 +123,7 @@ def cascade_size_distribution(citation_cascade):
     fig,ax3 = plt.subplots(figsize=(10,5))
     bucket_dict=defaultdict(list)
     for i,x in enumerate(cxs):
-        bucket_dict[x].append(eys[i]/x)
+        bucket_dict[x].append(eys[i]/float(x))
 
     xs = []
     ys = []
