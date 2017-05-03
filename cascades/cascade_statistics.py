@@ -169,11 +169,12 @@ def cascade_depth_distribution(citation_cascade):
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
         if nx.is_directed_acyclic_graph(diG):
-            depth=dag_longest_path_length(diG)
+            depth=nx.dag_longest_path_length(diG)
             cascade_depths.append(depth)
             depth_dict[depth]+=1
             cascade_sizes.append(len(edges))
 
+    logging.info('plot data...')
     fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax1 = axes[0]
     xs=[]
