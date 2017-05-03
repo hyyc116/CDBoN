@@ -187,6 +187,8 @@ def cascade_depth_distribution(citation_cascade):
     ax1.set_xlabel('Cascade depth')
     ax1.set_ylabel('Count')
     ax1.set_title('Cascade depth distribution')
+    ax1.set_yscale('log')
+    ax1.set_xscale('log')
 
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
