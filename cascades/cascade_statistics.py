@@ -217,28 +217,40 @@ def cascade_depth_distribution(citation_cascade):
     logging.info('figure saved to pdf/cascade_depth.pdf.')
 
 #cascade subgraph
-def cascade_subgraph(graph,n_max):
-    all_nodes = graph.nodes()
-    if len(all_nodes)<n_max:
-        n_max = len(all_nodes)
+def cascade_subgraph(graph):
+    ungraph = graph.to_undirected()
+    nodes = ungraph.nodes()
+    subgraphs=[]
+    paths=[]
+    for i,target in enumerate(nodes):
+        j=i+1
+        while j < len(nodes):
+            source = nodes[j]
+            for path in nx.all_simple_paths(ungraph,target,source):
+                paths.append(path)
+            for path in nx.all_simple_paths(ungraph,source,target):
+                paths.append(path)
+            j+=1
 
-    logging.info('nodes size:{:}'.format(len(all_nodes)))
     
-    for N in range(2,n_max+1):
-        nodes_list = []
-        for node_set in combinations(all_nodes,N):
-            nodes_list.append([n for n in node_set])
+    for i,path in enumerate(paths):
+        subgraphs.append(','.join([str(n) for n in sorted(path)]))
+        # subgraphs.append(path)
+        j = i+1
+        while j < len(paths):
+            spath = paths[j]
+            if len(set(path)&set(spath))>0:
+                newpath = sorted(list(set(path)| set(paths[j]))) 
+                subgraphs.append(','.join([str(n) for n in newpath]))
+            j+=1   
 
-        logging.info('number of subgraphs:{:}'.format(len(nodes_list)))
-
-        for i,nodes in enumerate(nodes_list):
-            if i%10000==1:
-                logging.info('progress:{:}, subgraphs {:}, size:{:}'.format(N,i,len(nodes)))
-            h = graph.subgraph(nodes)
-            connected = nx.is_weakly_connected(h)
-            if connected:
-                yield N,h.edges()
-            # plt.savefig('{:}.png'.format(name))
+    logging.info('number of subgraphs:{:}'.format(len(set(subgraphs))))
+    for sub in sorted(set(subgraphs)):
+        subgraph_nodes = [n for n in sub.split(',')]
+        # print subgraph_nodes
+        # if len(subgraph_nodes)<n_max+1:
+        h = graph.subgraph(subgraph_nodes)
+        yield len(subgraph_nodes),h.edges()
 
 def subgraph_statistics(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
@@ -247,8 +259,8 @@ def subgraph_statistics(citation_cascade):
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        # if logi%1==1:
-        logging.info('progress {:}'.format(logi))
+        if logi%100==1:
+            logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
@@ -276,6 +288,10 @@ def isomorohic():
             j+=1
     
 
+def create_subgraph(G,sub_G,start_node):
+    for n in G.successors_iter(start_node):
+        sub_G.add_path([start_node,n])
+        create_subgraph(G,sub_G,n)
 
 
 def main():
@@ -296,9 +312,12 @@ if __name__ == '__main__':
     # graph = nx.DiGraph()
     # edges = [(2,1),(3,1),(3,2),(4,2),(4,3),(4,1),(5,1),(5,4),(6,3),(7,4),(8,7)]
     # graph.add_edges_from(edges)
+    # for i,edges in cascade_subgraph(graph):
+    #     print i,edges
 
-    # for i in cascade_subgraph(graph,10):
-    #     print i
+
+    
+
 
     main()
 
