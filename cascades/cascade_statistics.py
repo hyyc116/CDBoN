@@ -222,6 +222,7 @@ def cascade_subgraph(graph,n_max):
     if len(all_nodes)<n_max:
         n_max = len(all_nodes)
 
+    print 'nodes size',len(all_nodes)
     for N in range(2,n_max+1):
         print N
         nodes_list = []
@@ -243,8 +244,8 @@ def subgraph_statistics(citation_cascade):
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        if logi%1==1:
-            logging.info('progress {:}'.format(logi))
+        # if logi%1==1:
+        logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
