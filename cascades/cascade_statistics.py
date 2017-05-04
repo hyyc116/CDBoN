@@ -237,8 +237,8 @@ def cascade_subgraph(graph):
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     for i,path in enumerate(paths):
-        # subgraphs.append(','.join(path))
-        subgraphs.append(path)
+        subgraphs.append(','.join(sorted(list(path))))
+        # subgraphs.append(path)
         print i
         # subgraphs.append(path)
         j = i+1
@@ -246,7 +246,7 @@ def cascade_subgraph(graph):
             # print j
             spath = paths[j]
             if len(path&spath)>0:
-                newpath = list(path| paths[j])
+                newpath = sorted(list(path| paths[j]))
                 subgraphs.append(','.join(newpath))
             j+=1   
 
