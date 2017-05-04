@@ -218,7 +218,7 @@ def cascade_depth_distribution(citation_cascade):
 
 #cascade subgraph
 def cascade_subgraph(graph):
-    ungraph = graph.to_undirected()
+    ungraph = graph
     nodes = ungraph.nodes()
     logging.info('Size of graph:{:}'.format(len(nodes)))
     subgraphs=[]
@@ -229,11 +229,16 @@ def cascade_subgraph(graph):
             source = nodes[j]
             for path in nx.all_simple_paths(ungraph,target,source):
                 paths.append(set(path))
+
+            for path in nx.all_simple_paths(ungraph,source,target):
+                paths.append(set(path))
+
             j+=1
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     for i,path in enumerate(paths):
-        subgraphs.append(','.join(path))
+        # subgraphs.append(','.join(path))
+        subgraphs.append(path)
         print i
         # subgraphs.append(path)
         j = i+1
@@ -241,7 +246,7 @@ def cascade_subgraph(graph):
             # print j
             spath = paths[j]
             if len(path&spath)>0:
-                newpath = sorted(list(path| paths[j])) 
+                newpath = list(path| paths[j])
                 subgraphs.append(','.join(newpath))
             j+=1   
 
