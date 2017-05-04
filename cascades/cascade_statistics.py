@@ -228,21 +228,19 @@ def cascade_subgraph(graph):
         while j < len(nodes):
             source = nodes[j]
             for path in nx.all_simple_paths(ungraph,target,source):
-                paths.append(path)
-            for path in nx.all_simple_paths(ungraph,source,target):
-                paths.append(path)
+                paths.append(set(path))
             j+=1
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     for i,path in enumerate(paths):
-        subgraphs.append(','.join([str(n) for n in sorted(path)]))
+        subgraphs.append(','.join(path))
         # subgraphs.append(path)
         j = i+1
         while j < len(paths):
             spath = paths[j]
-            if len(set(path)&set(spath))>0:
-                newpath = sorted(list(set(path)| set(paths[j]))) 
-                subgraphs.append(','.join([str(n) for n in newpath]))
+            if len(path&spath)>0:
+                newpath = sorted(list(path| paths[j])) 
+                subgraphs.append(','.join(newpath))
             j+=1   
 
     logging.info('number of subgraphs:{:}'.format(len(set(subgraphs))))
