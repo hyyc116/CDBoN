@@ -10,7 +10,7 @@
 
 
 ## Cascade subgraphs
-Cascade cascade_statistics.py subgraphs data/aminer_citation_cascade.json
+python cascade_statistics.py subgraphs data/aminer_citation_cascade.json
 
 
 
