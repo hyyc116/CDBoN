@@ -282,7 +282,7 @@ def main():
     elif label == 'cascade_depth':
         cascade_depth_distribution(sys.argv[2])
     elif label =='build_cascade':
-        build_cascade(sys.argv[2])
+        build_cascades(sys.argv[2])
     elif label =='subgraphs':
         subgraph_statistics(sys.argv[2])
 
