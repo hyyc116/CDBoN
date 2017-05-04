@@ -220,6 +220,7 @@ def cascade_depth_distribution(citation_cascade):
 def cascade_subgraph(graph):
     ungraph = graph.to_undirected()
     nodes = ungraph.nodes()
+    logging.info('Size of graph:{:}'.format(nodes))
     subgraphs=[]
     paths=[]
     for i,target in enumerate(nodes):
@@ -232,7 +233,7 @@ def cascade_subgraph(graph):
                 paths.append(path)
             j+=1
 
-    
+    logging.info('Size of paths:{:}'.format(paths))
     for i,path in enumerate(paths):
         subgraphs.append(','.join([str(n) for n in sorted(path)]))
         # subgraphs.append(path)
@@ -259,8 +260,8 @@ def subgraph_statistics(citation_cascade):
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        if logi%1==0:
-            logging.info('progress {:}'.format(logi))
+        # if logi%1==0:
+        logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
