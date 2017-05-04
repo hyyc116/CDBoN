@@ -37,8 +37,12 @@ def build_citation_network(path):
 def build_cascades(citation_network):
     cn = json.loads(open(citation_network).read())
     logging.info('data loaded...')
+    log_count=1
     for pid in cn.keys():
-        logging.info('paper id:'+str(pid))
+        if log_count%1000==1:
+            logging.info('progress:'+str(log_count))
+
+        log_count+=1
         # for a paper, get its dict
         pdict = cn[pid]
         # for its citation dict
