@@ -238,7 +238,7 @@ def cascade_subgraph(graph):
         # subgraphs.append(path)
         j = i+1
         while j < len(paths):
-            print j
+            # print j
             spath = paths[j]
             if len(path&spath)>0:
                 newpath = sorted(list(path| paths[j])) 
