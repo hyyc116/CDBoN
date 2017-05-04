@@ -243,7 +243,7 @@ def subgraph_statistics(citation_cascade):
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        if logi%100==1:
+        if logi%10==1:
             logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
