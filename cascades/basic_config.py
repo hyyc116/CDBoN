@@ -14,6 +14,7 @@ import numpy as np
 import random
 import logging
 import networkx as nx
+from itertools import combinations
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.DEBUG)
 PREFIX='all'

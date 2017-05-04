@@ -47,7 +47,7 @@ def build_cascades(citation_network):
         logging.info('Number of citations:{:}'.format(len(citing_pids)))
         edges = []
         for i,cpid in enumerate(citing_pids):
-            edges.append([pid,cpid])
+            edges.append([cpid,pid])
             #get cpid's citation dict
             if cn.get(cpid,-1)==-1:
                 continue
@@ -60,7 +60,7 @@ def build_cascades(citation_network):
                 if cp_dict.get(scpid,'-1')=='-1':
                     continue
                 else:
-                    edges.append([cpid,scpid])
+                    edges.append([scpid,cpid])
 
         pdict['edges'] = edges
         pdict['cnum'] = len(citing_pids)
@@ -208,16 +208,52 @@ def cascade_depth_distribution(citation_cascade):
     ax2.set_ylabel('Mean of Cascade depth')
     ax2.set_xscale('log')
 
-
-
     plt.tight_layout()
     plt.savefig('pdf/cascade_depth.pdf',dpi=300)
     logging.info('figure saved to pdf/cascade_depth.pdf.')
 
+#cascade subgraph
+def cascade_subgraph(graph,n_max):
+    all_nodes = graph.nodes()
+    if len(all_nodes)<n_max:
+        n_max = len(all_nodes)
+
+    for N in range(2,n_max+1):
+        print N
+        nodes_list = []
+        for node_set in combinations(all_nodes,N):
+            # print node_set
+            nodes_list.append([n for n in node_set])
+
+        for i,nodes in enumerate(nodes_list):
+            h = graph.subgraph(nodes)
+            connected = nx.is_weakly_connected(h)
+            if connected:
+                yield N,h.edges()
+            # plt.savefig('{:}.png'.format(name))
+
+def subgraph_statistics(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+    for pid in 
+
+
+def isomorohic():
+    name_clusters=defaultdict(list)
+    names = subgraphs.keys()
+    for i,name in enumerate(names):
+        g1=subgraphs[name]
+        j=i+1
+        while j < len(names):
+            g2 = subgraphs[names[j]]
+            if nx.is_isomorphic(g1,g2):
+                print name,names[j]
+            j+=1
+    
 
 
 
-if __name__ == '__main__':
+def main():
     # build_citation_network(sys.argv[1])
     # build_cascades(sys.argv[1])
     label = sys.argv[1]
@@ -225,6 +261,21 @@ if __name__ == '__main__':
         cascade_size_distribution(sys.argv[2])
     elif label == 'cascade_depth':
         cascade_depth_distribution(sys.argv[2])
+    elif label =='build_cascade':
+        build_cascade(sys.argv[2])
+
+
+if __name__ == '__main__':
+    # graph = nx.DiGraph()
+    # edges = [(2,1),(3,1),(3,2),(4,2),(4,3),(4,1),(5,1),(5,4),(6,3),(7,4),(8,7)]
+    # graph.add_edges_from(edges)
+
+    # for i in cascade_subgraph(graph,10):
+    #     print i
+
+    main()
+
+    
 
 
 
