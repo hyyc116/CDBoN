@@ -259,12 +259,12 @@ def subgraph_statistics(citation_cascade):
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        if logi%100==1:
+        if logi%1==0:
             logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
-        for n,subgraph in cascade_subgraph(diG,10):
+        for n,subgraph in cascade_subgraph(diG):
             sub_list = pid_subgraph[pid].get(n,[])
             sub_list.append(subgraph)
             pid_subgraph[pid][n]=sub_list
@@ -314,11 +314,6 @@ if __name__ == '__main__':
     # graph.add_edges_from(edges)
     # for i,edges in cascade_subgraph(graph):
     #     print i,edges
-
-
-    
-
-
     main()
 
     
