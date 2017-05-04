@@ -239,7 +239,7 @@ def cascade_subgraph(graph):
     for i,path in enumerate(paths):
         subgraphs.append(','.join(sorted(list(path))))
         # subgraphs.append(path)
-        print i
+        # print i
         # subgraphs.append(path)
         j = i+1
         while j < len(paths):
