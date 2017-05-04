@@ -235,7 +235,23 @@ def cascade_subgraph(graph,n_max):
 def subgraph_statistics(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
-    for pid in 
+    logi = 0
+    pid_subgraph=defaultdict(dict)
+    for pid in cc.keys():
+        logi+=1
+        if logi%10000==1:
+            logging.info('progress {:}'.format(logi))
+        diG = nx.DiGraph()
+        edges = cc[pid]['edges']
+        diG.add_edges_from(edges)
+        for n,subgraph in cascade_subgraph(diG,10):
+            sub_list = pid_subgraph[pid].get(n,[])
+            sub_list.append(subgraph)
+            pid_subgraph[pid][n]=sub_list
+
+
+    open('data/subgraphs.json','w').write(json.dumps(pid_subgraph))
+
 
 
 def isomorohic():
@@ -263,6 +279,8 @@ def main():
         cascade_depth_distribution(sys.argv[2])
     elif label =='build_cascade':
         build_cascade(sys.argv[2])
+    elif label =='subgraphs':
+        subgraph_statistics(sys.argv[2])
 
 
 if __name__ == '__main__':
