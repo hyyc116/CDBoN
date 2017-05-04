@@ -228,11 +228,12 @@ def cascade_subgraph(graph,n_max):
         print N
         nodes_list = []
         for node_set in combinations(all_nodes,N):
-            logging.info('number of subgraphs:{:}'.format(len(node_set)))
             nodes_list.append([n for n in node_set])
 
+        logging.info('number of subgraphs:{:}'.format(len(nodes_list)))
+
         for i,nodes in enumerate(nodes_list):
-            logging.info('subgraphs{:}'.format(i))
+            logging.info('subgraphs {:}, size:{:}'.format(i,len(nodes)))
             h = graph.subgraph(nodes)
             connected = nx.is_weakly_connected(h)
             if connected:
