@@ -261,7 +261,7 @@ def cascade_subgraph(graph):
     logging.info('subgraph extraction ...')
     for i,sub in enumerate(subgraphs):
         subgraph_nodes = [n for n in sub.split(',')]
-        if i%1000==0:
+        if i%100000==0:
             logging.info('subgraph {:}'.format(i))
         # print subgraph_nodes
         # if len(subgraph_nodes)<n_max+1:
