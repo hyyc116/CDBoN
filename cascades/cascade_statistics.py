@@ -218,7 +218,7 @@ def cascade_depth_distribution(citation_cascade):
 
 #cascade subgraph
 def cascade_subgraph(graph):
-    ungraph = graph
+    ungraph = graph.
     nodes = ungraph.nodes()
     logging.info('Size of graph:{:}'.format(len(nodes)))
     subgraphs=[]
@@ -237,6 +237,8 @@ def cascade_subgraph(graph):
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     for i,path in enumerate(paths):
+        if len(path)>20:
+            continue
         subgraphs.append(','.join(sorted(list(path))))
         # subgraphs.append(path)
         # print i
@@ -247,12 +249,19 @@ def cascade_subgraph(graph):
             spath = paths[j]
             if len(path&spath)>0:
                 newpath = sorted(list(path| paths[j]))
+                if len(newpath)>20:
+                    continue
                 subgraphs.append(','.join(newpath))
             j+=1   
 
-    logging.info('number of subgraphs:{:}'.format(len(set(subgraphs))))
-    for sub in set(subgraphs):
+    subgraphs = list(set(subgraphs))
+    logging.info('number of subgraphs:{:}'.format(len(subgraphs)))
+
+    logging.info('subgraph extraction ...')
+    for i,sub in enumerate(subgraphs):
         subgraph_nodes = [n for n in sub.split(',')]
+        if i%1000==0:
+            logging.info('subgraph {:}'.format(i))
         # print subgraph_nodes
         # if len(subgraph_nodes)<n_max+1:
         h = graph.subgraph(subgraph_nodes)
@@ -269,6 +278,8 @@ def subgraph_statistics(citation_cascade):
         logging.info('progress {:}'.format(logi))
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
+        if len(edges)<1000:
+            continue
         diG.add_edges_from(edges)
         for n,subgraph in cascade_subgraph(diG):
             sub_list = pid_subgraph[pid].get(n,[])
