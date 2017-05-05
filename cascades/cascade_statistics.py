@@ -238,7 +238,7 @@ def cascade_subgraph(graph):
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     for i,path in enumerate(paths):
-        if len(path)>20:
+        if len(path)>30:
             continue
         subgraphs.append(','.join(sorted(list(path))))
         # subgraphs.append(path)
@@ -250,7 +250,7 @@ def cascade_subgraph(graph):
             spath = paths[j]
             if len(path&spath)>0:
                 newpath = sorted(list(path| paths[j]))
-                if len(newpath)>20:
+                if len(newpath)>30:
                     continue
                 subgraphs.append(','.join(newpath))
             j+=1   
@@ -277,6 +277,10 @@ def subgraph_statistics(citation_cascade):
         logi+=1
         # if logi%1==0:
         logging.info('progress {:}'.format(logi))
+        if logi%1000==0:
+            open('data/subgraphs.json','w').write(json.dumps(pid_subgraph))
+            logging.info('subgraphs saved to data/subgraphs.json')
+
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
         if len(edges)<1000:
