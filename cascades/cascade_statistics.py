@@ -224,6 +224,7 @@ def cascade_subgraph(graph):
     subgraphs=[]
     paths=[]
     for i,target in enumerate(nodes):
+        logging.info('target {:}'.format(i))
         j=i+1
         while j < len(nodes):
             source = nodes[j]
