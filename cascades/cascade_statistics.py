@@ -230,8 +230,8 @@ def cascade_subgraph(graph):
             for path in nx.all_simple_paths(ungraph,target,source):
                 paths.append(set(path))
 
-            for path in nx.all_simple_paths(ungraph,source,target):
-                paths.append(set(path))
+            # for path in nx.all_simple_paths(ungraph,source,target):
+            #     paths.append(set(path))
 
             j+=1
 
