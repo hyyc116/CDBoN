@@ -224,15 +224,15 @@ def cascade_subgraph(graph):
     subgraphs=[]
     paths=[]
     for i,target in enumerate(nodes):
-        logging.info('target {:}'.format(i))
+        # logging.info('target {:}'.format(i))
         j=i+1
         while j < len(nodes):
             source = nodes[j]
             for path in nx.all_simple_paths(ungraph,target,source,10):
                 paths.append(set(path))
 
-            # for path in nx.all_simple_paths(ungraph,source,target):
-            #     paths.append(set(path))
+            for path in nx.all_simple_paths(ungraph,source,target):
+                paths.append(set(path))
 
             j+=1
 
