@@ -218,7 +218,7 @@ def cascade_depth_distribution(citation_cascade):
 
 #cascade subgraph
 def cascade_subgraph(graph):
-    ungraph = graph.to_undirected()
+    ungraph = graph
     nodes = ungraph.nodes()
     logging.info('Size of graph:{:}'.format(len(nodes)))
     subgraphs=[]
