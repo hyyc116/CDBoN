@@ -283,8 +283,8 @@ def subgraph_statistics(citation_cascade):
 
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
-        if len(edges)<1000:
-            continue
+        # if len(edges)<1000:
+        #     continue
         diG.add_edges_from(edges)
         for n,subgraph in cascade_subgraph(diG):
             sub_list = pid_subgraph[pid].get(n,[])
