@@ -1,8 +1,8 @@
 
-for i in {281..470}
+for i in {471..950}
 do
-    start=`expr ${i} \* 2000`
-    end=`expr ${start} + 2000`
+    start=`expr ${i} \* 1000`
+    end=`expr ${start} + 1000`
     echo ${start}','${end}
     # echo ${i}
 

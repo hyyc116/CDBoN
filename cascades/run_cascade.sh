@@ -10,15 +10,15 @@
 
 
 ## Cascade subgraphs
-for i in {0..280}
+for i in {0..470}
 do
-    start=`expr ${i} \* 2000`
-    end=`expr ${start} + 2000`
+    start=`expr ${i} \* 1000`
+    end=`expr ${start} + 1000`
     echo ${start}','${end}
     # echo ${i}
 
     python cascade_statistics.py subgraphs data/aminer_citation_cascade.json ${start} ${end}
-    
+
 done
 
 
