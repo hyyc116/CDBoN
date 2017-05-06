@@ -268,17 +268,23 @@ def cascade_subgraph(graph):
         h = graph.subgraph(subgraph_nodes)
         yield len(subgraph_nodes),h.edges()
 
-def subgraph_statistics(citation_cascade):
+def subgraph_statistics(citation_cascade,start,end):
     cc = json.loads(open(citation_cascade).read())
+
     logging.info('data loaded...')
     logi = 0
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         logi+=1
-        # if logi%1==0:
+
+        if logi<start:
+            continue
+        elif logi>=end:
+            continue
+
         logging.info('progress {:}'.format(logi))
-        if logi%1000==0:
-            open('data/subgraphs.json','w').write(json.dumps(pid_subgraph))
+        if logi%2000==0:
+            open('data/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
             logging.info('subgraphs saved to data/subgraphs.json')
 
         diG = nx.DiGraph()
@@ -292,7 +298,7 @@ def subgraph_statistics(citation_cascade):
             pid_subgraph[pid][n]=sub_list
 
 
-    open('data/subgraphs.json','w').write(json.dumps(pid_subgraph))
+    open('data/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
     logging.info('subgraphs saved to data/subgraphs.json')
 
 
@@ -327,7 +333,7 @@ def main():
     elif label =='build_cascade':
         build_cascades(sys.argv[2])
     elif label =='subgraphs':
-        subgraph_statistics(sys.argv[2])
+        subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
 
 
 if __name__ == '__main__':
