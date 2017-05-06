@@ -302,7 +302,7 @@ def subgraph_statistics(citation_cascade,start,end):
 
 
     open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
-    logging.info('subgraphs saved to subs/subgraphs.json')
+    logging.info('subgraphs saved to subs/subgraphs_{:}_{:}.json'.format(start,end))
 
 
 
