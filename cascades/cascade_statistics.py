@@ -269,9 +269,10 @@ def cascade_subgraph(graph):
         yield len(subgraph_nodes),h.edges()
 
 def subgraph_statistics(citation_cascade,start,end):
+    logging.info('from {:} to {:}...'.format(start,end))
     cc = json.loads(open(citation_cascade).read())
+    logging.info('{:} data loaded...'.format(len(cc.keys())))
 
-    logging.info('data loaded...')
     logi = 0
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
@@ -280,7 +281,7 @@ def subgraph_statistics(citation_cascade,start,end):
         if logi<start:
             continue
         elif logi>=end:
-            continue
+            break
 
         logging.info('progress {:}'.format(logi))
         if logi%2000==0:
