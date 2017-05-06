@@ -10,7 +10,7 @@
 
 
 ## Cascade subgraphs
-for i in {1..910}
+for i in {0..910..2}
 do
     # start=`expr ${i}\*${1}`
     # end=$[i*1000]
