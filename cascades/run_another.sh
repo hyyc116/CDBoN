@@ -1,5 +1,5 @@
 
-for i in {282..470}
+for i in {280..470}
 do
     start=`expr ${i} \* 2000`
     end=`expr ${start} + 2000`
