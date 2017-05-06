@@ -273,6 +273,8 @@ def subgraph_statistics(citation_cascade,start,end):
     cc = json.loads(open(citation_cascade).read())
     logging.info('{:} data loaded...'.format(len(cc.keys())))
 
+    return None
+
     logi = 0
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
