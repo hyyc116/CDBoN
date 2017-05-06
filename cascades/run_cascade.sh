@@ -10,7 +10,7 @@
 
 
 ## Cascade subgraphs
-for i in {0..472..2}
+for i in {0..470..2}
 do
     start=`expr ${i} \* 2000`
     end=`expr ${start} + 2000`
