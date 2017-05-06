@@ -15,7 +15,7 @@ do
     # start=`expr ${i}\*${1}`
     # end=$[i*1000]
     # echo ${start}','${end}
-    ${i}
+    echo ${i}
 
     # python cascade_statistics.py subgraphs data/aminer_citation_cascade.json $start $end
 
