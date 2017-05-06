@@ -12,16 +12,16 @@
 ## Cascade subgraphs
 for i in {0..910..2}
 do
-    # start=`expr ${i}\*${1}`
-    # end=$[i*1000]
-    # echo ${start}','${end}
-    echo ${i}
+    start=`expr ${i}\*${1000}`
+    end=`expr ${start}+1000`
+    echo ${start}','${end}
+    # echo ${i}
 
     # python cascade_statistics.py subgraphs data/aminer_citation_cascade.json $start $end
 
-    # start=$[i*1000]
-    # end=$[i*2000]
-    # echo ${start}','${end}
+    start=`expr ${end}+1000`
+    end=`expr ${start}+1000`
+    echo ${start}','${end}
     # python cascade_statistics.py subgraphs data/aminer_citation_cascade.json $start $end
 
 done
