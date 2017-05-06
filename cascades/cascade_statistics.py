@@ -286,9 +286,9 @@ def subgraph_statistics(citation_cascade,start,end):
             break
 
         logging.info('progress {:}'.format(logi))
-        if logi%2000==0:
-            open('data/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
-            logging.info('subgraphs saved to data/subgraphs.json')
+        # if logi%2000==0:
+        #     open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
+        #     logging.info('subgraphs saved to data/subgraphs.json')
 
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
@@ -301,7 +301,7 @@ def subgraph_statistics(citation_cascade,start,end):
             pid_subgraph[pid][n]=sub_list
 
 
-    open('data/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
+    open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
     logging.info('subgraphs saved to data/subgraphs.json')
 
 
