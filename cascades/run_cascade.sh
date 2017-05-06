@@ -10,10 +10,10 @@
 
 
 ## Cascade subgraphs
-for i in {0..470}
+for i in {0..940}
 do
-    start=`expr ${i} \* 1000`
-    end=`expr ${start} + 1000`
+    start=`expr ${i} \* 500`
+    end=`expr ${start} + 500`
     echo ${start}','${end}
     # echo ${i}
 
