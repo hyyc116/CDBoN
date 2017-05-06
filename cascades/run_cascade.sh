@@ -14,12 +14,12 @@ for i in {1..460}
 do
     start=$[i*0]
     end=$[i*1000]
-    echo '$start , $end'
+    echo ${start}','${end}
     # python cascade_statistics.py subgraphs data/aminer_citation_cascade.json $start $end
 
     start=$[i*1000]
     end=$[i*2000]
-    echo '$start , $end'
+    echo ${start}','${end}
     # python cascade_statistics.py subgraphs data/aminer_citation_cascade.json $start $end
 
 done
