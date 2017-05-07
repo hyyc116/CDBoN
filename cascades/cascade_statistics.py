@@ -278,17 +278,16 @@ def subgraph_statistics(citation_cascade,start,end):
     logi = 0
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
-        logi+=1
-
-        if logi<start:
+        cnum = cc[pid]['cnum']
+        if cnum<start:
             continue
-        elif logi>=end:
-            break
-
+        elif cnum>=end:
+            continue
+        logi+=1
         logging.info('progress {:}'.format(logi))
-        # if logi%2000==0:
-        #     open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
-        #     logging.info('subgraphs saved to data/subgraphs.json')
+        if logi%10000==0:
+            open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
+            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}.json'.format(start,end))
 
         diG = nx.DiGraph()
         edges = cc[pid]['edges']

@@ -10,16 +10,12 @@
 
 
 ## Cascade subgraphs
-for i in {0..940}
-do
-    start=`expr ${i} \* 500`
-    end=`expr ${start} + 500`
-    echo ${start}','${end}
-    # echo ${i}
 
-    python cascade_statistics.py subgraphs data/aminer_citation_cascade.json ${start} ${end}
+nohup python cascade_statistics.py subgraphs data/aminer_citation_cascade.json 0 10 > run_0_10.log &
 
-done
+nohup python cascade_statistics.py subgraphs data/aminer_citation_cascade.json 10 100 > run_10_100.log &
+
+
 
 
 
