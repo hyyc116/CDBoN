@@ -277,9 +277,9 @@ def subgraph_statistics(citation_cascade,start,end):
     if end>10:
         step = 1000
     elif end>100:
-        step = 500
+        step = 100
     elif end>500:
-        step=100
+        step=50
 
     logging.info('Steps:{:}'.format(step))
 
