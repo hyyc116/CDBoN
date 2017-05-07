@@ -273,6 +273,16 @@ def subgraph_statistics(citation_cascade,start,end):
     cc = json.loads(open(citation_cascade).read())
     logging.info('{:} data loaded...'.format(len(cc.keys())))
 
+    step=5000
+    if end>10:
+        step = 1000
+    elif end>100:
+        step = 500
+    elif end>500:
+        step=100
+
+    logging.info('Steps:{:}'.format(step))
+
     # return None
 
     logi = 0
@@ -285,9 +295,9 @@ def subgraph_statistics(citation_cascade,start,end):
             continue
         logi+=1
         logging.info('progress {:}'.format(logi))
-        if logi%5000==0:
-            open('subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi),'w').write(json.dumps(pid_subgraph))
-            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi))
+        if logi%step==0:
+            open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
 
             del pid_subgraph
             gc.collect()
@@ -306,8 +316,8 @@ def subgraph_statistics(citation_cascade,start,end):
             pid_subgraph[pid][n]=sub_list
 
 
-    open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
-    logging.info('subgraphs saved to subs/subgraphs_{:}_{:}.json'.format(start,end))
+    open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+    logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
     logging.info('DONE')
 
 
