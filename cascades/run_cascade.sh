@@ -10,9 +10,9 @@
 
 
 ## Cascade subgraphs
-
+echo '0,10'
 nohup python cascade_statistics.py subgraphs data/aminer_citation_cascade.json 0 10 > run_0_10.log &
-
+echo '10,100'
 nohup python cascade_statistics.py subgraphs data/aminer_citation_cascade.json 10 100 > run_10_100.log &
 
 
