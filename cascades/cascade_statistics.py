@@ -1,7 +1,7 @@
 #coding:utf-8
 
 from basic_config import *
-
+import gc
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -285,9 +285,15 @@ def subgraph_statistics(citation_cascade,start,end):
             continue
         logi+=1
         logging.info('progress {:}'.format(logi))
-        if logi%10000==0:
-            open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
-            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}.json'.format(start,end))
+        if logi%1000==0:
+            open('subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi),'w').write(json.dumps(pid_subgraph))
+            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi))
+
+            del pid_subgraph
+            gc.collect()
+            
+            pid_subgraph = defaultdict(dict)
+            
 
         diG = nx.DiGraph()
         edges = cc[pid]['edges']
