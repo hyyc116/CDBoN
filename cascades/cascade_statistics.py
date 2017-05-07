@@ -278,7 +278,7 @@ def cascade_subgraph(graph):
     #     h = graph.subgraph(subgraph_nodes)
     #     yield len(subgraph_nodes),h.edges()
 
-    for sub in enumerate(subgraphs):
+    for sub in subgraphs:
         yield sub
 
 # def subgraph_statistics(citation_cascade,start,end):
@@ -453,8 +453,8 @@ if __name__ == '__main__':
     # graph = nx.DiGraph()
     # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
     # graph.add_edges_from(edges)
-    # for i,edges in cascade_subgraph(graph):
-    #     print i,edges
+    # for edges in cascade_subgraph(graph):
+    #     print edges
     main()
 
     
