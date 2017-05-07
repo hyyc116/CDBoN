@@ -368,7 +368,7 @@ def subgraph_statistics(citation_cascade,start,end):
     # return None
 
     new_cascade = {}
-    pid_subgraph=defaultdict(dict)
+    # pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         cnum = cc[pid]['cnum']
         if cnum<start:
@@ -393,10 +393,10 @@ def subgraph_statistics(citation_cascade,start,end):
             logging.info('progress {:}/{:}'.format(logi,length))
 
 
-            del pid_subgraph
-            gc.collect()
+            # del pid_subgraph
+            # gc.collect()
             
-            pid_subgraph = defaultdict(dict)
+            # pid_subgraph = defaultdict(dict)
             
 
         diG = nx.DiGraph()

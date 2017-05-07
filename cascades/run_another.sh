@@ -6,6 +6,6 @@ do
     echo ${start}','${end}
     # echo ${i}
 
-    python cascade_statistics.py subgraphs data/aminer_citation_cascade.json ${start} ${end} 1> 'run_'${start}'_'${end}'.log' 2>>'run_'${start}'_'${end}'.log'
+    python cascade_statistics.py subgraphs data/aminer_citation_cascade.json ${start} ${end} 1> subs/${start}'_'${end}'.data' 2>'run_'${start}'_'${end}'.log'
 
 done
