@@ -242,10 +242,10 @@ def cascade_subgraph(graph):
         if len(path)>30:
             continue
 
-        if len(path)==2:
-            size_two +=1
-        else:
-            subgraphs.append(','.join(sorted(list(path))))
+        # if len(path)==2:
+        #     size_two +=1
+        # else:
+        subgraphs.append(','.join(sorted(list(path))))
         # subgraphs.append(path)
         # print i
         # subgraphs.append(path)
@@ -259,10 +259,10 @@ def cascade_subgraph(graph):
                     continue
 
 
-                if len(newpath)==2:
-                    size_two+=1
-                else:
-                    subgraphs.append(','.join(newpath))
+                # if len(newpath)==2:
+                #     size_two+=1
+                # else:
+                subgraphs.append(','.join(newpath))
             j+=1   
 
     subgraphs = list(set(subgraphs))
@@ -387,10 +387,11 @@ def subgraph_statistics(citation_cascade,start,end):
     logi = 0
     for pid in new_cascade.keys():
         logi+=1
-        if logi%step==1:
+        logging.info('progress {:}/{:}'.format(logi,length))
+
+        # if logi%step==1:
             # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
             # logging.info('progress'.format(start,end,step,logi))
-            logging.info('progress {:}/{:}'.format(logi,length))
 
 
             # del pid_subgraph
