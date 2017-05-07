@@ -387,7 +387,7 @@ def subgraph_statistics(citation_cascade,start,end):
     logi = 0
     for pid in new_cascade.keys():
         logi+=1
-        if logi%step==0:
+        if logi%step==1:
             # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
             # logging.info('progress'.format(start,end,step,logi))
             logging.info('progress {:}/{:}'.format(logi,length))
@@ -408,7 +408,7 @@ def subgraph_statistics(citation_cascade,start,end):
             # sub_list = pid_subgraph[pid].get(n,[])
             # sub_list.append(subgraph)
             # pid_subgraph[pid][n]=sub_list
-            print pid+"\t"+subgraph
+            print str(pid)+"\t"+str(subgraph)
 
 
     # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
