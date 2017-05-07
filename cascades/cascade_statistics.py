@@ -269,14 +269,84 @@ def cascade_subgraph(graph):
     logging.info('number of subgraphs:{:}'.format(len(subgraphs)))
     logging.info('Size two:{:}'.format(size_two))
     logging.info('subgraph extraction ...')
-    for i,sub in enumerate(subgraphs):
-        subgraph_nodes = [n for n in sub.split(',')]
-        if i%100000==0:
-            logging.info('subgraph {:}'.format(i))
-        # print subgraph_nodes
-        # if len(subgraph_nodes)<n_max+1:
-        h = graph.subgraph(subgraph_nodes)
-        yield len(subgraph_nodes),h.edges()
+    # for i,sub in enumerate(subgraphs):
+    #     subgraph_nodes = [n for n in sub.split(',')]
+    #     if i%100000==0:
+    #         logging.info('subgraph {:}'.format(i))
+    #     # print subgraph_nodes
+    #     # if len(subgraph_nodes)<n_max+1:
+    #     h = graph.subgraph(subgraph_nodes)
+    #     yield len(subgraph_nodes),h.edges()
+
+    for sub in enumerate(subgraphs):
+        yield sub
+
+# def subgraph_statistics(citation_cascade,start,end):
+#     logging.info('from {:} to {:}...'.format(start,end))
+#     cc = json.loads(open(citation_cascade).read())
+#     logging.info('{:} data loaded...'.format(len(cc.keys())))
+
+#     step=5000
+#     if end>10:
+#         step = 1000
+    
+#     if end>100:
+#         step = 50
+    
+#     if end>500:
+#         step=5
+
+#     logging.info('Steps:{:}'.format(step))
+
+#     # return None
+
+#     new_cascade = {}
+#     pid_subgraph=defaultdict(dict)
+#     for pid in cc.keys():
+#         cnum = cc[pid]['cnum']
+#         if cnum<start:
+#             continue
+#         elif cnum>=end:
+#             continue
+
+#         new_cascade[pid] = cc[pid]
+
+#     length = len(new_cascade)
+#     logging.info('Number of papers in this zone:{:}'.format(length))
+
+#     del cc 
+#     gc.collect()
+
+#     logi = 0
+#     for pid in new_cascade.keys():
+#         logi+=1
+#         logging.info('progress {:}/{:}'.format(logi,length))
+#         if logi%step==0:
+#             open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+#             logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
+
+#             del pid_subgraph
+#             gc.collect()
+            
+#             pid_subgraph = defaultdict(dict)
+            
+
+#         diG = nx.DiGraph()
+#         edges = new_cascade[pid]['edges']
+#         # if len(edges)<1000:
+#         #     continue
+#         diG.add_edges_from(edges)
+#         for subgraph in cascade_subgraph(diG):
+#             sub_list = pid_subgraph[pid].get(n,[])
+#             sub_list.append(subgraph)
+#             pid_subgraph[pid][n]=sub_list
+
+
+#     open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+#     logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
+#     logging.info('DONE')
+
+
 
 def subgraph_statistics(citation_cascade,start,end):
     logging.info('from {:} to {:}...'.format(start,end))
@@ -317,10 +387,11 @@ def subgraph_statistics(citation_cascade,start,end):
     logi = 0
     for pid in new_cascade.keys():
         logi+=1
-        logging.info('progress {:}/{:}'.format(logi,length))
         if logi%step==0:
-            open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-            logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
+            # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+            # logging.info('progress'.format(start,end,step,logi))
+            logging.info('progress {:}/{:}'.format(logi,length))
+
 
             del pid_subgraph
             gc.collect()
@@ -333,16 +404,16 @@ def subgraph_statistics(citation_cascade,start,end):
         # if len(edges)<1000:
         #     continue
         diG.add_edges_from(edges)
-        for n,subgraph in cascade_subgraph(diG):
-            sub_list = pid_subgraph[pid].get(n,[])
-            sub_list.append(subgraph)
-            pid_subgraph[pid][n]=sub_list
+        for subgraph in cascade_subgraph(diG):
+            # sub_list = pid_subgraph[pid].get(n,[])
+            # sub_list.append(subgraph)
+            # pid_subgraph[pid][n]=sub_list
+            print pid+"\t"+subgraph
 
 
-    open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-    logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
+    # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
+    # logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
     logging.info('DONE')
-
 
 
 def isomorohic():
