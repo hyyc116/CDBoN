@@ -285,7 +285,7 @@ def subgraph_statistics(citation_cascade,start,end):
             continue
         logi+=1
         logging.info('progress {:}'.format(logi))
-        if logi%1000==0:
+        if logi%5000==0:
             open('subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi),'w').write(json.dumps(pid_subgraph))
             logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_log_{:}.json'.format(start,end,logi))
 
@@ -308,6 +308,7 @@ def subgraph_statistics(citation_cascade,start,end):
 
     open('subs/subgraphs_{:}_{:}.json'.format(start,end),'w').write(json.dumps(pid_subgraph))
     logging.info('subgraphs saved to subs/subgraphs_{:}_{:}.json'.format(start,end))
+    logging.info('DONE')
 
 
 
