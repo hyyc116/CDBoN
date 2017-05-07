@@ -237,10 +237,15 @@ def cascade_subgraph(graph):
             j+=1
 
     logging.info('Size of paths:{:}'.format(len(paths)))
+    size_two = 0
     for i,path in enumerate(paths):
         if len(path)>30:
             continue
-        subgraphs.append(','.join(sorted(list(path))))
+
+        if len(path)==2:
+            size_two +=1
+        else:
+            subgraphs.append(','.join(sorted(list(path))))
         # subgraphs.append(path)
         # print i
         # subgraphs.append(path)
@@ -252,12 +257,17 @@ def cascade_subgraph(graph):
                 newpath = sorted(list(path| paths[j]))
                 if len(newpath)>30:
                     continue
-                subgraphs.append(','.join(newpath))
+
+
+                if len(newpath)==2:
+                    size_two+=1
+                else:
+                    subgraphs.append(','.join(newpath))
             j+=1   
 
     subgraphs = list(set(subgraphs))
     logging.info('number of subgraphs:{:}'.format(len(subgraphs)))
-
+    logging.info('Size two:{:}'.format(size_two))
     logging.info('subgraph extraction ...')
     for i,sub in enumerate(subgraphs):
         subgraph_nodes = [n for n in sub.split(',')]
@@ -370,7 +380,7 @@ def main():
 
 if __name__ == '__main__':
     # graph = nx.DiGraph()
-    # edges = [(2,1),(3,1),(3,2),(4,2),(4,3),(4,1),(5,1),(5,4),(6,3),(7,4),(8,7)]
+    # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
     # graph.add_edges_from(edges)
     # for i,edges in cascade_subgraph(graph):
     #     print i,edges
