@@ -285,7 +285,7 @@ def subgraph_statistics(citation_cascade,start,end):
 
     # return None
 
-    logi = 0
+    new_cascade = {}
     pid_subgraph=defaultdict(dict)
     for pid in cc.keys():
         cnum = cc[pid]['cnum']
@@ -293,8 +293,19 @@ def subgraph_statistics(citation_cascade,start,end):
             continue
         elif cnum>=end:
             continue
+
+        new_cascade[pid] = cc[pid]
+
+    length = len(new_cascade)
+    logging.info('Number of papers in this zone:{:}'.format(length))
+
+    del cc 
+    gc.collect()
+
+    logi = 0
+    for pid in new_cascade.keys():
         logi+=1
-        logging.info('progress {:}'.format(logi))
+        logging.info('progress {:}/{:}'.format(logi,length))
         if logi%step==0:
             open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
             logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
@@ -306,7 +317,7 @@ def subgraph_statistics(citation_cascade,start,end):
             
 
         diG = nx.DiGraph()
-        edges = cc[pid]['edges']
+        edges = new_cascade[pid]['edges']
         # if len(edges)<1000:
         #     continue
         diG.add_edges_from(edges)
