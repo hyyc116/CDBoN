@@ -325,7 +325,7 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
     return xs_ys_dict
 
 
-def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all',is_scale=0,low=0,up=100):
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all',is_scale=0,low=0,up=100,isLast=0):
 
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
@@ -396,31 +396,49 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'low cited papers'
-    plot_levels(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
+    low_yss = plot_levels(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
 
     ax2= axes[1]
     print 'medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'medium cited papers'
-    plot_levels(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
+    medium_yss = plot_levels(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
 
     ax3= axes[2]
     print 'high cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'high cited papers'
-    plot_levels(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
+    high_yss = plot_levels(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
 
     plt.tight_layout()
     namepath = 'pdf/metrics_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
     plt.savefig(namepath,dpi=300)
     print 'Result saved to',namepath
 
+    if isLast==1:
+        fig,axes = plt.subplots(1,3,figsize=(15,5))
+        ax1 = axes[0]
+        hist_levels(ax1,low_yss)
+        ax2 = axes[1]
+        hist_levels(ax2,medium_yss)
+        ax3 = axes[2]
+        hist_levels(ax3,high_yss)
+        plt.tight_layout()
+        namepath = 'pdf/metrics_last_{:}_{:}.pdf'.format(xyfunc_name,i)
+        plt.savefig(namepath,dpi=300)
+        print 'Result saved to',namepath
+
+
+
+def hist_levels(ax,ys):
+    ax.hist(ys,10,normed=True)
 
 def plot_levels(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
+    last_ys = []
     for key in xs_ys_dict.keys():
         xs,ys = xs_ys_dict[key]
         ax.plot(xs,ys)
-
+        last_ys.append(ys[-1])
     ax.set_title(title)
     ax.set_xlabel(xls)
     ax.set_ylabel(yls)
@@ -430,6 +448,7 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
         ax.set_ylim(low,up)
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
+    return last_ys
 
 def scatter_levels(ax,xs,ys,title,xls,yls,label='low cited papers'):
     
@@ -1086,7 +1105,7 @@ def main():
     elif label=='co':
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
-        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],int(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]))
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],int(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]),float(10))
     elif label=='scatter_levels':
         scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
     elif label=='citation_ages':
