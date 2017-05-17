@@ -1105,7 +1105,7 @@ def main():
     elif label=='co':
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
-        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],int(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]),float(10))
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],int(sys.argv[7]),float(sys.argv[8]),float(sys.argv[9]),float(sys.argv[10]))
     elif label=='scatter_levels':
         scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
     elif label=='citation_ages':
