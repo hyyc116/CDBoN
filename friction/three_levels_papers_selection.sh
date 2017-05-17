@@ -12,23 +12,23 @@
 
 
 ## plot timely speed / cy_cyi_yi
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_delta_cyi_yi all
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_delta_cyi_yi all 0
 
 ## plot average speed / cy_cyi_dyi
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_cyi_dyi all
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_cyi_dyi all 0
 
 ## plot average time / cy_yi_dcyi
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_yi_dcyi all
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json cy_yi_dcyi all 1
 
 ## plot time required to receive certain citations / co_ti_i
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i all
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i 10
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i 100
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i all 0
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i 10 0
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_ti_i 100 0
 
 # plot time required to receive one more citation / co_delta_ti
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti 10
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti 100
-python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti all
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti 10 0
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti 100 0
+python Citation_friction.py co_three_levels data/low_selected_papers.json data/medium_selected_papers.json data/high_selected_papers.json co_delta_ti all 0
 
 
 

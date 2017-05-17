@@ -325,7 +325,7 @@ def citation_order(cited_papers_json,xyfunc=co_ti_i,i='all'):
     return xs_ys_dict
 
 
-def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all'):
+def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i',i='all',is_scale=0):
 
     if xyfunc_name=='co_ti_i':
         xyfunc = co_ti_i
@@ -378,19 +378,19 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'low cited papers'
-    plot_levels(ax1,low_xy_dict,title,xls,yls)
+    plot_levels(ax1,low_xy_dict,title,xls,yls,is_scale)
 
     ax2= axes[1]
     print 'medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'medium cited papers'
-    plot_levels(ax2,medium_xy_dict,title,xls,yls)
+    plot_levels(ax2,medium_xy_dict,title,xls,yls,is_scale)
 
     ax3= axes[2]
     print 'high cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'high cited papers'
-    plot_levels(ax3,high_xy_dict,title,xls,yls)
+    plot_levels(ax3,high_xy_dict,title,xls,yls,is_scale)
 
     plt.tight_layout()
     namepath = 'pdf/metrics_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
@@ -398,7 +398,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     print 'Result saved to',namepath
 
 
-def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
+def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60,is_scale=0):
     for key in xs_ys_dict.keys():
         xs,ys = xs_ys_dict[key]
         ax.plot(xs,ys)
@@ -406,7 +406,8 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60):
     ax.set_title(title)
     ax.set_xlabel(xls)
     ax.set_ylabel(yls)
-    ax.set_yscale('log')
+    if is_scale==1:
+        ax.set_yscale('log')
     # ax.set_ylim(0.001,1000)
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
@@ -1066,7 +1067,7 @@ def main():
     elif label=='co':
         citation_order(sys.argv[2])
     elif label=='co_three_levels':
-        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6])
+        plot_three_cited_levels(sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],int(sys.argv[7]))
     elif label=='scatter_levels':
         scatter_three_levels(sys.argv[2],sys.argv[3],sys.argv[4])
     elif label=='citation_ages':
