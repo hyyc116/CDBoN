@@ -370,8 +370,8 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
         xyfunc = cy_delta_cyi_yi
         xls='t'
         yls='Number of citation'
-        low = int(low)
-        up = int(up)
+        low = -1
+        up = -1
 
     elif xyfunc_name=='cy_delta_yi':
         xyfunc = cy_delta_yi
