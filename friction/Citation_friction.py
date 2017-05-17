@@ -396,19 +396,19 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     ax1 = axes[0]
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'low cited papers'
-    plot_levels(ax1,low_xy_dict,title,xls,yls,is_scale,low,up)
+    plot_levels(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
 
     ax2= axes[1]
     print 'medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'medium cited papers'
-    plot_levels(ax2,medium_xy_dict,title,xls,yls,is_scale,low,up)
+    plot_levels(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
 
     ax3= axes[2]
     print 'high cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'high cited papers'
-    plot_levels(ax3,high_xy_dict,title,xls,yls,is_scale,low,up)
+    plot_levels(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
 
     plt.tight_layout()
     namepath = 'pdf/metrics_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
