@@ -387,7 +387,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
         xls='citation year $y_i$'
         yls='$\Delta y_i/\Delta C_{y_i}$'
 
-    print xyfunc_name,'with i=',i
+    print xyfunc_name,'with i=',i,'low',low,'up',up
 
     fig,axes = plt.subplots(1,3,figsize=(15,5))
     
@@ -416,7 +416,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     print 'Result saved to',namepath
 
 
-def plot_levels(ax,xs_ys_dict,title,xls,yls,ylims_up=60,is_scale=0,low=0,up=60):
+def plot_levels(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     for key in xs_ys_dict.keys():
         xs,ys = xs_ys_dict[key]
         ax.plot(xs,ys)
