@@ -355,7 +355,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     elif xyfunc_name=='cy_cyi_dyi':
         xyfunc = cy_cyi_dyi
         xls='t'
-        yls='$Average Speed$'
+        yls='Average Speed'
         low = int(low)
         up = int(up)
 
