@@ -349,8 +349,8 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
         xyfunc = cy_cyi_yi
         xls='t'
         yls='Number of citations'
-        low = int(low)
-        up = int(up)
+        low = -1
+        up = -1
 
     elif xyfunc_name=='cy_cyi_dyi':
         xyfunc = cy_cyi_dyi
@@ -426,7 +426,8 @@ def plot_levels(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     ax.set_ylabel(yls)
     if is_scale==1:
         ax.set_yscale('log')
-    ax.set_ylim(low,up)
+    if low!=-1:
+        ax.set_ylim(low,up)
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
 
