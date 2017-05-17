@@ -393,7 +393,7 @@ def plot_three_cited_levels(low_json,medium_json,high_json,xyfunc_name='co_ti_i'
     plot_levels(ax3,high_xy_dict,title,xls,yls)
 
     plt.tight_layout()
-    namepath = 'pdf/three_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
+    namepath = 'pdf/metrics_levels_{:}_{:}.pdf'.format(xyfunc_name,i)
     plt.savefig(namepath,dpi=300)
     print 'Result saved to',namepath
 
