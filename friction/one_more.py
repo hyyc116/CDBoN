@@ -16,7 +16,7 @@ def first_citation(cited_papers_json):
         time_internals.append(cyear-year)
 
     internal_counter = Counter(time_internals)
-    return internal_counter
+    return internal_counter,time_internals
 
 
 def plot_three_level_first_citations(low,medium,high):
@@ -26,7 +26,10 @@ def plot_three_level_first_citations(low,medium,high):
     # ax1 = axes[0]
     logging.info('Low cited papers ...')
 
-    internal_dict = first_citation(low)
+    xlabels  = ['Low','Medium','High']
+    box_data = []
+
+    internal_dict,time_internals = first_citation(low)
     xs = []
     ys = []
     for i in sorted(internal_dict.keys()):
@@ -34,9 +37,10 @@ def plot_three_level_first_citations(low,medium,high):
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
     plt.plot(xs,ys,label ='low cited papers')
+    box_data.append(time_internals)
 
     logging.info('Medium cited papers ...')
-    internal_dict = first_citation(medium)
+    internal_dict,time_internals = first_citation(medium)
     xs = []
     ys = []
     for i in sorted(internal_dict.keys()):
@@ -44,22 +48,33 @@ def plot_three_level_first_citations(low,medium,high):
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
     plt.plot(xs,ys,label ='medium cited papers')
+    box_data.append(time_internals)
+
 
     logging.info('High cited papers ...')
-    internal_dict = first_citation(high)
+    internal_dict,time_internals = first_citation(high)
     xs = []
     ys = []
     for i in sorted(internal_dict.keys()):
         xs.append(i)
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
+
     plt.plot(xs,ys,label='high cited papers')
+    box_data.append(time_internals)
+
     plt.legend()
     
     plt.xlim(0,10)
     plt.savefig('pdf/first_citation.pdf',dpi=300)
 
     logging.info('saved to pdf/first_citation.pdf')
+
+    plt.figure()
+    plt.boxplot(box_data)
+    plt.savefig('pdf/first_citation_box.pdf',dpi=300)
+    logging.info('saved to pdf/first_citation.pdf')
+
 
 if __name__ == '__main__':
     plot_three_level_first_citations(sys.argv[1],sys.argv[2],sys.argv[3])
