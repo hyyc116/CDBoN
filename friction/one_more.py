@@ -71,7 +71,9 @@ def plot_three_level_first_citations(low,medium,high):
     logging.info('saved to pdf/first_citation.pdf')
 
     plt.figure()
-    plt.boxplot(box_data,showfliers=False)
+    plt.violinplot(box_data,
+                   showmeans=False,
+                   showmedians=True)
     plt.savefig('pdf/first_citation_box.pdf',dpi=300)
     logging.info('saved to pdf/first_citation.pdf')
 
