@@ -72,12 +72,14 @@ def plot_three_level_first_citations(low,medium,high):
 
     plt.figure()
     plt.violinplot(box_data,
-                   showmeans=False,
+                   showmeans=True,
                    showmedians=True)
     plt.savefig('pdf/first_citation_box.pdf',dpi=300)
+    plt.set_xticks(np.arange(1, len(xlabels) + 1))
+    plt.set_xticklabels(xlabels)
     plt.yscale('log')
-    plt.xticks([1,2,3],xlabels)
-    logging.info('saved to pdf/first_citation.pdf')
+    
+    logging.info('saved to pdf/first_citation_box.pdf')
 
 
 if __name__ == '__main__':
