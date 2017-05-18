@@ -13,7 +13,7 @@ def first_citation(cited_papers_json):
         citations = [(cit.split(',')[0],int(cit.split(',')[1])) for cit in paper_dict['citations']]
         
         cpid, cyear = sorted(citations,key=lambda x:x[1])[0]
-        time_internals.append(cyear-year)
+        time_internals.append(cyear-year+1)
 
     internal_counter = Counter(time_internals)
     return internal_counter,time_internals
@@ -73,7 +73,7 @@ def plot_three_level_first_citations(low,medium,high):
     fig,ax = plt.subplots()
     ax.violinplot(box_data,
                    showmeans=True,
-                   showmedians=True)
+                   showmedians=False)
     ax.set_xticks(np.arange(1, len(xlabels) + 1))
     ax.set_xticklabels(xlabels)
     ax.set_yscale('log')
