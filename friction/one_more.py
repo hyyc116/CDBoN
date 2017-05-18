@@ -80,7 +80,9 @@ def plot_three_level_first_citations(low,medium,high):
                    showmedians=False)
     ax.set_xticks(np.arange(1, len(xlabels) + 1))
     ax.set_xticklabels(xlabels)
-    # ax.set_yscale('log')
+    ax.set_yscale('log')
+    ax.set_xlabel('Cited Levels')
+    ax.set_ylabel('Response Time')
     plt.savefig('pdf/first_citation_box.pdf',dpi=300)
     
     logging.info('saved to pdf/first_citation_box.pdf')
