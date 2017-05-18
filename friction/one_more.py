@@ -77,7 +77,7 @@ def plot_three_level_first_citations(low,medium,high):
     plt.savefig('pdf/first_citation_box.pdf',dpi=300)
     plt.yscale('log')
     plt.xticks([1,2,3])
-    plt.xticklables(x)
+    plt.xticklables(xlabels)
     logging.info('saved to pdf/first_citation.pdf')
 
 
