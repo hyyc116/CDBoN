@@ -33,7 +33,7 @@ def plot_three_level_first_citations(low,medium,high):
         xs.append(i)
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
-    plt.plot(xs,ys,label ='low cited papers')
+    plt.bar(xs,ys,label ='low cited papers')
 
     logging.info('Medium cited papers ...')
     internal_dict = first_citation(medium)
@@ -43,7 +43,7 @@ def plot_three_level_first_citations(low,medium,high):
         xs.append(i)
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
-    plt.plot(xs,ys,label ='medium cited papers')
+    plt.bar(xs,ys,label ='medium cited papers')
 
     logging.info('High cited papers ...')
     internal_dict = first_citation(high)
@@ -53,7 +53,7 @@ def plot_three_level_first_citations(low,medium,high):
         xs.append(i)
         ys.append(internal_dict[i])
     ys = np.array(ys)/float(sum(ys))
-    plt.plot(xs,ys,label='high cited papers')
+    plt.bar(xs,ys,label='high cited papers')
     plt.legend()
     
     plt.savefig('pdf/first_citation.pdf',dpi=300)
