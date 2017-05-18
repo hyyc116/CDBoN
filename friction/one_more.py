@@ -16,7 +16,7 @@ def first_citation(cited_papers_json):
         time_internals.append(cyear-year+1)
 
     internal_counter = Counter(time_internals)
-    return internal_counter,time_internals
+    return internal_counter,np.array(time_internals)
 
 
 def plot_three_level_first_citations(low,medium,high):
@@ -28,6 +28,7 @@ def plot_three_level_first_citations(low,medium,high):
 
     xlabels  = ['Low','Medium','High']
     box_data = []
+    means = []
 
     internal_dict,time_internals = first_citation(low)
     xs = []
@@ -38,6 +39,7 @@ def plot_three_level_first_citations(low,medium,high):
     ys = np.array(ys)/float(sum(ys))
     plt.plot(xs,ys,label ='low cited papers')
     box_data.append(time_internals)
+    means.append(np.mean(time_internals))
 
     logging.info('Medium cited papers ...')
     internal_dict,time_internals = first_citation(medium)
@@ -49,6 +51,7 @@ def plot_three_level_first_citations(low,medium,high):
     ys = np.array(ys)/float(sum(ys))
     plt.plot(xs,ys,label ='medium cited papers')
     box_data.append(time_internals)
+    means.append(np.mean(time_internals))
 
 
     logging.info('High cited papers ...')
@@ -62,6 +65,7 @@ def plot_three_level_first_citations(low,medium,high):
 
     plt.plot(xs,ys,label='high cited papers')
     box_data.append(time_internals)
+    means.append(np.mean(time_internals))
 
     plt.legend()
     
@@ -73,7 +77,7 @@ def plot_three_level_first_citations(low,medium,high):
     fig,ax = plt.subplots()
     ax.violinplot(box_data,
                    showmeans=True,
-                   showmedians=False)
+                   showmedians=False,label='mean of low:{:}\nmean of medium:{:}\nmean of high:{:}'.format(means[0],means[1],means[2]))
     ax.set_xticks(np.arange(1, len(xlabels) + 1))
     ax.set_xticklabels(xlabels)
     ax.set_yscale('log')
