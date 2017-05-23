@@ -246,6 +246,8 @@ def cascade_degree_distribution(citation_cascade):
     open('data/out_degree.json','w').write(json.dumps(od_dict))
     open('data/in_degree.json','w').write(json.dumps(in_dict))
 
+    logging.info('Done')
+
         # if nx.is_directed_acyclic_graph(diG):
         #     depth=nx.dag_longest_path_length(diG)
         #     # cascade_depths.append(depth)
@@ -530,14 +532,14 @@ def main():
 
 
 if __name__ == '__main__':
-    graph = nx.DiGraph()
-    edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
-    graph.add_edges_from(edges)
-    print graph.out_degree('1')
-    print graph.in_edges('1')
-    # for edges in cascade_subgraph(graph):
-    #     print edges
-    # main()
+    # graph = nx.DiGraph()
+    # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
+    # graph.add_edges_from(edges)
+    # print graph.out_degree('1')
+    # print graph.in_edges('1')
+    # # for edges in cascade_subgraph(graph):
+    # #     print edges
+    main()
 
     
 
