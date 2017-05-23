@@ -240,7 +240,7 @@ def cascade_degree_distribution(citation_cascade):
             od = outdegree_dict[nid]
             od_dict[od]+=1
             if od >0:
-                ind = len(dig.in_edges(nid))
+                ind = len(diG.in_edges(nid))
                 in_dict[ind]+=1
 
     open('data/out_degree.json','w').write(json.dumps(od_dict))
