@@ -216,6 +216,82 @@ def cascade_depth_distribution(citation_cascade):
     plt.savefig('pdf/cascade_depth.pdf',dpi=300)
     logging.info('figure saved to pdf/cascade_depth.pdf.')
 
+
+def cascade_degree_distribution(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+    # cascade_depths=[]
+    # cascade_sizes=[]
+    size_depth_dict=defaultdict(list)
+    depth_dict=defaultdict(int)
+    logi = 0
+    od_dict = defaultdict(int)
+    in_dict = defaultdict(int)
+
+    for pid in cc.keys():
+        logi+=1
+        if logi%10000==1:
+            logging.info('progress {:}'.format(logi))
+        diG = nx.DiGraph()
+        edges = cc[pid]['edges']
+        diG.add_edges_from(edges)
+        outdegree_dict = diG.out_degree()
+        for nid in outdegree_dict.keys():
+            od = outdegree_dict[nid]
+            od_dict[od]+=1
+            if od >0:
+                ind = len(dig.in_edges(nid))
+                in_dict[ind]+=1
+
+    open('data/out_degree.json','w').write(json.dumps(od_dict))
+    open('data/in_degree.json','w').write(json.dumps(in_dict))
+
+        # if nx.is_directed_acyclic_graph(diG):
+        #     depth=nx.dag_longest_path_length(diG)
+        #     # cascade_depths.append(depth)
+        #     depth_dict[depth]+=1
+        #     # cascade_sizes.append(len(edges))
+        #     size_depth_dict[len(edges)].append(depth)
+
+    # logging.info('plot data...')
+    # fig,axes = plt.subplots(1,2,figsize=(10,5))
+    # ax1 = axes[0]
+    # xs=[]
+    # ys=[]
+    # for depth in sorted(depth_dict.keys()):
+    #     xs.append(depth)
+    #     ys.append(depth_dict[depth])
+
+    # ax1.plot(xs,ys,marker='o',fillstyle='none')
+    # ax1.set_xlabel('Cascade depth')
+    # ax1.set_ylabel('Count')
+    # ax1.set_title('Cascade depth distribution')
+    # ax1.set_yscale('log')
+    # # ax1.set_xscale('log')
+
+    # # ax2=axes[1]
+    # # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
+
+    # ax2=axes[1]
+    # xs=[]
+    # ys=[]
+    # for size in sorted(size_depth_dict.keys()):
+    #     xs.append(size)
+    #     ys.append(np.mean(size_depth_dict[size]))
+
+    # ax2.plot(xs,ys,'.')
+    # ax2.set_title('Depth vs. Cascade Size')
+    # ax2.set_xlabel('Cascade Size')
+    # ax2.set_ylabel('Mean of Cascade depth')
+    # ax2.set_xscale('log')
+
+    # plt.tight_layout()
+    # plt.savefig('pdf/cascade_depth.pdf',dpi=300)
+    # logging.info('figure saved to pdf/cascade_depth.pdf.')
+
+
+
+
 #cascade subgraph
 def cascade_subgraph(graph):
     ungraph = graph
@@ -440,23 +516,28 @@ def main():
     # build_citation_network(sys.argv[1])
     # build_cascades(sys.argv[1])
     label = sys.argv[1]
-    if label=='cascade_size':
+    if label== 'cascade_size':
         cascade_size_distribution(sys.argv[2])
     elif label == 'cascade_depth':
         cascade_depth_distribution(sys.argv[2])
-    elif label =='build_cascade':
+    elif label == 'build_cascade':
         build_cascades(sys.argv[2])
+    elif label == 'degree':
+        cascade_degree_distribution(sys.argv[2])
+
     elif label =='subgraphs':
         subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
 
 
 if __name__ == '__main__':
-    # graph = nx.DiGraph()
-    # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
-    # graph.add_edges_from(edges)
+    graph = nx.DiGraph()
+    edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
+    graph.add_edges_from(edges)
+    print graph.out_degree('1')
+    print graph.in_edges('1')
     # for edges in cascade_subgraph(graph):
     #     print edges
-    main()
+    # main()
 
     
 

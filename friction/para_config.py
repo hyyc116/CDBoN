@@ -13,8 +13,9 @@ import math
 import numpy as np
 import random
 import logging
-
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.DEBUG)
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.INFO)
 PREFIX='all'
 PROGRAM_ID='friction'
 FIGDIR='pdf'
