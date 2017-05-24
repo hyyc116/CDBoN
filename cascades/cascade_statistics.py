@@ -194,7 +194,7 @@ def cascade_depth_distribution(citation_cascade):
     ax1.set_ylabel('Count')
     ax1.set_title('Cascade depth distribution')
     ax1.set_yscale('log')
-    ax1.set_xscale('log')
+    # ax1.set_xscale('log')
 
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
@@ -210,8 +210,8 @@ def cascade_depth_distribution(citation_cascade):
     ax2.set_title('Depth vs. Cascade Size')
     ax2.set_xlabel('Cascade Size')
     ax2.set_ylabel('Mean of Cascade depth')
-    ax2.set_yscale('log')
-    ax2.set_xscale('log')
+    # ax2.set_yscale('log')
+    # ax2.set_xscale('log')
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_depth.pdf',dpi=300)
@@ -269,12 +269,12 @@ def draw_degree_plot():
         xs.append(ind)
         ys.append(in_degree_dict[ind])
 
-    ax1.plot(xs,ys,marker='o',fillstyle='none')
+    ax1.plot(xs,ys,'.')
     ax1.set_xlabel('In Degree')
     ax1.set_ylabel('Count')
     ax1.set_title('In Degree distribution')
     ax1.set_yscale('log')
-    # ax1.set_xscale('log')
+    ax1.set_xscale('log')
 
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
@@ -291,6 +291,7 @@ def draw_degree_plot():
     ax2.set_xlabel('Out Degree')
     ax2.set_ylabel('Count')
     ax2.set_xscale('log')
+    ax2.set_yscale('log')
 
     plt.tight_layout()
     plt.savefig('pdf/cascade_degree.pdf',dpi=300)
