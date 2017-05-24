@@ -9,8 +9,8 @@
 # python cascade_statistics.py cascade_depth data/aminer_citation_cascade.json
 
 ## Cascade degree distribution
-python cascade_statistics.py degree data/aminer_citation_cascade.json
-
+# python cascade_statistics.py degree data/aminer_citation_cascade.json
+python cascade_statistics.py degree_plot
 
 ## Cascade subgraphs
 # echo '0,10'

@@ -531,7 +531,7 @@ def main():
     elif label == 'degree':
         cascade_degree_distribution(sys.argv[2])
     elif label =='degree_plot':
-        draw_degree_plot()\
+        draw_degree_plot()
     elif label =='subgraphs':
         subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
 
