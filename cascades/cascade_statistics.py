@@ -256,40 +256,44 @@ def cascade_degree_distribution(citation_cascade):
         #     size_depth_dict[len(edges)].append(depth)
 
     # logging.info('plot data...')
-    # fig,axes = plt.subplots(1,2,figsize=(10,5))
-    # ax1 = axes[0]
-    # xs=[]
-    # ys=[]
-    # for depth in sorted(depth_dict.keys()):
-    #     xs.append(depth)
-    #     ys.append(depth_dict[depth])
 
-    # ax1.plot(xs,ys,marker='o',fillstyle='none')
-    # ax1.set_xlabel('Cascade depth')
-    # ax1.set_ylabel('Count')
-    # ax1.set_title('Cascade depth distribution')
-    # ax1.set_yscale('log')
-    # # ax1.set_xscale('log')
+def draw_degree_plot():
+    in_degree_dict=json.loads(open('data/in_degree.json').read())
+    out_degree_dict=json.loads(open('data/out_degree.json').read())
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[0]
+    xs=[]
+    ys=[]
+    for ind in sorted(in_degree_dict.keys()):
+        xs.append(ind)
+        ys.append(in_degree_dict[ind])
 
-    # # ax2=axes[1]
-    # # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
+    ax1.plot(xs,ys,marker='o',fillstyle='none')
+    ax1.set_xlabel('In Degree')
+    ax1.set_ylabel('Count')
+    ax1.set_title('In Degree distribution')
+    ax1.set_yscale('log')
+    # ax1.set_xscale('log')
 
     # ax2=axes[1]
-    # xs=[]
-    # ys=[]
-    # for size in sorted(size_depth_dict.keys()):
-    #     xs.append(size)
-    #     ys.append(np.mean(size_depth_dict[size]))
+    # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
 
-    # ax2.plot(xs,ys,'.')
-    # ax2.set_title('Depth vs. Cascade Size')
-    # ax2.set_xlabel('Cascade Size')
-    # ax2.set_ylabel('Mean of Cascade depth')
-    # ax2.set_xscale('log')
+    ax2=axes[1]
+    xs=[]
+    ys=[]
+    for od in sorted(out_degree_dict.keys()):
+        xs.append(od)
+        ys.append(out_degree_dict[od])
 
-    # plt.tight_layout()
-    # plt.savefig('pdf/cascade_depth.pdf',dpi=300)
-    # logging.info('figure saved to pdf/cascade_depth.pdf.')
+    ax2.plot(xs,ys,'.')
+    ax2.set_title('Out Degree distribution')
+    ax2.set_xlabel('Out Degree')
+    ax2.set_ylabel('Count')
+    ax2.set_xscale('log')
+
+    plt.tight_layout()
+    plt.savefig('pdf/cascade_degree.pdf',dpi=300)
+    logging.info('figure saved to pdf/cascade_degree.pdf.')
 
 
 
@@ -526,7 +530,8 @@ def main():
         build_cascades(sys.argv[2])
     elif label == 'degree':
         cascade_degree_distribution(sys.argv[2])
-
+    elif label =='degree_plot':
+        draw_degree_plot()\
     elif label =='subgraphs':
         subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
 
