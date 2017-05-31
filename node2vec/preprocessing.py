@@ -80,7 +80,7 @@ def generate_id_author_name(index_path):
 def generate_id_task(data_path,index_path):
     task_dict=defaultdict(int)
     for line in open(data_path):
-        splits = line.split('\t')
+        splits = line.strip().split('\t')
         id1 = splits[0]
         id2 = splits[1]
         num = int(splits[2])
@@ -88,7 +88,7 @@ def generate_id_task(data_path,index_path):
         task_dict[id2]+=num
 
     for line in open(index_path):
-        splits = line.split('\t')
+        splits = line.strip().split('\t')
         name = splits[0]
         id1 = splits[1]
 
