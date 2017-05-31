@@ -25,7 +25,7 @@ DATADIR='data'
 def power_low_func(x,a,b):
     return b*(x**(-a))
 
-def autolabel(rects,ax,total_count=None,step=1,):
+def autolabel(rects,ax,total_count=None,step=1):
     """
     Attach a text label above each bar displaying its height
     """
@@ -35,9 +35,9 @@ def autolabel(rects,ax,total_count=None,step=1,):
         # print height
         if not total_count is None:
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                    '{:}\n({:.6f})'.format(int(height),height/float(total_count)),
+                    '{:}\n({:.3f})'.format(float(height),height/float(total_count)),
                     ha='center', va='bottom')
         else:
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                    '{:}'.format(int(height)),
+                    '{:.3f}'.format(float(height)),
                     ha='center', va='bottom')

@@ -76,7 +76,24 @@ def generate_id_author_name(index_path):
     	if aid in aids:
     		print str(aid)+"\t"+name.encode('utf-8')+"\t"+str(pc)
     
+def generate_id_task(data_path,index_path):
+	task_dict=defaultdict(int)
+	for line in open(data_path):
+		splits = line.split('\t')
+		id1 = splits[0]
+		id2 = splits[1]
+		num = int(splits[2])
+		task_dict[id1]+=num
+		task_dict[id2]+=num
 
+    # aids = set([int(aid.strip()) for aid in open(index_path)])
+    for line in open(index_path):
+    	splits = line.split('\t')
+    	name = splits[0]
+    	id1 = splits[1]
+
+    	if aid in aids:
+    		print id1+"\t"+name.encode('utf-8')+"\t"+task_dict[id1]
 
 
 if __name__=="__main__":
@@ -94,6 +111,8 @@ if __name__=="__main__":
 		generate_id_author_name(path)
 	elif label =='filtered':
 		filter_edges(path,int(sys.argv[3]))
+	elif label == 'task':
+		generate_id_task(path,sys.argv[3])
 
 
 

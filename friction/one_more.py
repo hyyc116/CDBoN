@@ -25,7 +25,7 @@ def plot_ten_delta_ti():
 
     elif xyfunc_name=='co_delta_ti':
         xyfunc = co_delta_ti
-        yls = 'Length of Time'
+        yls = '$T_i$'
         xls = '$i^{th}$ citation'
         low = float(low)
         up = int(up)
@@ -79,32 +79,32 @@ def plot_ten_delta_ti():
     print xyfunc_name,'with i=',i,'low',low,'up',up
 
     params = {'legend.fontsize': 15,
-         'axes.labelsize': 20,
-         'axes.titlesize':25,
-         'xtick.labelsize':20,
+         'axes.labelsize': 15,
+         'axes.titlesize':20,
+         'xtick.labelsize':15,
          'ytick.labelsize':15,
          'font.family':'Times New Roman'}
     pylab.rcParams.update(params)
 
-    fig,((ax1,ax2,ax3),(ax4,ax5,ax6)) = plt.subplots(2,3,sharex=True, sharey=True,figsize=(15,10))
+    fig,((ax1,ax2,ax3),(ax4,ax5,ax6)) = plt.subplots(2,3,figsize=(15,10))
     
     
     print 'low cited papers'
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'Low cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_level(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-o',label='Low',c='r')
-    ax5.plot(xlabels,medians,'-o',label='Low',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-o',label='Low',c='g')
+    ax4.plot(xlabels,means,'-o',label='Low')
+    ax5.plot(xlabels,medians,'-o',label='Low')
+    ax6.plot(xlabels,modes,'-o',label='Low')
     open('regression/ten_low_report.txt','w').write(lr_report)
 
     print 'Medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'Medium cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_level(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-^',label='Medium',c='r')
-    ax5.plot(xlabels,medians,'-^',label='Medium',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-^',label='Medium',c='g')
+    ax4.plot(xlabels,means,'-^',label='Medium')
+    ax5.plot(xlabels,medians,'-^',label='Medium')
+    ax6.plot(xlabels,modes,'-^',label='Medium')
     open('regression/ten_medium_report.txt','w').write(lr_report)
 
 
@@ -112,9 +112,9 @@ def plot_ten_delta_ti():
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'High cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_level(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-*',label='High',c='r')
-    ax5.plot(xlabels,medians,'-*',label='High',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-*',label='High',c='g')
+    ax4.plot(xlabels,means,'-*',label='High')
+    ax5.plot(xlabels,medians,'-*',label='High')
+    ax6.plot(xlabels,modes,'-*',label='High')
     open('regression/ten_high_report.txt','w').write(lr_report)
 
     ax3.legend()
@@ -124,16 +124,21 @@ def plot_ten_delta_ti():
     ax4.set_xlabel('$i^{th}$ citation\n(d)')
     ax5.set_xlabel('$i^{th}$ citation\n(e)')
     ax6.set_xlabel('$i^{th}$ citation\n(f)')
-    ax4.set_ylabel('Time required')
-    ax1.set_ylabel('Time required')
+    ax4.set_ylabel('$T_i$')
+    ax5.set_ylabel('$T_i$')
+    ax6.set_ylabel('$T_i$')
+    ax1.set_ylabel('$T_i$')
+    ax4.set_ylim(-0.2,3)
+    ax5.set_ylim(-0.2,3)
+    ax6.set_ylim(-0.2,3)
     ax4.legend()
     ax5.legend()
     ax6.legend()
 
     # fig.subplots_adjust(wspace=0)
 
-    yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
-    plt.setp(yticklabels, visible=False)
+    # yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
+    # plt.setp(yticklabels, visible=False)
     plt.tight_layout()
     namepath = 'pdf/one_more_three_levels.pdf'
     plt.savefig(namepath,dpi=300)
@@ -180,7 +185,7 @@ def boxplot_level(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     ax.plot(xlabels,modes,c='g',label='mode')
     ax.set_title(title)
     ax.set_xlabel(xls)
-    # ax.set_ylabel(yls)
+    ax.set_ylabel(yls)
 
     if is_scale==1:
         ax.set_yscale('log')
@@ -189,7 +194,7 @@ def boxplot_level(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
     # return last_ys
-    return xlabels,means,medians,modes,','.join(LR(lr_xs,lr_ys))
+    return xlabels,np.array(means)-1,np.array(medians)-1,np.array(modes)-1,','.join(LR(lr_xs,lr_ys))
 
 def plot_zone_delta_ti():
 
@@ -202,39 +207,39 @@ def plot_zone_delta_ti():
     low=0.8
     up=40
 
-    yls = 'Average Time'
+    yls = 'Average $T_i$'
     xls = '$i^{th}$ Zone'
     low = float(low)
     up = int(up)
 
 
     params = {'legend.fontsize': 15,
-         'axes.labelsize': 20,
-         'axes.titlesize':25,
-         'xtick.labelsize':20,
+         'axes.labelsize': 15,
+         'axes.titlesize':20,
+         'xtick.labelsize':15,
          'ytick.labelsize':15,
          'font.family':'Times New Roman'}
     pylab.rcParams.update(params)
 
-    fig,((ax1,ax2,ax3),(ax4,ax5,ax6)) = plt.subplots(2,3,sharex=True, sharey=True,figsize=(15,10))
+    fig,((ax1,ax2,ax3),(ax4,ax5,ax6)) = plt.subplots(2,3,figsize=(15,10))
     
     
     print 'low cited papers'
     low_xy_dict = citation_order(low_json,xyfunc,i)
     title = 'Low cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-o',label='Low',c='r')
-    ax5.plot(xlabels,medians,'-o',label='Low',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-o',label='Low',c='g')
+    ax4.plot(xlabels,means,'-o',label='Low')
+    ax5.plot(xlabels,medians,'-o',label='Low')
+    ax6.plot(xlabels,modes,'-o',label='Low')
     open('regression/zone_low_report.txt','w').write(lr_report)
 
     print 'Medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
     title = 'Medium cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-^',label='Medium',c='r')
-    ax5.plot(xlabels,medians,'-^',label='Medium',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-^',label='Medium',c='g')
+    ax4.plot(xlabels,means,'-^',label='Medium')
+    ax5.plot(xlabels,medians,'-^',label='Medium')
+    ax6.plot(xlabels,modes,'-^',label='Medium')
     open('regression/zone_medium_report.txt','w').write(lr_report)
 
 
@@ -242,9 +247,9 @@ def plot_zone_delta_ti():
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'High cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
-    ax4.plot(xlabels,means,'-*',label='High',c='r')
-    ax5.plot(xlabels,medians,'-*',label='High',c='#ff7f0e')
-    ax6.plot(xlabels,modes,'-*',label='High',c='g')
+    ax4.plot(xlabels,means,'-*',label='High')
+    ax5.plot(xlabels,medians,'-*',label='High')
+    ax6.plot(xlabels,modes,'-*',label='High')
     open('regression/zone_high_report.txt','w').write(lr_report)
 
     ax3.legend()
@@ -254,16 +259,21 @@ def plot_zone_delta_ti():
     ax4.set_xlabel('$i^{th}$ Zone\n(d)')
     ax5.set_xlabel('$i^{th}$ Zone\n(e)')
     ax6.set_xlabel('$i^{th}$ Zone\n(f)')
-    ax4.set_ylabel('Time required')
-    ax1.set_ylabel('Time required')
+    ax4.set_ylim(-0.2,3)
+    ax5.set_ylim(-0.2,3)
+    ax6.set_ylim(-0.2,3)
+    ax4.set_ylabel('Average $T_i$')
+    ax4.set_ylabel('Average $T_i$')
+    ax5.set_ylabel('Average $T_i$')
+    ax6.set_ylabel('Average $T_i$')
     ax4.legend()
     ax5.legend()
     ax6.legend()
 
     # fig.subplots_adjust(wspace=0)
 
-    yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
-    plt.setp(yticklabels, visible=False)
+    # yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
+    # plt.setp(yticklabels, visible=False)
     plt.tight_layout()
     namepath = 'pdf/zone_three_levels.pdf'
     plt.savefig(namepath,dpi=300)
@@ -290,7 +300,7 @@ def boxplot_zone(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
             zone_mean = np.mean(paper_zone[zone])
             box_data_dict[zone].append(zone_mean)
             lr_xs.append(zone)
-            lr_ys.append(zone_mean)
+            lr_ys.append(zone_mean-1)
 
 
     box_data = []
@@ -314,7 +324,7 @@ def boxplot_zone(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     ax.plot(xlabels,modes,c='g',label='mode')
     ax.set_title(title)
     ax.set_xlabel(xls)
-    # ax.set_ylabel(yls)
+    ax.set_ylabel(yls)
 
     if is_scale==1:
         ax.set_yscale('log')
@@ -323,7 +333,7 @@ def boxplot_zone(ax,xs_ys_dict,title,xls,yls,is_scale=0,low=0,up=60):
     # ax.set_xlim(0,50)
     # ax.set_ylim(0,ylims_up)
     # return last_ys
-    return xlabels,means,medians,modes,','.join(LR(lr_xs,lr_ys))
+    return xlabels,np.array(means)-1,np.array(medians)-1,np.array(modes)-1,','.join(LR(lr_xs,lr_ys))
 
 def LR(xs,ys):
     X=np.array(xs)
@@ -335,7 +345,7 @@ def LR(xs,ys):
     print 'R2',est.rsquared
     print 'pvalues',est.pvalues
     print 'Numbers', est.nobs
-    return '{:.3f}({:.3f})'.format(est.params[0],est.pvalues[0]),'{:.3f}({:.3f})'.format(est.params[1],est.pvalues[1]),str(int(est.nobs)),'{:.3f}'.format(est.rsquared)
+    return '{:.5f}({:.5f})'.format(est.params[0],est.pvalues[0]),'{:.5f}({:.5f})'.format(est.params[1],est.pvalues[1]),str(int(est.nobs)),'{:.5f}'.format(est.rsquared)
 
 
 def first_citation(cited_papers_json):
@@ -430,5 +440,5 @@ def plot_three_level_first_citations(low,medium,high):
 
 if __name__ == '__main__':
     # plot_three_level_first_citations(sys.argv[1],sys.argv[2],sys.argv[3])
-    plot_ten_delta_ti()
-    # plot_zone_delta_ti()
+    # plot_ten_delta_ti()
+    plot_zone_delta_ti()

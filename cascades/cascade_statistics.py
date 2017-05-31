@@ -297,12 +297,9 @@ def draw_degree_plot():
     plt.savefig('pdf/cascade_degree.pdf',dpi=300)
     logging.info('figure saved to pdf/cascade_degree.pdf.')
 
-
-
-
 #cascade subgraph
 def cascade_subgraph(graph):
-    ungraph = graph
+    ungraph = graph.to_undirected()
     nodes = ungraph.nodes()
     logging.info('Size of graph:{:}'.format(len(nodes)))
     subgraphs=[]
@@ -315,121 +312,32 @@ def cascade_subgraph(graph):
             for path in nx.all_simple_paths(ungraph,target,source,10):
                 paths.append(set(path))
 
-            for path in nx.all_simple_paths(ungraph,source,target):
-                paths.append(set(path))
+            # for path in nx.all_simple_paths(ungraph,source,target):
+            #     paths.append(set(path))
 
             j+=1
 
     logging.info('Size of paths:{:}'.format(len(paths)))
     size_two = 0
     for i,path in enumerate(paths):
-        if len(path)>30:
-            continue
-
-        # if len(path)==2:
-        #     size_two +=1
-        # else:
         subgraphs.append(','.join(sorted(list(path))))
-        # subgraphs.append(path)
-        # print i
-        # subgraphs.append(path)
         j = i+1
         while j < len(paths):
             # print j
             spath = paths[j]
             if len(path&spath)>0:
                 newpath = sorted(list(path| paths[j]))
-                if len(newpath)>30:
-                    continue
-
-
-                # if len(newpath)==2:
-                #     size_two+=1
-                # else:
                 subgraphs.append(','.join(newpath))
             j+=1   
 
+    paths=[]
+    gc.collect()
     subgraphs = list(set(subgraphs))
     logging.info('number of subgraphs:{:}'.format(len(subgraphs)))
     logging.info('Size two:{:}'.format(size_two))
     logging.info('subgraph extraction ...')
-    # for i,sub in enumerate(subgraphs):
-    #     subgraph_nodes = [n for n in sub.split(',')]
-    #     if i%100000==0:
-    #         logging.info('subgraph {:}'.format(i))
-    #     # print subgraph_nodes
-    #     # if len(subgraph_nodes)<n_max+1:
-    #     h = graph.subgraph(subgraph_nodes)
-    #     yield len(subgraph_nodes),h.edges()
 
-    for sub in subgraphs:
-        yield sub
-
-# def subgraph_statistics(citation_cascade,start,end):
-#     logging.info('from {:} to {:}...'.format(start,end))
-#     cc = json.loads(open(citation_cascade).read())
-#     logging.info('{:} data loaded...'.format(len(cc.keys())))
-
-#     step=5000
-#     if end>10:
-#         step = 1000
-    
-#     if end>100:
-#         step = 50
-    
-#     if end>500:
-#         step=5
-
-#     logging.info('Steps:{:}'.format(step))
-
-#     # return None
-
-#     new_cascade = {}
-#     pid_subgraph=defaultdict(dict)
-#     for pid in cc.keys():
-#         cnum = cc[pid]['cnum']
-#         if cnum<start:
-#             continue
-#         elif cnum>=end:
-#             continue
-
-#         new_cascade[pid] = cc[pid]
-
-#     length = len(new_cascade)
-#     logging.info('Number of papers in this zone:{:}'.format(length))
-
-#     del cc 
-#     gc.collect()
-
-#     logi = 0
-#     for pid in new_cascade.keys():
-#         logi+=1
-#         logging.info('progress {:}/{:}'.format(logi,length))
-#         if logi%step==0:
-#             open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-#             logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
-
-#             del pid_subgraph
-#             gc.collect()
-            
-#             pid_subgraph = defaultdict(dict)
-            
-
-#         diG = nx.DiGraph()
-#         edges = new_cascade[pid]['edges']
-#         # if len(edges)<1000:
-#         #     continue
-#         diG.add_edges_from(edges)
-#         for subgraph in cascade_subgraph(diG):
-#             sub_list = pid_subgraph[pid].get(n,[])
-#             sub_list.append(subgraph)
-#             pid_subgraph[pid][n]=sub_list
-
-
-#     open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-#     logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
-#     logging.info('DONE')
-
+    return subgraphs
 
 
 def subgraph_statistics(citation_cascade,start,end):
@@ -473,31 +381,18 @@ def subgraph_statistics(citation_cascade,start,end):
         logi+=1
         logging.info('progress {:}/{:}'.format(logi,length))
 
-        # if logi%step==1:
-            # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-            # logging.info('progress'.format(start,end,step,logi))
-
-
-            # del pid_subgraph
-            # gc.collect()
-            
-            # pid_subgraph = defaultdict(dict)
-            
-
         diG = nx.DiGraph()
         edges = new_cascade[pid]['edges']
         # if len(edges)<1000:
         #     continue
         diG.add_edges_from(edges)
-        for subgraph in cascade_subgraph(diG):
-            # sub_list = pid_subgraph[pid].get(n,[])
-            # sub_list.append(subgraph)
-            # pid_subgraph[pid][n]=sub_list
+        subgraphs = cascade_subgraph(diG)
+        for subgraph in subgraphs:
             print str(pid)+"\t"+str(subgraph)
 
+        subgraphs=[]
+        gc.collect()
 
-    # open('subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi),'w').write(json.dumps(pid_subgraph))
-    # logging.info('subgraphs saved to subs/subgraphs_{:}_{:}_{:}_{:}.json'.format(start,end,step,logi))
     logging.info('DONE')
 
 
@@ -544,8 +439,8 @@ if __name__ == '__main__':
     # graph.add_edges_from(edges)
     # print graph.out_degree('1')
     # print graph.in_edges('1')
-    # # for edges in cascade_subgraph(graph):
-    # #     print edges
+    # for edges in cascade_subgraph(graph):
+        # print edges
     main()
 
     
