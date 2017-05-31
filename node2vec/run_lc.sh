@@ -1,22 +1,22 @@
 #filter out edge of which weight is 1
 echo 'filter out degrees with 1'
-python preprocessing.py filtered $1 $2 > $1_filtered.txt
+# python preprocessing.py filtered $1 $2 > $1_filtered.txt
 
 # generate unweighted network base on the reuqirement of largevis
 echo 'transform two directed graph'
-python preprocessing.py  undirected $1_filtered.txt > $1_twodirected.txt
+# python preprocessing.py  undirected $1_filtered.txt > $1_twodirected.txt
 
 # run largevis
 echo "run largevis"
-python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
+# python LargeVis_run.py -input $1_twodirected.txt -output ${1}_graph.txt -threads 8 -fea 0
 
 # preprocess
 echo 'transform'
-python preprocessing.py tg ${1}_graph.txt 1>${1}_graph_2D.txt 2>${1}_graph_index.txt
+# python preprocessing.py tg ${1}_graph.txt 1>${1}_graph_2D.txt 2>${1}_graph_index.txt
 
 # clustering data base on 2D result
 echo "run clustering base on 2D result "
-python preprocessing.py clustering ${1}_graph_2D.txt 1>${1}_graph_labels.txt  
+# python preprocessing.py clustering ${1}_graph_2D.txt 1>${1}_graph_labels.txt  
 
 # from index to author name and paper count
 echo 'get author name and their paper count'

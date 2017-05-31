@@ -7,6 +7,7 @@ import sys
 import numpy as np
 from sklearn.cluster import DBSCAN
 import json
+from collections import defaultdict
 
 # parameter path: the path of files
 def transform(path):
