@@ -92,7 +92,7 @@ def generate_id_task(data_path,index_path):
         name = splits[0]
         id1 = splits[1]
 
-        print id1+"\t"+name.encode('utf-8')+"\t"+task_dict[id1]
+        print str(id1)+"\t"+name.encode('utf-8')+"\t"+str(task_dict[id1])
 
 
 if __name__=="__main__":
