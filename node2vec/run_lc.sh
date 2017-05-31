@@ -16,7 +16,7 @@ echo 'transform'
 
 # clustering data base on 2D result
 echo "run clustering base on 2D result "
-# python preprocessing.py clustering ${1}_graph_2D.txt 1>${1}_graph_labels.txt  
+python preprocessing.py clustering ${1}_graph_2D.txt 1>${1}_graph_labels.txt  
 
 # from index to author name and paper count
 echo 'get author name and their paper count'

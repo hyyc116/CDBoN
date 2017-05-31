@@ -38,7 +38,7 @@ def dbscan_clustering(path):
     data = np.array(data)
     # print len(data)
     #implement dbscan
-    db = DBSCAN(eps=0.75, min_samples=5, n_jobs=8).fit(data)
+    db = DBSCAN(eps=0.6, min_samples=2, n_jobs=8).fit(data)
     #labels of X 
     labels = db.labels_
     #core labels
