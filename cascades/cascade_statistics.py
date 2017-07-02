@@ -431,9 +431,10 @@ def main():
         draw_degree_plot()
     elif label =='subgraphs':
         subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
+    elif label == 'gen_sub':
+        generate_subgraphs_(int(sys.argv[2]))
 
-
-if __name__ == '__main__':
+def test_subgrah():
     # graph = nx.DiGraph()
     # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
     # graph.add_edges_from(edges)
@@ -441,6 +442,50 @@ if __name__ == '__main__':
     # print graph.in_edges('1')
     # for edges in cascade_subgraph(graph):
         # print edges
+    pass
+
+def generate_subgraphs_(N):
+    diG = nx.complete_graph(N).to_directed()
+    edges = diG.edges()
+    minL = N-1
+    maxL = len(edges)/2
+    subgraphs = []
+    logging.info('edges:{:}'.format(maxL))
+    progress=0
+    for num in range(minL,maxL+1):
+        logging.info('Number of edges:{:}.'.format(num))
+        for sub_edges in iter_tools(edges,num):
+            progress+=1
+            # print sub_edges
+            subDG=nx.DiGraph()
+            subDG.add_edges_from(sub_edges)
+            # is connected
+            if len(subDG.nodes())==N and nx.is_connected(subDG.to_undirected())  and nx.is_directed_acyclic_graph(subDG) and isIso(subgraphs,subDG):
+                subgraphs.append(subDG)
+                print sub_edges
+
+            if progress%100==1:
+                logging.info('progress:{:},size of subgraphs:{:}.'.format(progress,len(subgraphs)))
+
+    logging.info('progress:{:},size of subs:{:}.'.format(progress,len(subgraphs)))
+
+
+def isIso(gset,subg):
+    isISO=True
+    for g in gset:
+        if nx.is_isomorphic(g,subg):
+            isISO=False
+            break
+
+    return isISO
+
+def iter_tools(edges,n):
+    for es in itertools.combinations(edges,n):
+        yield list(es)
+
+if __name__ == '__main__':
+    # generate_subgraphs_(5)
+
     main()
 
     
