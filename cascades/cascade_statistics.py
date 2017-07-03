@@ -474,6 +474,8 @@ def generate_subgraphs_(N):
                 logging.info('progress:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,number_of_subgraphs,incere_index))
                 if number_of_subgraphs==last_number:
                     incere_index+=1
+                else:
+                    incere_index=0
 
                 last_number=number_of_subgraphs
 
