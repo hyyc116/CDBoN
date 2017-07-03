@@ -2,6 +2,8 @@
 
 from basic_config import *
 import gc
+from multiprocessing.dummy import Pool as ThreadPool
+from networkx.algorithms import isomorphism
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -445,6 +447,7 @@ def test_subgrah():
     pass
 
 def generate_subgraphs_(N):
+    pool = ThreadPool(8)
     diG = nx.complete_graph(N).to_directed()
     edges = diG.edges()
     minL = N-1
@@ -453,40 +456,79 @@ def generate_subgraphs_(N):
     logging.info('edges:{:}'.format(maxL))
     progress=0
     for num in range(minL,maxL+1):
+        incere_index=0
         logging.info('Number of edges:{:}.'.format(num))
+        last_number=0
         for sub_edges in iter_tools(edges,num):
             progress+=1
             # print sub_edges
             subDG=nx.DiGraph()
             subDG.add_edges_from(sub_edges)
             # is connected
-            if len(subDG.nodes())==N and nx.is_connected(subDG.to_undirected())  and nx.is_directed_acyclic_graph(subDG) and isIso(subgraphs,subDG):
+            if len(subDG.nodes())==N and nx.is_connected(subDG.to_undirected())  and nx.is_directed_acyclic_graph(subDG) and not isIso_matcher(subgraphs,subDG,pool):
                 subgraphs.append(subDG)
-                print sub_edges
+                # print sub_edges
 
-            if progress%100==1:
-                logging.info('progress:{:},size of subgraphs:{:}.'.format(progress,len(subgraphs)))
+            if progress%5000==1:
+                number_of_subgraphs = len(subgraphs)
+                logging.info('progress:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,number_of_subgraphs,incere_index))
+                if number_of_subgraphs==last_number:
+                    incere_index+=1
+
+                last_number=number_of_subgraphs
+
+            if incere_index==10:
+                logging.info('progress:{:},size of subs:{:}.BREAKING........'.format(progress,len(subgraphs)))
+                break
+
 
     logging.info('progress:{:},size of subs:{:}.'.format(progress,len(subgraphs)))
 
 
-def isIso(gset,subg):
-    isISO=True
+def isIso(gset,subg,pool):
+    isISO=False
     for g in gset:
         if nx.is_isomorphic(g,subg):
-            isISO=False
+            isISO=True
             break
 
     return isISO
+
+def isIso_matcher(gset,subg,pool):
+    isISO=False
+    for g in gset:
+        if isomorphism.GraphMatcher(g,subg).is_isomorphic():
+            isISO=True
+            break
+
+    return isISO
+
+def isIso_multi(glist,subg,pool):
+    paralist = [(subg,g) for g in glist]
+    results = pool.map(iso_multi, paralist)
+    # if the the subg has a isomorphic graph in list return true
+    if sum(results)==0:
+        return False
+    else:
+        return True
+
+def iso_multi(para):
+    subg,g = para
+    if nx.is_isomorphic(subg,g):
+        return 1
+    else:
+        return 0
+
+
 
 def iter_tools(edges,n):
     for es in itertools.combinations(edges,n):
         yield list(es)
 
 if __name__ == '__main__':
-    # generate_subgraphs_(5)
+    generate_subgraphs_(5)
 
-    main()
+    # main()
 
     
 
