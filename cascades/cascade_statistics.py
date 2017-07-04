@@ -471,7 +471,7 @@ def generate_subgraphs_(N):
                 sub_index+=1
                 if not isIso_matcher(subgraphs,subDG,pool):
                     subgraphs.append(subDG)
-                    # print sub_edges
+                    print sub_edges
                 
                 number_of_subgraphs = len(subgraphs)
                 
