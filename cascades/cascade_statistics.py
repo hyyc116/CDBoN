@@ -455,6 +455,8 @@ def generate_subgraphs_(N):
     subgraphs = []
     logging.info('edges:{:}'.format(maxL))
     progress=0
+    sub_index=0
+
     for num in range(minL,maxL+1):
         incere_index=0
         logging.info('Number of edges:{:}.'.format(num))
@@ -465,24 +467,31 @@ def generate_subgraphs_(N):
             subDG=nx.DiGraph()
             subDG.add_edges_from(sub_edges)
             # is connected
-            if len(subDG.nodes())==N and nx.is_connected(subDG.to_undirected())  and nx.is_directed_acyclic_graph(subDG) and not isIso_matcher(subgraphs,subDG,pool):
-                subgraphs.append(subDG)
-                # print sub_edges
-
-            if progress%5000==1:
+            if len(subDG.nodes())==N and nx.is_connected(subDG.to_undirected()) and nx.is_directed_acyclic_graph(subDG):
+                sub_index+=1
+                if not isIso_matcher(subgraphs,subDG,pool):
+                    subgraphs.append(subDG)
+                    # print sub_edges
+                
                 number_of_subgraphs = len(subgraphs)
-                logging.info('progress:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,number_of_subgraphs,incere_index))
-                if number_of_subgraphs==last_number:
-                    incere_index+=1
-                else:
-                    incere_index=0
+                
+                if sub_index%5000==1:
+                    if number_of_subgraphs==last_number:
+                        incere_index+=1
+                    else:
+                        incere_index=0
 
                 last_number=number_of_subgraphs
+
+
+
+            if progress%5000==1:
+                logging.info('progress:{:},sub_index:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,sub_index,number_of_subgraphs,incere_index))
+                
 
             if incere_index==10:
                 logging.info('progress:{:},size of subs:{:}.BREAKING........'.format(progress,len(subgraphs)))
                 break
-
 
     logging.info('progress:{:},size of subs:{:}.'.format(progress,len(subgraphs)))
 
@@ -528,9 +537,9 @@ def iter_tools(edges,n):
         yield list(es)
 
 if __name__ == '__main__':
-    # generate_subgraphs_(5)
+    generate_subgraphs_(5)
 
-    main()
+    # main()
 
     
 
