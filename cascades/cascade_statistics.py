@@ -471,11 +471,11 @@ def generate_subgraphs_(N):
                 sub_index+=1
                 if not isIso_matcher(subgraphs,subDG,pool):
                     subgraphs.append(subDG)
-                    print sub_edges
+                    # print sub_edges
                 
                 number_of_subgraphs = len(subgraphs)
                 
-                if sub_index%5000==1:
+                if sub_index%500==1:
                     if number_of_subgraphs==last_number:
                         incere_index+=1
                     else:
@@ -489,8 +489,9 @@ def generate_subgraphs_(N):
                 logging.info('progress:{:},sub_index:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,sub_index,number_of_subgraphs,incere_index))
                 
 
-            if incere_index==10:
-                logging.info('progress:{:},size of subs:{:}.BREAKING........'.format(progress,len(subgraphs)))
+            if incere_index>9:
+                logging.info('progress:{:},sub_index:{:},size of subs:{:},duplicate times:{:},BREAKING........'.format(progress,sub_index,len(subgraphs),incere_index))
+                incere_index=0
                 break
 
     logging.info('progress:{:},size of subs:{:}.'.format(progress,len(subgraphs)))
@@ -537,9 +538,9 @@ def iter_tools(edges,n):
         yield list(es)
 
 if __name__ == '__main__':
-    # generate_subgraphs_(5)
+    generate_subgraphs_(5)
 
-    main()
+    # main()
 
     
 
