@@ -542,9 +542,9 @@ def iter_tools(edges,n):
         yield list(es)
 
 if __name__ == '__main__':
-    generate_subgraphs_(5)
+    # generate_subgraphs_(5)
 
-    # main()
+    main()
 
     
 
