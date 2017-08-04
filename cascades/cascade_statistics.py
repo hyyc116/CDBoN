@@ -82,7 +82,7 @@ def build_cascades(citation_network):
     # cc = json.loads(open(citation_cascade).read())
 
 
-def cascade_size_distribution(citation_cascade):
+def gen_statistics_data(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
     cnum_dict=defaultdict(int)
@@ -134,78 +134,94 @@ def cascade_size_distribution(citation_cascade):
     open('data/in_degree.json','w').write(json.dumps(in_dict))
 
 
-    # logging.info('plot data...')
-    # num = len(plt.get_fignums())
+def stats_plot():
+    logging.info('plot data ...')
+
+    num = len(plt.get_fignums())
     # plt.figure(num)
-    # fig,axes = plt.subplots(1,3,figsize=(15,5))
-    # ax1 = axes[0]
-    # xs=[]
-    # ys=[]
-    # for num in sorted(cnum_dict.keys()):
-    #     xs.append(num)
-    #     ys.append(cnum_dict[num])
-    # ax1.plot(xs,ys,'o',fillstyle='none')
-    # ax1.set_title('Citation Count Distribution')
-    # ax1.set_xlabel('Citation Count')
-    # ax1.set_ylabel('Number')
-    # ax1.set_yscale('log')
-    # ax1.set_xscale('log')
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    #### node size 
+    logging.info('plot node size ...')
+    cnum_dict = json.loads(open('data/nodes_size.json').read())
+    ax1 = axes[0]
+    xs=[]
+    ys=[]
+    for num in sorted(cnum_dict.keys()):
+        xs.append(num)
+        ys.append(cnum_dict[num])
+    ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.set_title('Citation Count Distribution')
+    ax1.set_xlabel('Citation Count')
+    ax1.set_ylabel('Number')
+    ax1.set_yscale('log')
+    ax1.set_xscale('log')
 
-    # ax2 = axes[1]
-    # for num in sorted(enum_dict.keys()):
-    #     xs.append(num)
-    #     ys.append(enum_dict[num])
+    #### cascade size
+    ax2 = axes[1]
+    enum_dict = json.loads(open('data/cascade_size.json').read())
+    for num in sorted(enum_dict.keys()):
+        xs.append(num)
+        ys.append(enum_dict[num])
 
-    # ax2.plot(xs,ys,'o',fillstyle='none')
-    # ax2.set_title('Cascade Size Distribution')
-    # ax2.set_xlabel('Cascade Size')
-    # ax2.set_ylabel('Number')
-    # ax2.set_yscale('log')
-    # ax2.set_xscale('log')
-
-    # # plt.tight_layout()
-    # # plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
-    # # logging.info('figures saved to pdf/cascade_size_dis.pdf.')
-
-    # # num = len(plt.get_fignums())
-    # # plt.figure(num)
-
-    # # fig,ax3 = plt.subplots(figsize=(5,5))
+    ax2.plot(xs,ys,'o',fillstyle='none')
+    ax2.set_title('Cascade Size Distribution')
+    ax2.set_xlabel('Cascade Size')
+    ax2.set_ylabel('Number')
+    ax2.set_yscale('log')
+    ax2.set_xscale('log')
 
 
-    # #ratio
-    # ax3=axes[2]
-    # bucket_dict=defaultdict(list)
-    # for i,x in enumerate(cxs):
-    #     bucket_dict[x].append(eys[i]/float(x))
+    ####depth
+    depth_dict = json.loads(open('data/depth.json').read())
+    ax3=axes[2]
+    xs=[]
+    ys=[]
+    for depth in sorted(depth_dict.keys()):
+        xs.append(depth)
+        ys.append(depth_dict[depth])
+    ax3.plot(xs,ys,'.',fillstyle='none')
+    ax3.set_xlabel('Cascade depth')
+    ax3.set_ylabel('Count')
+    ax3.set_title('Cascade depth distribution')
+    ax3.set_yscale('log')
 
-    # xs = []
-    # ys = []
-    # all_data=[]
-    # sorted_keys = sorted(bucket_dict.keys())
-    # for d in sorted_keys:
-    #     # print '===',d
-    #     xs.append(d)
-    #     ys.append(np.mean(bucket_dict[d]))
-    #     all_data.append(bucket_dict[d])
+    #### In and out degree
+    in_degree_dict=json.loads(open('data/in_degree.json').read())
+    out_degree_dict=json.loads(open('data/out_degree.json').read())
+    ax4 = axes[3]
+    xs=[]
+    ys=[]
+    for ind in sorted(in_degree_dict.keys()):
+        xs.append(ind)
+        ys.append(in_degree_dict[ind])
 
-    # logging.info('Number of boxes: {:}'.format(len(sorted_keys)))
-    # # print all_data
-    # ax3.set_xlabel('Citation Count')
-    # ax3.set_ylabel('Mean of Cascade Size / Citation Count')
-    # ax3.set_xscale('log')
-    # # ax.set_ylim(1,1000)
-    # # ax.set_xlim(0,11)
-    # ax3.scatter(xs,ys,marker='.')
-    # # ax3.boxplot(all_data,showfliers=False)
-    # # ax3.set_xticks([i+1 for i in np.arange(len(bucket_dict.keys()),500)])
-    # # ax3.set_xticklabels([sorted_keys[i] for i in np.arange(len(bucket_dict.keys()),500)])
-    # ax3.set_title('Cascade Size vs. Citation Count')
+    ax4.plot(xs,ys,'.')
+    ax4.set_xlabel('In Degree')
+    ax4.set_ylabel('Count')
+    ax4.set_title('In Degree distribution')
+    ax4.set_yscale('log')
+    ax4.set_xscale('log')
 
+    # ax2=axes[1]
+    # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
 
-    # plt.tight_layout()
-    # plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
-    # logging.info('figures saved to pdf/cascade_size_dis.pdf.')
+    ax5=axes[4]
+    xs=[]
+    ys=[]
+    for od in sorted(out_degree_dict.keys()):
+        xs.append(od)
+        ys.append(out_degree_dict[od])
+
+    ax5.plot(xs,ys,'.')
+    ax5.set_title('Out Degree distribution')
+    ax5.set_xlabel('Out Degree')
+    ax5.set_ylabel('Count')
+    ax5.set_xscale('log')
+    ax5.set_yscale('log')
+
+    plt.tight_layout()
+    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    logging.info('figures saved to pdf/statistics.pdf.')
 
 def cascade_depth_distribution(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
@@ -468,10 +484,10 @@ def main():
     # build_citation_network(sys.argv[1])
     # build_cascades(sys.argv[1])
     label = sys.argv[1]
-    if label== 'cascade_size':
-        cascade_size_distribution(sys.argv[2])
-    elif label == 'cascade_depth':
-        cascade_depth_distribution(sys.argv[2])
+    if label== 'gen_stat':
+        gen_statistics_data(sys.argv[2])
+    elif label == 'stat_plot':
+        stats_plot()
     elif label == 'build_cascade':
         build_cascades(sys.argv[2])
     elif label == 'degree':
