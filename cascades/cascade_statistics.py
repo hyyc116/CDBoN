@@ -180,7 +180,7 @@ def stats_plot():
     ys=[]
     for depth in sorted([int(i) for i in depth_dict.keys()]):
         xs.append(int(depth))
-        ys.append(depth_dict[depth])
+        ys.append(depth_dict[str(depth)])
 
     print xs 
     print ys
