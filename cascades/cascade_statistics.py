@@ -178,7 +178,7 @@ def stats_plot():
     ax3=axes[2]
     xs=[]
     ys=[]
-    for depth in sorted([i for i in depth_dict.keys()]):
+    for depth in sorted([int(i) for i in depth_dict.keys()]):
         xs.append(int(depth))
         ys.append(depth_dict[depth])
 
