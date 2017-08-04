@@ -157,6 +157,7 @@ def stats_plot():
     ax1.set_xscale('log')
 
     #### cascade size
+    logging.info('plotting cascade size ...')
     ax2 = axes[1]
     enum_dict = json.loads(open('data/cascade_size.json').read())
     for num in sorted(enum_dict.keys()):
@@ -172,6 +173,7 @@ def stats_plot():
 
 
     ####depth
+    logging.info('plotting cascade depth ...')
     depth_dict = json.loads(open('data/depth.json').read())
     ax3=axes[2]
     xs=[]
@@ -179,13 +181,14 @@ def stats_plot():
     for depth in sorted(depth_dict.keys()):
         xs.append(depth)
         ys.append(depth_dict[depth])
-    ax3.plot(xs,ys,'.',fillstyle='none')
+    ax3.plot(xs,ys,'-.',fillstyle='none')
     ax3.set_xlabel('Cascade depth')
     ax3.set_ylabel('Count')
     ax3.set_title('Cascade depth distribution')
     ax3.set_yscale('log')
 
     #### In and out degree
+    logging.info('plotting degree ...')
     in_degree_dict=json.loads(open('data/in_degree.json').read())
     out_degree_dict=json.loads(open('data/out_degree.json').read())
     ax4 = axes[3]
