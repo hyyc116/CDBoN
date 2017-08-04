@@ -28,8 +28,7 @@ params = {'legend.fontsize': 15,
          'axes.labelsize': 15,
          'axes.titlesize':20,
          'xtick.labelsize':15,
-         'ytick.labelsize':15,
-         'font.family':'Times New Roman'}
+         'ytick.labelsize':15}
 pylab.rcParams.update(params)
 
 def power_low_func(x,a,b):
