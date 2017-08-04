@@ -220,7 +220,7 @@ def stats_plot():
     ax5.set_yscale('log')
 
     plt.tight_layout()
-    plt.savefig('pdf/cascade_size_dis.pdf',dpi=300)
+    plt.savefig('pdf/statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/statistics.pdf.')
 
 def cascade_depth_distribution(citation_cascade):
