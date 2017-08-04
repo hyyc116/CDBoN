@@ -179,7 +179,7 @@ def stats_plot():
     xs=[]
     ys=[]
     for depth in sorted(depth_dict.keys()):
-        xs.append(depth)
+        xs.append(int(depth))
         ys.append(depth_dict[depth])
     ax3.plot(xs,ys,'-.',fillstyle='none')
     ax3.set_xlabel('Cascade depth')
