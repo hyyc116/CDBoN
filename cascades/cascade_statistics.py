@@ -540,7 +540,7 @@ def generate_subgraphs_(N):
                 logging.info('progress:{:},sub_index:{:},size of subgraphs:{:},duplicate times:{:}.'.format(progress,sub_index,number_of_subgraphs,incere_index))
                 
 
-            if >19:
+            if incere_index>19:
                 logging.info('progress:{:},sub_index:{:},size of subs:{:},duplicate times:{:},EDGES:{:},BREAKING........'.format(progress,sub_index,len(subgraphs),incere_index,N))
                 incere_index=0
                 break
