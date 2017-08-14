@@ -96,6 +96,7 @@ def gen_statistics_data(citation_cascade):
     cxs=[]
     eys=[]
     dys=[]
+    dcx=[]
     for pid in cc.keys():
         #progress 
         logi+=1
@@ -119,6 +120,7 @@ def gen_statistics_data(citation_cascade):
             # cascade_sizes.append(len(edges))
             size_depth_dict[len(edges)].append(depth)
             dys.append(depth)
+            dcxs.append(cc[pid]['cnum'])
         #degree
         outdegree_dict = diG.out_degree()
         for nid in outdegree_dict.keys():
@@ -140,7 +142,7 @@ def gen_statistics_data(citation_cascade):
     # plt.figure(num)
     fig,axes = plt.subplots(1,3,figsize=(15,5))
 
-    print 'length of xs and ys', len(cxs),len(eys),len(dys)
+    print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys)
 
     # cascade size vs citation count
     ax1 = axes[0]
@@ -150,14 +152,14 @@ def gen_statistics_data(citation_cascade):
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
-    rys = [eys[i]/cxs[i] for i in range(cxs)]
+    rys = [eys[i]/cxs[i] for i in range(len(cxs))]
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count')
     ax2.set_ylabel('Ratio of cascade size and citation count')
 
     ### depth distribution over citation count
     ax3=axes[2]
-    ax3.scatter(cxs,dys)
+    ax3.scatter(dcxs,dys)
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
 
