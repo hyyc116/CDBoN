@@ -164,8 +164,8 @@ def gen_statistics_data(citation_cascade):
     ax3.set_ylabel('Depth of citation cascade')
 
     plt.tight_layout()
-    plt.savefig('pdf/compare.pdf',dpi=200)
-    print 'figure saved to pdf/compare.pdf'
+    plt.savefig('pdf/compare.png',dpi=200)
+    print 'figure saved to pdf/compare.png'
 
 
 
