@@ -96,7 +96,7 @@ def gen_statistics_data(citation_cascade):
     cxs=[]
     eys=[]
     dys=[]
-    dcx=[]
+    dcxs=[]
     for pid in cc.keys():
         #progress 
         logi+=1
