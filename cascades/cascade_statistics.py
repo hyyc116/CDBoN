@@ -97,6 +97,7 @@ def gen_statistics_data(citation_cascade):
     eys=[]
     dys=[]
     dcxs=[]
+
     for pid in cc.keys():
         #progress 
         logi+=1
@@ -157,7 +158,7 @@ def gen_statistics_data(citation_cascade):
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count')
     ax2.set_ylabel('Ratio of cascade size and citation count')
-    ax1.set_xscale('log')
+    ax2.set_xscale('log')
 
 
     ### depth distribution over citation count
@@ -165,7 +166,7 @@ def gen_statistics_data(citation_cascade):
     ax3.scatter(dcxs,dys)
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
-    ax1.set_xscale('log')
+    ax2.set_xscale('log')
     
 
     plt.tight_layout()
