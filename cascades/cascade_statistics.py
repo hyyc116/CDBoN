@@ -166,7 +166,7 @@ def gen_statistics_data(citation_cascade):
     ax3.scatter(dcxs,dys)
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
-    ax2.set_xscale('log')
+    ax3.set_xscale('log')
     
 
     plt.tight_layout()
