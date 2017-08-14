@@ -151,10 +151,11 @@ def gen_statistics_data(citation_cascade):
     ax1.set_xlabel('Citation Count')
     ax1.set_ylabel('Cascade Size')
     ax1.set_xscale('log')
+    ax1.set_yscale('log')
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
-    rys = [eys[i]/cxs[i] for i in range(len(cxs))]
+    rys = [eys[i]/float(cxs[i]) for i in range(len(cxs))]
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count')
     ax2.set_ylabel('Ratio of cascade size and citation count')
@@ -172,8 +173,6 @@ def gen_statistics_data(citation_cascade):
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
     print 'figure saved to pdf/compare.png'
-
-
 
 def stats_plot():
     logging.info('plot data ...')
