@@ -36,7 +36,7 @@ def build_citation_network(path):
     print 'done'
 
 #after building the citation network, we build citation cascade
-def build_cascades(citation_network):
+def build_cascades(citation_network,outpath):
     cn = json.loads(open(citation_network).read())
     logging.info('data loaded...')
     log_count=1
@@ -74,8 +74,8 @@ def build_cascades(citation_network):
 
         cn[pid] = pdict
 
-    open('data/aminer_citation_cascade.json','w').write(json.dumps(cn))
-    logging.info('citation cascade saved to data/aminer_citation_cascade.json.')
+    open(outpath,'w').write(json.dumps(cn))
+    logging.info('citation cascade saved to {:}.'.format(outpath))
 
 
 # def statistics_all(citation_cascade):
@@ -93,9 +93,9 @@ def gen_statistics_data(citation_cascade):
     in_dict = defaultdict(int)
     logi = 0
         
-        
     cxs=[]
     eys=[]
+    dys=[]
     for pid in cc.keys():
         #progress 
         logi+=1
@@ -118,6 +118,7 @@ def gen_statistics_data(citation_cascade):
             depth_dict[depth]+=1
             # cascade_sizes.append(len(edges))
             size_depth_dict[len(edges)].append(depth)
+            dys.append(depth)
         #degree
         outdegree_dict = diG.out_degree()
         for nid in outdegree_dict.keys():
@@ -132,6 +133,38 @@ def gen_statistics_data(citation_cascade):
     open('data/depth.json','w').write(json.dumps(depth_dict))
     open('data/out_degree.json','w').write(json.dumps(od_dict))
     open('data/in_degree.json','w').write(json.dumps(in_dict))
+
+    ###plot the comparison figure
+
+    num = len(plt.get_fignums())
+    # plt.figure(num)
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
+
+    print 'length of xs and ys', len(cxs),len(eys),len(dys)
+
+    # cascade size vs citation count
+    ax1 = axes[0]
+    ax1.scatter(cxs,eys)
+    ax1.set_xlabel('Citation Count')
+    ax1.set_ylabel('Cascade Size')
+
+    ## ratio of cascade size/ ciattion count vs citation count
+    ax2 = axes[1]
+    rys = [eys[i]/cxs[i] for i in range(cxs)]
+    ax2.scatter(cxs,rys)
+    ax2.set_xlabel('Citation Count')
+    ax2.set_ylabel('Ratio of cascade size and citation count')
+
+    ### depth distribution over citation count
+    ax3=axes[2]
+    ax3.scatter(cxs,dys)
+    ax3.set_xlabel('Citation Count')
+    ax3.set_ylabel('Depth of citation cascade')
+
+    plt.tight_layout()
+    plt.savefig('pdf/compare.pdf',dpi=200)
+    print 'figure saved to pdf/compare.pdf'
+
 
 
 def stats_plot():
@@ -328,6 +361,20 @@ def cascade_degree_distribution(citation_cascade):
         #     size_depth_dict[len(edges)].append(depth)
 
     # logging.info('plot data...')
+
+###three levels of 
+def three_levels_dis():
+    high_cited_papers = [i for i in json.loads(open('../friction/data/high_selected_papers.json').read()).keys()]
+    medium_cited_papers = [i for i in json.loads(open('../friction/data/medium_selected_papers.json').read()).keys()]
+    low_cited_papers = [i for i in json.loads(open('../friction/data/low_selected_papers.json').read()).keys()]
+
+    print high_cited_papers,len(high_cited_papers)
+    print medium_cited_papers,len(medium_cited_papers)
+    print low_cited_papers,len(low_cited_papers)
+
+    ### low medium high
+
+
 
 def draw_degree_plot():
     in_degree_dict=json.loads(open('data/in_degree.json').read())
@@ -612,8 +659,8 @@ def iter_tools(edges,n):
 
 if __name__ == '__main__':
     # generate_subgraphs_(5)
-
     main()
+    # three_levels_dis()
 
     
 
