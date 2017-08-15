@@ -174,7 +174,7 @@ def gen_statistics_data(citation_cascade):
     ax1.set_ylabel('Cascade Size')
     ax1.set_xscale('log')
     ax1.set_yscale('log')
-    ax1.set_title('Cascade Size vs. Citation Count')
+    ax1.set_title('Cascade Size Dis')
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
@@ -183,7 +183,7 @@ def gen_statistics_data(citation_cascade):
     ax2.set_xlabel('Citation Count')
     ax2.set_ylabel('Cascade size/citation count')
     ax2.set_xscale('log')
-    ax2.set_title('Distribution of Cascade size/citation count')
+    ax2.set_title('Cascade size/citation count')
 
 
     ### depth distribution over citation count
