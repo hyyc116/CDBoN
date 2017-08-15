@@ -97,8 +97,8 @@ def gen_statistics_data(citation_cascade):
     eys=[]
     dys=[]
     dcxs=[]
-    odys = []
-    idys = []
+    od_ys = []
+    id_ys = []
 
 
     for pid in cc.keys():
@@ -163,9 +163,9 @@ def gen_statistics_data(citation_cascade):
 
     num = len(plt.get_fignums())
     # plt.figure(num)
-    fig,axes = plt.subplots(1,3,figsize=(15,5))
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-    print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys)
+    print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys)
 
     # cascade size vs citation count
     ax1 = axes[0]
@@ -194,13 +194,14 @@ def gen_statistics_data(citation_cascade):
 
     ### out degree over citation count
     ax4 = axes[3]
-    ax4.scatter(cxs,odys)
+    ax4.scatter(cxs,od_ys)
     ax4.set_xlabel('Citation Count')
     ax4.set_ylabel('Percentage')
     ax4.set_xscale('log')
 
     #### in degree over citation count
     ax5 = axes[4]
+    ax5.scatter(cxs,id_ys)
     ax5.set_xlabel('Citation Count')
     ax5.set_ylabel('Percentage')
     ax5.set_xscale('log')
