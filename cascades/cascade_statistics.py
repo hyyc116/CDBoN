@@ -97,8 +97,17 @@ def gen_statistics_data(citation_cascade):
     eys=[]
     dys=[]
     dcxs=[]
+    odys = []
+    idys = []
+
 
     for pid in cc.keys():
+
+        #out-degree count
+        od_count=0
+        #in-degree count
+        id_count=0
+
         #progress 
         logi+=1
         if logi%10000==1:
@@ -127,9 +136,22 @@ def gen_statistics_data(citation_cascade):
         for nid in outdegree_dict.keys():
             od = outdegree_dict[nid]
             od_dict[od]+=1
+
+            ##od or id
+            if od > 1:
+                od_count+=1
+
             if od >0:
                 ind = len(diG.in_edges(nid))
                 in_dict[ind]+=1
+
+                if ind>0:
+                    id_count+=1
+
+
+        od_ys.append(od_count/float(cc[pid]['cnum']))
+        id_ys.append(id_count/float(cc[pid]['cnum']))
+
 
     open('data/nodes_size.json','w').write(json.dumps(cnum_dict))
     open('data/cascade_size.json','w').write(json.dumps(enum_dict))
@@ -168,6 +190,20 @@ def gen_statistics_data(citation_cascade):
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
     ax3.set_xscale('log')
+
+
+    ### out degree over citation count
+    ax4 = axes[3]
+    ax4.scatter(cxs,odys)
+    ax4.set_xlabel('Citation Count')
+    ax4.set_ylabel('Percentage')
+    ax4.set_xscale('log')
+
+    #### in degree over citation count
+    ax5 = axes[4]
+    ax5.set_xlabel('Citation Count')
+    ax5.set_ylabel('Percentage')
+    ax5.set_xscale('log')
     
 
     plt.tight_layout()
