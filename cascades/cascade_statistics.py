@@ -174,14 +174,16 @@ def gen_statistics_data(citation_cascade):
     ax1.set_ylabel('Cascade Size')
     ax1.set_xscale('log')
     ax1.set_yscale('log')
+    ax1.set_title('Cascade Size vs. Citation Count')
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
     rys = [eys[i]/float(cxs[i]) for i in range(len(cxs))]
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count')
-    ax2.set_ylabel('Ratio of cascade size and citation count')
+    ax2.set_ylabel('Cascade size/citation count')
     ax2.set_xscale('log')
+    ax2.set_title('Distribution of Cascade size/citation count')
 
 
     ### depth distribution over citation count
@@ -190,6 +192,7 @@ def gen_statistics_data(citation_cascade):
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
     ax3.set_xscale('log')
+    ax3.set_title('Depth Distribution')
 
 
     ### out degree over citation count
@@ -198,6 +201,7 @@ def gen_statistics_data(citation_cascade):
     ax4.set_xlabel('Citation Count')
     ax4.set_ylabel('Percentage')
     ax4.set_xscale('log')
+    ax4.set_title('Out degree')
 
     #### in degree over citation count
     ax5 = axes[4]
@@ -205,6 +209,7 @@ def gen_statistics_data(citation_cascade):
     ax5.set_xlabel('Citation Count')
     ax5.set_ylabel('Percentage')
     ax5.set_xscale('log')
+    ax5.set_title('In degree')
     
 
     plt.tight_layout()
