@@ -177,7 +177,7 @@ def plot_heatmap(x,y,ax,bins):
     # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
     # # ax.clf()
     # ax.imshow(heatmap.T, extent=extent)
-    ax.hist2d(x, y, bins=100)
+    ax.hist2d(x, y, bins=1000)
 
 def plot_dict():
 
