@@ -167,7 +167,7 @@ def gen_statistics_data(citation_cascade):
     plot_dict['dys'] = dys;
     plot_dict['dcx'] = dcxs;
     plot_dict['od_ys'] = od_ys
-    plot_dict['id_ys'] = in_ys
+    plot_dict['id_ys'] = id_ys
 
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
@@ -192,53 +192,67 @@ def plot_dict():
 
     num = len(plt.get_fignums())
     # plt.figure(num)
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    fig,axes = plt.subplots(2,5,figsize=(25,10))
 
     print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys)
 
     # cascade size vs citation count
-    ax1 = axes[0]
+    ax1 = axes[0,0]
     ax1.scatter(cxs,eys)
     ax1.set_xlabel('Citation Count')
     ax1.set_ylabel('Cascade Size')
     ax1.set_xscale('log')
     ax1.set_yscale('log')
     ax1.set_title('Cascade Size Dis')
+    
+    ax11 = axes[1,0]
+    plot_heatmap(cxs,eys,ax11,100)
+
 
     ## ratio of cascade size/ ciattion count vs citation count
-    ax2 = axes[1]
+    ax2 = axes[0,1]
     rys = [eys[i]/float(cxs[i]) for i in range(len(cxs))]
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count')
     ax2.set_ylabel('Cascade size/citation count')
     ax2.set_xscale('log')
     ax2.set_title('Cascade size/citation count')
+    ax12 = axes[1,1]
+    plot_heatmap(cxs,rys,ax12,100)
 
 
     ### depth distribution over citation count
-    ax3=axes[2]
+    ax3=axes[0,2]
     ax3.scatter(dcxs,dys)
     ax3.set_xlabel('Citation Count')
     ax3.set_ylabel('Depth of citation cascade')
     ax3.set_xscale('log')
     ax3.set_title('Depth Distribution')
 
+    ax13 = axes[1,2]
+    plot_heatmap(dcxs,dys,ax13,100)
 
     ### out degree over citation count
-    ax4 = axes[3]
+    ax4 = axes[0,3]
     ax4.scatter(cxs,od_ys)
     ax4.set_xlabel('Citation Count')
     ax4.set_ylabel('Percentage')
     ax4.set_xscale('log')
     ax4.set_title('Out degree')
 
+    ax14 = axes[1,3]
+    plot_heatmap(cxs,od_ys,ax14,100)
+
+
     #### in degree over citation count
-    ax5 = axes[4]
+    ax5 = axes[0,4]
     ax5.scatter(cxs,id_ys)
     ax5.set_xlabel('Citation Count')
     ax5.set_ylabel('Percentage')
     ax5.set_xscale('log')
     ax5.set_title('In degree')
+    ax15 = axes[1,4]
+    plot_heatmap(cxs,id_ys,ax15,100)
     
 
     plt.tight_layout()
@@ -611,24 +625,7 @@ def create_subgraph(G,sub_G,start_node):
         create_subgraph(G,sub_G,n)
 
 
-def main():
-    # build_citation_network(sys.argv[1])
-    # build_cascades(sys.argv[1])
-    label = sys.argv[1]
-    if label== 'gen_stat':
-        gen_statistics_data(sys.argv[2])
-    elif label == 'stat_plot':
-        stats_plot()
-    elif label == 'build_cascade':
-        build_cascades(sys.argv[2])
-    elif label == 'degree':
-        cascade_degree_distribution(sys.argv[2])
-    elif label =='degree_plot':
-        draw_degree_plot()
-    elif label =='subgraphs':
-        subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
-    elif label == 'gen_sub':
-        generate_subgraphs_(int(sys.argv[2]))
+
 
 def test_subgrah():
     # graph = nx.DiGraph()
@@ -734,6 +731,26 @@ def iso_multi(para):
 def iter_tools(edges,n):
     for es in itertools.combinations(edges,n):
         yield list(es)
+
+def main():
+    # build_citation_network(sys.argv[1])
+    # build_cascades(sys.argv[1])
+    label = sys.argv[1]
+    if label== 'gen_stat':
+        gen_statistics_data(sys.argv[2])
+    elif label == 'stat_plot':
+        stats_plot()
+    elif label == 'build_cascade':
+        build_cascades(sys.argv[2])
+    elif label == 'degree':
+        cascade_degree_distribution(sys.argv[2])
+    elif label =='compare_plot':
+        plot_dict()
+    elif label =='subgraphs':
+        subgraph_statistics(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
+    elif label == 'gen_sub':
+        generate_subgraphs_(int(sys.argv[2]))
+
 
 if __name__ == '__main__':
     # generate_subgraphs_(5)
