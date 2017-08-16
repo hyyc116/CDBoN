@@ -176,7 +176,7 @@ def plot_heatmap(x,y,ax,bins):
     heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
     extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
     # ax.clf()
-    ax.imshow(heatmap.T, extent=extent, origin='lower')
+    ax.imshow(heatmap.T, extent=extent)
 
 def plot_dict():
 
@@ -206,7 +206,7 @@ def plot_dict():
     ax1.set_title('Cascade Size Dis')
     
     ax11 = axes[1,0]
-    plot_heatmap(cxs,eys,ax11,100)
+    plot_heatmap(cxs,eys,ax11,[10,10])
 
 
     ## ratio of cascade size/ ciattion count vs citation count
@@ -218,7 +218,7 @@ def plot_dict():
     ax2.set_xscale('log')
     ax2.set_title('Cascade size/citation count')
     ax12 = axes[1,1]
-    plot_heatmap(cxs,rys,ax12,100)
+    plot_heatmap(cxs,rys,ax12,[10,10])
 
 
     ### depth distribution over citation count
@@ -230,7 +230,7 @@ def plot_dict():
     ax3.set_title('Depth Distribution')
 
     ax13 = axes[1,2]
-    plot_heatmap(dcxs,dys,ax13,100)
+    plot_heatmap(dcxs,dys,ax13,[10,10])
 
     ### out degree over citation count
     ax4 = axes[0,3]
@@ -241,7 +241,7 @@ def plot_dict():
     ax4.set_title('Out degree')
 
     ax14 = axes[1,3]
-    plot_heatmap(cxs,od_ys,ax14,100)
+    plot_heatmap(cxs,od_ys,ax14,[10,10])
 
 
     #### in degree over citation count
@@ -252,7 +252,7 @@ def plot_dict():
     ax5.set_xscale('log')
     ax5.set_title('In degree')
     ax15 = axes[1,4]
-    plot_heatmap(cxs,id_ys,ax15,100)
+    plot_heatmap(cxs,id_ys,ax15,[10,10])
     
 
     plt.tight_layout()
