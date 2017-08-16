@@ -173,10 +173,11 @@ def gen_statistics_data(citation_cascade):
 
 
 def plot_heatmap(x,y,ax,bins):
-    heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
-    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
-    # ax.clf()
-    ax.imshow(heatmap.T, extent=extent)
+    # heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
+    # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+    # # ax.clf()
+    # ax.imshow(heatmap.T, extent=extent)
+    hist2d(x, y, bins=100)
 
 def plot_dict():
 
