@@ -92,6 +92,8 @@ def gen_statistics_data(citation_cascade):
     od_dict = defaultdict(int)
     in_dict = defaultdict(int)
     logi = 0
+
+    plot_dict = {}
         
     cxs=[]
     eys=[]
@@ -159,7 +161,34 @@ def gen_statistics_data(citation_cascade):
     open('data/out_degree.json','w').write(json.dumps(od_dict))
     open('data/in_degree.json','w').write(json.dumps(in_dict))
 
+    
+    plot_dict['cxs'] = cxs;
+    plot_dict['eys'] = eys;
+    plot_dict['dys'] = dys;
+    plot_dict['dcx'] = dcxs;
+    plot_dict['od_ys'] = od_ys
+    plot_dict['id_ys'] = in_ys
+
+    open('data/plot_dict.json','w').write(json.dumps(plot_dict))
+
+
+def plot_heatmap(x,y,ax,bins):
+    heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
+    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+    # ax.clf()
+    ax.imshow(heatmap.T, extent=extent, origin='lower')
+
+def plot_dict():
+
+    plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
+
+    cxs= plot_dict['cxs']
+    eys= plot_dict['eys']
+    dys= plot_dict['dys']
+    dcxs=plot_dict['dcx']
+    od_ys = plot_dict['od_ys']
+    id_ys = plot_dict['id_ys']
 
     num = len(plt.get_fignums())
     # plt.figure(num)
