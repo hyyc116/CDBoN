@@ -137,18 +137,19 @@ def gen_statistics_data(citation_cascade):
         outdegree_dict = diG.out_degree()
         for nid in outdegree_dict.keys():
             od = outdegree_dict[nid]
-            od_dict[od]+=1
-
-            ##od or id
-            if od > 1:
-                od_count+=1
-
-            if od >0:
-                ind = len(diG.in_edges(nid))
+            if od>0:
+                # out degree
+                od_dict[od]+=1
+                # in degree
+                ind = diG.in_degree(nid)
                 in_dict[ind]+=1
 
                 if ind>0:
                     id_count+=1
+
+            ##od 
+            if od > 1:
+                od_count+=1
 
         od_ys.append(od_count/float(cc[pid]['cnum']))
         id_ys.append(id_count/float(cc[pid]['cnum']))
