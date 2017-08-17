@@ -133,6 +133,8 @@ def gen_statistics_data(citation_cascade):
             size_depth_dict[len(edges)].append(depth)
             dys.append(depth)
             dcxs.append(cc[pid]['cnum'])
+        else:
+            continue
         #degree
         outdegree_dict = diG.out_degree()
         for nid in outdegree_dict.keys():
