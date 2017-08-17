@@ -4,7 +4,7 @@ from basic_config import *
 import gc
 from multiprocessing.dummy import Pool as ThreadPool
 from networkx.algorithms import isomorphism
-
+from matplotlib import cm as CM
 #from the aminer_refence to build citation network
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
@@ -179,7 +179,7 @@ def plot_heatmap(x,y,ax,bins,fig):
     # ax.imshow(heatmap.T, extent=extent)
     # ax.hist2d(x, y, bins=1000)
 
-    hb = ax.hexbin(x, y, gridsize=10, cmap='viridis',bins='log',xscale=bins[0] ,yscale=bins[1])
+    hb = ax.hexbin(x, y, gridsize=30, cmap=CM.jet,bins='log',xscale=bins[0] ,yscale=bins[1])
     # ax.axis([xmin, xmax, ymin, ymax])
     cb = fig.colorbar(hb, ax=ax)
     cb.set_label('log(N)')
