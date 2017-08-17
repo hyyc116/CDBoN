@@ -224,7 +224,9 @@ def plot_dict():
     
     ax11 = axes[1,0]
     plot_heatmap(cxs,eys,ax11,['log','log'],fig)
-
+    ax11.set_xlabel('Citation Count')
+    ax11.set_ylabel('Cascade Size')
+    ax11.set_title('Cascade Size Dis')
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[0,1]
@@ -236,6 +238,9 @@ def plot_dict():
     ax2.set_title('Cascade size/citation count')
     ax12 = axes[1,1]
     plot_heatmap(cxs,rys,ax12,['log','linear'],fig)
+    ax12.set_xlabel('Citation Count')
+    ax12.set_ylabel('Cascade size/citation count')
+    ax12.set_title('Cascade size/citation count')
 
 
     ### depth distribution over citation count
@@ -248,6 +253,9 @@ def plot_dict():
 
     ax13 = axes[1,2]
     plot_heatmap(dcxs,dys,ax13,['log','linear'],fig,(10,10))
+    ax13.set_xlabel('Citation Count')
+    ax13.set_ylabel('Depth of citation cascade')
+    ax13.set_title('Cascade Depth Distribution')
 
     ### out degree over citation count
     ax4 = axes[0,3]
@@ -259,7 +267,9 @@ def plot_dict():
 
     ax14 = axes[1,3]
     plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
-
+    ax14.set_xlabel('Citation Count')
+    ax14.set_ylabel('Percentage')
+    ax14.set_title('Out degree(>1) Distribution')
 
     #### in degree over citation count
     ax5 = axes[0,4]
@@ -270,7 +280,9 @@ def plot_dict():
     ax5.set_title('In degree')
     ax15 = axes[1,4]
     plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
-    
+    ax5.set_xlabel('Citation Count')
+    ax5.set_ylabel('Percentage')
+    ax5.set_title('In degree(>0) Distribution')
 
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
