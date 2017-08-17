@@ -179,7 +179,7 @@ def gen_statistics_data(citation_cascade):
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
 
-def plot_heatmap(x,y,ax,bins,fig,gridsize=50):
+def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
     # heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
     # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
     # # ax.clf()
@@ -252,7 +252,7 @@ def plot_dict():
     ax3.set_title('Depth Distribution')
 
     ax13 = axes[1,2]
-    plot_heatmap(dcxs,dys,ax13,['log','linear'],fig,(10,10))
+    plot_heatmap(dcxs,dys,ax13,['log','linear'],fig,(12,12))
     ax13.set_xlabel('Citation Count')
     ax13.set_ylabel('Depth of citation cascade')
     ax13.set_title('Cascade Depth Distribution')
