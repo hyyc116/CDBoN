@@ -251,25 +251,25 @@ def plot_dict():
 
     ### out degree over citation count
     ax4 = axes[0,3]
-    ax4.scatter(cxs,od_ys)
+    ax4.scatter(dcxs,od_ys)
     ax4.set_xlabel('Citation Count')
     ax4.set_ylabel('Percentage')
     ax4.set_xscale('log')
     ax4.set_title('Out degree')
 
     ax14 = axes[1,3]
-    plot_heatmap(cxs,od_ys,ax14,['log','linear'],fig,(30,30))
+    plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig,(30,30))
 
 
     #### in degree over citation count
     ax5 = axes[0,4]
-    ax5.scatter(cxs,id_ys)
+    ax5.scatter(dcxs,id_ys)
     ax5.set_xlabel('Citation Count')
     ax5.set_ylabel('Percentage')
     ax5.set_xscale('log')
     ax5.set_title('In degree')
     ax15 = axes[1,4]
-    plot_heatmap(cxs,id_ys,ax15,['log','linear'],fig,(30,30))
+    plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig,(30,30))
     
 
     plt.tight_layout()
