@@ -150,7 +150,6 @@ def gen_statistics_data(citation_cascade):
                 if ind>0:
                     id_count+=1
 
-
         od_ys.append(od_count/float(cc[pid]['cnum']))
         id_ys.append(id_count/float(cc[pid]['cnum']))
 
@@ -195,6 +194,10 @@ def plot_dict():
     dcxs=plot_dict['dcx']
     od_ys = plot_dict['od_ys']
     id_ys = plot_dict['id_ys']
+
+    for ii,indgree in enumerate(id_ys):
+        if indgree==1:
+            print cxs[ii],indgree
 
     num = len(plt.get_fignums())
     # plt.figure(num)
