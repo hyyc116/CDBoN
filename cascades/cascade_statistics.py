@@ -631,8 +631,6 @@ def create_subgraph(G,sub_G,start_node):
         create_subgraph(G,sub_G,n)
 
 
-
-
 def test_subgrah():
     # graph = nx.DiGraph()
     # edges = [('2','1'),('3','1'),('3','2'),('4','2'),('4','3'),('4','1'),('5','1'),('5','4'),('6','3'),('7','4'),('8','7')]
@@ -733,6 +731,19 @@ def iso_multi(para):
         return 0
 
 
+def test_motif(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    for pid in cc.keys():
+
+        count = cc[pid]['cnum']
+
+        if count>100:
+            edges = cc[pid]['edges']
+            for e in edges:
+                print e[0],e[1]
+
+            break
+
 
 def iter_tools(edges,n):
     for es in itertools.combinations(edges,n):
@@ -748,8 +759,8 @@ def main():
         stats_plot()
     elif label == 'build_cascade':
         build_cascades(sys.argv[2])
-    elif label == 'degree':
-        cascade_degree_distribution(sys.argv[2])
+    elif label == 'motif':
+        test_motif(sys.argv[2])
     elif label =='compare_plot':
         plot_dict()
     elif label =='subgraphs':
