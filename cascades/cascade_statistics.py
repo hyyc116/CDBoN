@@ -280,9 +280,9 @@ def plot_dict():
     ax5.set_title('In degree')
     ax15 = axes[1,4]
     plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
-    ax5.set_xlabel('Citation Count')
-    ax5.set_ylabel('Percentage')
-    ax5.set_title('In degree(>0) Distribution')
+    ax15.set_xlabel('Citation Count')
+    ax15.set_ylabel('Percentage')
+    ax15.set_title('In degree(>0) Distribution')
 
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
