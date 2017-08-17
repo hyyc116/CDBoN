@@ -102,7 +102,7 @@ def gen_statistics_data(citation_cascade):
     od_ys = []
     id_ys = []
 
-
+    zero_od_count=0
     for pid in cc.keys():
 
         #out-degree count
@@ -137,6 +137,10 @@ def gen_statistics_data(citation_cascade):
         outdegree_dict = diG.out_degree()
         for nid in outdegree_dict.keys():
             od = outdegree_dict[nid]
+
+            if od==0:
+                zero_od_count+=1
+
             if od>0:
                 # out degree
                 od_dict[od]+=1
@@ -155,6 +159,7 @@ def gen_statistics_data(citation_cascade):
         id_ys.append(id_count/float(cc[pid]['cnum']))
 
 
+    print 'zero od count:',zero_od_count
     open('data/nodes_size.json','w').write(json.dumps(cnum_dict))
     open('data/cascade_size.json','w').write(json.dumps(enum_dict))
     open('data/depth.json','w').write(json.dumps(depth_dict))
