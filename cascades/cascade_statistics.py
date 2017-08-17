@@ -177,7 +177,12 @@ def plot_heatmap(x,y,ax,bins):
     # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
     # # ax.clf()
     # ax.imshow(heatmap.T, extent=extent)
-    ax.hist2d(x, y, bins=1000)
+    # ax.hist2d(x, y, bins=1000)
+
+    hb = ax.hexbin(x, y, gridsize=50, cmap='inferno',bins='log',xscale='log',yscale='log')
+    # ax.axis([xmin, xmax, ymin, ymax])
+    cb = fig.colorbar(hb, ax=ax)
+    cb.set_label('log(N)')
 
 def plot_dict():
 
