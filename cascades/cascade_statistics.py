@@ -5,6 +5,7 @@ import gc
 from multiprocessing.dummy import Pool as ThreadPool
 from networkx.algorithms import isomorphism
 from matplotlib import cm as CM
+
 #from the aminer_refence to build citation network
 def build_citation_network(path):
     ref_dict=defaultdict(dict)
@@ -178,18 +179,8 @@ def gen_statistics_data(citation_cascade):
 
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
-
 def plot_heatmap(x,y,ax,bins,fig,gridsize=30):
-    # heatmap, xedges, yedges = np.histogram2d(x, y, bins=bins)
-    # extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
-    # # ax.clf()
-    # ax.imshow(heatmap.T, extent=extent)
-    # ax.hist2d(x, y, bins=1000)
-
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
-    # ax.axis([xmin, xmax, ymin, ymax])
-    # cb = fig.colorbar(hb, ax=ax)
-    # cb.set_label('log(N)')
 
 def plot_dict():
 
@@ -287,6 +278,17 @@ def plot_dict():
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
     print 'figure saved to pdf/compare.png'
+
+## 将与根节点的链接的边去掉
+def unliked_subgraph(citation_cascade):
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+
+    for pid in cc.keys():
+        
+        
+    pass
+
 
 def stats_plot():
     logging.info('plot data ...')
@@ -535,6 +537,8 @@ def draw_degree_plot():
     plt.tight_layout()
     plt.savefig('pdf/cascade_degree.pdf',dpi=300)
     logging.info('figure saved to pdf/cascade_degree.pdf.')
+
+## test
 
 #cascade subgraph
 def cascade_subgraph(graph):
