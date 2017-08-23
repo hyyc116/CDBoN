@@ -538,8 +538,6 @@ def draw_degree_plot():
     plt.savefig('pdf/cascade_degree.pdf',dpi=300)
     logging.info('figure saved to pdf/cascade_degree.pdf.')
 
-## test
-
 #cascade subgraph
 def cascade_subgraph(graph):
     ungraph = graph.to_undirected()
