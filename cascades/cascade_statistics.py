@@ -454,22 +454,37 @@ def plot_unconnected_subgraphs():
     ax1.set_xscale('log')
 
     # 在有剩余图的里面，找到的联通子图的分布
+
+    total_dis = 0
     remain_edges_size = defaultdict(int)
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
         for subgraphs in remaining_subgraphs_dis[str(k)]:
             for size in subgraphs:
                 remain_edges_size[size]+=1
+                total_dis+=1
 
     xs=[]
     ys=[]
+    _80_dis = 0
+    line_x = 0
+    max_y = 0
     for size in sorted(remain_edges_size.keys()):
         xs.append(size)
-        ys.append(remain_edges_size[size])
+        dis = remain_edges_size[size]
+        if dis>max_y:
+            max_y=dis
+        ys.append(dis)
+        _80_dis += dis
+
+        if _80_dis/float(total_dis)>0.8:
+            line_x = size
+
 
     ax2 = axes[1]
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.scatter(xs,ys)
+    ax2.plot([xs]*10,np.linspace(0,max_y,10))
 
     plt.tight_layout()
 
