@@ -406,7 +406,7 @@ def unlinked_subgraph(citation_cascade):
         nx.draw(dig)
         plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
         for graph in nx.weakly_connected_component_subgraphs(dig):
-            print pid+","+graph.edges()
+            print pid,"=",graph.edges()
         if outindex%10==0:
             break       
 
