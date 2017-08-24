@@ -379,6 +379,7 @@ def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,[])
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
+    print graph.edges()
     if len(subgraphs)==0:
         subgraph_dict[size].append(graph)
     else:
