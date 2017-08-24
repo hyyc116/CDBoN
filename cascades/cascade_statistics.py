@@ -386,6 +386,7 @@ def iso(subgraph_dict,graph):
             print '---'
             print subgraph.edges()
             print graph.edges()
+            print nx.is_isomorphic(graph,subgraph)
             if nx.is_isomorphic(graph,subgraph):
                 continue
             else:
