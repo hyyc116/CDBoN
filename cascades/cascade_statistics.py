@@ -399,8 +399,8 @@ def unlinked_subgraph(citation_cascade):
         dig.add_edges_from(new_edges)
         nx.draw(dig)
         plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
-        for graph in nx.weakly_connected_component_subgraphs(dig).edges():
-            print graph.edges()
+        # for graph in nx.weakly_connected_component_subgraphs(dig).edges():
+        #     print graph.edges()
 
         outindex+=1
         
