@@ -377,23 +377,24 @@ def plot_dict():
 
 def iso(subgraph_dict,graph):
     size = len(graph.edges())
-    subgraphs  = subgraph_dict.get(size,[])
+    subgraphs  = subgraph_dict.get(size,{}).keys()
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
     is_iso = False
     if len(subgraphs)==0:
         is_iso = False
     else:
         for subgraph in subgraphs:
-            print '---'
-            print 'exists:',subgraph.edges()
-            print 'new:',graph.edges()
-            print 'result:',nx.is_isomorphic(graph,subgraph)
+            # print '---'
+            # print 'exists:',subgraph.edges()
+            # print 'new:',graph.edges()
+            # print 'result:',nx.is_isomorphic(graph,subgraph)
             if nx.is_isomorphic(graph,subgraph):
                 is_iso=True
+                subgraph_dict[size][subgraph] = subgraph_dict[size][subgraph]+1
                 break
 
     if not is_iso:
-        subgraph_dict[size].append(graph)
+        subgraph_dict[size][graph]=1
     
     return subgraph_dict
 
@@ -412,7 +413,7 @@ def unlinked_subgraph(citation_cascade):
     total = len(cc.keys())
 
     ### 存储subgraph的字典
-    subgraph_dict = defaultdict(list)
+    subgraph_dict = defaultdict(dict)
 
     for pid in cc.keys():
         progress_index+=1
@@ -467,7 +468,7 @@ def unlinked_subgraph(citation_cascade):
     # 将已经同质化过的图形，画出来
 
     for size in sorted(subgraph_dict.keys()):
-        subgraphs = subgraph_dict[size]
+        subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
             ## 对于某一个size对应的子图，画出来
             plt.figure()
