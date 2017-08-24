@@ -566,14 +566,14 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
-    a=[(1,2),(4,2)]
-    b = [(2,3),(5,3)]
-    ag = nx.DiGraph()
-    ag.add_edges_from(a)
-    bg = nx.DiGraph()
-    bg.add_edges_from(b)
-    print nx.is_isomorphic(ag,bg)
+    main()
+    # a=[(1,2),(4,2)]
+    # b = [(2,3),(5,3)]
+    # ag = nx.DiGraph()
+    # ag.add_edges_from(a)
+    # bg = nx.DiGraph()
+    # bg.add_edges_from(b)
+    # print nx.is_isomorphic(ag,bg)
 
     
 
