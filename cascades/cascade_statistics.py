@@ -388,7 +388,7 @@ def iso(subgraph_dict,graph):
             else:
                 subgraph_dict[size].append(graph)
 
-    return subgraphs
+    return subgraph_dict
 
 ## 将与根节点的链接的边去掉,相当于大出度小于2的点都去掉了
 def unlinked_subgraph(citation_cascade):
