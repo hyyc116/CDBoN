@@ -441,6 +441,7 @@ def plot_unconnected_subgraphs():
     xs = []
     ys = []
     for citation_count in sorted(remaining_statistics.keys()):
+        print 'citation_count:',citation_count
         for percent in remaining_statistics[citation_count]:
             xs.append(citation_count)
             ys.append(percent)
