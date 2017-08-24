@@ -474,10 +474,12 @@ def plot_unconnected_subgraphs():
         if dis>max_y:
             max_y=dis
         ys.append(dis)
+
+        if (_80_dis+dis)/float(total_dis)>0.8 and _80_dis/float(total_dis)<0.8:
+            line_x = size
+
         _80_dis += dis
 
-        if _80_dis/float(total_dis)>0.8:
-            line_x = size
 
 
     ax2 = axes[1]
