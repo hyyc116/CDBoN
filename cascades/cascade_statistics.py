@@ -446,6 +446,7 @@ def plot_unconnected_subgraphs():
             ys.append(percent)
 
     plt.scatter(xs,ys)
+    plt.xscale('log')
     plt.savefig('pdf/cascade_remianing_graph_size.png',dpi=200)
 
 
