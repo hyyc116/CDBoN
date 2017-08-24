@@ -386,6 +386,9 @@ def unlinked_subgraph(citation_cascade):
         print 'size of cascade:',len(edges)
         if len(edges)>10:
             outindex+=1
+        else:
+            continue
+
         new_edges=[]
         for edge in edges:
             source = edge[0]
@@ -403,7 +406,7 @@ def unlinked_subgraph(citation_cascade):
         nx.draw(dig)
         plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
         for graph in nx.weakly_connected_component_subgraphs(dig):
-            print graph.edges()
+            print pid+","+graph.edges()
         if outindex%10==0:
             break       
 
