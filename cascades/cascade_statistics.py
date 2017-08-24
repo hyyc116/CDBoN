@@ -375,6 +375,21 @@ def plot_dict():
     print 'figure saved to pdf/compare.png'
 
 
+def iso(subgraph_dict,graph):
+    size = len(graph.edges())
+
+    subgraphs  = subgraph_dict.get(size,[])
+    if len(subgraphs)==0:
+        subplots[size].append(graph)
+    else:
+        for subgraph in subgraphs:
+            if nx.is_isomorphic(graph,subgraph):
+                continue
+            else:
+                subgraph_dict[size].append(graph)
+
+    return subgraphs
+
 ## 将与根节点的链接的边去掉,相当于大出度小于2的点都去掉了
 def unlinked_subgraph(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
@@ -388,6 +403,10 @@ def unlinked_subgraph(citation_cascade):
 
     progress_index = 0
     total = len(cc.keys())
+
+    ### 存储subgraph的字典
+    subgraph_dict = defaultdict(list)
+
     for pid in cc.keys():
         progress_index+=1
 
@@ -427,11 +446,26 @@ def unlinked_subgraph(citation_cascade):
             edge_size = len(subgraph.edges())
             subgraphs.append(edge_size)
 
+            # 如果边的数量小于8，画出来
+            # 判断是否同质
+            if edges_size < 8 :
+                subgraph_dict = iso(subgraph_dict,graph)
+
         remaining_subgraphs_dis[citation_count].append(subgraphs)
 
     # write output
     open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
+
+    # 将已经同质化过的图形，画出来
+
+    for size in sorted(subgraph_dict.keys()):
+        subgraphs = subgraph_dict[size]
+        for i,graph in enumerate(subgraphs):
+            ## 对于某一个size对应的子图，画出来
+            plt.figure()
+            nx.draw(graph)
+            plt.savefig('subgraph/{:}_{:}.png'.format(size,i),dpi=200)
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
