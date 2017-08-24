@@ -474,7 +474,7 @@ def unlinked_subgraph(citation_cascade):
             ## 对于某一个size对应的子图，画出来
             plt.figure()
             nx.draw(graph)
-            plt.text('{:}'.format(count))
+            # plt.text('{:}'.format(count))
             plt.savefig('subgraph/{:}_{:}_{:}.png'.format(size,i,count),dpi=200)
 
 ## unconnected subgraphs plot 
