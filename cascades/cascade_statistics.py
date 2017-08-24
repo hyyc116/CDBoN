@@ -423,8 +423,9 @@ def unlinked_subgraph(citation_cascade):
         #根据创建的有向图，获得其所有弱连接的子图
         subgraphs =[] 
         for subgraph in nx.weakly_connected_component_subgraphs(dig):
-            size = len(subgraph)
-            subgraphs.append(size)
+            # 获得图像子图的边的数量
+            edge_size = len(subgraph.edges())
+            subgraphs.append(edge_size)
 
         remaining_subgraphs_dis[citation_count].append(subgraphs)
 
@@ -486,11 +487,16 @@ def plot_unconnected_subgraphs():
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.scatter(xs,ys)
-    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--','r')
+    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',c='r')
 
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.png',dpi=200)
+
+
+    ## 
+
+
 
 
 ###three levels of 
