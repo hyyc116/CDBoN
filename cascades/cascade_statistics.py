@@ -383,6 +383,7 @@ def iso(subgraph_dict,graph):
         subgraph_dict[size].append(graph)
     else:
         for subgraph in subgraphs:
+            print '---'
             print subgraph.edges()
             print graph.edges()
             if nx.is_isomorphic(graph,subgraph):
