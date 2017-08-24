@@ -377,7 +377,7 @@ def plot_dict():
 
 def iso(subgraph_dict,graph):
     size = len(graph.edges())
-
+    print 'length of graph',size
     subgraphs  = subgraph_dict.get(size,[])
     if len(subgraphs)==0:
         subgraph_dict[size].append(graph)
