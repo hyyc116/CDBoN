@@ -440,7 +440,8 @@ def plot_unconnected_subgraphs():
     # 横坐标为citation count 
     xs = []
     ys = []
-    for citation_count in sorted(remaining_statistics.keys()):
+    for k in sorted([int(k) for k in remaining_statistics.keys()]):
+        citation_count = str(k)
         print 'citation_count:',citation_count
         for percent in remaining_statistics[citation_count]:
             xs.append(citation_count)
