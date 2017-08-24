@@ -378,7 +378,7 @@ def plot_dict():
 def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,{}).keys()
-    print 'length of graph',size,'existing subgraphs',len(subgraphs)
+    # print 'length of graph',size,'existing subgraphs',len(subgraphs)
     is_iso = False
     if len(subgraphs)==0:
         is_iso = False
@@ -470,10 +470,12 @@ def unlinked_subgraph(citation_cascade):
     for size in sorted(subgraph_dict.keys()):
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
+            count  = subgraph_dict[size][graph]
             ## 对于某一个size对应的子图，画出来
             plt.figure()
             nx.draw(graph)
-            plt.savefig('subgraph/{:}_{:}.png'.format(size,i),dpi=200)
+            plt.text('{:}'.format(count))
+            plt.savefig('subgraph/{:}_{:}_{:}.png'.format(size,i,count),dpi=200)
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
