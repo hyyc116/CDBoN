@@ -394,6 +394,7 @@ def unlinked_subgraph(citation_cascade):
         if progress_index%10000==0:
             logging.info('progress report:{:}/{:}'.format(progress_index,total))
         yes_count = 0
+
         edges = cc[pid]['edges']
         size_of_cascade = float(len(edges))
         citation_count = int(cc[pid]['cnum'])
@@ -440,6 +441,11 @@ def plot_unconnected_subgraphs():
     # 横坐标为citation count 
     xs = []
     ys = []
+    # percentage of zero 
+    zero_xs = []
+    zero_ys = []
+
+    # 扇形图像的比例，由于超过1000的文章数量一共有137个
     for k in sorted([int(k) for k in remaining_statistics.keys()]):
         citation_count = str(k)
         print 'citation_count:',citation_count
@@ -447,11 +453,35 @@ def plot_unconnected_subgraphs():
             xs.append(citation_count)
             ys.append(percent)
 
-    plt.scatter(xs,ys)
-    plt.xscale('log')
+            if percent==0:
+                zero_xs.append()
+                zero_ys.append()
+
+    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    ax1 = axes[0]
+    ax1.scatter(xs,ys)
+    ax1.set_xscale('log')
+
+    remain_edges_size = defaultdict(int)
+    for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
+        for subgraphs in remaining_subgraphs_dis[str(k)]:
+            for size in subgraphs:
+                remain_edges_size[size]+=1
+
+    xs=[]
+    ys=[]
+    for size in sorted(remain_edges_size.keys()):
+        xs.append(size)
+        ys.append(remaining_edges_size[size])
+
+    ax2 = axes[1]
+    ax2.set_xscale('log')
+    ax2.set_yscale('log')
+    ax2.scatter(xs,ys)
+
+    plt.tight_layout()
+
     plt.savefig('pdf/cascade_remianing_graph_size.png',dpi=200)
-
-
 
 
 ###three levels of 
