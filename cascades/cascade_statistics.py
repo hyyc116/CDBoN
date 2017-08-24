@@ -381,7 +381,7 @@ def iso(subgraph_dict,graph):
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
     is_iso = False
     if len(subgraphs)==0:
-        subgraph_dict[size].append(graph)
+        is_iso = False
     else:
         for subgraph in subgraphs:
             print '---'
