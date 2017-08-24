@@ -484,7 +484,7 @@ def plot_unconnected_subgraphs():
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.scatter(xs,ys)
-    ax2.plot([xs]*10,np.linspace(0,max_y,10))
+    ax2.plot([line_x]*10,np.linspace(0,max_y,10))
 
     plt.tight_layout()
 
