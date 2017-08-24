@@ -380,7 +380,7 @@ def iso(subgraph_dict,graph):
 
     subgraphs  = subgraph_dict.get(size,[])
     if len(subgraphs)==0:
-        subplots[size].append(graph)
+        subgraph_dict[size].append(graph)
     else:
         for subgraph in subgraphs:
             if nx.is_isomorphic(graph,subgraph):
