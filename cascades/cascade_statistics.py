@@ -443,7 +443,7 @@ def plot_unconnected_subgraphs():
     ys = []
     for k in sorted([int(k) for k in remaining_statistics.keys()]):
         citation_count = str(k)
-        print 'citation_count:',citation_count
+        # print 'citation_count:',citation_count
         for percent in remaining_statistics[citation_count]:
             xs.append(citation_count)
             ys.append(percent)
@@ -453,7 +453,7 @@ def plot_unconnected_subgraphs():
     ax1.scatter(xs,ys)
     ax1.set_xscale('log')
 
-    # 在有剩余图的里面，找到的联通子图的大小分布
+    # 在有剩余图的里面，找到的联通子图的分布
     remain_edges_size = defaultdict(int)
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
         for subgraphs in remaining_subgraphs_dis[str(k)]:
@@ -464,7 +464,7 @@ def plot_unconnected_subgraphs():
     ys=[]
     for size in sorted(remain_edges_size.keys()):
         xs.append(size)
-        ys.append(remaining_edges_size[size])
+        ys.append(remain_edges_size[size])
 
     ax2 = axes[1]
     ax2.set_xscale('log')
