@@ -375,21 +375,28 @@ def plot_dict():
     print 'figure saved to pdf/compare.png'
 
 
-## 将与根节点的链接的边去掉
+## 将与根节点的链接的边去掉,相当于大出度小于2的点都去掉了
 def unlinked_subgraph(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
-    outindex=0
+    # 统计有多少图去掉与根节点直接相连的边只有还有图
+    # 剩余边的比例 与前面统计的图 出度大于1的点的比例 是相同的
+    remaining_statistics = defaultdict(list)
+
+    # 剩余的边构成的图中，有多少不相互连通的子图
+    remaining_subgraphs_dis = defaultdict(list)
+
+    progress_index = 0
+    total = len(cc.keys())
     for pid in cc.keys():
+        progress_index+=1
+
+        if progress_index%10000==0:
+            logging.info('progress report:{:}/{:}'.format(progress_index,total))
         yes_count = 0
         edges = cc[pid]['edges']
-        print 'size of cascade:',len(edges)
-        if len(edges)>10:
-            outindex+=1
-        else:
-            continue
-
-        new_edges=[]
+        size_of_cascade = len(edges)
+        remaining_edges=[]
         for edge in edges:
             source = edge[0]
             target = edge[1]
@@ -397,19 +404,28 @@ def unlinked_subgraph(citation_cascade):
             if int(target)==int(pid):
                 yes_count+=1
             else:
-                new_edges.append(edge)
+                remaining_edges.append(edge)
+        
+        #如果剩余边的数量是0，无字图，原图形状为扇形
+        remaining_edges_size = len(remaining_edges)
+        if len(remaining_edges)==0:
+            continue
+        remaining_statistics[size_of_cascade].append(remaining_edges_size)
 
-        print yes_count
+        # 根据剩余边创建图
         dig  = nx.DiGraph()
-        dig.add_edges_from(new_edges)
-        plt.figure()
-        nx.draw(dig)
-        plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
-        for graph in nx.weakly_connected_component_subgraphs(dig):
-            print pid,"=",graph.edges()
-        if outindex%10==0:
-            break       
+        dig.add_edges_from(remaining_edges)
+        #根据创建的有向图，获得其所有弱连接的子图
+        subgraphs =[] 
+        for subgraph in nx.weakly_connected_component_subgraphs(dig):
+            size = len(subgraph)
+            subgraphs.append(size)
 
+        remaining_subgraphs_dis[size_of_cascade].append(subgraphs)
+
+    # write output
+    open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
+    open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
 
 ###three levels of 
 def three_levels_dis():
