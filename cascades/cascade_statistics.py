@@ -379,6 +379,7 @@ def plot_dict():
 def unlinked_subgraph(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
+    outindex=0
     for pid in cc.keys():
         yes_count = 0
         edges = cc[pid]['edges']
@@ -397,10 +398,14 @@ def unlinked_subgraph(citation_cascade):
         dig  = nx.DiGraph()
         dig.add_edges_from(new_edges)
         nx.draw(dig)
-        plt.savefig('{:}_graph.png'.format(pid),dpi=200)
-        print list(nx.weakly_connected_component_subgraphs(dig).edges()) 
+        plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
+        for graph in nx.weakly_connected_component_subgraphs(dig).edges():
+            print graph.edges()
+
+        outindex+=1
         
-        break       
+        if outindex%10==0:
+            break       
 
 
 ###three levels of 
