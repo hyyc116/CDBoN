@@ -395,7 +395,9 @@ def unlinked_subgraph(citation_cascade):
             logging.info('progress report:{:}/{:}'.format(progress_index,total))
         yes_count = 0
         edges = cc[pid]['edges']
-        size_of_cascade = len(edges)
+        size_of_cascade = float(len(edges))
+        citation_count = int(cc[pid]['cnum'])
+
         remaining_edges=[]
         for edge in edges:
             source = edge[0]
@@ -410,7 +412,7 @@ def unlinked_subgraph(citation_cascade):
         remaining_edges_size = len(remaining_edges)
         if len(remaining_edges)==0:
             continue
-        remaining_statistics[size_of_cascade].append(remaining_edges_size)
+        remaining_statistics[citation_count].append(remaining_edges_size/size_of_cascade)
 
         # 根据剩余边创建图
         dig  = nx.DiGraph()
@@ -421,7 +423,7 @@ def unlinked_subgraph(citation_cascade):
             size = len(subgraph)
             subgraphs.append(size)
 
-        remaining_subgraphs_dis[size_of_cascade].append(subgraphs)
+        remaining_subgraphs_dis[citation_count].append(subgraphs)
 
     # write output
     open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
