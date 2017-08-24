@@ -382,17 +382,21 @@ def unlinked_subgraph(citation_cascade):
     for pid in cc.keys():
         yes_count = 0
         edges = cc[pid]['edges']
-        print 'size of cascade:',len(edges)
+        # print 'size of cascade:',len(edges)
+        new_edges=[]
         for edge in edges:
             source = edge[0]
             target = edge[1]
             
             if int(target)==int(pid):
-                print 'yes'
                 yes_count+=1
+            else:
+                new_edges.append(edge)
 
         print yes_count
-        break                
+        dig  = nx.DiGraph()
+        dig.add_edges_from(new_edges)
+        print list(nx.weakly_connected_component_subgraphs(dig))        
 
 
 ###three levels of 
