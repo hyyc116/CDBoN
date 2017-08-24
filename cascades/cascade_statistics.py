@@ -441,11 +441,6 @@ def plot_unconnected_subgraphs():
     # 横坐标为citation count 
     xs = []
     ys = []
-    # percentage of zero 
-    zero_xs = []
-    zero_ys = []
-
-    # 扇形图像的比例，由于超过1000的文章数量一共有137个
     for k in sorted([int(k) for k in remaining_statistics.keys()]):
         citation_count = str(k)
         print 'citation_count:',citation_count
@@ -453,15 +448,12 @@ def plot_unconnected_subgraphs():
             xs.append(citation_count)
             ys.append(percent)
 
-            if percent==0:
-                zero_xs.append()
-                zero_ys.append()
-
     fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax1 = axes[0]
     ax1.scatter(xs,ys)
     ax1.set_xscale('log')
 
+    # 在有剩余图的里面，找到的联通子图的大小分布
     remain_edges_size = defaultdict(int)
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
         for subgraphs in remaining_subgraphs_dis[str(k)]:
