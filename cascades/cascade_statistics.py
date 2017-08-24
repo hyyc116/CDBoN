@@ -382,6 +382,7 @@ def unlinked_subgraph(citation_cascade):
     for pid in cc.keys():
         yes_count = 0
         edges = cc[pid]['edges']
+        print 'size of cascade:',len(edges)
         for edge in edges:
             source = edge[0]
             target = edge[1]
