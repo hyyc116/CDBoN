@@ -380,6 +380,7 @@ def iso(subgraph_dict,graph):
     subgraphs  = subgraph_dict.get(size,[])
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
     print graph.edges()
+    print subgraphs
     if len(subgraphs)==0:
         subgraph_dict[size].append(graph)
     else:
@@ -565,7 +566,14 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    a=[(1,2),(4,2)]
+    b = [(2,3),(5,3)]
+    ag = nx.DiGraph()
+    ag.add_edges_from(a)
+    bg = nx.DiGraph()
+    bg.add_edges_from(b)
+    print nx.is_isomorphic(ag,bg)
 
     
 
