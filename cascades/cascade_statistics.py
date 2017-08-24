@@ -379,7 +379,7 @@ def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,[])
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
-    new_graph = []
+    is_iso = False
     if len(subgraphs)==0:
         subgraph_dict[size].append(graph)
     else:
@@ -389,12 +389,11 @@ def iso(subgraph_dict,graph):
             print 'new:',graph.edges()
             print 'result:',nx.is_isomorphic(graph,subgraph)
             if nx.is_isomorphic(graph,subgraph):
-                continue
-            else:
-                new_graph.append(graph)
+                is_iso=True
+                break
 
-    subgraphs.extend(new_graph)
-    subgraph_dict[size] = subgraphs
+    if not is_iso:
+        subgraph_dict[size].append(graph)
     
     return subgraph_dict
 
