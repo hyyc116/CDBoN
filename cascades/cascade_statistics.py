@@ -379,19 +379,23 @@ def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,[])
     print 'length of graph',size,'existing subgraphs',len(subgraphs)
+    new_graph = []
     if len(subgraphs)==0:
         subgraph_dict[size].append(graph)
     else:
         for subgraph in subgraphs:
             print '---'
-            print subgraph.edges()
-            print graph.edges()
-            print nx.is_isomorphic(graph,subgraph)
+            print 'exists:',subgraph.edges()
+            print 'new:',graph.edges()
+            print 'result:',nx.is_isomorphic(graph,subgraph)
             if nx.is_isomorphic(graph,subgraph):
                 continue
             else:
-                subgraph_dict[size].append(graph)
+                new_graph.append(graph)
 
+    subgraphs.extend(new_graph)
+    subgraph_dict[size] = subgraphs
+    
     return subgraph_dict
 
 ## 将与根节点的链接的边去掉,相当于大出度小于2的点都去掉了
