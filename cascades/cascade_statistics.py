@@ -396,7 +396,9 @@ def unlinked_subgraph(citation_cascade):
         print yes_count
         dig  = nx.DiGraph()
         dig.add_edges_from(new_edges)
-        print list(nx.weakly_connected_component_subgraphs(dig))        
+        print list(nx.weakly_connected_component_subgraphs(dig)) 
+
+    break       
 
 
 ###three levels of 
