@@ -397,13 +397,12 @@ def unlinked_subgraph(citation_cascade):
         print yes_count
         dig  = nx.DiGraph()
         dig.add_edges_from(new_edges)
+        plt.figure()
         nx.draw(dig)
         plt.savefig('pdf/{:}_graph.png'.format(pid),dpi=200)
-        # for graph in nx.weakly_connected_component_subgraphs(dig).edges():
-        #     print graph.edges()
-
+        for graph in nx.weakly_connected_component_subgraphs(dig):
+            print graph.edges()
         outindex+=1
-        
         if outindex%10==0:
             break       
 
