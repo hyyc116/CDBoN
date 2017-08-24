@@ -408,11 +408,13 @@ def unlinked_subgraph(citation_cascade):
             else:
                 remaining_edges.append(edge)
         
-        #如果剩余边的数量是0，无字图，原图形状为扇形
+        # 
         remaining_edges_size = len(remaining_edges)
-        if len(remaining_edges)==0:
-            continue
         remaining_statistics[citation_count].append(remaining_edges_size/size_of_cascade)
+
+        #如果剩余边的数量是0，无子图，原图形状为扇形
+        if remaining_edges_size==0:
+            continue
 
         # 根据剩余边创建图
         dig  = nx.DiGraph()
@@ -428,6 +430,26 @@ def unlinked_subgraph(citation_cascade):
     # write output
     open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
+
+## unconnected subgraphs plot 
+def plot_unconnected_subgraphs():
+    remaining_statistics = json.loads(open('data/remaining_statistics.json').read()) 
+    remaining_subgraphs_dis = json.loads(open('data/remaining_subgraphs_dis.json').read()) 
+
+    # 首先画 剩余图形中 边的数量的比例分布图,散点图
+    # 横坐标为citation count 
+    xs = []
+    ys = []
+    for citation_count in sorted(remaining_statistics.keys()):
+        for percent in remaining_statistics[citation_count]:
+            xs.append(citation_count)
+            ys.append(percent)
+
+    plt.scatter(xs,ys)
+    plt.savefig('pdf/cascade_remianing_graph_size.png',dpi=200)
+
+
+
 
 ###three levels of 
 def three_levels_dis():
@@ -455,6 +477,8 @@ def main():
         plot_dict()
     elif label=='unlinked_subgraph':
         unlinked_subgraph(sys.argv[2])
+    elif label == 'plot_subgraph':
+        plot_unconnected_subgraphs()
 
 
 if __name__ == '__main__':
