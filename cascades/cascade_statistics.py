@@ -378,6 +378,7 @@ def plot_dict():
 def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,{}).keys()
+    logging.info('length of graph: {:}, of existing subgraphs number:{:}'.format(size,len(subgraphs)))
     # print 'length of graph',size,'existing subgraphs',len(subgraphs)
     is_iso = False
     if len(subgraphs)==0:
