@@ -456,7 +456,7 @@ def unlinked_subgraph(citation_cascade):
 
             # 如果边的数量小于于50，画出来
             # 判断是否同质
-            if edge_size<50:
+            if edge_size<20:
                 subgraph_dict = iso(subgraph_dict,subgraph)
 
         remaining_subgraphs_dis[citation_count].append(subgraphs)
@@ -466,7 +466,6 @@ def unlinked_subgraph(citation_cascade):
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
 
     # 将已经同质化过的图形，画出来
-
     for size in sorted(subgraph_dict.keys()):
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
