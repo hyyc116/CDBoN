@@ -456,8 +456,7 @@ def unlinked_subgraph(citation_cascade):
 
             # 如果边的数量小于8，画出来
             # 判断是否同质
-            if edge_size < 8 :
-                subgraph_dict = iso(subgraph_dict,subgraph)
+            subgraph_dict = iso(subgraph_dict,subgraph)
 
         remaining_subgraphs_dis[citation_count].append(subgraphs)
 
