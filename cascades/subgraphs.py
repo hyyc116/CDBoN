@@ -8,6 +8,7 @@ def read_cascade(cascade_path):
     cc = json.loads(open(cascade_path).read())
 
     j = {}
+    logi=0
     for pid in cc.keys():
 
         logi+=1
