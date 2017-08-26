@@ -395,7 +395,7 @@ def iso(subgraph_dict,graph):
                 break
 
     if not is_iso:
-        subgraph_dict[size][graph]=1
+        subgraph_dict[size][graph]=  1
     
     return subgraph_dict
 

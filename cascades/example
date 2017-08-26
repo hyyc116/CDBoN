@@ -1,0 +1,9 @@
+graph {
+	node [shape=point]
+	edge [arrowhead=open]
+	0 [height=0 width=0]
+	1 [height=1 width=1]
+	2 [height=2 width=2]
+	3 [height=3 width=3]
+	4 [height=4 width=4]
+}
