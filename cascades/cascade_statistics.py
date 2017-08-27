@@ -430,23 +430,23 @@ def plot_centrality():
     # degree 
     indegree_list = centrality_dict['indegree']
     ax1 = axes[0]
-    plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$',False,False)
+    plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$',False)
 
     outdegree_list = centrality_dict['outdegree']
     ax2 = axes[1]
-    plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$')
+    plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$',False)
     # closeness 
     closeness_list = centrality_dict['closeness']
     ax3 = axes[2]
-    plot_cumulative_dis(ax3,closeness_list,'closeness','$x$','$P_x$')
+    plot_cumulative_dis(ax3,closeness_list,'closeness','$x$','$P_x$',False)
     # betweenness
     betweenness_list = centrality_dict['betweenness']
     ax4 = axes[3]
-    plot_cumulative_dis(ax4,betweenness_list,'betweenness','$x$','$P_x$')
+    plot_cumulative_dis(ax4,betweenness_list,'betweenness','$x$','$P_x$',False)
     # katz
     katz_list = centrality_dict['katz']
     ax5= axes[4]
-    plot_cumulative_dis(ax5,katz_list,'katz','$x$','$P_x$')
+    plot_cumulative_dis(ax5,katz_list,'katz','$x$','$P_x$',False)
 
 
     plt.tight_layout()
