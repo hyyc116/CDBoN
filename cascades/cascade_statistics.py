@@ -205,7 +205,7 @@ def stats_plot():
         xs.append(num)
         ys.append(v)
 
-        if _80_total/total<0.8 and (_80_total+v)>0.8:
+        if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
             _80_y = v
 
@@ -225,13 +225,14 @@ def stats_plot():
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
+    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x=9$')
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
     #### cascade size
     logging.info('plotting cascade size ...')
     ax2 = axes[1]
+    total = sum(enum_dict.values()) 
     _80_total = float(0)
     _80_x = 0
     _80_y = 0
@@ -242,7 +243,7 @@ def stats_plot():
         v = enum_dict[str(num)]
         ys.append(v)
 
-        if _80_total/total<0.8 and (_80_total+v)>0.8:
+        if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
             _80_y = v
 
@@ -256,7 +257,7 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[20:400],ys[20:400])
     ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
+    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x=9$')
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size')
     ax2.set_ylabel('$N(x)$')
@@ -271,9 +272,24 @@ def stats_plot():
     ax3=axes[2]
     xs=[]
     ys=[]
+    total = sum(depth_dict.values()) 
+    _80_total = float(0)
+    _80_x = 0
+    _80_y = 0
+    _max_y = 0
     for depth in sorted([int(i) for i in depth_dict.keys()]):
         xs.append(int(depth))
-        ys.append(depth_dict[str(depth)])
+        v = depth_dict[str(depth)]
+        ys.append(v)
+
+        if _80_total/total<0.8 and (_80_total+v)/total>0.8:
+            _80_x = num
+            _80_y = v
+
+        _80_total+= v
+
+        if v>_max_y:
+            _max_y = v
 
     # use exponential func to fit the distribution
 
@@ -286,7 +302,8 @@ def stats_plot():
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:}'.format(mean))
+    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.f}'.format(mean))
+    ax3.plot([_80_x]*10,np.linspace(10,10000,10),'--',label='x={:}'.format(_80_x))
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
     ax3.set_xlim(0,13)
