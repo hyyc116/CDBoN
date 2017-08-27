@@ -429,6 +429,19 @@ def plot_centrality():
     degree_list = centrality_dict['degree']
     ax1 = axes[0]
     plot_cumulative_dis(ax1,degree_list)
+    # closeness 
+    closeness_list = centrality_dict['closeness']
+    ax2 = axes[1]
+    plot_cumulative_dis(ax2,closeness_list)
+    # betweenness
+    betweenness_list = centrality_dict['betweenness']
+    ax3 = axes[2]
+    plot_cumulative_dis(ax3,closeness_list)
+    # katz
+    katz_list = centrality_dict['katz']
+    ax4 = axes[3]
+    plot_cumulative_dis(ax4,closeness_list)
+
 
     plt.tight_layout()
     plt.savefig('pdf/centrality.pdf',dpi=200)
