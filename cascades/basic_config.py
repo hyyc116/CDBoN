@@ -34,8 +34,8 @@ pylab.rcParams.update(params)
 def power_low_func(x,a,b):
     return b*(x**(-a))
 
-def exponential_func(x,a):
-    return a*np.exp(-a*x)
+def exponential_func(x,a,b):
+    return a*np.exp(-a*x)*b
 
 def autolabel(rects,ax,total_count=None,step=1,):
     """
