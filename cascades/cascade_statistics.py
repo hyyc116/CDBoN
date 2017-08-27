@@ -141,8 +141,10 @@ def gen_statistics_data(citation_cascade):
             dcxs.append(cc[pid]['cnum'])
         else:
             continue
+
         #degree
         outdegree_dict = diG.out_degree()
+        print outdegree_dict
         for nid in outdegree_dict.keys():
             od = outdegree_dict[nid]
 
