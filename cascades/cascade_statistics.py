@@ -198,7 +198,7 @@ def stats_plot():
         ys.append(cnum_dict[num])
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('citation count distribution')
-    ax1.set_xlabel('$x=$Citation Count')
+    ax1.set_xlabel('$x=$citation count')
     ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -213,7 +213,7 @@ def stats_plot():
 
     ax2.plot(xs,ys,'o',fillstyle='none')
     ax2.set_title('cascade size distribution')
-    ax2.set_xlabel('$x=$Cascade Size')
+    ax2.set_xlabel('$x=$cascade size')
     ax2.set_ylabel('$N(x)$')
     ax2.set_yscale('log')
     ax2.set_xscale('log')
@@ -232,7 +232,7 @@ def stats_plot():
     print xs 
     print ys
     ax3.plot(xs,ys,marker = '.',fillstyle='none')
-    ax3.set_xlabel('$x=$Cascade depth')
+    ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')

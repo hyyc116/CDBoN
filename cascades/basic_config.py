@@ -25,7 +25,7 @@ FIGDIR='pdf'
 DATADIR='data'
 
 params = {'legend.fontsize': 15,
-         'axes.labelsize': 20,
+         'axes.labelsize': 15,
          'axes.titlesize':20,
          'xtick.labelsize':15,
          'ytick.labelsize':15}
