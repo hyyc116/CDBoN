@@ -255,8 +255,8 @@ def stats_plot():
     ax2.plot(xs,ys,'o',fillstyle='none')
 
     popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
-    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
+    ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size')
     ax2.set_ylabel('$N(x)$')
