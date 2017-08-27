@@ -214,9 +214,9 @@ def stats_plot():
         if v>_max_y:
             _max_y = v
 
-    popt,pcov = curve_fit(power_low_func,xs[10:200],ys[10:200])
+    popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
 
-    ax1.plot(np.linspace(10, 1000, 10), power_low_func(np.linspace(10, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(1, 1000, 10), power_low_func(np.linspace(1, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
 
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('citation count distribution')
