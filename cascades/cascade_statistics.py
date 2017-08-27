@@ -303,7 +303,7 @@ def stats_plot():
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([_80_x]*10,np.linspace(100,100000,10),'--',label='x={:}'.format(_80_x))
+    ax3.plot([_80_x]*10,np.linspace(100,1000000,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
     ax3.set_title('cascade depth distribution')
@@ -344,12 +344,13 @@ def stats_plot():
     ax4.set_xlabel('$x = deg^{-}(v)+1$')
     ax4.set_ylabel('$N(x)$')
     
-    ax4.plot(np.linspace(1, 100, 10), power_low_func(np.linspace(1, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax4.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    ax4.plot(np.linspace(20, 100, 10), power_low_func(np.linspace(20, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
 
     ax4.set_title('in degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
+    ax4.legend()
 
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
