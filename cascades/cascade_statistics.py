@@ -8,6 +8,7 @@ import gc
 from multiprocessing.dummy import Pool as ThreadPool
 from networkx.algorithms import isomorphism
 from matplotlib import cm as CM
+from collections import Counter
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -84,12 +85,18 @@ def build_cascades(citation_network,outpath):
 def gen_statistics_data(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
+    # general indicators
     cnum_dict=defaultdict(int)
     enum_dict=defaultdict(int)
     size_depth_dict=defaultdict(list)
     depth_dict=defaultdict(int)
     od_dict = defaultdict(int)
     in_dict = defaultdict(int)
+    ## centrality dict
+    centrality_dict=defaultdict(list)
+    ## Assortativity
+    ass_dict = defaultdict(list)
+
     logi = 0
 
     plot_dict = {}
@@ -159,6 +166,16 @@ def gen_statistics_data(citation_cascade):
         od_ys.append(od_count/float(cc[pid]['cnum']))
         id_ys.append(id_count/float(cc[pid]['cnum']))
 
+        #centrality
+        # degree centrality
+        centrality_dict['degree'].extend(nx.degree_centrality(diG).values())
+        centrality_dict['closeness'].extend(nx.closeness_centrality(diG).values())
+        centrality_dict['betweenness'].extend(nx.betweenness_centrality(diG).values())
+        centrality_dict['eigenvector'].extend(nx.eigenvector_centrality(diG).values())
+        centrality_dict['katz'].extend(nx.katz_centrality(diG).values())
+
+
+
 
     print 'zero od count:',zero_od_count
     open('data/nodes_size.json','w').write(json.dumps(cnum_dict))
@@ -166,6 +183,8 @@ def gen_statistics_data(citation_cascade):
     open('data/depth.json','w').write(json.dumps(depth_dict))
     open('data/out_degree.json','w').write(json.dumps(od_dict))
     open('data/in_degree.json','w').write(json.dumps(in_dict))
+
+    open('data/centrality.json','w').write(json.dumps(centrality_dict))
 
     
     plot_dict['cxs'] = cxs;
@@ -390,10 +409,44 @@ def stats_plot():
     ax5.set_xscale('log')
     ax5.set_yscale('log')
     ax5.legend()
-    
+
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/statistics.pdf.')
+
+### centrality
+def plot_centrality():
+    num = len(plt.get_fignums())
+    # plt.figure(num)
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    #### node size 
+    logging.info('plot node size ...')
+    centrality_dict = json.loads(open('data/centrality.json').read())
+
+    # degree 
+    degree_list = centrality_dict['degree']
+    ax1 = axes[0]
+
+    plt.tight_layout()
+    plt.savefig('pdf/centrality.pdf',dpi=200)
+
+
+# plot one kind of centrality
+def plot_cumulative_dis(ax,alist):
+    acounter = Counter(alist)
+    total_num = len(alist)
+    last_num = 0
+    xs = []
+    ys = []
+    for a in sorted(acounter.keys()):
+        xs.append(a)
+        last_num = total_num-acounter[a]
+        ys.append(last_num)
+
+    ax.plot(xs,ys)
+
+    
+
 
 # 随着citation count的增加，各个指标的变化
 def plot_dict():
@@ -697,6 +750,8 @@ def main():
         unlinked_subgraph(sys.argv[2])
     elif label == 'plot_subgraph':
         plot_unconnected_subgraphs()
+    elif label == 'plot_centrality':
+        plot_centrality()
 
 
 if __name__ == '__main__':
