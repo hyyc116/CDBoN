@@ -184,6 +184,8 @@ def plot_heatmap(x,y,ax,bins,fig,gridsize=30):
 def stats_plot():
     logging.info('plot data ...')
 
+    # add 80% percent x
+
     num = len(plt.get_fignums())
     # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
@@ -193,15 +195,33 @@ def stats_plot():
     ax1 = axes[0]
     xs=[]
     ys=[]
+    total = sum(cnum_dict.values()) 
+    _80_total = float(0)
+    _80_x = 0
+    _80_y = 0
+    _max_y = 0
     for num in sorted(cnum_dict.keys()):
         xs.append(num)
         ys.append(cnum_dict[num])
+
+        if _80_total/total<0.8 and (_80_total+cnum_dict[num])>0.8:
+            _80_x = num
+            _80_y = cnum_dict[num]
+
+        _80_total+= cnum_dict[num]
+
+        if cnum_dict[num]>_max_y:
+            _max_y = cnum_dict[num]
+
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count')
     ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
+    # plot the 80%
+    ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r')
+    ax1.text(_80_x,_80_y,'({:},{:})'.format(_80_x,_80_y))
 
     #### cascade size
     logging.info('plotting cascade size ...')
@@ -236,6 +256,7 @@ def stats_plot():
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
+    ax3.set_xlim(0,13)
 
     #### In and out degree
     logging.info('plotting degree ...')
