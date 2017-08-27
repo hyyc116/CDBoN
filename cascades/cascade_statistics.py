@@ -288,7 +288,7 @@ def stats_plot():
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
-    ax3.set_xlim(0,14)
+    ax3.set_xlim(1,12)
     ax3.legend()
 
     #### In and out degree
