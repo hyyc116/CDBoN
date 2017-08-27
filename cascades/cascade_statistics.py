@@ -710,16 +710,14 @@ def plot_unconnected_subgraphs():
 
     # subgraph的link size 占cascade size的比例
 
-
-
-
+    # 
 
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.png',dpi=200)
 
 
-    ## 
+
 
 
 

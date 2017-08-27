@@ -69,13 +69,21 @@ def get_subgraphs():
 
 
 def plot_subgraph():
-    ns = []
+    graph_dict = {}
     for line in open('graph.size.txt'):
-        line = line.strip().split('.')[0].split('_')
-        size,i,n = line[0],line[1],int(line[2])
-        ns.append(n)
+        name = line.strip().split('.')[0]
+        num = int(name.split('_')[-1])
+        graph_dict[name] = num
 
-    ns = sorted(ns,reverse=True)
+
+    #plot this figure
+    vs = []
+    ks = []
+    for k,v in sorted(graph_dict.items(),key=lambda x:x[1],reverse=True):
+        vs.append(v)
+        ks.append(k)
+
+    ns = sorted(ks,reverse=True)
     total = float(sum(ns))
     xs = []
     acc_n = 0
@@ -84,12 +92,11 @@ def plot_subgraph():
     max_n = ns[0]
     for i,n in enumerate(ns):
         xs.append(i+1)
-        if acc_n/total<0.9 and (acc_n+n)/total>0.9:
+        if acc_n/total<0.8 and (acc_n+n)/total>0.8:
             x=i
             y=n
 
         acc_n+=n
-
 
     # x = np.array(range(len(ns)))+1
     plt.plot(xs,ns)
@@ -98,7 +105,9 @@ def plot_subgraph():
     plt.plot([x]*10,np.linspace(10,max_n,10),'--',c='r')
     plt.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     plt.text(300,1000,"({:},{:})".format(x,y))
-    plt.savefig('a.png',dpi=200)
+    plt.savefig('subcascade.png',dpi=200)
+    print ks[:x]
+
 
 
 def weakly_components():
@@ -120,8 +129,8 @@ def weakly_components():
 
 if __name__ == '__main__':
     # read_cascade(sys.argv[1])
-    # plot_subgraph()
-    weakly_components()
+    plot_subgraph()
+    # weakly_components()
 
 
 
