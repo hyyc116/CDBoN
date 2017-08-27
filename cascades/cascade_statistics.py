@@ -227,6 +227,7 @@ def stats_plot():
     # plot the 80%
     ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r')
     ax1.text(_80_x+5,_80_y,'({:},{:})'.format(_80_x,_80_y))
+    ax1.legend()
 
     #### cascade size
     logging.info('plotting cascade size ...')
