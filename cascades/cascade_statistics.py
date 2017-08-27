@@ -225,24 +225,43 @@ def stats_plot():
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r',label='$x=9$')
+    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
     #### cascade size
     logging.info('plotting cascade size ...')
     ax2 = axes[1]
+    _80_total = float(0)
+    _80_x = 0
+    _80_y = 0
+    _max_y = 0
     enum_dict = json.loads(open('data/cascade_size.json').read())
-    for num in sorted(enum_dict.keys()):
+    for num in sorted([int(num) for num in enum_dict.keys()]):
         xs.append(num)
-        ys.append(enum_dict[num])
+        v = enum_dict[str(num)]
+        ys.append(v)
+
+        if _80_total/total<0.8 and (_80_total+v)>0.8:
+            _80_x = num
+            _80_y = v
+
+        _80_total+= v
+
+        if v>_max_y:
+            _max_y = v
+
 
     ax2.plot(xs,ys,'o',fillstyle='none')
+
+    popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
+    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',c='r',label='$x=9$')
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size')
     ax2.set_ylabel('$N(x)$')
     ax2.set_yscale('log')
-    ax2.set_xscale('log')
+    ax2.set_xscale('log') 
 
 
     ####depth
