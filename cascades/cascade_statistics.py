@@ -430,22 +430,23 @@ def plot_centrality():
     # degree 
     indegree_list = centrality_dict['indegree']
     ax1 = axes[0]
-    plot_cumulative_dis(ax1,indegree_list)
+    plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$')
+
     outdegree_list = centrality_dict['outdegree']
     ax2 = axes[1]
-    plot_cumulative_dis(ax2,outdegree_list)
+    plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$')
     # closeness 
     closeness_list = centrality_dict['closeness']
     ax3 = axes[2]
-    plot_cumulative_dis(ax3,closeness_list)
+    plot_cumulative_dis(ax3,closeness_list,'closeness','$x$','$P_x$')
     # betweenness
     betweenness_list = centrality_dict['betweenness']
     ax4 = axes[3]
-    plot_cumulative_dis(ax4,betweenness_list)
+    plot_cumulative_dis(ax4,betweenness_list,'betweenness','$x$','$P_x$')
     # katz
     katz_list = centrality_dict['katz']
     ax5= axes[4]
-    plot_cumulative_dis(ax5,katz_list)
+    plot_cumulative_dis(ax5,katz_list,'katz','$x$','$P_x$')
 
 
     plt.tight_layout()
@@ -453,7 +454,7 @@ def plot_centrality():
 
 
 # plot one kind of centrality
-def plot_cumulative_dis(ax,alist):
+def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
     acounter = Counter(alist)
     total = float(len(alist))
     last_num = len(alist)
@@ -465,8 +466,13 @@ def plot_cumulative_dis(ax,alist):
         last_num = last_num-acounter[a]
 
     ax.plot(xs,ys)
-
-    
+    if isxlog:
+        ax.set_xscale(xlog)
+    if isylog:
+        ax.set_yscale(ylog)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
 
 
 # 随着citation count的增加，各个指标的变化
