@@ -389,6 +389,7 @@ def stats_plot():
     ax5.set_ylabel('$N(x)$')
     ax5.set_xscale('log')
     ax5.set_yscale('log')
+    ax5.legend()
     
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
