@@ -422,12 +422,13 @@ def plot_centrality():
     # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
     #### node size 
-    logging.info('plot node size ...')
+    # logging.info('plot node size ...')sz 
     centrality_dict = json.loads(open('data/centrality.json').read())
 
     # degree 
     degree_list = centrality_dict['degree']
     ax1 = axes[0]
+    plot_cumulative_dis(ax1,degree_list)
 
     plt.tight_layout()
     plt.savefig('pdf/centrality.pdf',dpi=200)
