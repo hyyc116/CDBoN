@@ -216,17 +216,17 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
 
-    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
 
     ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count')
     ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r')
-    ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
+    ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r',label='$x=9$')
+    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
     #### cascade size
