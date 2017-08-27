@@ -83,7 +83,7 @@ def plot_subgraph():
         vs.append(v)
         ks.append(k)
 
-    ns = sorted(ks,reverse=True)
+    ns = sorted(vs,reverse=True)
     total = float(sum(ns))
     xs = []
     acc_n = 0
