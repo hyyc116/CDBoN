@@ -655,6 +655,7 @@ def unlinked_subgraph(citation_cascade):
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
 
     # 将已经同质化过的图形，画出来
+    save_subgraphs = {}
     for size in sorted(subgraph_dict.keys()):
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
@@ -663,7 +664,12 @@ def unlinked_subgraph(citation_cascade):
             plt.figure()
             nx.draw(graph)
             # plt.text('{:}'.format(count))
-            plt.savefig('subgraph/{:}_{:}_{:}.png'.format(size,i,count),dpi=200)
+            name = 'subgraph/{:}_{:}_{:}.png'.format(size,i,count)
+            plt.savefig(name,dpi=200)
+            save_subgraphs[name] = graph.edges
+
+    open('data/subgraphs_mapping.json','w').write(save_subgraphs)
+
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
