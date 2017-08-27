@@ -173,7 +173,7 @@ def gen_statistics_data(citation_cascade):
         centrality_dict['degree'].extend(nx.degree_centrality(diG).values())
         centrality_dict['closeness'].extend(nx.closeness_centrality(diG).values())
         centrality_dict['betweenness'].extend(nx.betweenness_centrality(diG).values())
-        centrality_dict['eigenvector'].extend(nx.eigenvector_centrality(diG).values())
+        # centrality_dict['eigenvector'].extend(nx.eigenvector_centrality(diG).values())
         centrality_dict['katz'].extend(nx.katz_centrality(diG).values())
 
 
