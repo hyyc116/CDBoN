@@ -430,7 +430,7 @@ def plot_centrality():
     # degree 
     indegree_list = centrality_dict['indegree']
     ax1 = axes[0]
-    plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$')
+    plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$',False,False)
 
     outdegree_list = centrality_dict['outdegree']
     ax2 = axes[1]
