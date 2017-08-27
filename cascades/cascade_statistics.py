@@ -197,9 +197,9 @@ def stats_plot():
         xs.append(num)
         ys.append(cnum_dict[num])
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.set_title('Citation Count Distribution')
-    ax1.set_xlabel('Citation Count')
-    ax1.set_ylabel('Number')
+    ax1.set_title('citation count distribution')
+    ax1.set_xlabel('$x=$Citation Count')
+    ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
 
@@ -212,9 +212,9 @@ def stats_plot():
         ys.append(enum_dict[num])
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-    ax2.set_title('Cascade Size Distribution')
-    ax2.set_xlabel('Cascade Size')
-    ax2.set_ylabel('Number')
+    ax2.set_title('cascade size distribution')
+    ax2.set_xlabel('$x=$Cascade Size')
+    ax2.set_ylabel('$N(x)$')
     ax2.set_yscale('log')
     ax2.set_xscale('log')
 
@@ -232,9 +232,9 @@ def stats_plot():
     print xs 
     print ys
     ax3.plot(xs,ys,marker = '.',fillstyle='none')
-    ax3.set_xlabel('Cascade depth')
-    ax3.set_ylabel('Count')
-    ax3.set_title('Cascade depth distribution')
+    ax3.set_xlabel('$x=$Cascade depth')
+    ax3.set_ylabel('$N(x)$')
+    ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
 
     #### In and out degree
@@ -245,16 +245,14 @@ def stats_plot():
     xs=[]
     ys=[]
     for ind in sorted(in_degree_dict.keys()):
-        if ind==0:
-            logging.info('in degree: 0 with count:{:}'.format(in_degree_dict[ind]))
             
-        xs.append(ind)
+        xs.append(int(ind)+1)
         ys.append(in_degree_dict[ind])
 
     ax4.plot(xs,ys,'.')
-    ax4.set_xlabel('In Degree')
-    ax4.set_ylabel('Count')
-    ax4.set_title('In Degree distribution')
+    ax4.set_xlabel('$x = deg^{-}(v)$')
+    ax4.set_ylabel('$N(x)$')
+    ax4.set_title('in degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
 
@@ -269,9 +267,9 @@ def stats_plot():
         ys.append(out_degree_dict[od])
 
     ax5.plot(xs,ys,'.')
-    ax5.set_title('Out Degree distribution')
-    ax5.set_xlabel('Out Degree')
-    ax5.set_ylabel('Count')
+    ax5.set_title('out degree distribution')
+    ax5.set_xlabel('$x = deg^{+}(v)$')
+    ax5.set_ylabel('$N(x)$')
     ax5.set_xscale('log')
     ax5.set_yscale('log')
 
