@@ -144,9 +144,9 @@ def gen_statistics_data(citation_cascade):
 
         #degree
         outdegree_dict = diG.out_degree()
-        print outdegree_dict
-        for nid in outdegree_dict.keys():
-            od = outdegree_dict[nid]
+        # print outdegree_dict
+        for nid,od in outdegree_dict:
+            # od = outdegree_dict[nid]
 
             if od==0:
                 zero_od_count+=1
