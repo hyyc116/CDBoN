@@ -25,8 +25,8 @@ FIGDIR='pdf'
 DATADIR='data'
 
 params = {'legend.fontsize': 15,
-         'axes.labelsize': 15,
-         'axes.titlesize':20,
+         'axes.labelsize': 20,
+         'axes.titlesize':25,
          'xtick.labelsize':15,
          'ytick.labelsize':15}
 pylab.rcParams.update(params)
