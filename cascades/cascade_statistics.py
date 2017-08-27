@@ -279,10 +279,11 @@ def stats_plot():
 
     popt,pcov = curve_fit(exponential_func,xs,ys)
 
-
+    print xs
+    print ys
     ax3.plot(xs,ys,marker = 'o',fillstyle='none')
 
-    ax3.plot(np.linspace(1, 500, 20), exponential_func(np.linspace(1, 500, 20), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
     ax3.set_title('cascade depth distribution')
