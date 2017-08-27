@@ -286,7 +286,7 @@ def stats_plot():
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([mean]*10,np.linspace(10,100000),'--',label='mean={:}'.format(mean))
+    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:}'.format(mean))
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
     ax3.set_xlim(0,13)
