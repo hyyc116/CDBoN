@@ -467,9 +467,9 @@ def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
 
     ax.plot(xs,ys)
     if isxlog:
-        ax.set_xscale(xlog)
+        ax.set_xscale('log')
     if isylog:
-        ax.set_yscale(ylog)
+        ax.set_yscale('log')
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
