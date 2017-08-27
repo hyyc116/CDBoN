@@ -250,7 +250,7 @@ def stats_plot():
         ys.append(in_degree_dict[ind])
 
     ax4.plot(xs,ys,'.')
-    ax4.set_xlabel('$x = deg^{-}(v)$')
+    ax4.set_xlabel('$x = deg^{-}(v)+1$')
     ax4.set_ylabel('$N(x)$')
     ax4.set_title('in degree distribution')
     ax4.set_yscale('log')
