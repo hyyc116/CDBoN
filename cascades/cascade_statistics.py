@@ -344,7 +344,7 @@ def stats_plot():
     ax4.set_xlabel('$x = deg^{-}(v)+1$')
     ax4.set_ylabel('$N(x)$')
     
-    ax4.plot(np.linspace(20, 100, 10), power_low_func(np.linspace(20, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot(np.linspace(3, 100, 10), power_low_func(np.linspace(3, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax4.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
 
     ax4.set_title('in degree distribution')
@@ -358,11 +358,32 @@ def stats_plot():
     ax5=axes[4]
     xs=[]
     ys=[]
-    for od in sorted(out_degree_dict.keys()):
+    total = sum(out_degree_dict.values()) 
+    _80_total = float(0)
+    _80_x = 0
+    _80_y = 0
+    _max_y = 0
+    for od in sorted([int(i) for i in out_degree_dict.keys()]):
         xs.append(od)
-        ys.append(out_degree_dict[od])
+        v = out_degree_dict[str(od)]
+        ys.append(v)
 
-    ax5.plot(xs,ys,'.')
+        if _80_total/total<0.8 and (_80_total+v)/total>0.8:
+            _80_x = ind+1
+            _80_y = v
+
+        _80_total+= v
+
+        if v>_max_y:
+            _max_y = v
+
+    popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100]) 
+    ax5.plot(xs,ys,'o',fillstyle='none')
+
+
+    ax5.plot(np.linspace(3, 30, 10), power_low_func(np.linspace(3, 30, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax5.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
+
     ax5.set_title('out degree distribution')
     ax5.set_xlabel('$x = deg^{+}(v)$')
     ax5.set_ylabel('$N(x)$')
