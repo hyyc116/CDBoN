@@ -213,6 +213,10 @@ def stats_plot():
         if cnum_dict[num]>_max_y:
             _max_y = cnum_dict[num]
 
+    popt,pcov = curve_fit(power_low_func,xs[10:200],ys[10:200])
+
+    ax1.plot(np.linspace(10, 1000, 10), power_low_func(np.linspace(10, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
+
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count')
@@ -221,7 +225,7 @@ def stats_plot():
     ax1.set_xscale('log')
     # plot the 80%
     ax1.plot([_80_x]*10,np.linspace(1,_max_y,10),'--',c='r')
-    ax1.text(_80_x,_80_y,'({:},{:})'.format(_80_x,_80_y))
+    ax1.text(_80_x+5,_80_y,'({:},{:})'.format(_80_x,_80_y))
 
     #### cascade size
     logging.info('plotting cascade size ...')
