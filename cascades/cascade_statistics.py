@@ -436,11 +436,11 @@ def plot_centrality():
     # betweenness
     betweenness_list = centrality_dict['betweenness']
     ax3 = axes[2]
-    plot_cumulative_dis(ax3,closeness_list)
+    plot_cumulative_dis(ax3,betweenness_list)
     # katz
     katz_list = centrality_dict['katz']
     ax4 = axes[3]
-    plot_cumulative_dis(ax4,closeness_list)
+    plot_cumulative_dis(ax4,katz_list)
 
 
     plt.tight_layout()
@@ -456,8 +456,8 @@ def plot_cumulative_dis(ax,alist):
     ys = []
     for a in sorted(acounter.keys()):
         xs.append(a)
-        last_num = last_num-acounter[a]
         ys.append(last_num/total)
+        last_num = last_num-acounter[a]
 
     ax.plot(xs,ys)
 
