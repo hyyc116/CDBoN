@@ -369,7 +369,7 @@ def stats_plot():
         ys.append(v)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
-            _80_x = ind+1
+            _80_x = od
             _80_y = v
 
         _80_total+= v
@@ -377,11 +377,11 @@ def stats_plot():
         if v>_max_y:
             _max_y = v
 
-    popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100]) 
+    popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
     ax5.plot(xs,ys,'o',fillstyle='none')
 
 
-    ax5.plot(np.linspace(3, 30, 10), power_low_func(np.linspace(3, 30, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax5.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
 
     ax5.set_title('out degree distribution')
