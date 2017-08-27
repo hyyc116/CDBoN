@@ -200,9 +200,9 @@ def stats_plot():
     _80_x = 0
     _80_y = 0
     _max_y = 0
-    for num in sorted(cnum_dict.keys()):
+    for num in sorted([int(num) for num in cnum_dict.keys()]):
         xs.append(num)
-        ys.append(cnum_dict[num])
+        ys.append(cnum_dict[str(num)])
 
         if _80_total/total<0.8 and (_80_total+cnum_dict[num])>0.8:
             _80_x = num
