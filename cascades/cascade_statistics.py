@@ -201,17 +201,18 @@ def stats_plot():
     _80_y = 0
     _max_y = 0
     for num in sorted([int(num) for num in cnum_dict.keys()]):
+        v = cnum_dict[str(num)]
         xs.append(num)
-        ys.append(cnum_dict[str(num)])
+        ys.append(v)
 
-        if _80_total/total<0.8 and (_80_total+cnum_dict[num])>0.8:
+        if _80_total/total<0.8 and (_80_total+v)>0.8:
             _80_x = num
-            _80_y = cnum_dict[num]
+            _80_y = v
 
-        _80_total+= cnum_dict[num]
+        _80_total+= v
 
-        if cnum_dict[num]>_max_y:
-            _max_y = cnum_dict[num]
+        if v>_max_y:
+            _max_y = v
 
     popt,pcov = curve_fit(power_low_func,xs[10:200],ys[10:200])
 
