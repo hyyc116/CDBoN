@@ -245,6 +245,9 @@ def stats_plot():
     xs=[]
     ys=[]
     for ind in sorted(in_degree_dict.keys()):
+        if ind==0:
+            logging.info('in degree: 0 with count:{:}'.format(in_degree_dict[ind]))
+            
         xs.append(ind)
         ys.append(in_degree_dict[ind])
 
@@ -493,7 +496,7 @@ def plot_unconnected_subgraphs():
             xs.append(citation_count)
             ys.append(percent)
 
-    fig,axes = plt.subplots(1,2,figsize=(10,5))
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     ax1 = axes[0]
     ax1.scatter(xs,ys)
     ax1.set_xscale('log')
@@ -532,6 +535,13 @@ def plot_unconnected_subgraphs():
     ax2.set_yscale('log')
     ax2.scatter(xs,ys)
     ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',c='r')
+
+
+    # subgraph的link size 占cascade size的比例
+
+
+
+
 
     plt.tight_layout()
 
