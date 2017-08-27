@@ -225,7 +225,7 @@ def stats_plot():
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x=9$')
+    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
@@ -258,7 +258,7 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[20:400],ys[20:400])
     ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x=9$')
+    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size')
     ax2.set_ylabel('$N(x)$')
@@ -303,8 +303,8 @@ def stats_plot():
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([_80_x]*10,np.linspace(10,10000,10),'--',label='x={:}'.format(_80_x))
-    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
+    ax3.plot([_80_x]*10,np.linspace(100,100000,10),'--',label='x={:}'.format(_80_x))
+    # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
@@ -319,14 +319,34 @@ def stats_plot():
     ax4 = axes[3]
     xs=[]
     ys=[]
-    for ind in sorted(in_degree_dict.keys()):
+    total = sum(in_degree_dict.values()) 
+    _80_total = float(0)
+    _80_x = 0
+    _80_y = 0
+    _max_y = 0
+    for ind in sorted([int(i) for i in in_degree_dict.keys()]):
             
-        xs.append(int(ind)+1)
-        ys.append(in_degree_dict[ind])
+        xs.append(ind+1)
+        v = in_degree_dict[str(ind)]
+        ys.append(v)
 
-    ax4.plot(xs,ys,'.')
+        if _80_total/total<0.8 and (_80_total+v)/total>0.8:
+            _80_x = ind+1
+            _80_y = v
+
+        _80_total+= v
+
+        if v>_max_y:
+            _max_y = v
+
+    popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100])
+    ax4.plot(xs,ys,'o',fillstyle='none')
     ax4.set_xlabel('$x = deg^{-}(v)+1$')
     ax4.set_ylabel('$N(x)$')
+    
+    ax4.plot(np.linspace(1, 100, 10), power_low_func(np.linspace(1, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+
     ax4.set_title('in degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
@@ -347,7 +367,7 @@ def stats_plot():
     ax5.set_ylabel('$N(x)$')
     ax5.set_xscale('log')
     ax5.set_yscale('log')
-
+    
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/statistics.pdf.')
