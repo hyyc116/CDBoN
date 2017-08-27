@@ -434,7 +434,7 @@ def plot_centrality():
 
     outdegree_list = centrality_dict['outdegree']
     ax2 = axes[1]
-    plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$',False,False)
+    plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$',False,True)
     # closeness 
     closeness_list = centrality_dict['closeness']
     ax3 = axes[2]
