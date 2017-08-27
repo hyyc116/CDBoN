@@ -446,7 +446,7 @@ def plot_centrality():
     # katz
     katz_list = centrality_dict['katz']
     ax5= axes[4]
-    plot_cumulative_dis(ax5,katz_list,'katz','$x$','$P_x$')
+    plot_cumulative_dis(ax5,katz_list,'katz','$x$','$P_x$',True,False)
 
 
     plt.tight_layout()
