@@ -284,7 +284,7 @@ def stats_plot():
         ys.append(v)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
-            _80_x = num
+            _80_x = depth
             _80_y = v
 
         _80_total+= v
@@ -303,8 +303,9 @@ def stats_plot():
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
     ax3.plot([_80_x]*10,np.linspace(10,10000,10),'--',label='x={:}'.format(_80_x))
+    ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
+   
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
     ax3.set_xlim(0,13)
