@@ -437,13 +437,12 @@ def plot_centrality():
 # plot one kind of centrality
 def plot_cumulative_dis(ax,alist):
     acounter = Counter(alist)
-    total_num = len(alist)
-    last_num = 0
+    last_num = len(alist)
     xs = []
     ys = []
     for a in sorted(acounter.keys()):
         xs.append(a)
-        last_num = total_num-acounter[a]
+        last_num = last_num-acounter[a]
         ys.append(last_num)
 
     ax.plot(xs,ys)
