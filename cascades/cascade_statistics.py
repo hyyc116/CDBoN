@@ -428,21 +428,24 @@ def plot_centrality():
     centrality_dict = json.loads(open('data/centrality.json').read())
 
     # degree 
-    degree_list = centrality_dict['degree']
+    indegree_list = centrality_dict['indegree']
     ax1 = axes[0]
-    plot_cumulative_dis(ax1,degree_list)
+    plot_cumulative_dis(ax1,indegree_list)
+    outdegree_list = centrality_dict['outdegree']
+    ax2 = axes[1]
+    plot_cumulative_dis(ax2,outdegree_list)
     # closeness 
     closeness_list = centrality_dict['closeness']
-    ax2 = axes[1]
-    plot_cumulative_dis(ax2,closeness_list)
+    ax3 = axes[2]
+    plot_cumulative_dis(ax3,closeness_list)
     # betweenness
     betweenness_list = centrality_dict['betweenness']
-    ax3 = axes[2]
-    plot_cumulative_dis(ax3,betweenness_list)
+    ax4 = axes[3]
+    plot_cumulative_dis(ax4,betweenness_list)
     # katz
     katz_list = centrality_dict['katz']
-    ax4 = axes[3]
-    plot_cumulative_dis(ax4,katz_list)
+    ax5= axes[4]
+    plot_cumulative_dis(ax5,katz_list)
 
 
     plt.tight_layout()
