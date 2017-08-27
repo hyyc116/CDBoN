@@ -230,7 +230,7 @@ def stats_plot():
     ax1.legend()
 
     #### cascade size
-    logging.info('plotting cascade size ...')\
+    logging.info('plotting cascade size ...')
     enum_dict = json.loads(open('data/cascade_size.json').read())
     ax2 = axes[1]
     total = sum(enum_dict.values()) 
