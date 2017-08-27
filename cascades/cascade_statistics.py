@@ -216,7 +216,7 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[10:300],ys[10:300])
 
-    ax1.plot(np.linspace(10, 800, 10), np.array(power_low_func(np.linspace(1, 800, 10), *popt))+10,c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(10, 800, 10), np.array(power_low_func(np.linspace(1, 800, 10), *popt))*10,c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
 
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.set_title('citation count distribution')
