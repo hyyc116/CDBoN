@@ -214,7 +214,7 @@ def stats_plot():
         if v>_max_y:
             _max_y = v
 
-    popt,pcov = curve_fit(power_low_func,xs[10:300],ys[10:300])
+    popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
 
     ax1.plot(np.linspace(10, 800, 10), np.array(power_low_func(np.linspace(1, 800, 10), *popt))*10,c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
 
