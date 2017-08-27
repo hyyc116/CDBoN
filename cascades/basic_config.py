@@ -35,7 +35,7 @@ def power_low_func(x,a,b):
     return b*(x**(-a))
 
 def exponential_func(x,a):
-    return a*e**(-a*x)
+    return a*numpy.exp(-a*x)
 
 def autolabel(rects,ax,total_count=None,step=1,):
     """
