@@ -65,7 +65,20 @@ def subcascade():
     p.edge('I','H',style='dashed')
     p.edge('I','G',style='dashed')
     p.render('subcascade2')
- 
+
+def plot_a_subcascade(edges,name):
+    p = gv.Digraph(format='pdf')
+    p.attr('node', shape='point',width='0.2',height='0.2',fixedwith='true')
+    p.attr('edge',arrowhead='open')
+    p.attr('graph',rankdir = 'RL')
+    for e in edges:
+        p.edge(e[0],e[1],style='dashed')
+
+    p.render(name)
+
+
+
+
 if __name__ == '__main__':
     # viz()
     subcascade()

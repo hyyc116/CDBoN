@@ -9,6 +9,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 from networkx.algorithms import isomorphism
 from matplotlib import cm as CM
 from collections import Counter
+from viz_graph import plot_a_subcascade
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -769,16 +770,20 @@ def plot_unconnected_subgraphs():
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
-
+    ax3.set_title('sub-cascade pattern distribution')
+    ax3.set_xlabel('pattern index')
+    ax3.set_ylabel('Number of patterns')
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.pdf',dpi=200)
 
 
 def plot_subgraph_pattern(ax):
-    graph_dict = {}
+
     name_num = defaultdict(int)
-    for name in json.loads(open('data/subgraphs_mapping.json').read()).keys():
+    subcacade_dict = json.loads(open('data/subgraphs_mapping.json').read())
+
+    for name in subcacade_dict.keys():
         num = name.strip().split('/')[1].split('.')[0].split('_')[-1]
         name_num[name] = int(num)
 
@@ -806,10 +811,15 @@ def plot_subgraph_pattern(ax):
     ax.plot(xs,ns)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.plot([x]*10,np.linspace(10,max_n,10),'--',c='r')
-    ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
-    ax.text(300,1000,"({:},{:})".format(x,y))
-    print names[:x]
+    ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<8)>80%')
+    # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
+    # ax.text(300,1000,"({:},{:})".format(x,y))
+    for name in  names[:x]:
+        edges = subcacade_dict[name]
+        s = name.split("/")[1].split('.')[0]
+        new_name = "viz_subcascde/"+s
+        plot_a_subcascade(edges,new_name)
+        
     # print ks[:10]
 
 def plot_size_n(ax,size_dict,n):
