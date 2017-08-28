@@ -763,6 +763,7 @@ def plot_unconnected_subgraphs():
     ax1.set_title('distribution over citation count')
     ax1.set_xlabel('citation count')
     ax1.set_ylabel('Percentage of size N')
+    ax1.set_xscale('log')
     ax1.legend()
 
     plt.tight_layout()
