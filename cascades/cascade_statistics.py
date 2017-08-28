@@ -761,7 +761,7 @@ def plot_unconnected_subgraphs():
         plot_size_n(ax1,citation_counts_dict,n)
 
     ax1.set_title('distribution over citation count')
-    ax1.set_xalbel('citation count')
+    ax1.set_xlabel('citation count')
     ax1.set_ylabel('Percentage of size N')
     ax1.legend()
 
