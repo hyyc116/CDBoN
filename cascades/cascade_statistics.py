@@ -779,7 +779,7 @@ def plot_subgraph_pattern(ax):
     name_num = defaultdict(int)
     for name in json.loads(open('data/subgraphs_mapping.json').read()).keys():
         num = name.strip().split('/')[1].split('.')[0].split('_')[-1]
-        name_num[name] = num
+        name_num[name] = int(num)
 
     ns = []
     names = []
