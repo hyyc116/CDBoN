@@ -106,7 +106,7 @@ def plot_subgraph():
     plt.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     plt.text(300,1000,"({:},{:})".format(x,y))
     plt.savefig('subcascade.png',dpi=200)
-
+    print ks[:x]
 
 
 def weakly_components():
