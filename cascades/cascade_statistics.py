@@ -678,7 +678,7 @@ def unlinked_subgraph(citation_cascade):
             # plt.text('{:}'.format(count))
             name = 'subgraph/{:}_{:}_{:}.png'.format(size,i,count)
             # plt.savefig(name,dpi=200)
-            save_subgraphs[name] = graph.edges()
+            save_subgraphs[name] = [e for e in graph.edges()]
 
     open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
 

@@ -33,7 +33,40 @@ def viz():
     # p.subgraph(graph)
 
     p.render('citation_cascade')
+
+def subcascade():
+    p = gv.Digraph(format='pdf')
+    p.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
+    p.attr('edge',arrowhead='open')
+    p.attr('graph',rankdir = 'BT')
+    p.edge('B','A')
+    p.edge('C','A')
+    p.edge('D','A')
+    p.edge('E','A') 
+    p.edge('F','A')
+    p.edge('G','A')
+    p.edge('H','A')
+    p.edge('I','A')
+    p.edge('J','A')
+    p.edge('D','E',style='dashed')
+    p.edge('B','C',style='dashed')
+    p.edge('F','E',style='dashed')
+    p.edge('I','H',style='dashed')
+    p.edge('I','G',style='dashed')
+    p.render('subcascade')
+
+    p = gv.Digraph(format='pdf')
+    p.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
+    p.attr('edge',arrowhead='open')
+    p.attr('graph',rankdir = 'BT')
+    p.edge('D','E',style='dashed')
+    p.edge('B','C',style='dashed')
+    p.edge('F','E',style='dashed')
+    p.edge('I','H',style='dashed')
+    p.edge('I','G',style='dashed')
+    p.render('subcascade2')
  
 if __name__ == '__main__':
-    viz()
+    # viz()
+    subcascade()
 
