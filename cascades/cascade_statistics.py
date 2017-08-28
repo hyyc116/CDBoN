@@ -673,12 +673,12 @@ def unlinked_subgraph(citation_cascade):
         for i,graph in enumerate(subgraphs):
             count  = subgraph_dict[size][graph]
             ## 对于某一个size对应的子图，画出来
-            plt.figure()
-            nx.draw(graph)
+            # plt.figure()
+            # nx.draw(graph)
             # plt.text('{:}'.format(count))
             name = 'subgraph/{:}_{:}_{:}.png'.format(size,i,count)
-            plt.savefig(name,dpi=200)
-            save_subgraphs[name] = graph.edges
+            # plt.savefig(name,dpi=200)
+            save_subgraphs[name] = graph.edges()
 
     open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
 

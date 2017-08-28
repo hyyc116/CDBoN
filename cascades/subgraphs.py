@@ -113,24 +113,26 @@ def plot_subgraph():
 def weakly_components():
     dig = nx.DiGraph()
     dig.add_edges_from([(1,2),(2,3),(1,4),(1,5),(4,5),(3,5),(5,6),(6,7),(7,8),(8,9)])
-    # dig = dig.to_undirected()
-    # print nx.degree_centrality(dig)
-    print nx.in_degree_centrality(dig)
-    print nx.out_degree_centrality(dig)
-    print nx.closeness_centrality(dig)
-    print nx.betweenness_centrality(dig)
-    print nx.eigenvector_centrality(dig)
-    print nx.katz_centrality(dig)
-    print nx.degree_assortativity_coefficient(dig)
-    print nx.average_neighbor_degree(dig)
+    # # dig = dig.to_undirected()
+    # # print nx.degree_centrality(dig)
+    # print nx.in_degree_centrality(dig)
+    # print nx.out_degree_centrality(dig)
+    # print nx.closeness_centrality(dig)
+    # print nx.betweenness_centrality(dig)
+    # print nx.eigenvector_centrality(dig)
+    # print nx.katz_centrality(dig)
+    # print nx.degree_assortativity_coefficient(dig)
+    # print nx.average_neighbor_degree(dig)
     # for sub in nx.k_components(dig):
         # print sub.edges()
+
+    print dig.edges
 
 
 if __name__ == '__main__':
     # read_cascade(sys.argv[1])
-    plot_subgraph()
-    # weakly_components()
+    # plot_subgraph()
+    weakly_components()
 
 
 
