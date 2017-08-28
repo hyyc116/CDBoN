@@ -766,7 +766,7 @@ def plot_unconnected_subgraphs():
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend()
-    ax1.set_yscale('log')
+    # ax1.set_yscale('log')
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
@@ -836,8 +836,8 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(counter[n]/float(total_num))
 
-    ax.scatter(xs,ys,c=color_sequence[n-1],alpha=0.4)
-    z = zip(*lowess(ys,xs))[1]
+    ax.scatter(xs,ys,marker='.',c=color_sequence[n-1],alpha=0.2)
+    z = zip(*lowess(ys,xs),frac= 0.8 )[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 
