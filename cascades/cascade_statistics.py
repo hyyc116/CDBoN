@@ -808,7 +808,7 @@ def plot_subgraph_pattern(ax):
     ax.plot([x]*10,np.linspace(10,max_n,10),'--',c='r')
     ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     ax.text(300,1000,"({:},{:})".format(x,y))
-    print ks[:x]
+    print names[:x]
     # print ks[:10]
 
 def plot_size_n(ax,size_dict,n):
