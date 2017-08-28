@@ -742,8 +742,10 @@ def plot_unconnected_subgraphs():
     ax2.set_yscale('log')
     ax2.set_xlabel('$x=$ sub-cascade size')
     ax2.set_ylabel('$N(x)$')
+    ax2.set_title('sub-cascade size distribution')
     ax2.scatter(xs,ys)
-    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',c='r')
+    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',label='P(x<{:})> 80%, x={:}'.format(line_x,line_x))
+    ax2.plot([20]*10,np.linspace(10,max_y,10),'.',label='P(x<20)={:.4f}'.format(_80_dis/float(total_dis)))
 
 
     # subgraph的link size 占cascade size的比例
