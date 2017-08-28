@@ -811,7 +811,7 @@ def plot_subgraph_pattern(ax):
     ax.plot(xs,ns)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<8)>80%')
+    # ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<8)>80%')
     # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     # ax.text(300,1000,"({:},{:})".format(x,y))
     for name in  names[:20]:
@@ -836,7 +836,9 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(counter[n]/float(total_num))
 
-    ax.plot(xs,ys,label='size = {:}'.format(n))
+    ax.scatter(xs,ys,c=color_sequence[n-1],alpha=0.4)
+    z = zip(*lowess(y,x))[1]
+    ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 
 
