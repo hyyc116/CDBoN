@@ -784,7 +784,6 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(counter[n]/float(total_num))
 
-    return xs,ys
     ax.plot(xs,ys,label='size = {:}'.format(n))
 
 
