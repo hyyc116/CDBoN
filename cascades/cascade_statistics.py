@@ -690,19 +690,19 @@ def plot_unconnected_subgraphs():
 
     # 首先画 剩余图形中 边的数量的比例分布图,散点图
     # 横坐标为citation count 
-    xs = []
-    ys = []
-    for k in sorted([int(k) for k in remaining_statistics.keys()]):
-        citation_count = str(k)
-        # print 'citation_count:',citation_count
-        for percent in remaining_statistics[citation_count]:
-            xs.append(citation_count)
-            ys.append(percent)
+    # xs = []
+    # ys = []
+    # for k in sorted([int(k) for k in remaining_statistics.keys()]):
+    #     citation_count = str(k)
+    #     # print 'citation_count:',citation_count
+    #     for percent in remaining_statistics[citation_count]:
+    #         xs.append(citation_count)
+    #         ys.append(percent)
 
-    fig,axes = plt.subplots(1,3,figsize=(15,5))
-    ax1 = axes[0]
-    ax1.scatter(xs,ys)
-    ax1.set_xscale('log')
+    # fig,axes = plt.subplots(1,3,figsize=(15,5))
+    # ax1 = axes[0]
+    # ax1.scatter(xs,ys)
+    # ax1.set_xscale('log')
 
     # 在有剩余图的里面，找到的联通子图的分布
 
@@ -713,7 +713,7 @@ def plot_unconnected_subgraphs():
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
-
+    fig,axes = plt.subplots(1,3,figsize=(15,5))
     xs=[]
     ys=[]
     _80_dis = 0
@@ -737,7 +737,7 @@ def plot_unconnected_subgraphs():
 
 
 
-    ax2 = axes[1]
+    ax2 = axes[0]
     ax2.set_xscale('log')
     ax2.set_yscale('log')
     ax2.scatter(xs,ys)
