@@ -755,7 +755,7 @@ def plot_unconnected_subgraphs():
     ax2.set_yscale('log')
     ax2.set_xlabel('$x=$ sub-cascade size')
     ax2.set_ylabel('$N(x)$')
-    ax2.set_title('sub-cascade size distribution')
+    ax2.set_title('size distribution')
     ax2.scatter(xs,ys)
     ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',label='P(X<=x)> 80%, x={:}'.format(line_x))
     ax2.plot([20]*10,np.linspace(10,max_y,10),'-',label='P(x<20)={:.4f}'.format(_20_percent))
@@ -767,12 +767,12 @@ def plot_unconnected_subgraphs():
         n = i+1
         plot_size_n(ax1,citation_counts_dict,n)
 
-    ax1.set_title('distribution over citation count')
+    ax1.set_title('N size distribution')
     ax1.set_xlabel('citation count')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend()
-    ax1.set_yscale('log')
+    # ax1.set_yscale('log')
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
@@ -842,8 +842,8 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(counter[n]/float(total_num))
 
-    ax.plot(xs,ys,c=color_sequence[n-1],alpha=0.2)
-    z = zip(*lowess(ys,xs,frac= 0.8 ))[1]
+    ax.plot(xs,ys,c=color_sequence[n-1],alpha=0.4)
+    z = zip(*lowess(ys,xs,frac= 0.9))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 
