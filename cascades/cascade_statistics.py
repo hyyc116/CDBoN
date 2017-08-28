@@ -776,7 +776,7 @@ def plot_unconnected_subgraphs():
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
-    ax3.set_title('sub-cascade pattern distribution')
+    ax3.set_title('pattern distribution')
     ax3.set_xlabel('pattern index')
     ax3.set_ylabel('Number of patterns')
     plt.tight_layout()
