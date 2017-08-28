@@ -766,10 +766,53 @@ def plot_unconnected_subgraphs():
     ax1.set_xscale('log')
     ax1.legend()
 
+    ax3 = axes[2]
+    plot_subgraph_pattern(ax3)
+
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.pdf',dpi=200)
 
+
+def plot_subgraph_pattern(ax):
+    graph_dict = {}
+    for line in open('graph.size.txt'):
+        name = line.strip().split('.')[0]
+        num = int(name.split('_')[-1])
+        graph_dict[name] = num
+
+
+    #plot this figure
+    vs = []
+    ks = []
+    for k,v in sorted(graph_dict.items(),key=lambda x:x[1],reverse=True):
+        vs.append(v)
+        ks.append(k)
+
+    ns = sorted(vs,reverse=True)
+    total = float(sum(ns))
+    xs = []
+    acc_n = 0
+    x =0
+    y=0
+    max_n = ns[0]
+    for i,n in enumerate(ns):
+        xs.append(i+1)
+        if acc_n/total<0.8 and (acc_n+n)/total>0.8:
+            x=i
+            y=n
+
+        acc_n+=n
+
+    # x = np.array(range(len(ns)))+1
+    ax.plot(xs,ns)
+    ax.xscale('log')
+    ax.yscale('log')
+    ax.plot([x]*10,np.linspace(10,max_n,10),'--',c='r')
+    ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
+    ax.text(300,1000,"({:},{:})".format(x,y))
+    # print ks[:x]
+    # print ks[:10]
 
 def plot_size_n(ax,size_dict,n):
 
