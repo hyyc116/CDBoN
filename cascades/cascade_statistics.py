@@ -680,7 +680,7 @@ def unlinked_subgraph(citation_cascade):
             plt.savefig(name,dpi=200)
             save_subgraphs[name] = graph.edges
 
-    open('data/subgraphs_mapping.json','w').write(save_subgraphs)
+    open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
 
 
 ## unconnected subgraphs plot 
