@@ -732,7 +732,7 @@ def plot_unconnected_subgraphs():
         _80_dis += dis
 
         if size ==20:
-            print 'size < 20, percentage:',_80_dis/total_dis
+            print 'size < 20, percentage:',_80_dis/float(total_dis)
             
 
 
