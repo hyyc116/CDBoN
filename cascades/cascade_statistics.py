@@ -806,8 +806,8 @@ def plot_subgraph_pattern(ax):
 
     # x = np.array(range(len(ns)))+1
     ax.plot(xs,ns)
-    ax.xscale('log')
-    ax.yscale('log')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
     ax.plot([x]*10,np.linspace(10,max_n,10),'--',c='r')
     ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     ax.text(300,1000,"({:},{:})".format(x,y))
