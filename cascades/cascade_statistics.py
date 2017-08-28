@@ -814,7 +814,7 @@ def plot_subgraph_pattern(ax):
     ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<8)>80%')
     # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     # ax.text(300,1000,"({:},{:})".format(x,y))
-    for name in  names[:x]:
+    for name in  names[:20]:
         edges = subcacade_dict[name]
         s = name.split("/")[1].split('.')[0]
         new_name = "viz_subcascde/"+s
