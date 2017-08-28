@@ -740,8 +740,8 @@ def plot_unconnected_subgraphs():
     ax2 = axes[0]
     ax2.set_xscale('log')
     ax2.set_yscale('log')
-    ax3.set_xlabel('$x=$ sub-cascade size')
-    ax3.set_ylabel('$N(x)$')
+    ax2.set_xlabel('$x=$ sub-cascade size')
+    ax2.set_ylabel('$N(x)$')
     ax2.scatter(xs,ys)
     ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',c='r')
 
