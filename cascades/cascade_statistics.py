@@ -708,8 +708,13 @@ def plot_unconnected_subgraphs():
 
     total_dis = 0
     remain_edges_size = defaultdict(int)
+
+    citation_counts_dict = defaultdict(list)
+
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
+
         for subgraphs in remaining_subgraphs_dis[str(k)]:
+            citation_counts_dict[k].extend(subgraphs)
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
@@ -749,13 +754,42 @@ def plot_unconnected_subgraphs():
     ax2.plot([20]*10,np.linspace(10,max_y,10),'-',label='P(x<20)={:.4f}'.format(_20_percent))
     ax2.legend()
 
-    # subgraph的link size 占cascade size的比例
+    # 不同的cascade size 在不同的citation count中的比例
+    ax1 = axes[1]
+    for i in range(7):
+        n = i+1
+        plot_size_n(ax1,citation_counts_dict,n)
 
-    # 
+    ax1.set_title('distribution over citation count')
+    ax1.set_xalbel('citation count')
+    ax1.set_ylabel('Percentage of size N')
+    ax1.legend()
 
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.pdf',dpi=200)
+
+
+def plot_size_n(ax,size_dict,n):
+
+    xs = [] 
+    ys = []
+    for cc in sorted(size_dict.keys()):
+        # size list
+        size_list = size_dict[cc]
+        total_num = len(size_list)
+        # counter    
+        counter = Counter(size_list)
+        # number of size n 
+        xs.append(cc)
+        ys.append(counter[n]/float(total_num))
+
+    return xs,ys
+    ax.plot(xs,ys,label='size = {:}'.format(n))
+
+
+
+
 
 
 ###three levels of 
