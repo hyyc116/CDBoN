@@ -765,6 +765,7 @@ def plot_unconnected_subgraphs():
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend()
+    ax1.set_yscale('log')
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
