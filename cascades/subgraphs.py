@@ -92,7 +92,7 @@ def plot_subgraph():
     max_n = ns[0]
     for i,n in enumerate(ns):
         xs.append(i+1)
-        if acc_n/total<0.9 and (acc_n+n)/total>0.9:
+        if acc_n/total<0.8 and (acc_n+n)/total>0.8:
             x=i
             y=n
 
@@ -107,6 +107,7 @@ def plot_subgraph():
     plt.text(300,1000,"({:},{:})".format(x,y))
     plt.savefig('subcascade.png',dpi=200)
     print ks[:x]
+    print ks[:10]
 
 
 def weakly_components():
