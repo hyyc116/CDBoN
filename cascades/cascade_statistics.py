@@ -837,7 +837,7 @@ def plot_size_n(ax,size_dict,n):
         ys.append(counter[n]/float(total_num))
 
     ax.scatter(xs,ys,c=color_sequence[n-1],alpha=0.4)
-    z = zip(*lowess(y,x))[1]
+    z = zip(*lowess(ys,xs))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 
