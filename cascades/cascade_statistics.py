@@ -711,11 +711,17 @@ def plot_unconnected_subgraphs():
     remain_edges_size = defaultdict(int)
 
     citation_counts_dict = defaultdict(list)
-
+    lastk = 0
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
-
+        k_count = len(remaining_subgraphs_dis[str(k)])
         for subgraphs in remaining_subgraphs_dis[str(k)]:
-            citation_counts_dict[k].extend(subgraphs)
+            ##  如果这个k对应的文章数量小于10，遇上一个k合并
+            if k_count<10:
+                citation_counts_dict[lastk].extend(subgraphs)
+            else:
+                citation_counts_dict[k].extend(subgraphs)
+                lastk = k
+                
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
