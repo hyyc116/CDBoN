@@ -535,10 +535,11 @@ def plot_dict():
     ax2.scatter(cxs,rys)
 
     ax2.plot(fit_x,fit_y,c=color_sequence[3])
-
+    new_fit_x = fit_x[:20]
     #把数据前面的点加多 
-    new_fit_x.extend(fit_x[:20])
-    new_fit_y.extend(fit_y[:20])
+    new_fit_y = fit_y[:20]
+    new_fit_x.extend(fit_x)
+    new_fit_y.extend(fit_y)
     fit_z = zip(*lowess(new_fit_y,new_fit_x,frac= 0.9))[1]
     ax2.plot(new_fit_x,fit_z,c=color_sequence[5])
 
