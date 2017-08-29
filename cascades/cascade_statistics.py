@@ -325,7 +325,7 @@ def stats_plot():
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
-    ax3.set_xlabel('$x=$cascade depth\(c)')
+    ax3.set_xlabel('$x=$cascade depth\n(c)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(100,1000000,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
@@ -409,7 +409,7 @@ def stats_plot():
     ax5.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
 
     ax5.set_title('out degree distribution')
-    ax5.set_xlabel('$x = deg^{+}(v)\n(e)$')
+    ax5.set_xlabel('$x = deg^{+}(v)$\n(e)')
     ax5.set_ylabel('$N(x)$')
     ax5.set_xscale('log')
     ax5.set_yscale('log')
