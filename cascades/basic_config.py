@@ -45,6 +45,9 @@ def power_low_func(x,a,b):
 def exponential_func(x,a,b):
     return a*np.exp(-a*x)*b
 
+def square_x(x,a,b,c):
+  return a*x*x+b*x+c
+
 def autolabel(rects,ax,total_count=None,step=1,):
     """
     Attach a text label above each bar displaying its height

@@ -503,6 +503,7 @@ def plot_dict():
     # cascade size vs citation count
     ax1 = axes[0]
     ax1.scatter(cxs,eys)
+    ax1.plot(cxs,cxs,'--',label='y=x')
     ax1.set_xlabel('Citation Count\n(a)')
     ax1.set_ylabel('Cascade Size')
     ax1.set_xscale('log')
@@ -517,7 +518,22 @@ def plot_dict():
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
-    rys = [eys[i]/float(cxs[i])-1 for i in range(len(cxs))]
+    
+    max_dict = defaultdict(int)
+    for i in range(len(cxs)):
+        y  = eys[i]/float(cxs[i])-1
+        rys.append(y)
+        if y> max_dict[cxs[i]]:
+            max_dict[cxs[i]] = y
+
+    fit_x = []
+    fit_y = []
+    for key in sorted(max_dict.keys()):
+        fit_x.append(key)
+        fit_y.append(max_dict[key])
+
+    popt,pcov = curve_fit(square_x,fit_x,fit_y) 
+    ax5.plot(cxs, square_x(cxs, *popt))
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('Average Marginal Value')
@@ -551,6 +567,8 @@ def plot_dict():
     ax5.set_ylabel('$P(v=connector)$')
     ax5.set_xscale('log')
     ax5.set_title('Percentage of connectors')
+    ax5.plot(dcxs,1/dcxs,c=color_sequence[1])
+    ax5.plot(dcxs,1-1/dcxs,c=color_sequence[1])
     # ax15 = axes[1,4]
     # plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
     # ax15.set_xlabel('Citation Count')
@@ -564,6 +582,8 @@ def plot_dict():
     ax4.set_ylabel('$P(deg^+(v)>1)$')
     ax4.set_xscale('log')
     ax4.set_title('Out degree > 1')
+    ax4.plot(dcxs,1/dcxs,c=color_sequence[1])
+    ax4.plot(dcxs,1-1/dcxs,c=color_sequence[1])
 
     # ax14 = axes[1,3]
     # plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
