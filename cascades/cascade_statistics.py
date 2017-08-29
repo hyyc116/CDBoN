@@ -801,7 +801,7 @@ def plot_unconnected_subgraphs():
         n = i+1
         plot_size_n(ax1,citation_counts_dict,n)
 
-    ax1.set_title('N size distribution')
+    ax1.set_title('scize N distribution')
     ax1.set_xlabel('citation count\n(b)')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
@@ -810,7 +810,7 @@ def plot_unconnected_subgraphs():
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
-    ax3.set_title('sub-cascade pattern distribution')
+    ax3.set_title('pattern distribution')
     ax3.set_xlabel('Ranked patterns\n(c)')
     ax3.set_ylabel('Number of patterns')
     ax3.legend()
