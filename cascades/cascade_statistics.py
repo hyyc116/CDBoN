@@ -799,7 +799,7 @@ def plot_unconnected_subgraphs():
     ax1 = axes[1]
     for i in range(7):
         n = i+1
-        plot_size_n(ax1,citation_counts_dict,n,label='N={:}'.format(n))
+        plot_size_n(ax1,citation_counts_dict,n)
 
     ax1.set_title('N size distribution')
     ax1.set_xlabel('citation count\n(b)')
@@ -883,7 +883,7 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(counter[n]/float(total_num))
 
-    ax.plot(xs,ys,c=color_sequence[n-1])
+    ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
     # z = zip(*lowess(ys,xs,frac= 0.9))[1]
     # ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
