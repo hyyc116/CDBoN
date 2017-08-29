@@ -568,8 +568,9 @@ def plot_dict():
     ax5.set_ylabel('$P(v=connector)$')
     ax5.set_xscale('log')
     ax5.set_title('Percentage of connectors')
-    ax5.plot(dcxs,1/dcxs,c=color_sequence[1])
-    ax5.plot(dcxs,1-1/dcxs,c=color_sequence[1])
+    sdxcs = np.array(sorted(dcxs))
+    ax5.plot(sdxcs,1/sdxcs,c=color_sequence[1])
+    ax5.plot(sdxcs,1-1/sdxcs,c=color_sequence[1])
     # ax15 = axes[1,4]
     # plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
     # ax15.set_xlabel('Citation Count')
@@ -583,8 +584,8 @@ def plot_dict():
     ax4.set_ylabel('$P(deg^+(v)>1)$')
     ax4.set_xscale('log')
     ax4.set_title('Out degree > 1')
-    ax4.plot(dcxs,1/dcxs,c=color_sequence[1])
-    ax4.plot(dcxs,1-1/dcxs,c=color_sequence[1])
+    ax4.plot(sdxcs,1/sdxcs,c=color_sequence[1])
+    ax4.plot(sdxcs,1-1/sdxcs,c=color_sequence[1])
 
     # ax14 = axes[1,3]
     # plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
