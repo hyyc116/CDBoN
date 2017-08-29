@@ -534,7 +534,7 @@ def plot_dict():
 
     ax2.scatter(cxs,rys)
 
-    ax2.plot(fit_x,fix_y,c=color_sequence[3])
+    ax2.plot(fit_x,fit_y,c=color_sequence[3])
 
     popt,pcov = curve_fit(square_x,fit_x,fit_y) 
 
