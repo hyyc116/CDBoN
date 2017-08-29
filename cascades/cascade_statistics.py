@@ -787,11 +787,11 @@ def plot_unconnected_subgraphs():
     ax2 = axes[0]
     ax2.set_xscale('log')
     ax2.set_yscale('log')
-    ax2.set_xlabel('$x=$ sub-cascade size')
+    ax2.set_xlabel('$x=$ sub-cascade size\n(a)')
     ax2.set_ylabel('$N(x)$')
     ax2.set_title('size distribution')
     ax2.scatter(xs,ys)
-    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',label='P(X<=x)> 80%, x={:}'.format(line_x))
+    ax2.plot([line_x]*10,np.linspace(10,max_y,10),'--',label='P(X<x)= 80%, x={:}'.format(line_x))
     ax2.plot([20]*10,np.linspace(10,max_y,10),'-',label='P(x<20)={:.4f}'.format(_20_percent))
     ax2.legend()
 
@@ -802,7 +802,7 @@ def plot_unconnected_subgraphs():
         plot_size_n(ax1,citation_counts_dict,n)
 
     ax1.set_title('N size distribution')
-    ax1.set_xlabel('citation count')
+    ax1.set_xlabel('citation count\n(b)')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend()
@@ -810,8 +810,8 @@ def plot_unconnected_subgraphs():
 
     ax3 = axes[2]
     plot_subgraph_pattern(ax3)
-    ax3.set_title('pattern distribution')
-    ax3.set_xlabel('pattern index')
+    ax3.set_title('sub-cascade pattern distribution')
+    ax3.set_xlabel('Ranked patterns\n(c)')
     ax3.set_ylabel('Number of patterns')
     plt.tight_layout()
 
