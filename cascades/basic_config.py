@@ -46,7 +46,7 @@ def exponential_func(x,a,b):
     return a*np.exp(-a*x)*b
 
 def square_x(x,a,b,c):
-  return a*x**2+b*x+c
+  return a*pow(x,2)+b*x+c
 
 def autolabel(rects,ax,total_count=None,step=1,):
     """
