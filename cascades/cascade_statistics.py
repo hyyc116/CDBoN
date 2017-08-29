@@ -540,7 +540,10 @@ def plot_dict():
     ax2.plot(fit_x[:10],fit_z,c='r')
     fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
     fit_z = fit_z.extend(fit_z_2)
-    ax2.plot(fit_x,fit_z,c='r')
+    fit_x = np.array(fit_x)
+    x_smooth = np.linspace(fit_x.min(), fit_x.max(), 200)
+    y_smooth = spline(fit_x, fit_z, x_smooth)
+    ax2.plot(x_smooth,y_smooth,c='r')
 
     # popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
 
