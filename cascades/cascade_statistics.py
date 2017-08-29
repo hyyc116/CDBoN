@@ -799,7 +799,7 @@ def plot_unconnected_subgraphs():
     ax1 = axes[1]
     for i in range(7):
         n = i+1
-        plot_size_n(ax1,citation_counts_dict,n)
+        plot_size_n(ax1,citation_counts_dict,n,label='N={:}'.format(n))
 
     ax1.set_title('N size distribution')
     ax1.set_xlabel('citation count\n(b)')
@@ -813,6 +813,7 @@ def plot_unconnected_subgraphs():
     ax3.set_title('sub-cascade pattern distribution')
     ax3.set_xlabel('Ranked patterns\n(c)')
     ax3.set_ylabel('Number of patterns')
+    ax3.legend()
     plt.tight_layout()
 
     plt.savefig('pdf/cascade_remianing_graph_size.pdf',dpi=200)
@@ -839,6 +840,7 @@ def plot_subgraph_pattern(ax):
     x =0
     y=0
     max_n = ns[0]
+    per_20=0
     for i,n in enumerate(ns):
         xs.append(i+1)
         if acc_n/total<0.84 and (acc_n+n)/total>0.84:
@@ -847,11 +849,15 @@ def plot_subgraph_pattern(ax):
 
         acc_n+=n
 
+        if i==20:
+            per_20  = acc_n/total
+
     # x = np.array(range(len(ns)))+1
     ax.plot(xs,ns)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    # ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<8)>80%')
+    ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<{:})>80%'.format(x))
+    ax.plot([20]*10,np.linspace(10,max_n,10),'--',label='P(X<20)>{:}'.format(per_20))
     # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     # ax.text(300,1000,"({:},{:})".format(x,y))
     for name in  names[:20]:

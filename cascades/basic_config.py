@@ -32,7 +32,7 @@ PROGRAM_ID='cascade'
 FIGDIR='pdf'
 DATADIR='data'
 
-params = {'legend.fontsize': 15,
+params = {'legend.fontsize': 8,
          'axes.labelsize': 15,
          'axes.titlesize':20,
          'xtick.labelsize':15,
