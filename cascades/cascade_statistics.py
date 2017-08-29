@@ -805,7 +805,7 @@ def plot_unconnected_subgraphs():
     ax1.set_xlabel('citation count\n(b)')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
-    ax1.legend()
+    ax1.legend(loc=2)
     ax1.set_yscale('log')
 
     ax3 = axes[2]
@@ -857,7 +857,7 @@ def plot_subgraph_pattern(ax):
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.plot([x]*10,np.linspace(10,max_n,10),'--',label='P(X<{:})>80%'.format(x))
-    ax.plot([20]*10,np.linspace(10,max_n,10),'--',label='P(X<20)>{:}'.format(per_20))
+    ax.plot([20]*10,np.linspace(10,max_n,10),'--',label='P(X<20)={:.4f}'.format(per_20))
     # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     # ax.text(300,1000,"({:},{:})".format(x,y))
     for name in  names[:20]:
