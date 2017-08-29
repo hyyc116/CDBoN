@@ -534,7 +534,7 @@ def plot_dict():
 
     popt,pcov = curve_fit(square_x,fit_x,fit_y) 
 
-    ax2.plot(np.array(cxs), square_x(np.array(cxs), *popt))
+    ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt))
     ax2.scatter(cxs,rys)
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('Average Marginal Value')
