@@ -244,7 +244,7 @@ def stats_plot():
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('citation count distribution')
-    ax1.set_xlabel('$x=$citation count')
+    ax1.set_xlabel('$x=$citation count\n(a)')
     ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -284,7 +284,7 @@ def stats_plot():
     ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
-    ax2.set_xlabel('$x=$cascade size')
+    ax2.set_xlabel('$x=$cascade size\n(b)')
     ax2.set_ylabel('$N(x)$')
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
@@ -325,7 +325,7 @@ def stats_plot():
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
-    ax3.set_xlabel('$x=$cascade depth')
+    ax3.set_xlabel('$x=$cascade depth\(c)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(100,1000000,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
@@ -365,7 +365,7 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100])
     ax4.plot(xs,ys,'o',fillstyle='none')
-    ax4.set_xlabel('$x = deg^{-}(v)+1$')
+    ax4.set_xlabel('$x = deg^{-}(v)+1$\n(d)')
     ax4.set_ylabel('$N(x)$')
     
     ax4.plot(np.linspace(3, 100, 10), power_low_func(np.linspace(3, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
@@ -409,7 +409,7 @@ def stats_plot():
     ax5.plot([_80_x]*10,np.linspace(100,_max_y*2,10),'--',label='$x={:}$'.format(_80_x))
 
     ax5.set_title('out degree distribution')
-    ax5.set_xlabel('$x = deg^{+}(v)$')
+    ax5.set_xlabel('$x = deg^{+}(v)\n(e)$')
     ax5.set_ylabel('$N(x)$')
     ax5.set_xscale('log')
     ax5.set_yscale('log')
