@@ -801,7 +801,7 @@ def plot_unconnected_subgraphs():
         n = i+1
         plot_size_n(ax1,citation_counts_dict,n)
 
-    ax1.set_title('scize N distribution')
+    ax1.set_title('size N distribution')
     ax1.set_xlabel('citation count\n(b)')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
@@ -850,7 +850,7 @@ def plot_subgraph_pattern(ax):
         acc_n+=n
 
         if i==20:
-            per_20  = acc_n/total
+            per_20  = acc_n/total*0.9581
 
     # x = np.array(range(len(ns)))+1
     ax.plot(xs,ns)
