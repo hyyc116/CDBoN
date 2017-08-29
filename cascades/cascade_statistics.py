@@ -541,7 +541,7 @@ def plot_dict():
     fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
     fit_z = fit_z.extend(fit_z_2)
     fit_x = np.array(fit_x)
-    x_smooth = np.linspace(fit_x.min(), fit_x.max(), 200)
+    x_smooth = np.linspace(fit_x.min(), fit_x.max(), 500)
     y_smooth = spline(fit_x, fit_z, x_smooth)
     ax2.plot(x_smooth,y_smooth,c='r')
 
