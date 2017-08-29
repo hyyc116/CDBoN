@@ -536,6 +536,9 @@ def plot_dict():
 
     ax2.plot(fit_x,fit_y,c=color_sequence[3])
 
+    fit_z = zip(*lowess(fit_y,fit_x,frac= 0.9))[1]
+    ax2.plot(fit_x,fit_z,c=color_sequence[5])
+
     popt,pcov = curve_fit(square_x,fit_x,fit_y) 
 
     ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
