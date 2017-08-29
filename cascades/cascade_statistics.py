@@ -518,7 +518,7 @@ def plot_dict():
 
     ## ratio of cascade size/ ciattion count vs citation count
     ax2 = axes[1]
-    
+    rys=[]
     max_dict = defaultdict(int)
     for i in range(len(cxs)):
         y  = eys[i]/float(cxs[i])-1
