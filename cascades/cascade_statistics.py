@@ -534,18 +534,18 @@ def plot_dict():
 
     ax2.scatter(cxs,rys)
 
-    ax2.plot(fit_x,fit_y,c=color_sequence[3])
+    ax2.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.5)
     new_fit_x = fit_x[:20]
     #把数据前面的点加多 
     new_fit_y = fit_y[:20]
     new_fit_x.extend(fit_x)
     new_fit_y.extend(fit_y)
-    fit_z = zip(*lowess(fit_y,fit_x,frac= 0.3))[1]
-    ax2.plot(fit_x,fit_z,c=color_sequence[5])
+    fit_z = zip(*lowess(fit_y[:10],fit_x[:10],frac= 0.3))[1]
+    ax2.plot(fit_x[:10],fit_z,c='r')
 
-    popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
+    # popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
 
-    ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
+    # ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
     
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('Average Marginal Value')
