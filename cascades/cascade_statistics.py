@@ -535,10 +535,15 @@ def plot_dict():
     ax2.scatter(cxs,rys)
 
     ax2.plot(fit_x,fit_y,c=color_sequence[3])
+    new_fit_x = fit_x[:20]
+    #把数据前面的点加多 
+    new_fit_y = fit_y[:20]
+    new_fit_x.extend(fit_x)
+    new_fit_y.extend(fit_y)
     fit_z = zip(*lowess(fit_y,fit_x,frac= 0.3))[1]
-    ax2.plot(new_fit_x,fit_z,c=color_sequence[5])
+    ax2.plot(fit_x,fit_z,c=color_sequence[5])
 
-    popt,pcov = curve_fit(square_x,fit_x,fit_y) 
+    popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
 
     ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
     
@@ -574,7 +579,7 @@ def plot_dict():
     ax5.set_ylabel('$P(v=connector)$')
     ax5.set_xscale('log')
     ax5.set_title('Percentage of connectors')
-    sdxcs = np.array([float(i) for i in sorted(dcxs) if i >1])
+    sdxcs = np.array([float(i) for i in sorted(dcxs) if i>1])
     ax5.plot(sdxcs,1/sdxcs,c='r')
     ax5.plot(sdxcs,1-1/sdxcs,c='r')
     # ax15 = axes[1,4]
