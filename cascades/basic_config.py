@@ -19,7 +19,7 @@ import pylab
 import itertools
 import statsmodels.api as sm
 lowess = sm.nonparametric.lowess
-
+from scipy.interpolate import spline
 
 color_sequence = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c',
                   '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5',
