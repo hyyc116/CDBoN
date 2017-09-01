@@ -593,17 +593,17 @@ def plot_dict():
         ys.append(max_dict[x])
 
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys[10:],xs[10:],frac= 0.9))[1]]
+    fit_z = [i for i in zip(*lowess(ys,xs,frac=0.1))[1]]
     # fit_z.extend(fit_z_2)
-    ax2.plot(xs[10:],fit_z,c='r')
+    ax2.plot(xs,fit_z,c='r')
 
     #wiener
     # n_array = np.array([xs,ys])
-    oys =  wiener(ys,noise=0.9)
+    # oys =  wiener(ys,noise=0.9)
     # oxs = out_array[0]
     # oys = out_array[1]
 
-    ax2.plot(xs,oys,c='g')
+    # ax2.plot(xs,oys,c='g')
 
 
 
