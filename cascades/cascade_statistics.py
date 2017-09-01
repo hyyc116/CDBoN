@@ -606,7 +606,7 @@ def plot_dict():
             continue
 
         xs.append(dcxs[i])
-        ys.append(eys[i]/id_ys[i]/dcxs[i])
+        ys.append(od_ys[i]/id_ys[i])
 
     ax4.scatter(xs,ys)
 
