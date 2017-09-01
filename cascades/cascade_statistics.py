@@ -10,6 +10,8 @@ from networkx.algorithms import isomorphism
 from matplotlib import cm as CM
 from collections import Counter
 from viz_graph import plot_a_subcascade
+from scipy.signal import wiener
+
 
 #from the aminer_refence to build citation network
 def build_citation_network(path):
@@ -594,6 +596,17 @@ def plot_dict():
     fit_z = [i for i in zip(*lowess(ys[10:],xs[10:],frac= 0.9))[1]]
     # fit_z.extend(fit_z_2)
     ax2.plot(xs[10:],fit_z,c='r')
+
+    #wiener
+    n_array = np.array([xs,ys])
+    out_array =  wiener(n_array)
+    oxs = out_array[0]
+    oys = out_array[1]
+
+    ax3.plot(oxs,oys,c='g')
+
+
+
 
 
 
