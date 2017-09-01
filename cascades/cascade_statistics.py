@@ -684,9 +684,29 @@ def plot_dict(is_heat=False):
 
     ### depth distribution over citation count
     ax5=axes[4]
-    ax5.scatter(dcxs,dys)
+
+    depth_count_dict = defaultdict(dict)
+
+    for i,count in enumerate(dcxs):
+        depth = dys[i]
+        if depth>8:
+            depth=8
+        depth_count_dict[depth][count] = depth_count_dict[depth].get(count,0)+1
+
+
+    for depth in depth_count_dict.keys():
+        count_dict = depth_count_dict[depth]
+        xs=[]
+        ys=[]
+        for count in sorted(count_dict.keys()):
+            xs.append(count)
+            ys.append(count_dict[count])
+
+        ax5.plot(xs,ys,label='{:}'.format(depth))
+
+    # ax5.scatter(dcxs,dys)
     ax5.set_xlabel('Citation Count\n(e)')
-    ax5.set_ylabel('Cascade Depth')
+    ax5.set_ylabel('Number')
     ax5.set_xscale('log')
     ax5.set_title('Depth Distribution')
 
