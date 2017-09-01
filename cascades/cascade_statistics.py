@@ -10,7 +10,7 @@ from networkx.algorithms import isomorphism
 from matplotlib import cm as CM
 from collections import Counter
 from viz_graph import plot_a_subcascade
-from scipy.signal import wiener
+from astroML.filters import wiener_filter 
 
 
 #from the aminer_refence to build citation network
@@ -598,12 +598,9 @@ def plot_dict():
     ax2.plot(xs[10:],fit_z,c='r')
 
     #wiener
-    n_array = np.array([xs,ys])
-    out_array =  wiener(n_array)
-    oxs = out_array[0]
-    oys = out_array[1]
+    h_smooth, PSD, P_S, P_N, Phi = wiener_filter(xs, ys, return_PSDs=True)
 
-    ax2.plot(oxs,oys,c='g')
+    ax2.plot(xs,h_smooth,c='g')
 
 
 
