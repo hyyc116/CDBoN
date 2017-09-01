@@ -610,7 +610,7 @@ def plot_dict():
 
     ax4.scatter(xs,ys)
 
-    ax4.set_xscale('log')
+    # ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(d)')
     ax4.set_yscale('log')
     ax4.set_ylabel('ACMV')
