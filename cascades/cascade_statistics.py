@@ -539,7 +539,6 @@ def plot_dict():
     ax1.scatter(cxs,rys)
 
     ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
-    #把数据前面的点加多 
     fit_z = [i for i in zip(*lowess(fit_y[:10],fit_x[:10],frac= 0.9))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
     fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
@@ -577,6 +576,25 @@ def plot_dict():
     sdxcs = np.array([float(i) for i in sorted(dcxs) if i>1])
     ax2.plot(sdxcs,1/sdxcs,c='r')
     ax2.plot(sdxcs,1-1/sdxcs,c='r')
+
+    ## 同样画上届
+
+    max_dict = defaultdict(int)
+    for i,xv in enumerate(dcxs):
+        if id_ys[i] > max_dict[xv]:
+            max_dict[xv] = id_ys[i]
+
+    xs = []
+    ys = []
+    for x in sorted(max_dict.keys()):
+        xs.append(x)
+        ys.append(max_dict[x])
+
+    ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
+
+
+
+
     # ax15 = axes[1,4]
     # plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
     # ax15.set_xlabel('Citation Count')
