@@ -538,8 +538,8 @@ def plot_dict():
         fit_x.append(key)
         fit_y.append(max_dict[key])
 
-    ax1.scatter(cxs,rys)
-
+    # ax1.scatter(cxs,rys)
+    plot_heatmap(cxs,rys,ax1,['log','linear'],fig)
     ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
     fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.08))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
