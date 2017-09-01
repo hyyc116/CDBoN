@@ -593,7 +593,7 @@ def plot_dict():
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
     fit_z = [i for i in zip(*lowess(ys[10:],xs[10:],frac= 0.9))[1]]
     fit_z.extend(fit_z_2)
-    ax2.plot(fit_x[10:],fit_z,c='r')
+    ax2.plot(xs[10:],fit_z,c='r')
 
 
 
