@@ -502,7 +502,7 @@ def plot_dict():
     # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
 
-    print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys)
+    print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
     # cascade size vs citation count
     # ax1 = axes[0]
@@ -550,7 +550,7 @@ def plot_dict():
 
     # ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
     
-    ax1.set_xlabel('Citation Count\n(b)')
+    ax1.set_xlabel('Citation Count\n(a)')
     ax1.set_ylabel('Average Marginal Value')
     ax1.set_xscale('log')
     ax1.set_title('Average Marginal Value')
@@ -570,7 +570,7 @@ def plot_dict():
     #### in degree over citation count
     ax2 = axes[1]
     ax2.scatter(dcxs,id_ys)
-    ax2.set_xlabel('Citation Count\n(d)')
+    ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
     ax2.set_title('Percentage of connectors')
@@ -586,7 +586,7 @@ def plot_dict():
     ### out degree over citation count
     ax3 = axes[2]
     ax3.scatter(dcxs,od_ys)
-    ax3.set_xlabel('Citation Count\n(e)')
+    ax3.set_xlabel('Citation Count\n(c)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
     ax3.set_title('Out degree > 1')
@@ -595,9 +595,26 @@ def plot_dict():
 
 
     ### average connector marginal value
-    # ax4 = axes[3]
-    # ax4.
+    ax4 = axes[3]
 
+
+    xs = []
+    ys = []
+    for i,idy in enumerate(id_ys):
+        
+        if idy>0:
+            continue
+
+        xs.append(dcxs[i])
+        ys.append(eys[i]/id_ys[i]*dcxs[i])
+
+    ax4.scatter(xs,ys)
+
+    ax4.set_xscale('log')
+    ax4.set_xlabel('citation coun\n(d)')
+    ax4.set_yscale('log')
+    ax4.set_ylabel('ACMV')
+    ax4.set_title('ACMV distribution')
 
     # ax14 = axes[1,3]
     # plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
@@ -606,12 +623,12 @@ def plot_dict():
     # ax14.set_title('Out degree(>1) Distribution')
 
     ### depth distribution over citation count
-    ax3=axes[1]
-    ax3.scatter(dcxs,dys)
-    ax3.set_xlabel('Citation Count\n(c)')
-    ax3.set_ylabel('Cascade Depth')
-    ax3.set_xscale('log')
-    ax3.set_title('Depth Distribution')
+    ax5=axes[4]
+    ax5.scatter(dcxs,dys)
+    ax5.set_xlabel('Citation Count\n(e)')
+    ax5.set_ylabel('Cascade Depth')
+    ax5.set_xscale('log')
+    ax5.set_title('Depth Distribution')
 
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
