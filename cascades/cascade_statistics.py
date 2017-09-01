@@ -175,13 +175,13 @@ def gen_statistics_data(citation_cascade):
 
         #centrality
         # degree centrality
-        centrality_dict['indegree'].extend(nx.in_degree_centrality(diG).values())
-        centrality_dict['outdegree'].extend(nx.out_degree_centrality(diG).values())
-        centrality_dict['closeness'].extend(nx.closeness_centrality(diG).values())
-        centrality_dict['betweenness'].extend(nx.betweenness_centrality(diG).values())
-        # centrality_dict['eigenvector'].extend(nx.eigenvector_centrality(diG).values())
-        centrality_dict['katz'].extend(nx.katz_centrality(diG).values())
-        centrality_dict['assortativity'].append(nx.degree_assortativity_coefficient(diG))
+        # centrality_dict['indegree'].extend(nx.in_degree_centrality(diG).values())
+        # centrality_dict['outdegree'].extend(nx.out_degree_centrality(diG).values())
+        # centrality_dict['closeness'].extend(nx.closeness_centrality(diG).values())
+        # centrality_dict['betweenness'].extend(nx.betweenness_centrality(diG).values())
+        # # centrality_dict['eigenvector'].extend(nx.eigenvector_centrality(diG).values())
+        # centrality_dict['katz'].extend(nx.katz_centrality(diG).values())
+        # centrality_dict['assortativity'].append(nx.degree_assortativity_coefficient(diG))
 
 
 
