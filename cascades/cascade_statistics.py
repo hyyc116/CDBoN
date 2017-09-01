@@ -207,7 +207,7 @@ def gen_statistics_data(citation_cascade):
 
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
-def plot_heatmap(x,y,ax,bins,fig,gridsize=10):
+def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 统计指标的分布图
