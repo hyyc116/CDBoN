@@ -602,7 +602,7 @@ def plot_dict():
     ys = []
     for i,idy in enumerate(id_ys):
         
-        if idy>0:
+        if idy==0:
             continue
 
         xs.append(dcxs[i])
