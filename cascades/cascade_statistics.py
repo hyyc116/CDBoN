@@ -121,27 +121,31 @@ def gen_statistics_data(citation_cascade):
         logi+=1
         if logi%10000==1:
             logging.info('progress {:}'.format(logi))
+        
+
+        diG = nx.DiGraph()
+        edges = cc[pid]['edges']
+        diG.add_edges_from(edges)
+
+        # if citation cascade is not acyclic graph
+        if not nx.is_directed_acyclic_graph(diG):
+            continue
+
+        depth=nx.dag_longest_path_length(diG)
+        # cascade_depths.append(depth)
+        depth_dict[depth]+=1
+        # cascade_sizes.append(len(edges))
+        size_depth_dict[len(edges)].append(depth)
+
         #number of nodes
         cnum_dict[cc[pid]['cnum']]+=1
         cxs.append(cc[pid]['cnum'])
         #number of edges
         enum_dict[cc[pid]['enum']]+=1
         eys.append(cc[pid]['enum'])
-
-        diG = nx.DiGraph()
-        edges = cc[pid]['edges']
-        diG.add_edges_from(edges)
-        #depth of graph
-        if nx.is_directed_acyclic_graph(diG):
-            depth=nx.dag_longest_path_length(diG)
-            # cascade_depths.append(depth)
-            depth_dict[depth]+=1
-            # cascade_sizes.append(len(edges))
-            size_depth_dict[len(edges)].append(depth)
-            dys.append(depth)
-            dcxs.append(cc[pid]['cnum'])
-        else:
-            continue
+        
+        dys.append(depth)
+        dcxs.append(cc[pid]['cnum'])
 
         #degree
         outdegree_dict = diG.out_degree()
@@ -501,14 +505,14 @@ def plot_dict():
     print 'length of xs and ys', len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys)
 
     # cascade size vs citation count
-    ax1 = axes[0]
-    ax1.scatter(cxs,eys)
-    ax1.plot(cxs,cxs,'--',label='y=x',c='r')
-    ax1.set_xlabel('Citation Count\n(a)')
-    ax1.set_ylabel('Cascade Size')
-    ax1.set_xscale('log')
-    ax1.set_yscale('log')
-    ax1.set_title('Cascade Size Dis')
+    # ax1 = axes[0]
+    # ax1.scatter(cxs,eys)
+    # ax1.plot(cxs,cxs,'--',label='y=x',c='r')
+    # ax1.set_xlabel('Citation Count\n(a)')
+    # ax1.set_ylabel('Cascade Size')
+    # ax1.set_xscale('log')
+    # ax1.set_yscale('log')
+    # ax1.set_title('Cascade Size Dis')
     
     # ax11 = axes[1,0]
     # plot_heatmap(cxs,eys,ax11,['log','log'],fig)
@@ -517,7 +521,7 @@ def plot_dict():
     # ax11.set_title('Cascade Size Dis')
 
     ## ratio of cascade size/ ciattion count vs citation count
-    ax2 = axes[1]
+    ax1 = axes[0]
     rys=[]
     max_dict = defaultdict(int)
     for i in range(len(cxs)):
@@ -532,38 +536,30 @@ def plot_dict():
         fit_x.append(key)
         fit_y.append(max_dict[key])
 
-    ax2.scatter(cxs,rys)
+    ax1.scatter(cxs,rys)
 
-    ax2.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
+    ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
     #把数据前面的点加多 
     fit_z = [i for i in zip(*lowess(fit_y[:10],fit_x[:10],frac= 0.9))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
     fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
     fit_z.extend(fit_z_2)
-    ax2.plot(fit_x,fit_z,c='r')
+    ax1.plot(fit_x,fit_z,c='r')
 
     # popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
 
     # ax2.plot(np.linspace(1,8000,100), square_x(np.linspace(1,8000,100), *popt),c='r')
     
-    ax2.set_xlabel('Citation Count\n(b)')
-    ax2.set_ylabel('Average Marginal Value')
-    ax2.set_xscale('log')
-    ax2.set_title('Average Marginal Value')
+    ax1.set_xlabel('Citation Count\n(b)')
+    ax1.set_ylabel('Average Marginal Value')
+    ax1.set_xscale('log')
+    ax1.set_title('Average Marginal Value')
     # ax12 = axes[1,1]
     # plot_heatmap(cxs,rys,ax12,['log','linear'],fig)
     # ax12.set_xlabel('Citation Count')
     # ax12.set_ylabel('Cascade size/citation count')
     # ax12.set_title('Cascade size/citation count')
-
-
-    ### depth distribution over citation count
-    ax3=axes[2]
-    ax3.scatter(dcxs,dys)
-    ax3.set_xlabel('Citation Count\n(c)')
-    ax3.set_ylabel('Cascade Depth')
-    ax3.set_xscale('log')
-    ax3.set_title('Depth Distribution')
+    
 
     # ax13 = axes[1,2]
     # plot_heatmap(dcxs,dys,ax13,['log','linear'],fig,(8,8))
@@ -572,15 +568,15 @@ def plot_dict():
     # ax13.set_title('Cascade Depth Distribution')
 
     #### in degree over citation count
-    ax5 = axes[3]
-    ax5.scatter(dcxs,id_ys)
-    ax5.set_xlabel('Citation Count\n(d)')
-    ax5.set_ylabel('$P(v=connector)$')
-    ax5.set_xscale('log')
-    ax5.set_title('Percentage of connectors')
+    ax2 = axes[1]
+    ax2.scatter(dcxs,id_ys)
+    ax2.set_xlabel('Citation Count\n(d)')
+    ax2.set_ylabel('$P(v=connector)$')
+    ax2.set_xscale('log')
+    ax2.set_title('Percentage of connectors')
     sdxcs = np.array([float(i) for i in sorted(dcxs) if i>1])
-    ax5.plot(sdxcs,1/sdxcs,c='r')
-    ax5.plot(sdxcs,1-1/sdxcs,c='r')
+    ax2.plot(sdxcs,1/sdxcs,c='r')
+    ax2.plot(sdxcs,1-1/sdxcs,c='r')
     # ax15 = axes[1,4]
     # plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
     # ax15.set_xlabel('Citation Count')
@@ -588,14 +584,20 @@ def plot_dict():
     # ax15.set_title('In degree(>0) Distribution')
 
     ### out degree over citation count
-    ax4 = axes[4]
-    ax4.scatter(dcxs,od_ys)
-    ax4.set_xlabel('Citation Count\n(e)')
-    ax4.set_ylabel('$P(deg^+(v)>1)$')
-    ax4.set_xscale('log')
-    ax4.set_title('Out degree > 1')
-    ax4.plot(sdxcs,1/sdxcs,c='r')
-    ax4.plot(sdxcs,1-1/sdxcs,c='r')
+    ax3 = axes[2]
+    ax3.scatter(dcxs,od_ys)
+    ax3.set_xlabel('Citation Count\n(e)')
+    ax3.set_ylabel('$P(deg^+(v)>1)$')
+    ax3.set_xscale('log')
+    ax3.set_title('Out degree > 1')
+    ax3.plot(sdxcs,1/sdxcs,c='r')
+    ax3.plot(sdxcs,1-1/sdxcs,c='r')
+
+
+    ### average connector marginal value
+    # ax4 = axes[3]
+    # ax4.
+
 
     # ax14 = axes[1,3]
     # plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
@@ -603,7 +605,13 @@ def plot_dict():
     # ax14.set_ylabel('Percentage')
     # ax14.set_title('Out degree(>1) Distribution')
 
-    
+    ### depth distribution over citation count
+    ax3=axes[1]
+    ax3.scatter(dcxs,dys)
+    ax3.set_xlabel('Citation Count\n(c)')
+    ax3.set_ylabel('Cascade Depth')
+    ax3.set_xscale('log')
+    ax3.set_title('Depth Distribution')
 
     plt.tight_layout()
     plt.savefig('pdf/compare.png',dpi=200)
