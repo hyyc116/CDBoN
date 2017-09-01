@@ -599,7 +599,7 @@ def plot_dict():
 
     #wiener
     # n_array = np.array([xs,ys])
-    oys =  wiener(ys)
+    oys =  wiener(ys,noise=0.9)
     # oxs = out_array[0]
     # oys = out_array[1]
 
