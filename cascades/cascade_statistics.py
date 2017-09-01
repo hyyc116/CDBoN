@@ -600,7 +600,7 @@ def plot_dict(is_heat=False):
         ys.append(max_dict[x])
 
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.08,it=1,is_sorted =True))[1]]
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax2.plot(xs,fit_z,c='r')
 
@@ -691,8 +691,12 @@ def plot_dict(is_heat=False):
     ax5.set_title('Depth Distribution')
 
     plt.tight_layout()
-    plt.savefig('pdf/compare.png',dpi=200)
-    print 'figure saved to pdf/compare.png'
+    if is_heat:
+        plt.savefig('pdf/compare_heat.png',dpi=200)
+        print 'figure saved to pdf/compare_heat.png'
+    else:
+        plt.savefig('pdf/compare.png',dpi=200)
+        print 'figure saved to pdf/compare.png'
 
 
 def iso(subgraph_dict,graph):
