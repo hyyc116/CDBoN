@@ -574,8 +574,8 @@ def plot_dict():
     ax2.set_xscale('log')
     ax2.set_title('Percentage of connectors')
     sdxcs = np.array([float(i) for i in sorted(dcxs) if i>1])
-    ax2.plot(sdxcs,1/sdxcs,c='r')
-    ax2.plot(sdxcs,1-1/sdxcs,c='r')
+    ax2.plot(sdxcs,1/sdxcs,'--',c=color_sequence[4])
+    ax2.plot(sdxcs,1-1/sdxcs,'--',c=color_sequence[4])
 
     ## 同样画上届
 
@@ -591,6 +591,9 @@ def plot_dict():
         ys.append(max_dict[x])
 
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
+    fit_z = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
+    fit_z.extend(fit_z_2)
+    ax1.plot(fit_x[10:],fit_z,c='r')
 
 
 
