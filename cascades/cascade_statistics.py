@@ -597,6 +597,9 @@ def plot_dict():
     # fit_z.extend(fit_z_2)
     ax2.plot(xs[10:],fit_z,c='r')
 
+    xs = np.array(xs)
+    ys = np.array(ys)
+    print len(xs),len(ys)
     #wiener
     h_smooth, PSD, P_S, P_N, Phi = wiener_filter(np.array(xs), np.array(ys), return_PSDs=True)
 
