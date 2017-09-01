@@ -215,7 +215,6 @@ def stats_plot():
     logging.info('plot data ...')
 
     # add 80% percent x
-
     num = len(plt.get_fignums())
     # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
@@ -484,7 +483,7 @@ def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
 
 
 # 随着citation count的增加，各个指标的变化
-def plot_dict():
+def plot_dict(is_heat=False):
 
     plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
@@ -538,8 +537,11 @@ def plot_dict():
         fit_x.append(key)
         fit_y.append(max_dict[key])
 
-    # ax1.scatter(cxs,rys)
-    plot_heatmap(cxs,rys,ax1,['log','linear'],fig)
+    if is_heat:
+        plot_heatmap(cxs,rys,ax1,['log','linear'],fig)
+    else:
+        ax1.scatter(cxs,rys)
+    
     ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
     fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.08))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
@@ -570,7 +572,11 @@ def plot_dict():
 
     #### in degree over citation count
     ax2 = axes[1]
-    ax2.scatter(dcxs,id_ys)
+        plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
+    if is_heat:
+
+    else:
+        ax2.scatter(dcxs,id_ys)
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
@@ -593,33 +599,19 @@ def plot_dict():
         ys.append(max_dict[x])
 
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.08,it=0,is_sorted =True))[1]]
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.08,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax2.plot(xs,fit_z,c='r')
 
-    #wiener
-    # n_array = np.array([xs,ys])
-    # oys =  wiener(ys,noise=0.9)
-    # oxs = out_array[0]
-    # oys = out_array[1]
 
-    # ax2.plot(xs,oys,c='g')
-
-
-
-
-
-
-
-    # ax15 = axes[1,4]
-    # plot_heatmap(dcxs,id_ys,ax15,['log','linear'],fig)
-    # ax15.set_xlabel('Citation Count')
-    # ax15.set_ylabel('Percentage')
-    # ax15.set_title('In degree(>0) Distribution')
 
     ### out degree over citation count
     ax3 = axes[2]
-    ax3.scatter(dcxs,od_ys)
+    if is_heat:
+        plot_heatmap(dcxs,od_ys,ax3,['log','linear'],fig)
+    else:
+        ax3.scatter(dcxs,od_ys)
+
     ax3.set_xlabel('Citation Count\n(c)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
@@ -627,10 +619,29 @@ def plot_dict():
     ax3.plot(sdxcs,1/sdxcs,c='r')
     ax3.plot(sdxcs,1-1/sdxcs,c='r')
 
+    ## 同样画上届
+
+    max_dict = defaultdict(int)
+    for i,xv in enumerate(dcxs):
+        if od_ys[i] > max_dict[xv]:
+            max_dict[xv] = od_ys[i]
+
+    xs = []
+    ys = []
+    for x in sorted(max_dict.keys()):
+        xs.append(x)
+        ys.append(max_dict[x])
+
+    ax3.plot(xs,ys,c=color_sequence[3],alpha=0.8)
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=1,is_sorted =True))[1]]
+    # fit_z.extend(fit_z_2)
+    ax3.plot(xs,fit_z,c='r')
+
+
+
 
     ### average connector marginal value
     ax4 = axes[3]
-
 
     xs = []
     ys = []
@@ -642,19 +653,33 @@ def plot_dict():
         xs.append(dcxs[i])
         ys.append(od_ys[i]/id_ys[i])
 
-    ax4.scatter(xs,ys)
+    if is_heat:
+        plot_heatmap(xs,ys,ax4,['log','linear'],fig)
+    else:
+        ax4.scatter(xs,ys)
 
     ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(d)')
-    # ax4.set_yscale('log')
     ax4.set_ylabel('ACMV')
     ax4.set_title('ACMV distribution')
 
-    # ax14 = axes[1,3]
-    # plot_heatmap(dcxs,od_ys,ax14,['log','linear'],fig)
-    # ax14.set_xlabel('Citation Count')
-    # ax14.set_ylabel('Percentage')
-    # ax14.set_title('Out degree(>1) Distribution')
+    ## 同样画上届
+    max_dict = defaultdict(int)
+    for i,xv in enumerate(xs):
+        if ys[i] > max_dict[xv]:
+            max_dict[xv] = ys[i]
+
+    xs = []
+    ys = []
+    for x in sorted(max_dict.keys()):
+        xs.append(x)
+        ys.append(max_dict[x])
+
+    ax4.plot(xs,ys,c=color_sequence[3],alpha=0.8)
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=1,is_sorted =True))[1]]
+    # fit_z.extend(fit_z_2)
+    ax4.plot(xs,fit_z,c='r')
+
 
     ### depth distribution over citation count
     ax5=axes[4]
