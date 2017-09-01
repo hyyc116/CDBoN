@@ -603,7 +603,7 @@ def plot_dict():
     oxs = out_array[0]
     oys = out_array[1]
 
-    ax3.plot(oxs,oys,c='g')
+    ax2.plot(oxs,oys,c='g')
 
 
 
