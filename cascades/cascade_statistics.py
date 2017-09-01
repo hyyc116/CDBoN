@@ -572,11 +572,12 @@ def plot_dict(is_heat=False):
 
     #### in degree over citation count
     ax2 = axes[1]
-        plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
+        
     if is_heat:
-
+        plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
     else:
         ax2.scatter(dcxs,id_ys)
+        
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
