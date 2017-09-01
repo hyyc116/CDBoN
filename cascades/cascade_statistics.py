@@ -617,8 +617,8 @@ def plot_dict(is_heat=False):
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
     ax3.set_title('Out degree > 1')
-    ax3.plot(sdxcs,1/sdxcs,c='r')
-    ax3.plot(sdxcs,1-1/sdxcs,c='r')
+    ax3.plot(sdxcs,1/sdxcs,'--',c=color_sequence[4])
+    ax3.plot(sdxcs,1-1/sdxcs,'--',c=color_sequence[4])
 
     ## 同样画上届
 
@@ -634,7 +634,7 @@ def plot_dict(is_heat=False):
         ys.append(max_dict[x])
 
     ax3.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=1,is_sorted =True))[1]]
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax3.plot(xs,fit_z,c='r')
 
@@ -677,7 +677,7 @@ def plot_dict(is_heat=False):
         ys.append(max_dict[x])
 
     ax4.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=1,is_sorted =True))[1]]
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax4.plot(xs,fit_z,c='r')
 
