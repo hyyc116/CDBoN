@@ -544,7 +544,7 @@ def plot_dict():
     fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.9))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
     # fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
-    fit_z.extend(fit_z_2)
+    # fit_z.extend(fit_z_2)
     ax1.plot(fit_x,fit_z,c='r')
 
     # popt,pcov = curve_fit(square_x,new_fit_x,new_fit_y) 
