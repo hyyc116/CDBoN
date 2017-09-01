@@ -541,7 +541,7 @@ def plot_dict():
     ax1.scatter(cxs,rys)
 
     ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.9))[1]]
+    fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.01))[1]]
     # ax2.plot(fit_x[:10],fit_z,c='r')
     # fit_z_2 = [i for i in zip(*lowess(fit_y[10:],fit_x[10:],frac= 0.9))[1]]
     # fit_z.extend(fit_z_2)
@@ -593,7 +593,7 @@ def plot_dict():
         ys.append(max_dict[x])
 
     ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=0,is_sorted =True))[1]]
+    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.01,it=0,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax2.plot(xs,fit_z,c='r')
 
