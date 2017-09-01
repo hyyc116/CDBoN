@@ -707,7 +707,7 @@ def plot_dict(is_heat=False):
     # ax5.scatter(dcxs,dys)
     ax5.set_xlabel('Citation Count\n(e)')
     ax5.set_ylabel('Number')
-    ax5.set_xscale('log')
+    # ax5.set_xscale('log')
     ax5.set_yscale('log')
     ax5.legend()
     ax5.set_title('Depth Distribution')
