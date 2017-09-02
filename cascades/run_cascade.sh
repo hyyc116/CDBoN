@@ -8,7 +8,7 @@
 ## plot fundamental indicators [citation count, cascade size, cascade depth, in and out degree]
 # python cascade_statistics.py stat_plot data/aminer_citation_cascade.json
 
-### plot comparison indicators 
-# python cascade_statistics.py compare_plot
+### plot indicators distribution over citation count
+python tools/plot_dis_over_count.py 
 
 
