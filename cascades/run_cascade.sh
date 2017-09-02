@@ -9,7 +9,7 @@
 # python cascade_statistics.py stat_plot data/aminer_citation_cascade.json
 
 ### plot indicators distribution over citation count
-python tools/plot_dis_over_count.py
+# python tools/plot_dis_over_count.py
 python tools/plot_dis_over_count.py heat
 
 
