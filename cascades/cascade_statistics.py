@@ -549,7 +549,7 @@ def plot_dict(is_heat=False):
 
     ax0.plot(e_xs,e_ys)
     ax0.set_xscale('log')
-    ax0.set_yscale('log')
+    # ax0.set_yscale('log')
     ax0.set_title('citation count = cascade size')
     ax0.set_xlabel('citation count')
     ax0.set_ylabel('percentage')
@@ -910,8 +910,6 @@ def plot_unconnected_subgraphs():
 
         if size ==20:
             _20_percent = _80_dis/float(total_dis)
-            
-
 
 
     ax2 = axes[0]
