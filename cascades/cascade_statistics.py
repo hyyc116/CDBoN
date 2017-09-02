@@ -572,7 +572,6 @@ def plot_dict(is_heat=False):
 
     #### in degree over citation count
     ax2 = axes[1]
-        
     if is_heat:
         plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
     else:
@@ -587,7 +586,6 @@ def plot_dict(is_heat=False):
     ax2.plot(sdxcs,1-1/sdxcs,'--',c=color_sequence[4])
 
     ## 同样画上届
-
     max_dict = defaultdict(int)
     for i,xv in enumerate(dcxs):
         if id_ys[i] > max_dict[xv]:
@@ -603,8 +601,6 @@ def plot_dict(is_heat=False):
     fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax2.plot(xs,fit_z,c='r')
-
-
 
     ### out degree over citation count
     ax3 = axes[2]
@@ -637,9 +633,6 @@ def plot_dict(is_heat=False):
     fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
     # fit_z.extend(fit_z_2)
     ax3.plot(xs,fit_z,c='r')
-
-
-
 
     ### average connector marginal value
     ax4 = axes[3]
@@ -681,12 +674,9 @@ def plot_dict(is_heat=False):
     # fit_z.extend(fit_z_2)
     ax4.plot(xs,fit_z,c='r')
 
-
     ### depth distribution over citation count
     ax5=axes[4]
-
     depth_count_dict = defaultdict(dict)
-
     for i,count in enumerate(dcxs):
         depth = dys[i]
         if depth>8:
@@ -707,7 +697,7 @@ def plot_dict(is_heat=False):
     # ax5.scatter(dcxs,dys)
     ax5.set_xlabel('Citation Count\n(e)')
     ax5.set_ylabel('Number')
-    # ax5.set_xscale('log')
+    ax5.set_xscale('log')
     ax5.set_yscale('log')
     ax5.legend()
     ax5.set_title('Depth Distribution')
