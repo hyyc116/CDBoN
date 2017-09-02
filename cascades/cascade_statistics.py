@@ -522,14 +522,40 @@ def plot_dict(is_heat=False):
     # ax11.set_title('Cascade Size Dis')
 
     ## ratio of cascade size/ ciattion count vs citation count
-    ax1 = axes[0]
+    
     rys=[]
     max_dict = defaultdict(int)
+    equal_dict=defaultdict(list)
+
     for i in range(len(cxs)):
         y  = eys[i]/float(cxs[i])-1
         rys.append(y)
         if y> max_dict[cxs[i]]:
             max_dict[cxs[i]] = y
+
+        if eys[i]==cxs[i]:
+            equal_dict[cxs[i]].append(1)
+        else:
+            equal_dict[cxs[i]].append(0)
+
+    ax0 = axes[0]
+
+    e_xs = []
+    e_ys = []
+    for cc in sorted(equal_dict.keys()):
+        e_xs.append(cc)
+        y = equal_dict[cc]
+        e_ys.append(sum(y)/float(len(y)))
+
+    ax0.plot(e_xs,e_ys)
+    ax0.set_xscale('log')
+    ax0.set_yscale('log')
+    ax0.set_title('citation count = cascade size')
+    ax0.set_xlabel('citation count')
+    ax0.set_ylabel('percentage')
+
+
+    ax1 = axes[1]
 
     fit_x = []
     fit_y = []
@@ -571,7 +597,7 @@ def plot_dict(is_heat=False):
     # ax13.set_title('Cascade Depth Distribution')
 
     #### in degree over citation count
-    ax2 = axes[1]
+    ax2 = axes[2]
     if is_heat:
         plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
     else:
@@ -603,7 +629,7 @@ def plot_dict(is_heat=False):
     ax2.plot(xs,fit_z,c='r')
 
     ### out degree over citation count
-    ax3 = axes[2]
+    ax3 = axes[3]
     if is_heat:
         plot_heatmap(dcxs,od_ys,ax3,['log','linear'],fig)
     else:
@@ -635,7 +661,7 @@ def plot_dict(is_heat=False):
     ax3.plot(xs,fit_z,c='r')
 
     ### average connector marginal value
-    ax4 = axes[3]
+    ax4 = axes[4]
 
     xs = []
     ys = []
@@ -675,32 +701,35 @@ def plot_dict(is_heat=False):
     ax4.plot(xs,fit_z,c='r')
 
     ### depth distribution over citation count
-    ax5=axes[4]
-    depth_count_dict = defaultdict(dict)
-    for i,count in enumerate(dcxs):
-        depth = dys[i]
-        if depth>8:
-            depth=8
-        depth_count_dict[depth][count] = depth_count_dict[depth].get(count,0)+1
+    # ax5=axes[4]
+
+    # create the distribution of which citation count = cascade size
+
+    # depth_count_dict = defaultdict(dict)
+    # for i,count in enumerate(dcxs):
+    #     depth = dys[i]
+    #     if depth>8:
+    #         depth=8
+    #     depth_count_dict[depth][count] = depth_count_dict[depth].get(count,0)+1
 
 
-    for depth in depth_count_dict.keys():
-        count_dict = depth_count_dict[depth]
-        xs=[]
-        ys=[]
-        for count in sorted(count_dict.keys()):
-            xs.append(count)
-            ys.append(count_dict[count])
+    # for depth in depth_count_dict.keys():
+    #     count_dict = depth_count_dict[depth]
+    #     xs=[]
+    #     ys=[]
+    #     for count in sorted(count_dict.keys()):
+    #         xs.append(count)
+    #         ys.append(count_dict[count])
 
-        ax5.plot(xs,ys,label='{:}'.format(depth))
+    #     ax5.plot(xs,ys,label='{:}'.format(depth))
 
-    # ax5.scatter(dcxs,dys)
-    ax5.set_xlabel('Citation Count\n(e)')
-    ax5.set_ylabel('Number')
-    ax5.set_xscale('log')
-    ax5.set_yscale('log')
-    ax5.legend()
-    ax5.set_title('Depth Distribution')
+    # # ax5.scatter(dcxs,dys)
+    # ax5.set_xlabel('Citation Count\n(e)')
+    # ax5.set_ylabel('Number')
+    # ax5.set_xscale('log')
+    # ax5.set_yscale('log')
+    # ax5.legend()
+    # ax5.set_title('Depth Distribution')
 
     plt.tight_layout()
     if is_heat:
