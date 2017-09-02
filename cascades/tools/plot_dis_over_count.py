@@ -4,7 +4,7 @@
 '''
 from basic_config import *
 
-def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
+def plot_heatmap(x,y,ax,bins,fig,gridsize=50):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 随着citation count的增加，各个指标的变化
