@@ -244,7 +244,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) == 4:
+    if len(sys.argv) != 4:
         print 'parameter error! python {:} is_heat is_smooth is_avg'.format(sys.argv[0])
     else:
         heat = int(sys.argv[1])
