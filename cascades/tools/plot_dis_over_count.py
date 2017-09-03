@@ -8,7 +8,7 @@ def plot_heatmap(x,y,ax,bins,fig,gridsize=50):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 随着citation count的增加，各个指标的变化
-def plot_dis_over_count(is_heat=False):
+def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
@@ -19,31 +19,49 @@ def plot_dis_over_count(is_heat=False):
     od_ys = plot_dict['od_ys']
     id_ys = plot_dict['id_ys']
 
-    for ii,indgree in enumerate(id_ys):
-        if indgree==1:
-            print cxs[ii],indgree
-
     num = len(plt.get_fignums())
-    # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
-
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
+    ## 将数量少于一定值的citation count 向上靠近
+    num_dict = Counter(cxs)
+    count_mapping = {}
+    last_count = 0
+    for x in sorted(num_dict.keys()):
+        if num_dict[x] > 5:
+            count_mapping[x] = x
+            last_count = x
+        else:
+            count_mapping[x] = last_count
     
-    rys=[]
-    max_dict = defaultdict(int)
+    rxs = []
+    rys = []
+    # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
+    #average dict
+    cc_size_dict = defaultdict(list)
 
     for i in range(len(cxs)):
+
+         #用于生成xs,ys是 将xs替代
+        if is_smooth:
+            sx = count_mapping[cxs[i]]
+        else:
+            sx = cxs[i]
+
+        # 计算时citation count 还是按照原值计算
         y  = eys[i]/float(cxs[i])-1
+        rxs.append(sx)
         rys.append(y)
-        if y> max_dict[cxs[i]]:
-            max_dict[cxs[i]] = y
+
+        cc_size_dict[sx].append(y)
+        # if y> max_dict[sx]:
+        #     max_dict[sx] = y
 
         if eys[i]==cxs[i]:
-            equal_dict[cxs[i]].append(1)
+            equal_dict[sx].append(1)
         else:
-            equal_dict[cxs[i]].append(0)
+            equal_dict[sx].append(0)
 
     ## percentage of  cascade size = ciattion count vs citation count
     print 'percentage of cascade size = citation count'
@@ -64,22 +82,37 @@ def plot_dis_over_count(is_heat=False):
     ax0.set_ylabel('percentage')
 
     print 'percentage of AMV'
-    ## ratio of cascade size/ ciattion count vs citation count
     ax1 = axes[1]
-    fit_x = []
-    fit_y = []
-    for key in sorted(max_dict.keys()):
-        fit_x.append(key)
-        fit_y.append(max_dict[key])
+    #max values
+    max_xs = []
+    max_ys = []
+    ## average 
+    avg_xs = []
+    avg_ys = []
+    for cc in sorted(cc_size_dict.keys()):
+        size_list = cc_size_dict[cc]
+        max_xs.append(cc)
+        max_ys.append(max(size_list))
+
+        avg_xs.append(cc)
+        avg_ys.append(sum(size_list)/float(len(size_list)))
 
     if is_heat:
-        plot_heatmap(cxs,rys,ax1,['log','linear'],fig)
+        plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
     else:
-        ax1.scatter(cxs,rys)
-    
-    ax1.plot(fit_x,fit_y,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(fit_y,np.log(fit_x),frac= 0.08))[1]]
-    ax1.plot(fit_x,fit_z,c='r')
+        ax1.scatter(rxs,rys)
+    if not is_average:
+        ##最大值图
+        ax1.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
+        ax1.plot(max_xs,max_zs,c='r')
+    else:
+        ##均值图
+        ax1.plot(avg_xs,avg_ys,c=color_sequence[4],alpha=0.8)
+        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
+        ax1.plot(avg_xs,avg_zs,c='r')
+
+
     ax1.set_xlabel('Citation Count\n(b)')
     ax1.set_ylabel('Average Marginal Value')
     ax1.set_xscale('log')
@@ -190,12 +223,23 @@ def plot_dis_over_count(is_heat=False):
     ax4.plot(xs,fit_z,c='r')
 
     plt.tight_layout()
+    # save output
+    heat = 0
+    average = 0 
+    smooth = 0
+
     if is_heat:
-        plt.savefig('pdf/compare_heat.png',dpi=200)
-        print 'figure saved to pdf/compare_heat.png'
-    else:
-        plt.savefig('pdf/compare.png',dpi=200)
-        print 'figure saved to pdf/compare.png'
+        heat=1
+    if is_average:
+        average = 1
+    if is_smooth:
+        smooth = 1
+
+    outpath = 'pdf/compare_{:}_{:}_{:}.png'.format(heat,smooth,average)
+    plt.savefig(outpath,dpi=300)
+    print 'figure saved to {:}'.format(outpath)
+
+
 
 
 if __name__ == '__main__':
