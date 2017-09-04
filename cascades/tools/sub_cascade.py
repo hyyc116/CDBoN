@@ -414,6 +414,7 @@ def plot_sub_cascade_dis():
         # ax.set_ylabel('log')
         ax.set_title('{:}th sub_cascade'.format(i))
         ax.set_xlim(0.9,2000)
+        ax.yaxis.get_major_formatter().set_powerlimits((0,1))
 
     plt.tight_layout()
     plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
