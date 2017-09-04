@@ -357,8 +357,8 @@ def plot_sub_cascade_dis():
     # 构建一个subcade的词典
     subcas_count_value = defaultdict(dict)
     for pid in subcas_dis.keys():
-        is_dict = subcas_dis['cas']
-        count = subcas_dis['count']
+        is_dict = subcas_dis[pid]['cas']
+        count = subcas_dis[pid]['count']
 
         for i in is_dict.keys():
             percent_list = subcas_count_value[i].get(count,[])
