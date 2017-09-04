@@ -427,5 +427,6 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 if __name__ == '__main__':
     # plot_unconnected_subgraphs()
-    stat_subcascade_frequecy(sys.argv[1])
+    # stat_subcascade_frequecy(sys.argv[1])
+    plot_sub_cascade_dis()
     
