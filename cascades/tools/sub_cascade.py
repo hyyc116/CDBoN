@@ -317,7 +317,7 @@ def stat_subcascade_frequecy(citation_cascade):
     for pid in cc.keys():
         progress_index+=1
 
-        if progress_index%1==0:
+        if progress_index%1000==0:
             logging.info('progress report:{:}/{:}'.format(progress_index,total))
 
         edges = cc[pid]['edges']
