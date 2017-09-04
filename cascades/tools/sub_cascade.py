@@ -389,7 +389,7 @@ def plot_sub_cascade_dis():
 
 
     #一共20个图
-    fig,axes = plt.subplots(4,5,figsize=(25,20))
+    fig,axes = plt.subplots(4,5,figsize=(25,18))
     for i in subcas_count_value.keys():
         xs = []
         ys = []
@@ -414,7 +414,7 @@ def plot_sub_cascade_dis():
         # ax.set_ylabel('log')
         ax.set_title('{:}th sub_cascade'.format(i))
         ax.set_xlim(0.9,2000)
-        ax.yaxis.get_major_formatter().set_powerlimits((0,2))
+        # ax.yaxis.get_major_formatter().set_powerlimits((0,2))
 
     plt.tight_layout()
     plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
