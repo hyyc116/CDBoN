@@ -304,7 +304,9 @@ def stat_subcascade_frequecy(citation_cascade):
 
     top_20_subcascade = {}
     for name in names[:20]:
-        top_20_subcascade[name] = subcacade_dict[name]
+        dig  = nx.DiGraph()
+        dig.add_edges_from(subcacade_dict[name])
+        top_20_subcascade[name] = dig
 
     #对原来的数据遍历一遍
     cc = json.loads(open(citation_cascade).read())
