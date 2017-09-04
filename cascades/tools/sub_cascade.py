@@ -313,7 +313,7 @@ def stat_subcascade_frequecy(citation_cascade):
     logging.info('data loaded...')
     progress_index=0
     total = len(cc.keys())
-    total_is_cas_dict = {}
+    total_is_cas_dict = defaultdict(dict)
     for pid in cc.keys():
         progress_index+=1
 
@@ -356,6 +356,14 @@ def plot_sub_cascade_dis():
 
     # 构建一个subcade的词典
     subcas_count_value = defaultdict(dict)
+    for pid in subcas_dis.keys():
+        is_dict = subcas_dis['cas']
+        count = subcas_dis['count']
+
+        for i in is_dict.keys():
+            percent_list = subcas_count_value[i].get(count,[])
+            percent_list.append(is_dict[i])
+            subcas_count_value[i][count] = percent_list
 
     pass
 
