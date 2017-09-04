@@ -383,7 +383,8 @@ def plot_sub_cascade_dis():
         ax.set_ylabel('percentage')
         ax.set_xscale('log')
         # ax.set_ylabel('log')
-        ax.set_title('Distribution of {:}th sub_cascade'.format(i))
+        ax.set_title('{:}th sub_cascade'.format(i))
+        ax.set_xlim(0.9,10010)
 
     plt.tight_layout()
     plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
