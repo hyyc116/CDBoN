@@ -368,10 +368,11 @@ def plot_sub_cascade_dis():
             last_count = cc
         else:
             count_mapping[cc] = last_count
+
     # print cc_counter
-    new_cc_counter = {}
+    new_cc_counter = defaultdict(int)
     for cc in cc_counter.keys():
-        new_cc_counter[count_mapping[cc]] = cc_counter[cc]
+        new_cc_counter[count_mapping[cc]] += cc_counter[cc]
 
     # print new_cc_counter
 
