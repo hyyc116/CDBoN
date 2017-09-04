@@ -275,3 +275,6 @@ def plot_size_n(ax,size_dict,n):
     # z = zip(*lowess(ys,xs,frac= 0.9))[1]
     # ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
+if __name__ == '__main__':
+    plot_unconnected_subgraphs()
+    

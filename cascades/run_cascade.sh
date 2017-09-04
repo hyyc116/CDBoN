@@ -10,14 +10,17 @@
 
 ### plot indicators distribution over citation count
 # python tools/plot_dis_over_count.py
-python tools/plot_dis_over_count.py 1 0 0
-python tools/plot_dis_over_count.py 1 0 1
-python tools/plot_dis_over_count.py 1 1 0
-python tools/plot_dis_over_count.py 1 1 1
-python tools/plot_dis_over_count.py 0 0 0
-python tools/plot_dis_over_count.py 0 0 1
-python tools/plot_dis_over_count.py 0 1 0
-python tools/plot_dis_over_count.py 0 1 1
+# python tools/plot_dis_over_count.py 1 0 0
+# python tools/plot_dis_over_count.py 1 0 1
+# python tools/plot_dis_over_count.py 1 1 0
+# python tools/plot_dis_over_count.py 1 1 1
+# python tools/plot_dis_over_count.py 0 0 0
+# python tools/plot_dis_over_count.py 0 0 1
+# python tools/plot_dis_over_count.py 0 1 0
+# python tools/plot_dis_over_count.py 0 1 1
+
+### plot sub-cascades patterns
+python tools/sub_cascade.py 
 
 
 
