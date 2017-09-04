@@ -309,6 +309,7 @@ def stat_subcascade_frequecy(citation_cascade):
     #对原来的数据遍历一遍
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
+    progress_index=0
     total_is_cas_dict = {}
     for pid in cc.keys():
         progress_index+=1
