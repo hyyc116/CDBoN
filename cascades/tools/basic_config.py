@@ -26,6 +26,9 @@ from matplotlib import cm as CM
 from collections import Counter
 from viz_graph import plot_a_subcascade
 from scipy.signal import wiener
+import matplotlib as mpl
+
+mpl.rcParams['agg.path.chunksize'] = 10000
 
 
 color_sequence = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c',
