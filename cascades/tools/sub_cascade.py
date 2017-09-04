@@ -346,7 +346,7 @@ def stat_subcascade_frequecy(citation_cascade):
         #对于某一个图形子图来讲
         is_dict = sub_cascade_dis_in_one(dig,top_20_subcascade)
         total_is_cas_dict[pid] = is_dict
-    open('data/total_cas_dis.json','w').write(json.dumps(total_is_cas_dict))
+    open('data/total_cas_index_dis.json','w').write(json.dumps(total_is_cas_dict))
 
 
 def sub_cascade_dis_in_one(dig,subcas_dict):
