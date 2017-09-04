@@ -374,7 +374,7 @@ def is_iso_subcascade(subgraph,subcas_dict):
     for name in subcas_dict.keys():
         subcas = subcas_dict[name]
 
-        if len(subcas.edges()) = len(subgraph.edges()):
+        if len(subcas.edges()) == len(subgraph.edges()):
             if nx.is_isomorphic(subcas,subgraph):
                 return True,name
 
