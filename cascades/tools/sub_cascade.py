@@ -284,7 +284,7 @@ def plot_size_n(ax,size_dict,n):
         ys.append(avg_percent)
 
     # ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
-    z = zip(*lowess(np.log(np.array(ys)),np.log(np.array(xs)),frac= 0.2))[1]
+    z = zip(*lowess(np.log(np.array(ys)+0.000001),np.log(np.array(xs)),frac= 0.2))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 if __name__ == '__main__':
