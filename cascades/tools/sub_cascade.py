@@ -191,14 +191,14 @@ def plot_unconnected_subgraphs():
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend(loc=2)
-    ax1.set_yscale('log')
+    # ax1.set_yscale('log')
 
     ax0.set_title('4 < N < 7 distribution')
     ax0.set_xlabel('citation count\n(b)')
     ax0.set_ylabel('Percentage of size N')
     ax0.set_xscale('log')
     ax0.legend(loc=2)
-    ax0.set_yscale('log')
+    # ax0.set_yscale('log')
 
     ax3 = axes[3]
     plot_subgraph_pattern(ax3)
@@ -284,7 +284,7 @@ def plot_size_n(ax,size_dict,n):
         ys.append(avg_percent)
 
     # ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
-    z = zip(*lowess(ys,np.log(np.array(xs)),frac= 0.2))[1]
+    z = zip(*lowess(ys,np.log(np.array(xs)),frac= 0.1))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 if __name__ == '__main__':
