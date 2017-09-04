@@ -265,6 +265,7 @@ def plot_size_n(ax,size_dict,n):
             n_percent = sub_counter.get(n,0)/float(len(subs))
             percent_list.append(n_percent)
 
+        print n_percent[:10]
         avg_percent = sum(percent_list)/len(percent_list)
 
         # number of size n 
