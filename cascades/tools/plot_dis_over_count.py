@@ -194,8 +194,9 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
     ax3.set_title('Out degree > 1')
-    ax3.plot(po_xs,1/np.array(po_xs),'--',c=color_sequence[4])
-    ax3.plot(po_xs,1-1/np.array(po_xs),'--',c=color_sequence[4])
+    np_po_xs = np.array([float(i) for i in sorted(po_xs) if i>1])
+    ax3.plot(np_po_xs,1/np.array(np_po_xs),'--',c=color_sequence[4])
+    ax3.plot(np_po_xs,1-1/np.array(np_po_xs),'--',c=color_sequence[4])
 
 
     max_xs = []
