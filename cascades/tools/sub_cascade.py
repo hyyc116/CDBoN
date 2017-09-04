@@ -117,39 +117,28 @@ def plot_unconnected_subgraphs():
     remaining_statistics = json.loads(open('data/remaining_statistics.json').read()) 
     remaining_subgraphs_dis = json.loads(open('data/remaining_subgraphs_dis.json').read()) 
 
-    # 首先画 剩余图形中 边的数量的比例分布图,散点图
-    # 横坐标为citation count 
-    # xs = []
-    # ys = []
-    # for k in sorted([int(k) for k in remaining_statistics.keys()]):
-    #     citation_count = str(k)
-    #     # print 'citation_count:',citation_count
-    #     for percent in remaining_statistics[citation_count]:
-    #         xs.append(citation_count)
-    #         ys.append(percent)
-
-    # fig,axes = plt.subplots(1,3,figsize=(15,5))
-    # ax1 = axes[0]
-    # ax1.scatter(xs,ys)
-    # ax1.set_xscale('log')
-
     # 在有剩余图的里面，找到的联通子图的分布
-
     total_dis = 0
     remain_edges_size = defaultdict(int)
 
     citation_counts_dict = defaultdict(list)
     lastk = 0
+
+    seven_subcas_dis = defaultdict(list)
+
     for k in sorted([int(k) for k in remaining_subgraphs_dis.keys()]):
         k_count = len(remaining_subgraphs_dis[str(k)])
         for subgraphs in remaining_subgraphs_dis[str(k)]:
             ##  如果这个k对应的文章数量小于10，遇上一个k合并
-            if k_count<10:
-                citation_counts_dict[lastk].extend(subgraphs)
+            if k_count<5:
+                k = lastk
             else:
-                citation_counts_dict[k].extend(subgraphs)
                 lastk = k
-                
+            
+            citation_counts_dict[lastk].extend(subgraphs)
+            
+            seven_subcas_dis[lastk].append(subgraphs)
+
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
@@ -191,7 +180,7 @@ def plot_unconnected_subgraphs():
     ax1 = axes[1]
     for i in range(7):
         n = i+1
-        plot_size_n(ax1,citation_counts_dict,n)
+        plot_size_n(ax1,seven_subcas_dis,n)
 
     ax1.set_title('size N distribution')
     ax1.set_xlabel('citation count\n(b)')
@@ -266,14 +255,21 @@ def plot_size_n(ax,size_dict,n):
     xs = [] 
     ys = []
     for cc in sorted(size_dict.keys()):
-        # size list
-        size_list = size_dict[cc]
-        total_num = len(size_list)
-        # counter    
-        counter = Counter(size_list)
+        # paper list
+        subgraphs_list = size_dict[cc]
+        # percentage list
+        percent_list = []
+        for subs in subgraphs_list:
+            # stat the subcascade size
+            sub_counter = Counter(subs)
+            n_percent = sub_counter.get(n,0)/float(len(subs))
+            percent_list.append(n_percent)
+
+        avg_percent = sum(percent_list)/len(percent_list)
+
         # number of size n 
         xs.append(cc)
-        ys.append(counter[n]/float(total_num))
+        ys.append(avg_percent)
 
     ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
     # z = zip(*lowess(ys,xs,frac= 0.9))[1]
