@@ -272,9 +272,9 @@ def plot_size_n(ax,size_dict,n):
         xs.append(cc)
         ys.append(avg_percent)
 
-    ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
-    # z = zip(*lowess(ys,xs,frac= 0.9))[1]
-    # ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
+    # ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
+    z = zip(*lowess(ys,xs,frac= 0.1))[1]
+    ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 if __name__ == '__main__':
     plot_unconnected_subgraphs()
