@@ -365,8 +365,27 @@ def plot_sub_cascade_dis():
             percent_list.append(is_dict[i])
             subcas_count_value[i][count] = percent_list
 
-    pass
+    #一共20个图
+    fig,axes = plt.subplots(4,5,figsize=(25,20))
+    for i in subcas_count_value.keys():
+        xs = []
+        ys = []
+        for cc in sorted(subcas_count_value[i].keys()):
+            percent_list = subcas_count_value[i][cc]
+            #这里求平均
+            ys.append(sum(percent_list)/len(percent_list))
 
+        # 
+        ax = axes[i/5,i%5]
+        ax.plot(xs,ys)
+        ax.set_xlabel('citation count')
+        ax.set_ylabel('percentage')
+        ax.set_xscale('log')
+        # ax.set_ylabel('log')
+        ax.set_title('Distribution of {:}th sub_cascade'.format(i))
+
+    plt.tight_layout()
+    plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
 
 
 def sub_cascade_dis_in_one(dig,subcas_dict):
