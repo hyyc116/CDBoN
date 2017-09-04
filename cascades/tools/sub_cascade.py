@@ -400,7 +400,7 @@ def plot_sub_cascade_dis():
         ax.set_xscale('log')
         # ax.set_ylabel('log')
         ax.set_title('{:}th sub_cascade'.format(i))
-        ax.set_xlim(0.9,10010)
+        ax.set_xlim(0.9,2000)
 
     plt.tight_layout()
     plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
