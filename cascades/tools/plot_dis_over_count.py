@@ -238,7 +238,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         else:
             sx = dcxs[i]
         
-        xs.append(xs)
+        xs.append(sx)
         ys.append(od_ys[i]/id_ys[i])
 
     if is_heat:
