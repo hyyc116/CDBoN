@@ -376,7 +376,7 @@ def plot_sub_cascade_dis():
             ys.append(sum(percent_list)/len(percent_list))
 
         # 
-        ax = axes[i/5,i%5]
+        ax = axes[int(i)/5,int(i)%5]
         ax.plot(xs,ys)
         ax.set_xlabel('citation count')
         ax.set_ylabel('percentage')
