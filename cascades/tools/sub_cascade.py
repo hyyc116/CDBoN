@@ -374,6 +374,7 @@ def plot_sub_cascade_dis():
             percent_list = subcas_count_value[i][cc]
             #这里求平均
             ys.append(sum(percent_list)/len(percent_list))
+            xs.append(cc)
 
         # 
         ax = axes[int(i)/5,int(i)%5]
