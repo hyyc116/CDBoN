@@ -80,7 +80,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         #percentage of out degree > 1
         po_xs.append(sx)
         po_y = od_ys[i]
-        po_ys.append(y)
+        po_ys.append(po_y)
         cc_po_dict[sx].append(po_y)
 
 
