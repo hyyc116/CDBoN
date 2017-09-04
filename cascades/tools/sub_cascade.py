@@ -353,17 +353,33 @@ def stat_subcascade_frequecy(citation_cascade):
 
 def plot_sub_cascade_dis():
     subcas_dis = json.loads(open('data/total_cas_index_dis.json').read())
+    
+    cc_counter = defaultdict(int)
+    for pid in subcas_dis.keys():
+        count = subcas_dis[pid]['count']
+        cc_counter[count]+=1
 
-    # 构建一个subcade的词典
+    count_mapping = {}
+    last_count = 0
+    for cc in sorted(cc_counter.keys()):
+        num = cc_counter[cc]
+        if num>5:
+            count_mapping[cc] = cc
+            last_count = cc
+        else:
+            count_mapping[cc] = last_count
+
+    # sub cas 的 字典
     subcas_count_value = defaultdict(dict)
     for pid in subcas_dis.keys():
         is_dict = subcas_dis[pid]['cas']
         count = subcas_dis[pid]['count']
-
+        count = count_mapping[count]
         for i in is_dict.keys():
             percent_list = subcas_count_value[i].get(count,[])
             percent_list.append(is_dict[i])
             subcas_count_value[i][count] = percent_list
+
 
     #一共20个图
     fig,axes = plt.subplots(4,5,figsize=(25,20))
