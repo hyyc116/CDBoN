@@ -40,6 +40,16 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     equal_dict=defaultdict(list)
     #average dict
     cc_size_dict = defaultdict(list)
+    # percentage of connector = id_ys
+    pc_xs = []
+    pc_ys = []
+    cc_pc_dict = defaultdict(list)
+
+    ## percentage of od>1
+    po_xs=[]
+    po_ys=[]
+    cc_po_dict = defaultdict(list)
+
 
     for i in range(len(cxs)):
 
@@ -55,13 +65,25 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         rys.append(y)
 
         cc_size_dict[sx].append(y)
-        # if y> max_dict[sx]:
-        #     max_dict[sx] = y
 
         if eys[i]==cxs[i]:
             equal_dict[sx].append(1)
         else:
             equal_dict[sx].append(0)
+
+        #percentage of connectors
+        pc_xs.append(sx)
+        pc_y = id_ys[i]
+        pc_ys.append(pc_y)
+        cc_pc_dict[sx].append(pc_y)
+
+        #percentage of out degree > 1
+        po_xs.append(sx)
+        po_y = od_ys[i]
+        po_ys.append(y)
+        cc_po_dict[sx].append(po_y)
+
+
 
     ## percentage of  cascade size = ciattion count vs citation count
     print 'percentage of cascade size = citation count'
@@ -108,7 +130,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         ax1.plot(max_xs,max_zs,c='r')
     else:
         ##均值图
-        ax1.plot(avg_xs,avg_ys,c=color_sequence[4],alpha=0.8)
+        ax1.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
         ax1.plot(avg_xs,avg_zs,c='r')
 
@@ -123,64 +145,81 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     print 'percentage of connectors'
     ax2 = axes[2]
     if is_heat:
-        plot_heatmap(dcxs,id_ys,ax2,['log','linear'],fig)
+        plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
     else:
-        ax2.scatter(dcxs,id_ys)
+        ax2.scatter(pc_xs,pc_ys)
         
     ax2.set_xlabel('Citation Count\n(c)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
     ax2.set_title('Percentage of connectors')
-    sdxcs = np.array([float(i) for i in sorted(dcxs) if i>1])
-    ax2.plot(sdxcs,1/sdxcs,'--',c=color_sequence[4])
-    ax2.plot(sdxcs,1-1/sdxcs,'--',c=color_sequence[4])
+    np_pc_xs = np.array([float(i) for i in sorted(pc_xs) if i>1])
+    ax2.plot(np_pc_xs,1/np_pc_xs,'--',c=color_sequence[4])
+    ax2.plot(np_pc_xs,1-1/np_pc_xs,'--',c=color_sequence[4])
 
-    max_dict = defaultdict(int)
-    for i,xv in enumerate(dcxs):
-        if id_ys[i] > max_dict[xv]:
-            max_dict[xv] = id_ys[i]
+    max_xs = []
+    max_ys = []
 
-    xs = []
-    ys = []
-    for x in sorted(max_dict.keys()):
-        xs.append(x)
-        ys.append(max_dict[x])
+    #avg
+    avg_xs = []
+    avg_ys = []
+    for cc in sorted(cc_pc_dict.keys()):
+        pc_list = cc_pc_dict[cc]
 
-    ax2.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    # fit_z.extend(fit_z_2)
-    ax2.plot(xs,fit_z,c='r')
+        max_xs.append(cc)
+        max_ys.append(max(pc_list))
 
+        avg_xs.append(cc)
+        avg_ys.append(sum(pc_list)/float(len(pc_list)))
+
+    if not is_average:
+        ax2.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax2.plot(max_xs,max_zs,c='r')
+    else:
+        ax2.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax2.plot(avg_xs,avg_zs,c='r')
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
+
     ax3 = axes[3]
     if is_heat:
-        plot_heatmap(dcxs,od_ys,ax3,['log','linear'],fig)
+        plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
     else:
-        ax3.scatter(dcxs,od_ys)
+        ax3.scatter(po_xs,po_ys)
 
     ax3.set_xlabel('Citation Count\n(d)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
     ax3.set_title('Out degree > 1')
-    ax3.plot(sdxcs,1/sdxcs,'--',c=color_sequence[4])
-    ax3.plot(sdxcs,1-1/sdxcs,'--',c=color_sequence[4])
+    ax3.plot(po_xs,1/np.array(po_xs),'--',c=color_sequence[4])
+    ax3.plot(po_xs,1-1/np.array(po_xs),'--',c=color_sequence[4])
 
-    max_dict = defaultdict(int)
-    for i,xv in enumerate(dcxs):
-        if od_ys[i] > max_dict[xv]:
-            max_dict[xv] = od_ys[i]
 
-    xs = []
-    ys = []
-    for x in sorted(max_dict.keys()):
-        xs.append(x)
-        ys.append(max_dict[x])
+    max_xs = []
+    max_ys = []
+    #avg
+    avg_xs = []
+    avg_ys = []
 
-    ax3.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    ax3.plot(xs,fit_z,c='r')
+    for cc in sorted(cc_po_dict.keys()):
+        max_xs.append(cc)
+        po_list = cc_po_dict[cc]
+        max_ys.append(max(po_list))
+
+        avg_xs.append(cc)
+        avg_ys.append(sum(po_list)/float(len(po_list)))
+
+    if not is_average:
+        ax3.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax3.plot(max_xs,max_zs,c='r')
+    else:
+        ax3.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax3.plot(avg_xs,avg_zs,c='r')
 
 
     print 'plot acmv..'
@@ -190,11 +229,13 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     xs = []
     ys = []
     for i,idy in enumerate(id_ys):
-        
-        if idy==0:
-            continue
 
-        xs.append(dcxs[i])
+        if is_smooth:
+            sx = count_mapping[dcxs[i]]
+        else:
+            sx = dcxs[i]
+        
+        xs.append(xs)
         ys.append(od_ys[i]/id_ys[i])
 
     if is_heat:
@@ -207,20 +248,41 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax4.set_ylabel('ACMV')
     ax4.set_title('ACMV distribution')
 
-    max_dict = defaultdict(int)
+    max_dict = defaultdict(list)
     for i,xv in enumerate(xs):
-        if ys[i] > max_dict[xv]:
-            max_dict[xv] = ys[i]
+        max_dict[xv].append(ys[i])
+        # if ys[i] > max_dict[xv]:
+            # max_dict[xv] = ys[i]
 
-    xs = []
-    ys = []
+    max_xs = []
+    max_ys = []
+
+    #avg
+    avg_xs = []
+    avg_ys = []
+
     for x in sorted(max_dict.keys()):
-        xs.append(x)
-        ys.append(max_dict[x])
+        max_xs.append(x)
+        max_ys.append(max(max_dict[x]))
 
-    ax4.plot(xs,ys,c=color_sequence[3],alpha=0.8)
-    fit_z = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    ax4.plot(xs,fit_z,c='r')
+        avg_xs.append(x)
+        avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
+
+
+    if not is_average:
+        ax4.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax4.plot(max_xs,max_zs,c='r')
+    else:
+        ax4.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        ax4.plot(avg_xs,avg_zs,c='r')
+
+    if is_smooth:
+        for ax in axes:
+            ax.set_xlim(0.9,1100)
+
+
 
     plt.tight_layout()
     # save output
