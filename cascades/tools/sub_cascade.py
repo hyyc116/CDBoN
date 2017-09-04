@@ -287,6 +287,102 @@ def plot_size_n(ax,size_dict,n):
     z = zip(*lowess(ys,np.log(np.array(xs)),frac= 0.1))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
+
+def stat_subcascade_frequecy():
+    name_num = defaultdict(int)
+    subcacade_dict = json.loads(open('data/subgraphs_mapping.json').read())
+
+    for name in subcacade_dict.keys():
+        num = name.strip().split('/')[1].split('.')[0].split('_')[-1]
+        name_num[name] = int(num)
+
+    ns = []
+    names = []
+    for name,num in sorted(name_num.items(),key=lambda x:x[1],reverse=True):
+        names.append(name)
+        ns.append(num)
+
+    top_20_subcascade = {}
+    for name in names[:20]:
+        top_20_subcascade[name] = subcacade_dict[name]
+
+    #对原来的数据遍历一遍
+    cc = json.loads(open(citation_cascade).read())
+    logging.info('data loaded...')
+    total_is_cas_dict = {}
+    for pid in cc.keys():
+        progress_index+=1
+
+        if progress_index%1==0:
+            logging.info('progress report:{:}/{:}'.format(progress_index,total))
+
+        edges = cc[pid]['edges']
+        size_of_cascade = float(len(edges))
+        citation_count = int(cc[pid]['cnum'])
+
+        remaining_edges=[]
+        for edge in edges:
+            source = edge[0]
+            target = edge[1]
+            
+            # 保留非直接连接
+            if not int(target)==int(pid):
+                remaining_edges.append(edge)
+
+        # 剩下的图形大小
+        remaining_edges_size = len(remaining_edges)
+
+        #如果剩余边的数量是0，无子图，原图形状为扇形
+        if remaining_edges_size==0:
+            continue
+
+        # 根据剩余边创建图
+        dig  = nx.DiGraph()
+        dig.add_edges_from(remaining_edges)
+        #对于某一个图形子图来讲
+        is_dict = sub_cascade_dis_in_one(dig,top_20_subcascade)
+        total_is_cas_dict[pid] = is_dict
+    open('data/total_cas_dis.json','w').write(json.dumps(total_is_cas_dict))
+
+
+def sub_cascade_dis_in_one(dig,subcas_dict):
+    #根据创建的有向图，获得其所有弱连接的子图
+    subgraphs =[] 
+    is_dict =defaultdict(int)
+    for subgraph in nx.weakly_connected_component_subgraphs(dig):
+        # 获得图像子图的边的数量
+        edge_size = len(subgraph.edges())
+        subgraphs.append(edge_size)
+
+        # 因为前20都是小于6的子图
+        if edge_size<6:
+            # 判断是否与已有的子图同构
+            is_sub, name = is_iso_subcascade(subgraph,subcas_dict)
+            # 如果有 则记录下来
+            if is_sub:
+                is_dict[name]+=1
+
+    # 每一种同构图形所占的比例
+    for name in is_dict.keys():
+        is_dict[name] = is_dict[name]/float(len(subgraphs))
+    #返回同构字典
+    return is_dict
+
+
+
+def is_iso_subcascade(subgraph,subcas_dict):
+    for name in subcas_dict.keys():
+        subcas = subcas_dict[name]
+
+        if len(subcas.edges()) = len(subgraph.edges()):
+            if nx.is_isomorphic(subcas,subgraph):
+                return True,name
+
+    return False,'-1'
+
+
+
 if __name__ == '__main__':
-    plot_unconnected_subgraphs()
+    # plot_unconnected_subgraphs()
+    stat_subcascade_frequecy()
     
