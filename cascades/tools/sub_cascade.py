@@ -369,6 +369,10 @@ def plot_sub_cascade_dis():
         else:
             count_mapping[cc] = last_count
 
+    new_cc_counter = {}
+    for cc in cc_counter.keys():
+        new_cc_counter[count_mapping[cc]] = cc_counter[cc]
+
     # sub cas 的 字典
     subcas_count_value = defaultdict(dict)
     for pid in subcas_dis.keys():
@@ -388,8 +392,10 @@ def plot_sub_cascade_dis():
         ys = []
         for cc in sorted(subcas_count_value[i].keys()):
             percent_list = subcas_count_value[i][cc]
-            #这里求平均
-            ys.append(sum(percent_list)/len(percent_list))
+            #这里求平均值的等于 平均比例*出现的比例
+            avg_per = sum(percent_list)/len(percent_list)
+            presence_per = len(percent_list)/float(new_cc_counter[cc])
+            ys.append(avg_per*presence_per)
             xs.append(cc)
 
         # 
