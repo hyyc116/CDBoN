@@ -288,7 +288,7 @@ def plot_size_n(ax,size_dict,n):
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 
-def stat_subcascade_frequecy():
+def stat_subcascade_frequecy(citation_cascade):
     name_num = defaultdict(int)
     subcacade_dict = json.loads(open('data/subgraphs_mapping.json').read())
 
@@ -384,5 +384,5 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 if __name__ == '__main__':
     # plot_unconnected_subgraphs()
-    stat_subcascade_frequecy()
+    stat_subcascade_frequecy(sys.argv[1])
     
