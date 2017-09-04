@@ -230,6 +230,9 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ys = []
     for i,idy in enumerate(id_ys):
 
+        if idy==0:
+            continue
+
         if is_smooth:
             sx = count_mapping[dcxs[i]]
         else:
