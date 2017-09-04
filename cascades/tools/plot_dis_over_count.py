@@ -224,52 +224,52 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     print 'plot acmv..'
     ### average connector marginal value
-    ax4 = axes[4]
+    # ax4 = axes[4]
 
-    xs = []
-    ys = []
-    for i,idy in enumerate(id_ys):
+    # xs = []
+    # ys = []
+    # for i,idy in enumerate(id_ys):
 
-        if idy==0:
-            continue
+    #     if idy==0:
+    #         continue
 
-        if is_smooth:
-            sx = count_mapping[dcxs[i]]
-        else:
-            sx = dcxs[i]
+    #     if is_smooth:
+    #         sx = count_mapping[dcxs[i]]
+    #     else:
+    #         sx = dcxs[i]
         
-        xs.append(sx)
-        ys.append(od_ys[i]/id_ys[i])
+    #     xs.append(sx)
+    #     ys.append(od_ys[i]/id_ys[i])
 
-    if is_heat:
-        plot_heatmap(xs,ys,ax4,['log','linear'],fig)
-    else:
-        ax4.scatter(xs,ys)
+    # if is_heat:
+    #     plot_heatmap(xs,ys,ax4,['log','linear'],fig)
+    # else:
+    #     ax4.scatter(xs,ys)
 
-    ax4.set_xscale('log')
-    ax4.set_xlabel('citation count\n(e)')
-    ax4.set_ylabel('ACMV')
-    ax4.set_title('ACMV distribution')
+    # ax4.set_xscale('log')
+    # ax4.set_xlabel('citation count\n(e)')
+    # ax4.set_ylabel('ACMV')
+    # ax4.set_title('ACMV distribution')
 
-    max_dict = defaultdict(list)
-    for i,xv in enumerate(xs):
-        max_dict[xv].append(ys[i])
-        # if ys[i] > max_dict[xv]:
-            # max_dict[xv] = ys[i]
+    # max_dict = defaultdict(list)
+    # for i,xv in enumerate(xs):
+    #     max_dict[xv].append(ys[i])
+    #     # if ys[i] > max_dict[xv]:
+    #         # max_dict[xv] = ys[i]
 
-    max_xs = []
-    max_ys = []
+    # max_xs = []
+    # max_ys = []
 
-    #avg
-    avg_xs = []
-    avg_ys = []
+    # #avg
+    # avg_xs = []
+    # avg_ys = []
 
-    for x in sorted(max_dict.keys()):
-        max_xs.append(x)
-        max_ys.append(max(max_dict[x]))
+    # for x in sorted(max_dict.keys()):
+    #     max_xs.append(x)
+    #     max_ys.append(max(max_dict[x]))
 
-        avg_xs.append(x)
-        avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
+    #     avg_xs.append(x)
+    #     avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
 
 
     # if not is_average:
