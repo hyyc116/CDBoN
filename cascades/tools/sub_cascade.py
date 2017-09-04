@@ -403,9 +403,10 @@ def plot_sub_cascade_dis():
             ys.append(avg_per*presence_per)
             xs.append(cc)
 
-        zs = [i for i in zip(*lowess(ys,np.log(xs),frac= 0.1))[1]]
+        
         ax = axes[int(i)/5,int(i)%5]
         ax.plot(xs,ys,alpha = 0.6)
+        zs = [j for j in zip(*lowess(ys,np.log(xs),frac= 0.1))[1]]
         ax.plot(xs,zs,c='r')
         ax.set_xlabel('citation count')
         ax.set_ylabel('percentage')
