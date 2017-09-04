@@ -142,7 +142,7 @@ def plot_unconnected_subgraphs():
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
-    fig,axes = plt.subplots(1,3,figsize=(15,5))
+    fig,axes = plt.subplots(1,4,figsize=(20,5))
     xs=[]
     ys=[]
     _80_dis = 0
@@ -178,18 +178,29 @@ def plot_unconnected_subgraphs():
 
     # 不同的cascade size 在不同的citation count中的比例
     ax1 = axes[1]
+    ax0 = axes[2]
     for i in range(7):
         n = i+1
-        plot_size_n(ax1,seven_subcas_dis,n)
+        if n <4:
+            plot_size_n(ax1,seven_subcas_dis,n)
+        else:
+            plot_size_n(ax0,seven_subcas_dis,n)
 
-    ax1.set_title('size N distribution')
+    ax1.set_title('size N < 4  distribution')
     ax1.set_xlabel('citation count\n(b)')
     ax1.set_ylabel('Percentage of size N')
     ax1.set_xscale('log')
     ax1.legend(loc=2)
     ax1.set_yscale('log')
 
-    ax3 = axes[2]
+    ax0.set_title('4 < N < 7 distribution')
+    ax0.set_xlabel('citation count\n(b)')
+    ax0.set_ylabel('Percentage of size N')
+    ax0.set_xscale('log')
+    ax0.legend(loc=2)
+    ax0.set_yscale('log')
+
+    ax3 = axes[3]
     plot_subgraph_pattern(ax3)
     ax3.set_title('pattern distribution')
     ax3.set_xlabel('Ranked patterns\n(c)')
@@ -273,7 +284,7 @@ def plot_size_n(ax,size_dict,n):
         ys.append(avg_percent)
 
     # ax.plot(xs,ys,c=color_sequence[n-1],label='N={:}'.format(n))
-    z = zip(*lowess(ys,np.log(np.array(xs)),frac= 0.2))[1]
+    z = zip(*lowess(np.log(np.array(ys)),np.log(np.array(xs)),frac= 0.2))[1]
     ax.plot(xs,z,label='size = {:}'.format(n),c=color_sequence[n-1])
 
 if __name__ == '__main__':
