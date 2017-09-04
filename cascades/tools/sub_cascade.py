@@ -405,7 +405,8 @@ def plot_sub_cascade_dis():
 
         zs = [i for i in zip(*lowess(ys,np.log(xs),frac= 0.1))[1]]
         ax = axes[int(i)/5,int(i)%5]
-        ax.plot(xs,zs)
+        ax.plot(xs,ys,alpha = 0.6)
+        ax.plot(xs,zs,c='r')
         ax.set_xlabel('citation count')
         ax.set_ylabel('percentage')
         ax.set_xscale('log')
