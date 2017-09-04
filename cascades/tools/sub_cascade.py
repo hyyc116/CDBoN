@@ -397,7 +397,7 @@ def plot_sub_cascade_dis():
             #这里求平均值的等于 平均比例*出现的比例
             avg_per = sum(percent_list)/len(percent_list)
             if len(percent_list) > new_cc_counter[cc]:
-                print len(percent_list), new_cc_counter[cc]
+                print cc,len(percent_list), new_cc_counter[cc]
             presence_per=len(percent_list)/float(new_cc_counter[cc])
             ys.append(avg_per*presence_per)
             xs.append(cc)
