@@ -301,7 +301,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         smooth = 1
 
     outpath = 'pdf/compare_{:}_{:}_{:}.png'.format(heat,smooth,average)
-    plt.savefig(outpath,dpi=300)
+    plt.savefig(outpath,dpi=200)
     print 'figure saved to {:}'.format(outpath)
 
 
