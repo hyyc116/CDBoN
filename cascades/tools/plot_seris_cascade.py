@@ -7,12 +7,9 @@ from basic_config import *
 def plot_series_of_graph(citation_network,citation_cascasde):
 
     ## plot paper node with in graph by the year of paper
-
     # 首先加载出来 load two networks
-
     cn = json.loads(open(citation_network).read())
     cc = json.loads(open(citation_cascasde).read())
-
     logging.info('citation network loaded with {:} papers, and citation cascade loaded with {:} papers.'.format(cn.keys(),cc.keys()))
 
     ## 随机选择一篇引文数量为200的文章
