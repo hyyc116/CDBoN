@@ -46,7 +46,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # index of citation
         x = i+1
         # depth of ciattion
-        y=0
+        y= 1
         # 这篇文章的被引数量
         outer_radius = 1
         # 这篇文章在citation cascade中的入度
