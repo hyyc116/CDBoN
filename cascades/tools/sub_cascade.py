@@ -341,6 +341,14 @@ def stat_subcascade_frequecy(citation_cascade):
         size_of_cascade = float(len(edges))
         citation_count = int(cc[pid]['cnum'])
 
+
+        # 首先要判断是不是有环
+        dig  = nx.DiGraph()
+        dig.add_edges_from(edges)
+
+        if not nx.is_directed_acyclic_graph(diG):
+            continue
+
         remaining_edges=[]
         for edge in edges:
             source = edge[0]
@@ -367,6 +375,7 @@ def stat_subcascade_frequecy(citation_cascade):
         total_is_cas_dict[pid]['count'] = citation_count
 
     open('data/total_cas_index_dis.json','w').write(json.dumps(total_is_cas_dict))
+    
 
 def plot_sub_cascade_dis():
     subcas_dis = json.loads(open('data/total_cas_index_dis.json').read())
@@ -435,6 +444,7 @@ def plot_sub_cascade_dis():
 
     plt.tight_layout()
     plt.savefig('pdf/subcascade_dis.pdf',dpi=200)
+    logging.info('sub-cascade distribution saved to pdf/subcascade_dis.pdf')
 
 
 def sub_cascade_dis_in_one(dig,subcas_dict):
@@ -476,9 +486,9 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 if __name__ == '__main__':
     # 生成 subcascade
-    # unlinked_subgraph(sys.argv[1])
+    unlinked_subgraph(sys.argv[1])
     # 对上面生成的sub-cascade进行统计
-    # plot_unconnected_subgraphs()
+    plot_unconnected_subgraphs()
     # 重新对前20的subcascade进行同质化统计
     stat_subcascade_frequecy(sys.argv[1])
     # 画出前20的分布图
