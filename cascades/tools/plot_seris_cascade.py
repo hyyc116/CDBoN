@@ -10,7 +10,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     # 首先加载出来 load two networks
     cn = json.loads(open(citation_network).read())
     cc = json.loads(open(citation_cascasde).read())
-    logging.info('citation network loaded with {:} papers, and citation cascade loaded with {:} papers.'.format(cn.keys(),cc.keys()))
+    logging.info('citation network loaded with {:} papers, and citation cascade loaded with {:} papers.'.format(len(cn.keys()),len(cc.keys())))
 
     ## 随机选择一篇引文数量为200的文章
     chosen_pid = -1
@@ -53,7 +53,9 @@ def plot_series_of_graph(citation_network,citation_cascasde):
 
         circle(ax,x,y)
 
-    plt.savefig('pdf/series_dis.pdf',dpi=200)
+    outname = 'pdf/series_dis.pdf'
+    plt.savefig(outname,dpi=200)
+    logging.info('pdf saved to {:}'.format(outname))
 
 if __name__ == '__main__':
     plot_series_of_graph(sys.argv[1],sys.argv[2])
