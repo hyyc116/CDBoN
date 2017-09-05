@@ -55,7 +55,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # depth of ciattion
         y= max_depth(diG,pid,chosen_pid)
         # 这篇文章的被引数量
-        outer_radius = log(number_of_citation(cc,pid)+1)+1
+        outer_radius = np.log(number_of_citation(cc,pid)+1)+1
         # 这篇文章在citation cascade中的入度
         inner_radius = 0
         # 这篇文章的出度
