@@ -38,7 +38,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     citations = cn[chosen_pid]['citations']
     # citations是一个字典，每一个引证文献的id对应其publication_year
     # 按照发表时间排序
-    for i,(pid,year) in enumerate(sorted(cirations.items(),key=lambda x:x[1])):
+    for i,(pid,year) in enumerate(sorted(citations.items(),key=lambda x:x[1])):
         # index of citation
         x = i+1
         # depth of ciattion
