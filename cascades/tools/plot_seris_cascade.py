@@ -19,7 +19,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         node_count = cc[pid]['cnum']
         edge_count = cc[pid]['enum']
 
-        if node_count==300 and float(edge_count)/node_count>4:
+        if node_count==50 and float(edge_count)/node_count>4:
             chosen_pid = pid
 
             break
