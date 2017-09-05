@@ -19,7 +19,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         node_count = cc[pid]['cnum']
         edge_count = cc[pid]['enum']
 
-        if node_count==150 and float(edge_count)/node_count>3:
+        if node_count==500 and float(edge_count)/node_count>4:
             chosen_pid = pid
 
             break
@@ -33,7 +33,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ## 选择完毕之后
 
     ''' 根据citation network中 这篇文章的citation的年份 在坐标轴中画圆 '''
-    fig,ax = plt.subplots(figsize=(50,5))
+    fig,ax = plt.subplots(figsize=(25,5))
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
     #定义两种颜色
