@@ -46,6 +46,8 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     edges = cc[chosen_pid]['edges']
     diG = nx.DiGraph()
     diG.add_edges_from(edges)
+    
+    diG.in_degree()
 
     # citations是一个字典，每一个引证文献的id对应其publication_year
     # 按照发表时间排序
@@ -55,13 +57,18 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # depth of ciattion
         y= max_depth(diG,pid,chosen_pid)
         # 这篇文章的被引数量
-        outer_radius = number_of_citation(cc,pid)+1
+        nc = number_of_citation(cc,pid)+1
+        outer_radius = (number_of_citation(cc,pid)+1)*5
         # 这篇文章在citation cascade中的入度
-        inner_radius = 0
+        od = diG.out_degree(pid)
+        ind = diG.in_degree(pid)
+        inner_radius = ind/float(nc)*outer_radius
         # 这篇文章的出度
-        line_width = 1
+        line_width = od
 
         ax.scatter(x,y,s=outer_radius,c=supporter_color)
+        if ind>0:
+            ax.scatter(x,y,s=inner_radius,c=connector_color)
 
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     plt.tight_layout()
