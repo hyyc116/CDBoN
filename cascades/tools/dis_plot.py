@@ -130,7 +130,7 @@ def stats_plot():
    
     ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
-    ax3.set_xlim(0,13)
+    # ax3.set_xlim(0,13)
     ax3.set_xticks(range(14),[str(i) for i in range(14)])
     ax3.legend()
 
