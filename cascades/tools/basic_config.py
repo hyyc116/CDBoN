@@ -27,6 +27,8 @@ from collections import Counter
 from viz_graph import plot_a_subcascade
 from scipy.signal import wiener
 import matplotlib as mpl
+from matplotlib.patches import Circle
+from matplotlib.patheffects import withStroke
 
 mpl.rcParams['agg.path.chunksize'] = 10000
 
@@ -48,6 +50,14 @@ params = {'legend.fontsize': 8,
          'xtick.labelsize':15,
          'ytick.labelsize':15}
 pylab.rcParams.update(params)
+
+
+def circle(ax,x,y,radius=0.15):
+
+    circle = Circle((x, y), radius, clip_on=False, zorder=10, linewidth=1,
+                    edgecolor='black', facecolor=(0, 0, 0, .0125),
+                    path_effects=[withStroke(linewidth=5, foreground='w')])
+    ax.add_artist(circle)
 
 def power_low_func(x,a,b):
     return b*(x**(-a))
