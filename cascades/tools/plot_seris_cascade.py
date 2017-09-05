@@ -81,6 +81,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
 
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     ax.set_ylim(-5,m_h+5)
+    ax.set_yticks([],[])
     # plt.axis('off')
 
     plt.tight_layout()
