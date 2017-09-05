@@ -116,7 +116,7 @@ def stats_plot():
 
     # use exponential func to fit the distribution
 
-    popt,pcov = curve_fit(exponential_func,xs[3:],ys[3:])
+    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
     print xs
     print ys
