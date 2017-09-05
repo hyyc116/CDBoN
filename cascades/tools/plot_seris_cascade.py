@@ -14,8 +14,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
 
     ## 随机选择一篇引文数量为200的文章
     chosen_pid = -1
-    while True:
-        pid = random.choice(cc.keys())
+    for pid in cc.keys():
         # 判断这个文章的引文数量以及边的数量
         node_count = cc[pid]['cnum']
         edge_count = cc[pid]['enum']
@@ -53,7 +52,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
 
         circle(ax,x,y)
 
-    outname = 'pdf/series_dis.pdf'
+    outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     plt.savefig(outname,dpi=200)
     logging.info('pdf saved to {:}'.format(outname))
 
