@@ -63,7 +63,7 @@ def power_low_func(x,a,b):
     return b*(x**(-a))
 
 def exponential_func(x,a,b):
-    return a*np.exp(-a*x)*b
+    return b*np.exp(-a*x)
 
 def square_x(x,a,b,c):
   return a*pow(x,2)+b*x+c
