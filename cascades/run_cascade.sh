@@ -24,7 +24,7 @@ python tools/plot_dis_over_count.py 0 1 0
 python tools/plot_dis_over_count.py 0 1 1
 
 ### plot sub-cascades patterns
-python tools/sub_cascade.py data/aminer_citation_cascade.json
+# python tools/sub_cascade.py data/aminer_citation_cascade.json
 
 
 
