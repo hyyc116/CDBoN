@@ -37,7 +37,9 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
     ## 获得这篇文章的cascade图
-    
+    edges = cc[chosen_pid]['edges']
+    diG = nx.DiGraph()
+    diG.add_edges_from(edges)
 
     # citations是一个字典，每一个引证文献的id对应其publication_year
     # 按照发表时间排序
@@ -45,7 +47,8 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # index of citation
         x = i+1
         # depth of ciattion
-        y= 1
+
+        y= max_depth(diG,pid,chosen_pid)
         # 这篇文章的被引数量
         outer_radius = 1
         # 这篇文章在citation cascade中的入度
@@ -58,6 +61,15 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     plt.savefig(outname,dpi=200)
     logging.info('pdf saved to {:}'.format(outname))
+
+def max_depth(G,source,target):
+    max_d = 0
+    for path in nx.all_simple_paths(G, source=source, target=target):
+        if len(path)>max_d:
+            max_d = len(path)
+
+    return max_d
+
 
 if __name__ == '__main__':
     plot_series_of_graph(sys.argv[1],sys.argv[2])
