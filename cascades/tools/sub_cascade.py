@@ -34,7 +34,7 @@ def unlinked_subgraph(citation_cascade):
     logging.info('data loaded...')
     # 统计有多少图去掉与根节点直接相连的边只有还有图
     # 剩余边的比例 与前面统计的图 出度大于1的点的比例 是相同的
-    remaining_statistics = defaultdict(list)
+    # remaining_statistics = defaultdict(list)
 
     # 剩余的边构成的图中，有多少不相互连通的子图
     remaining_subgraphs_dis = defaultdict(list)
@@ -68,7 +68,7 @@ def unlinked_subgraph(citation_cascade):
         
         # 
         remaining_edges_size = len(remaining_edges)
-        remaining_statistics[citation_count].append(remaining_edges_size/size_of_cascade)
+        # remaining_statistics[citation_count].append(remaining_edges_size/size_of_cascade)
 
         #如果剩余边的数量是0，无子图，原图形状为扇形
         if remaining_edges_size==0:
@@ -92,7 +92,7 @@ def unlinked_subgraph(citation_cascade):
         remaining_subgraphs_dis[citation_count].append(subgraphs)
 
     # write output
-    open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
+    # open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
 
     # 将已经同质化过的图形，画出来
@@ -114,7 +114,7 @@ def unlinked_subgraph(citation_cascade):
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
-    remaining_statistics = json.loads(open('data/remaining_statistics.json').read()) 
+    # remaining_statistics = json.loads(open('data/remaining_statistics.json').read()) 
     remaining_subgraphs_dis = json.loads(open('data/remaining_subgraphs_dis.json').read()) 
 
     # 在有剩余图的里面，找到的联通子图的分布
@@ -458,7 +458,9 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 
 if __name__ == '__main__':
-    plot_unconnected_subgraphs()
+    # 生成 subcascade
+    unlinked_subgraph(sys.argv[1])
+    # plot_unconnected_subgraphs()
     # stat_subcascade_frequecy(sys.argv[1])
     # plot_sub_cascade_dis()
     
