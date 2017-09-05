@@ -33,7 +33,13 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ## 选择完毕之后
 
     ''' 根据citation network中 这篇文章的citation的年份 在坐标轴中画圆 '''
-    fig,ax = plt.subplots()
+    fig,ax = plt.subplots(figsize=(150,50))
+    ax.set_xlabel('index of citation')
+    ax.set_ylabel('depth of node')
+    #定义两种颜色
+    connector_color = color_sequence[0]
+    supporter_color = color_sequence[1]
+
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
     ## 获得这篇文章的cascade图
@@ -47,16 +53,15 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # index of citation
         x = i+1
         # depth of ciattion
-
         y= max_depth(diG,pid,chosen_pid)
         # 这篇文章的被引数量
-        outer_radius = 1
+        outer_radius = log(number_of_citation(cc,pid)+1)+1
         # 这篇文章在citation cascade中的入度
         inner_radius = 0
         # 这篇文章的出度
         line_width = 1
 
-        ax.scatter(x,y,s=outer_radius)
+        ax.scatter(x,y,s=outer_radius,c=supporter_color)
 
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     plt.savefig(outname,dpi=200)
@@ -69,6 +74,13 @@ def max_depth(G,source,target):
             max_d = len(path)
 
     return max_d
+
+def number_of_citation(cc,pid):
+    pid_dict = cc.get(pid,'-1')
+    if pid_dict=='-1':
+        return 0
+    else:
+        return cc[pid]['cnum']
 
 
 if __name__ == '__main__':
