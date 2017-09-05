@@ -440,7 +440,7 @@ def sub_cascade_dis_in_one(dig,subcas_dict):
         subgraphs.append(edge_size)
 
         # 因为前20都是小于6的子图
-        if edge_size<6:
+        if edge_size<7:
             # 判断是否与已有的子图同构
             is_sub, name = is_iso_subcascade(subgraph,subcas_dict)
             # 如果有 则记录下来
@@ -471,9 +471,9 @@ if __name__ == '__main__':
     # 生成 subcascade
     # unlinked_subgraph(sys.argv[1])
     # 对上面生成的sub-cascade进行统计
-    plot_unconnected_subgraphs()
+    # plot_unconnected_subgraphs()
     # 重新对前20的subcascade进行同质化统计
-    # stat_subcascade_frequecy(sys.argv[1])
+    stat_subcascade_frequecy(sys.argv[1])
     # 画出前20的分布图
-    # plot_sub_cascade_dis()
+    plot_sub_cascade_dis()
     
