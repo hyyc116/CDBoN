@@ -37,9 +37,9 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
 
-    ax.spines['top'].set_visible(False)
+    # ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
-    ax.spines['right'].set_visible(False)
+    # ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
 
     #定义两种颜色
@@ -81,7 +81,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
 
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     ax.set_ylim(-5,m_h+5)
-    plt.axis('off')
+    # plt.axis('off')
 
     plt.tight_layout()
     plt.savefig(outname,dpi=200)
