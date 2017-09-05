@@ -37,8 +37,8 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
     #定义两种颜色
-    connector_color = color_sequence[5]
-    supporter_color = color_sequence[3]
+    connector_color = color_sequence[8]
+    supporter_color = color_sequence[2]
 
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
