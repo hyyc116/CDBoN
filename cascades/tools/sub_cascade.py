@@ -56,6 +56,13 @@ def unlinked_subgraph(citation_cascade):
         size_of_cascade = float(len(edges))
         citation_count = int(cc[pid]['cnum'])
 
+        # 首先要判断是不是有环
+        dig  = nx.DiGraph()
+        dig.add_edges_from(edges)
+
+        if not nx.is_directed_acyclic_graph(diG):
+            continue
+
         remaining_edges=[]
         for edge in edges:
             source = edge[0]
