@@ -88,7 +88,8 @@ def main(path):
 
 
 if __name__ == '__main__':
-    if len(sys.argv)==2:
-        main(sys.ragv[1])
-    else:
-        print 'ERROR: only one parameter: [path/to/aminer_reference.json]'
+    # if len(sys.argv)==2:
+    #     main(sys.ragv[1])
+    # else:
+    #     print 'ERROR: only one parameter: [path/to/aminer_reference.json]'
+    build_cascades(sys.argv[1])
