@@ -114,6 +114,7 @@ def unlinked_subgraph(citation_cascade):
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
+    logging.info('plot statistics figures of sub-cascades')
     # remaining_statistics = json.loads(open('data/remaining_statistics.json').read()) 
     remaining_subgraphs_dis = json.loads(open('data/remaining_subgraphs_dis.json').read()) 
 
@@ -463,7 +464,7 @@ if __name__ == '__main__':
     # 对上面生成的sub-cascade进行统计
     plot_unconnected_subgraphs()
     # 重新对前20的subcascade进行同质化统计
-    stat_subcascade_frequecy(sys.argv[1])
+    # stat_subcascade_frequecy(sys.argv[1])
     # 画出前20的分布图
-    plot_sub_cascade_dis()
+    # plot_sub_cascade_dis()
     
