@@ -125,3 +125,6 @@ def gen_statistics_data(citation_cascade):
     plot_dict['id_ys'] = id_ys
 
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
+
+if __name__ == '__main__':
+    gen_statistics_data(sys.argv[1])
