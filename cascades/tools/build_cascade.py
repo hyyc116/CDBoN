@@ -39,7 +39,7 @@ def build_citation_network(path):
         ref_dict[cited_pid] = cited_dict
 
     citation_network_path = 'data/aminer_citation_dict.json'
-    logging.info('total {:}, self citation count {:}'.format(ref_size,self_citation_count))
+    logging.info('total {:}, self citation count {:}, final number of papers:{:}'.format(ref_size,self_citation_count,len(ref_dict.keys())))
     open(citation_network_path,'w').write(json.dumps(ref_dict))
     logging.info('saved to {:}'.format(citation_network_path))
     return citation_network_path
@@ -47,11 +47,12 @@ def build_citation_network(path):
 #after building the citation network, we build citation cascade
 def build_cascades(citation_network,outpath):
     cn = json.loads(open(citation_network).read())
-    logging.info('data loaded...')
+    t_l = len(cn.keys())
+    logging.info('data loaded, {:} papers'.format(t_l))
     log_count=1
     for pid in cn.keys():
-        if log_count%1000==1:
-            logging.info('progress:'+str(log_count))
+        if log_count%10000==1:
+            logging.info('progress: {:}/{:}'.format(log_count,t_l))
 
         log_count+=1
         # for a paper, get its dict
@@ -83,7 +84,6 @@ def build_cascades(citation_network,outpath):
             #     if cp_dict.get(scpid,'-1')=='-1':
             #         continue
             #     else:
-                    
 
         pdict['edges'] = edges
         pdict['cnum'] = len(citing_pids)
@@ -92,7 +92,7 @@ def build_cascades(citation_network,outpath):
         cn[pid] = pdict
 
     open(outpath,'w').write(json.dumps(cn))
-    logging.info('citation cascade saved to {:}.'.format(outpath))
+    logging.info('{:} citation cascade saved to {:}.'.format(len(cn.keys()),outpath))
 
 def main(path):
     citation_network_path = build_citation_network(path)
