@@ -96,7 +96,7 @@ def build_cascades(citation_network,outpath):
 
 def main(path):
     citation_network_path = build_citation_network(path)
-    build_cascades(citation_network_path)
+    build_cascades(citation_network_path,'data/aminer_citation_cascade.json')
 
 
 if __name__ == '__main__':
