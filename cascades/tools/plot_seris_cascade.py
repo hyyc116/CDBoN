@@ -36,6 +36,12 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     fig,ax = plt.subplots(figsize=(15,3))
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+
     #定义两种颜色
     connector_color = color_sequence[8]
     supporter_color = color_sequence[2]
