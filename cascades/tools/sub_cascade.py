@@ -181,7 +181,7 @@ def plot_unconnected_subgraphs():
     ax1 = axes[1]
     ax0 = axes[2]
     ax01 = axes[3]
-    for i in range(7):
+    for i in range(13):
         n = i+1
         if n <4:
             plot_size_n(ax1,seven_subcas_dis,n)
