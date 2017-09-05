@@ -122,7 +122,7 @@ def stats_plot():
     print ys
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 12, 12), exponential_func(np.linspace(1, 12, 12), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth\n(c)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(100,1000000,10),'--',label='x={:}'.format(_80_x))

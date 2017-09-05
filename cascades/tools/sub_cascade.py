@@ -28,7 +28,7 @@ def iso(subgraph_dict,graph):
     
     return subgraph_dict
 
-## 将与根节点的链接的边去掉,相当于大出度小于2的点都去掉了
+## 将与根节点的链接的边去掉,相当于出度小于2的点都去掉了
 def unlinked_subgraph(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
     logging.info('data loaded...')
@@ -458,7 +458,7 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 
 if __name__ == '__main__':
-    # plot_unconnected_subgraphs()
+    plot_unconnected_subgraphs()
     # stat_subcascade_frequecy(sys.argv[1])
-    plot_sub_cascade_dis()
+    # plot_sub_cascade_dis()
     

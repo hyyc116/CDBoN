@@ -1,13 +1,17 @@
 
 ## build cascade tree
-# python cascade_statistics.py build_cascade data/aminer_citation_dict.json
+echo 'build cascade'
+# python tools/build_cascade.py ../data/aminer_reference.json 
 
+echo 'generate statistics data'
 ## gen statistics data of citation number cascade_size depth degree
-# python cascade_statistics.py gen_stat data/aminer_citation_cascade.json
+# python tools/gen_stats.py data/aminer_citation_cascade.json
 
+echo 'generate distribution'
 ## plot fundamental indicators [citation count, cascade size, cascade depth, in and out degree]
-# python cascade_statistics.py stat_plot data/aminer_citation_cascade.json
+# python tools/dis_plot.py
 
+echo 'generate distribution over citation'
 ### plot indicators distribution over citation count
 # python tools/plot_dis_over_count.py
 # python tools/plot_dis_over_count.py 1 0 0
