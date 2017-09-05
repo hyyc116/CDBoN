@@ -55,6 +55,11 @@ def build_cascades(citation_network,outpath):
         # logging.info('Number of citations:{:}'.format(len(citing_pids)))
         edges = []
         for i,cpid in enumerate(citing_pids):
+
+            if cpid ==pid:
+                print 'ERROR'
+                continue
+
             edges.append([cpid,pid])
             #get cpid's citation dict
             if cn.get(cpid,-1)==-1:
