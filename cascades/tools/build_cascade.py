@@ -12,6 +12,7 @@ def build_citation_network(path):
     ref_size = len(reflist)
     logging.info('loading aminer citation_reference.json, size: {:}'.format(ref_size))
     count=0
+    self_citation_count=0
     for ref in reflist:
         count+=1
         if count%10000==1:
@@ -20,6 +21,11 @@ def build_citation_network(path):
         pid_year = ref['cpid_year']
         cited_pid = ref['pid']
         cited_pid_year = ref['pid_year']
+
+        # 如果是自引，那么不要这一条记录
+        if cited_pid == pid:
+            self_citation_count+=1
+            continue
 
         if int(pid_year)<1900 or int(cited_pid_year)<1900 or int(pid_year)<int(cited_pid_year):
             continue
@@ -33,6 +39,7 @@ def build_citation_network(path):
         ref_dict[cited_pid] = cited_dict
 
     citation_network_path = 'data/aminer_citation_dict.json'
+    logging.info('total {:}, self citation count {:}'.format(ref_size,self_citation_count))
     open(citation_network_path,'w').write(json.dumps(ref_dict))
     logging.info('saved to {:}'.format(citation_network_path))
     return citation_network_path
@@ -93,8 +100,8 @@ def main(path):
 
 
 if __name__ == '__main__':
-    # if len(sys.argv)==2:
-    #     main(sys.ragv[1])
-    # else:
-    #     print 'ERROR: only one parameter: [path/to/aminer_reference.json]'
-    build_cascades(sys.argv[1],sys.argv[2])
+    if len(sys.argv)==2:
+        main(sys.ragv[1])
+    else:
+        print 'ERROR: only one parameter: [path/to/aminer_reference.json]'
+    # build_cascades(sys.argv[1],sys.argv[2])
