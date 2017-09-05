@@ -36,6 +36,9 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     fig,ax = plt.subplots()
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
+    ## 获得这篇文章的cascade图
+    
+
     # citations是一个字典，每一个引证文献的id对应其publication_year
     # 按照发表时间排序
     for i,(pid,year) in enumerate(sorted(citations.items(),key=lambda x:x[1])):

@@ -59,16 +59,19 @@ def build_cascades(citation_network,outpath):
             #get cpid's citation dict
             if cn.get(cpid,-1)==-1:
                 continue
-            cp_dict = cn[cpid]['citations']
-            j=i+1
-            while j<len(citing_pids):
+            cp_citing_pid = cn[cpid]['citations'].keys()
+
+            for inter_pid in set(cp_citing_pid) & set(citing_pids):
+                edges.append([inter_pid,cpid])
+            # j=i+1
+            # while j<len(citing_pids):
                 
-                scpid = citing_pids[j]
-                j+=1
-                if cp_dict.get(scpid,'-1')=='-1':
-                    continue
-                else:
-                    edges.append([scpid,cpid])
+            #     scpid = citing_pids[j]
+            #     j+=1
+            #     if cp_dict.get(scpid,'-1')=='-1':
+            #         continue
+            #     else:
+                    
 
         pdict['edges'] = edges
         pdict['cnum'] = len(citing_pids)
