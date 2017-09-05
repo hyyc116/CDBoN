@@ -37,8 +37,8 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
     #定义两种颜色
-    connector_color = color_sequence[3]
-    supporter_color = color_sequence[0]
+    connector_color = color_sequence[5]
+    supporter_color = color_sequence[3]
 
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
@@ -58,7 +58,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         y= max_depth(diG,pid,chosen_pid)
         # 这篇文章的被引数量
         nc = number_of_citation(cc,pid)+1
-        outer_radius = (number_of_citation(cc,pid)+1)*5
+        outer_radius = nc*5
         # 这篇文章在citation cascade中的入度
         od = diG.out_degree(pid)
         ind = diG.in_degree(pid)
@@ -66,7 +66,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # 这篇文章的出度
         line_width = od
 
-        ax.scatter(x,y,s=outer_radius,c=supporter_color)
+        ax.scatter(x,y,s=outer_radius,c=supporter_color,alpha=0.8)
         if ind>0:
             ax.scatter(x,y,s=inner_radius,c=connector_color)
 
