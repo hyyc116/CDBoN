@@ -60,7 +60,7 @@ def unlinked_subgraph(citation_cascade):
         dig  = nx.DiGraph()
         dig.add_edges_from(edges)
 
-        if not nx.is_directed_acyclic_graph(diG):
+        if not nx.is_directed_acyclic_graph(dig):
             continue
 
         remaining_edges=[]
@@ -346,7 +346,7 @@ def stat_subcascade_frequecy(citation_cascade):
         dig  = nx.DiGraph()
         dig.add_edges_from(edges)
 
-        if not nx.is_directed_acyclic_graph(diG):
+        if not nx.is_directed_acyclic_graph(dig):
             continue
 
         remaining_edges=[]
