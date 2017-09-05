@@ -33,7 +33,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ## 选择完毕之后
 
     ''' 根据citation network中 这篇文章的citation的年份 在坐标轴中画圆 '''
-    fig,ax = plt.subplots(figsize=(100,50))
+    fig,ax = plt.subplots()
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
     # citations是一个字典，每一个引证文献的id对应其publication_year
@@ -50,7 +50,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         # 这篇文章的出度
         line_width = 1
 
-        circle(ax,x,y)
+        ax.scatter(x,y,s=outer_radius)
 
     outname = 'pdf/series_{:}_dis.pdf'.format(chosen_pid)
     plt.savefig(outname,dpi=200)
