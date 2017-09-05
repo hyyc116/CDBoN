@@ -7,7 +7,7 @@ from basic_config import *
 def iso(subgraph_dict,graph):
     size = len(graph.edges())
     subgraphs  = subgraph_dict.get(size,{}).keys()
-    logging.info('length of graph: {:}, of existing subgraphs number:{:}'.format(size,len(subgraphs)))
+    # logging.info('length of graph: {:}, of existing subgraphs number:{:}'.format(size,len(subgraphs)))
     # print 'length of graph',size,'existing subgraphs',len(subgraphs)
     is_iso = False
     if len(subgraphs)==0:
@@ -48,7 +48,7 @@ def unlinked_subgraph(citation_cascade):
     for pid in cc.keys():
         progress_index+=1
 
-        if progress_index%1==0:
+        if progress_index%100==0:
             logging.info('progress report:{:}/{:}'.format(progress_index,total))
         yes_count = 0
 
