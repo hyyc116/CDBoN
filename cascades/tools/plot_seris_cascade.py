@@ -19,7 +19,7 @@ def plot_series_of_graph(citation_network,citation_cascasde):
         node_count = cc[pid]['cnum']
         edge_count = cc[pid]['enum']
 
-        if node_count==500 and float(edge_count)/node_count>4:
+        if node_count==300 and float(edge_count)/node_count>4:
             chosen_pid = pid
 
             break
@@ -37,8 +37,8 @@ def plot_series_of_graph(citation_network,citation_cascasde):
     ax.set_xlabel('index of citation')
     ax.set_ylabel('depth of node')
     #定义两种颜色
-    connector_color = color_sequence[0]
-    supporter_color = color_sequence[1]
+    connector_color = color_sequence[3]
+    supporter_color = color_sequence[0]
 
     ## 这篇文章的citation 列表
     citations = cn[chosen_pid]['citations']
