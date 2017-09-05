@@ -143,7 +143,7 @@ def plot_unconnected_subgraphs():
             for size in subgraphs:
                 remain_edges_size[size]+=1
                 total_dis+=1
-    fig,axes = plt.subplots(1,4,figsize=(20,5))
+    fig,axes = plt.subplots(1,5,figsize=(25,5))
     xs=[]
     ys=[]
     _80_dis = 0
@@ -180,12 +180,15 @@ def plot_unconnected_subgraphs():
     # 不同的cascade size 在不同的citation count中的比例
     ax1 = axes[1]
     ax0 = axes[2]
+    ax01 = axes[3]
     for i in range(7):
         n = i+1
         if n <4:
             plot_size_n(ax1,seven_subcas_dis,n)
-        else:
+        elif n<8:
             plot_size_n(ax0,seven_subcas_dis,n)
+        else:
+            plot_size_n(ax01,seven_subcas_dis,n)
 
     ax1.set_title('size N < 4  distribution')
     ax1.set_xlabel('citation count\n(b)')
@@ -198,11 +201,17 @@ def plot_unconnected_subgraphs():
     ax0.set_xlabel('citation count\n(b)')
     ax0.set_ylabel('Percentage of size N')
     ax0.set_xscale('log')
-    ax0.legend(loc=2)
+    ax0.legend(loc=1)
+
+    ax01.set_title('8 < N < 13 distribution')
+    ax01.set_xlabel('citation count\n(b)')
+    ax01.set_ylabel('Percentage of size N')
+    ax01.set_xscale('log')
+    ax01.legend(loc=1)
     # ax0.set_yscale('log')
 
-    ax3 = axes[3]
-    plot_subgraph_pattern(ax3)
+    ax3 = axes[4]
+    plot_subgraph_pattern(ax3,_20_percent)
     ax3.set_title('pattern distribution')
     ax3.set_xlabel('Ranked patterns\n(c)')
     ax3.set_ylabel('Number of patterns')
@@ -212,7 +221,7 @@ def plot_unconnected_subgraphs():
     plt.savefig('pdf/cascade_remianing_graph_size.pdf',dpi=200)
 
 
-def plot_subgraph_pattern(ax):
+def plot_subgraph_pattern(ax,_20_percent):
 
     name_num = defaultdict(int)
     subcacade_dict = json.loads(open('data/subgraphs_mapping.json').read())
@@ -236,14 +245,14 @@ def plot_subgraph_pattern(ax):
     per_20=0
     for i,n in enumerate(ns):
         xs.append(i+1)
-        if acc_n/total<0.84 and (acc_n+n)/total>0.84:
+        if acc_n/total<0.80/_20_percent and (acc_n+n)/total>0.80/_20_percent:
             x=i
             y=n
 
         acc_n+=n
 
         if i==20:
-            per_20  = acc_n/total*0.9581
+            per_20  = acc_n/total*_20_percent
 
     # x = np.array(range(len(ns)))+1
     ax.plot(xs,ns)
@@ -254,7 +263,7 @@ def plot_subgraph_pattern(ax):
     # ax.plot(np.linspace(10,1000,10),[y]*10,'--',c='r')
     # ax.text(300,1000,"({:},{:})".format(x,y))
     for name in  names[:20]:
-        print name
+        print 'plot sub-cascade using graphviz',name
         edges = subcacade_dict[name]
         s = name.split("/")[1].split('.')[0]
         new_name = "viz_subcascde/"+s
