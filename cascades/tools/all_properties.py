@@ -31,4 +31,4 @@ if __name__ == '__main__':
     print 'avg_connectivity',avg_connectivity(dig)
     print 'avg_clustering',avg_clustering(dig)
     print 'structural_varality',structural_varality(dig)
-    print 'k_core',k_core(dig)
+    print 'k_core',len(k_core(dig).nodes())
