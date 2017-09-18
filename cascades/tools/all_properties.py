@@ -12,8 +12,11 @@ def avg_clustering(G):
 
 def structural_varality(G):
     node_size = len(G.nodes())
+    total = sum(chain(p.values() for v, p in dlpl(G, weight=weight)))
     return nx.wiener_index(G.to_undirected())/(node_size-1)/node_size
 
+def k_core(G):
+    return nx.k_core(G)
 
 
 if __name__ == '__main__':
@@ -28,3 +31,4 @@ if __name__ == '__main__':
     print 'avg_connectivity',avg_connectivity(dig)
     print 'avg_clustering',avg_clustering(dig)
     print 'structural_varality',structural_varality(dig)
+    print 'k_core',k_core(dig)
