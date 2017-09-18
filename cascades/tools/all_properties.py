@@ -16,7 +16,7 @@ def structural_varality(G):
     return nx.wiener_index(G.to_undirected())/(node_size-1)/node_size
 
 def k_core(G):
-    return nx.k_core(G)
+    return nx.k_core(G),nx.core_number(G)
 
 
 if __name__ == '__main__':
@@ -31,4 +31,5 @@ if __name__ == '__main__':
     print 'avg_connectivity',avg_connectivity(dig)
     print 'avg_clustering',avg_clustering(dig)
     print 'structural_varality',structural_varality(dig)
-    print 'k_core',len(k_core(dig).nodes())
+    g,n = k_core(dig)
+    print 'k_core',len(g.nodes()),n
