@@ -5,10 +5,10 @@ from basic_config import *
 
 ## average degree connectivity
 def avg_connectivity(G):
-    print nx.average_node_connectivity(G)
+    return nx.average_node_connectivity(G)
 
 def avg_clustering(G):
-    print nx.average_clustering(G.to_undirected())
+    return nx.average_clustering(G.to_undirected())
 
 def structural_varality(G):
     node_size = len(G.nodes())
@@ -25,6 +25,6 @@ if __name__ == '__main__':
     dig.add_edge(3,5)
     dig.add_edge(2,1)
     dig.add_edge(3,1)
-    avg_connectivity(dig)
-    avg_clustering(dig)
-    structural_varality(dig)
+    print 'avg_connectivity',avg_connectivity(dig)
+    print 'avg_clustering',avg_clustering(dig)
+    print 'structural_varality',structural_varality(dig)
