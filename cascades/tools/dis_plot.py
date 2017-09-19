@@ -103,24 +103,28 @@ def stats_plot():
     ax3=axes[2]
     xs=[]
     ys=[]
-    total = sum(depth_dict.values()) 
+    total = float(sum(depth_dict.values()))
     _80_total = float(0)
     _80_x = 0
     _80_y = 0
     _max_y = 0
+    _min_y = 1
     for depth in sorted([int(i) for i in depth_dict.keys()]):
         xs.append(int(depth))
         v = depth_dict[str(depth)]
-        ys.append(v)
+        ys.append(v/total)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = depth
-            _80_y = v
+            _80_y = v/total
 
         _80_total+= v
 
-        if v>_max_y:
-            _max_y = v
+        if v/total>_max_y:
+            _max_y = v/total
+
+        if v/total < _min_y:
+            _min_y = v/total
 
     # use exponential func to fit the distribution
 
@@ -133,7 +137,7 @@ def stats_plot():
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth\n(c)')
     ax3.set_ylabel('$N(x)$')
-    ax3.plot([_80_x]*10,np.linspace(100,1000000,10),'--',label='x={:}'.format(_80_x))
+    ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
     ax3.set_title('cascade depth distribution')
