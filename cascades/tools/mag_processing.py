@@ -9,7 +9,8 @@ def build_reference_network(dirpath):
     line_index = 0
     for file in os.listdir(dirpath):
         file_index+=1
-        filepath = path[:-1] if path.endswith('/') else path+"/"+file
+        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
+        filepath=filepath+"/"+file
         for line in open(filepath):
             line_index+=1
 
