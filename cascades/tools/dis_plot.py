@@ -17,11 +17,12 @@ def stats_plot():
     ax1 = axes[0]
     xs=[]
     ys=[]
-    total = sum(cnum_dict.values()) 
+    total = float(sum(cnum_dict.values()))
     _80_total = float(0)
     _80_x = 0
     _80_y = 0
     _max_y = 0
+    _min_y = 1
     for num in sorted([int(num) for num in cnum_dict.keys()]):
         v = cnum_dict[str(num)]
         xs.append(num)
@@ -34,8 +35,11 @@ def stats_plot():
 
         _80_total+= v
 
-        if v>_max_y:
+        if v/float(total)>_max_y:
             _max_y = v/float(total)
+
+        if v/float(total) < _min_y:
+            _min_y = v/float(total)
 
     popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
 
@@ -48,7 +52,7 @@ def stats_plot():
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
@@ -56,33 +60,35 @@ def stats_plot():
     logging.info('plotting cascade size ...')
     enum_dict = json.loads(open('data/cascade_size.json').read())
     ax2 = axes[1]
-    total = sum(enum_dict.values()) 
+    total = float(sum(enum_dict.values()))
     _80_total = float(0)
     _80_x = 0
     _80_y = 0
     _max_y = 0
+    _min_y = 1
     xs=[]
     ys=[]
     for num in sorted([int(num) for num in enum_dict.keys()]):
         xs.append(num)
         v = enum_dict[str(num)]
-        ys.append(v)
+        ys.append(v/total)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
-            _80_y = v
+            _80_y = v/total
 
         _80_total+= v
 
-        if v>_max_y:
-            _max_y = v
+        if v/total>_max_y:
+            _max_y = v/total
 
+        if v/total < _min_y:
+            _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-
     popt,pcov = curve_fit(power_low_func,xs[20:400],ys[20:400])
     ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax2.plot([_80_x]*10,np.linspace(100,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size\n(b)')
     ax2.set_ylabel('$N(x)$')
