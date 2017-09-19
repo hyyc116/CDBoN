@@ -10,7 +10,7 @@ def stats_plot():
     # add 80% percent x
     num = len(plt.get_fignums())
     # plt.figure(num)
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    fig,axes = plt.subplots(1,4,figsize=(20,5))
     #### node size 
     logging.info('plot node size ...')
     cnum_dict = json.loads(open('data/nodes_size.json').read())
@@ -128,7 +128,7 @@ def stats_plot():
 
     # use exponential func to fit the distribution
 
-    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
+    popt,pcov = curve_fit(exponential_func,xs[1:],ys[1:])
 
     print xs
     print ys
@@ -179,14 +179,14 @@ def stats_plot():
 
 
     popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100])
-    ax4.plot(xs,ys,'o',fillstyle='none')
-    ax4.set_xlabel('$x = deg^{-}(v)+1$\n(d)')
+    ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
+    ax4.set_xlabel('$x = degree\n(d)')
     ax4.set_ylabel('$N(x)$')
     
     ax4.plot(np.linspace(3, 100, 10), power_low_func(np.linspace(3, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
-    ax4.set_title('in degree distribution')
+    ax4.set_title('degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
     ax4.legend()
@@ -221,18 +221,18 @@ def stats_plot():
             _min_y = v/total
 
     popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
-    ax5.plot(xs,ys,'o',fillstyle='none')
+    ax5.plot(xs,ys,'o',fillstyle='none',label='Out-degree')
 
 
-    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax5.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    # ax5.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
-    ax5.set_title('out degree distribution')
-    ax5.set_xlabel('$x = deg^{+}(v)$\n(e)')
-    ax5.set_ylabel('$N(x)$')
-    ax5.set_xscale('log')
-    ax5.set_yscale('log')
-    ax5.legend()
+    # ax5.set_title('out degree distribution')
+    # ax5.set_xlabel('$x = deg^{+}(v)$\n(e)')
+    # ax5.set_ylabel('$N(x)$')
+    # ax5.set_xscale('log')
+    # ax5.set_yscale('log')
+    # ax5.legend()
 
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
