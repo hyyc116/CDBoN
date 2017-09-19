@@ -186,7 +186,7 @@ def stats_plot():
     ax4.set_xlabel('$x = degree\n(d)')
     ax4.set_ylabel('$N(x)$')
     
-    ax4.plot(np.linspace(10, 100, 10), power_low_func(np.linspace(10, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c='r')
+    ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c='r')
     ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
     ax4.set_title('degree distribution')
