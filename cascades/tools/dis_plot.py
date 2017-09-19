@@ -25,7 +25,8 @@ def stats_plot():
     for num in sorted([int(num) for num in cnum_dict.keys()]):
         v = cnum_dict[str(num)]
         xs.append(num)
-        ys.append(v)
+        ys.append(v/float(total))
+
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
