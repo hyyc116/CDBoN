@@ -30,12 +30,12 @@ def stats_plot():
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
-            _80_y = v
+            _80_y = v/float(total)
 
         _80_total+= v
 
         if v>_max_y:
-            _max_y = v
+            _max_y = v/float(total)
 
     popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
 
@@ -61,7 +61,8 @@ def stats_plot():
     _80_x = 0
     _80_y = 0
     _max_y = 0
-    
+    xs=[]
+    ys=[]
     for num in sorted([int(num) for num in enum_dict.keys()]):
         xs.append(num)
         v = enum_dict[str(num)]
