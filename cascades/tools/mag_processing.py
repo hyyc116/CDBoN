@@ -35,6 +35,7 @@ def build_reference_network(dirpath):
         logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
 
 def merger_dict(dirpath,prefix,t='list'):
+    file_index = 0
     if t =='list':
         merger_dict = defaultdict(list)
     else:
@@ -45,6 +46,10 @@ def merger_dict(dirpath,prefix,t='list'):
             continue
         filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
         filepath=filepath+"/"+file
+
+        file_index+=1
+
+        logging.info('file index : {:}'.format(file_index))
 
         data = json.loads(open(filepath).read())
 
@@ -60,6 +65,8 @@ def merger_dict(dirpath,prefix,t='list'):
         outpath = 'data/mag_paper_year.json'
 
     open('outpath','w').write(merger_dict)
+
+    logging.info('writing to {:}'.format(outpath))
 
 
 
