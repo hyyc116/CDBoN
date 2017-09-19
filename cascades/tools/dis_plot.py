@@ -178,7 +178,7 @@ def stats_plot():
             _min_y = v/total
 
 
-    popt,pcov = curve_fit(power_low_func,xs[:10],ys[10:10])
+    popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
     ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
 
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
