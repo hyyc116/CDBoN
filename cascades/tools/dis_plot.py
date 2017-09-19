@@ -190,7 +190,7 @@ def stats_plot():
 
 
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
-    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2])
+    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2],marker='^')
 
     ax4.set_title('degree distribution')
     ax4.set_yscale('log')
