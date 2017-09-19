@@ -182,15 +182,15 @@ def stats_plot():
 
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
-    ax4.set_xlabel('$x = degree\n(d)')
+    ax4.set_xlabel('$x = degree$\n(d)')
     ax4.set_ylabel('$N(x)$')
     
-    ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[3])
     ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
 
 
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
-    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[3])
 
     ax4.set_title('degree distribution')
     ax4.set_yscale('log')
@@ -230,7 +230,7 @@ def stats_plot():
     ax5.plot(xs,ys,'o',fillstyle='none',label='Out-degree',c='r')
 
 
-    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[3])
     # ax5.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
     # ax5.set_title('out degree distribution')
