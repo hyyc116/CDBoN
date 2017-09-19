@@ -1,13 +1,13 @@
 #coding:utf-8
 from basic_config import *
 
-def build_reference_network(dir):
+def build_reference_network(dirpath):
 
     citation_network=defaultdict(list)
     paper_year = defaultdict(int)
     file_index = 0
     line_index = 0
-    for file in os.listdir(path):
+    for file in os.listdir(dirpath):
         file_index+=1
         filepath = path[:-1] if path.endswith('/') else path+"/"+file
         for line in open(filepath):
