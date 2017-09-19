@@ -128,13 +128,13 @@ def stats_plot():
 
     # use exponential func to fit the distribution
 
-    popt,pcov = curve_fit(exponential_func,xs[1:],ys[1:])
+    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
     print xs
     print ys
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt),label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*10,label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth\n(c)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
@@ -178,7 +178,7 @@ def stats_plot():
             _min_y = v/total
 
 
-    popt,pcov = curve_fit(power_low_func,xs[:100],ys[:100])
+    popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
     ax4.set_xlabel('$x = degree\n(d)')
     ax4.set_ylabel('$N(x)$')
@@ -232,7 +232,7 @@ def stats_plot():
     # ax5.set_ylabel('$N(x)$')
     # ax5.set_xscale('log')
     # ax5.set_yscale('log')
-    # ax5.legend()
+    ax5.legend()
 
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
