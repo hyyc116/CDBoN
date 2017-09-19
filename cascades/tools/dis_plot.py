@@ -134,7 +134,7 @@ def stats_plot():
     print ys
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*10,label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*5,label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth\n(c)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
@@ -178,12 +178,15 @@ def stats_plot():
             _min_y = v/total
 
 
+    popt,pcov = curve_fit(power_low_func,xs[:10],ys[10:10])
+    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
     ax4.set_xlabel('$x = degree\n(d)')
     ax4.set_ylabel('$N(x)$')
     
-    ax4.plot(np.linspace(3, 100, 10), power_low_func(np.linspace(3, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax4.plot(np.linspace(10, 100, 10), power_low_func(np.linspace(10, 100, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
     ax4.set_title('degree distribution')
