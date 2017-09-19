@@ -55,10 +55,10 @@ def merger_dict(dirpath,prefix,t='list'):
 
         for key in data.keys():
             if t=='list':
-                for v in data[k]:
+                for v in data[key]:
                     merger_dict[key].append(v)
             else:
-                merger_dict[key] = data[k]
+                merger_dict[key] = data[key]
     if t=='list':
         outpath = 'data/mag_citation_network.json'
     else:
