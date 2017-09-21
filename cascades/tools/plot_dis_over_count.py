@@ -125,13 +125,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         ax1.scatter(rxs,rys)
     if not is_average:
         ##最大值图
-        ax1.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        ax1.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.7)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
-        ax1.plot(max_xs,max_zs,c='r')
     # else:
         ##均值图
-        ax1.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        ax1.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.5)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
+
+        ax1.plot(max_xs,max_zs,c='r')
         ax1.plot(avg_xs,avg_zs,c='r')
 
 
@@ -173,12 +174,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_ys.append(sum(pc_list)/float(len(pc_list)))
 
     if not is_average:
-        ax2.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        ax2.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.7)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
-        ax2.plot(max_xs,max_zs,c='r')
+        
     # else:
-        ax2.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        ax2.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.5)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+
+        ax2.plot(max_xs,max_zs,c='r')
         ax2.plot(avg_xs,avg_zs,c='r')
 
     print 'percentage of out-degree > 1'
@@ -214,12 +217,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_ys.append(sum(po_list)/float(len(po_list)))
 
     if not is_average:
-        ax3.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        ax3.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.7)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
-        ax3.plot(max_xs,max_zs,c='r')
+        
     # else:
-        ax3.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        ax3.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.5)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+
+        ax3.plot(max_xs,max_zs,c='r')
         ax3.plot(avg_xs,avg_zs,c='r')
 
 
@@ -274,12 +279,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
 
     if not is_average:
-        ax4.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.8)
+        ax4.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.7)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
-        ax4.plot(max_xs,max_zs,c='r')
+        
     # else:
-        ax4.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
+        ax4.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.5)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+
+        ax4.plot(max_xs,max_zs,c='r')
         ax4.plot(avg_xs,avg_zs,c='r')
 
     if is_smooth:
