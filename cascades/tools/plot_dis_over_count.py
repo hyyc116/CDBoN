@@ -133,7 +133,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
         ax1.plot(max_xs,max_zs,c='r')
-        ax1.plot(avg_xs,avg_zs,c='r')
+        ax1.plot(avg_xs,avg_zs,c='b')
 
 
     ax1.set_xlabel('Citation Count\n(b)')
@@ -182,7 +182,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
         ax2.plot(max_xs,max_zs,c='r')
-        ax2.plot(avg_xs,avg_zs,c='r')
+        ax2.plot(avg_xs,avg_zs,c='b')
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
@@ -225,7 +225,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
         ax3.plot(max_xs,max_zs,c='r')
-        ax3.plot(avg_xs,avg_zs,c='r')
+        ax3.plot(avg_xs,avg_zs,c='b')
 
 
     print 'plot acmv..'
@@ -287,7 +287,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
         ax4.plot(max_xs,max_zs,c='r')
-        ax4.plot(avg_xs,avg_zs,c='r')
+        ax4.plot(avg_xs,avg_zs,c='b')
 
     if is_smooth:
         for ax in axes:
