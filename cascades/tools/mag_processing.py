@@ -38,6 +38,7 @@ def build_reference_network(dirpath,field_path):
                 for cpid in paper['references']:
                     if cpid in paper_pids:
                         citation_network[cpid].append(pid)
+                        new_lines.append(line)
 
 
     open('data/mag/mag_cs_papers.txt','w').write('\n'.join(new_lines))
@@ -109,12 +110,7 @@ def cs_papers(dirpath):
                 if 'computer science' in fos:
                     paper_ids.append(paper['id'])
 
-
     open('data/cs_papers.txt','w').write('\n'.join(paper_ids))
-
-
-
-
 
 if __name__ == '__main__':
     build_reference_network(sys.argv[1],sys.argv[2])
