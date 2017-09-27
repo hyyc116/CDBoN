@@ -1,11 +1,16 @@
 #coding:utf-8
 from basic_config import *
 
-def build_reference_network(dirpath):
+def build_reference_network(dirpath,field_path):
 
+    # load 
+    paper_pids = set([paperid for paperid in open(field_path)])
     
     file_index = 0
     line_index = 0
+
+    new_lines = []
+
     for file in os.listdir(dirpath):
         file_index+=1
         filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
@@ -26,13 +31,19 @@ def build_reference_network(dirpath):
             year = paper['year']
             paper_year[pid] = year
 
+            if pid in paper_pids:
+                new_lines.append(line)
+
             if 'references' in paper.keys():
                 for cpid in paper['references']:
-                    citation_network[cpid].append(pid)
+                    if cpid in paper_pids:
+                        citation_network[cpid].append(pid)
 
-        open('data/mag/mag_citation_network_{:}.json'.format(file_index),'w').write(json.dumps(citation_network))
-        open('data/mag/mag_paper_year_{:}.json'.format(file_index),'w').write(json.dumps(paper_year))
-        logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
+
+    open('data/mag/mag_cs_papers.txt','w').write('\n'.join(new_lines))
+    open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
+    open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
+    logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
 
 def merger_dict(dirpath,prefix,t='list'):
     file_index = 0
@@ -100,6 +111,9 @@ def cs_papers(dirpath):
 
 
     open('data/cs_papers.txt','w').write('\n'.join(paper_ids))
+
+
+
 
 
 if __name__ == '__main__':
