@@ -89,7 +89,7 @@ def cs_papers(dirpath):
 
             line = line.strip()
             paper = json.loads(line) 
-            if paper['lang']!='en':
+            if paper.get('lang','-1')!='en':
                 continue
 
             fos = paper.get('fos',-1)
