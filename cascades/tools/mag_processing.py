@@ -22,7 +22,7 @@ def build_reference_network(dirpath,field_path):
             line_index+=1
 
             if line_index%10000==0:
-                logging.info('The {:} th File:{:}, total progress:{:}'.format(file_index,filepath,line_index))
+                logging.info('The {:} th File:{:}, total progress:{:}, length of lines {:}'.format(file_index,filepath,line_index,len(new_lines)))
 
             line = line.strip()
             paper = json.loads(line)
