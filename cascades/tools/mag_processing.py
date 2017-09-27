@@ -4,7 +4,7 @@ from basic_config import *
 def build_reference_network(dirpath,field_path):
 
     # load 
-    paper_pids = set([paperid for paperid in open(field_path)])
+    paper_pids = set([paperid.strip() for paperid in open(field_path)])
     
     file_index = 0
     line_index = 0
