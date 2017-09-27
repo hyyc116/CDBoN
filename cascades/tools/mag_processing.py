@@ -117,7 +117,7 @@ def cs_papers(dirpath):
 
 
 if __name__ == '__main__':
-    build_reference_network(sys.argv[1])
+    build_reference_network(sys.argv[1],sys.argv[2])
     # merger_dict(sys.argv[1],sys.argv[2],sys.argv[3])
     # cs_papers(sys.argv[1])
 
