@@ -23,7 +23,9 @@ def build_reference_network(dirpath,field_path):
 
             if line_index%10000==0:
                 logging.info('The {:} th File:{:}, total progress:{:}, length of lines {:}'.format(file_index,filepath,line_index,len(new_lines)))
-
+                open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
+                new_lines = []
+            
             line = line.strip()
             paper = json.loads(line)
 
@@ -41,7 +43,7 @@ def build_reference_network(dirpath,field_path):
                         new_lines.append(line)
 
 
-    open('data/mag/mag_cs_papers.txt','w').write('\n'.join(new_lines))
+    
     open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
     open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
     logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
