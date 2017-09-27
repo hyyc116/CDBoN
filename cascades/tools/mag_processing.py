@@ -68,11 +68,42 @@ def merger_dict(dirpath,prefix,t='list'):
 
     logging.info('writing to {:}'.format(outpath))
 
+def cs_papers(dirpath):
+    file_index = 0
+    line_index = 0
+    paper_ids = []
+    for file in os.listdir(dirpath):
+        file_index+=1
+        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
+        filepath=filepath+"/"+file
+        if not filepath.endswith('txt'):
+            continue
+
+        citation_network=defaultdict(list)
+        paper_year = defaultdict(int)
+        for line in open(filepath):
+            line_index+=1
+
+            if line_index%10000==0:
+                logging.info('The {:} th File:{:}, total progress:{:}, {:} papers in CS'.format(file_index,filepath,line_index,len(paper_ids)))
+
+            line = line.strip()
+            paper = json.loads(line) 
+            if paper['lang']!='en':
+                continue
+
+            fos = paper.get('fos',-1)
+            if fos!=-1:
+                fos = ','.join(fos).lower()
+                if 'computer science' in fos:
+                    paper_ids.append(paper['id'])
 
 
+    open('data/cs_papers.txt','w').write('\n'.join(paper_ids))
 
 
 if __name__ == '__main__':
     # build_reference_network(sys.argv[1])
-    merger_dict(sys.argv[1],sys.argv[2],sys.argv[3])
+    # merger_dict(sys.argv[1],sys.argv[2],sys.argv[3])
+    cs_papers(sys.argv[1])
 
