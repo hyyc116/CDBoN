@@ -23,7 +23,7 @@ def build_reference_network(dirpath,field_path):
 
             if line_index%100000==0:
                 logging.info('The {:} th File:{:}, total progress:{:}, length of lines {:}'.format(file_index,filepath,line_index,len(new_lines)))
-                open('data/mag/mag_cs_papers.txt','a+').write('\n'.join(new_lines))
+                open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
                 new_lines = []
             
             line = line.strip()
