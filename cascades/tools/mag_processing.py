@@ -10,6 +10,9 @@ def build_reference_network(dirpath,field_path):
     line_index = 0
 
     new_lines = []
+    already_in  = set([])
+
+    n_count_papers = 0
 
     for file in os.listdir(dirpath):
         file_index+=1
@@ -22,7 +25,7 @@ def build_reference_network(dirpath,field_path):
             line_index+=1
 
             if line_index%100000==0:
-                logging.info('The {:} th File:{:}, total progress:{:}, length of lines {:}'.format(file_index,filepath,line_index,len(new_lines)))
+                logging.info('The {:} th File:{:}, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}'.format(file_index,filepath,line_index,len(already_in),n_count_papers))
                 
                 new_lines = []
             
@@ -32,14 +35,21 @@ def build_reference_network(dirpath,field_path):
             pid = paper['id']
             year = paper['year']
             paper_year[pid] = year
+            if paper.get('n_citation',0)>0:
+                n_count_papers+=1
 
-            if pid in paper_pids:
+
+
+            if pid in paper_pids and pid not in already_in:
                 new_lines.append(line)
+                already_in.add(pid)
+
 
             if 'references' in paper.keys():
                 for cpid in paper['references']:
-                    if cpid in paper_pids:
+                    if cpid in paper_pids and cpid not in already_in:
                         citation_network[cpid].append(pid)
+                        already_in.add(cpid)
                         new_lines.append(line)
 
         open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
@@ -49,6 +59,14 @@ def build_reference_network(dirpath,field_path):
     open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
     open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
     logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
+
+
+def count_citation(path):
+    for line in open(path):
+        line = line.strip()
+
+
+
 
 def merger_dict(dirpath,prefix,t='list'):
     file_index = 0
