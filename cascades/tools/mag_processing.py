@@ -26,7 +26,7 @@ def build_reference_network(dirpath,field_path):
             line_index+=1
 
             if line_index%100000==0:
-                logging.info('The {:} th File:{:}, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}'.format(file_index,filepath,line_index,len(already_in),n_count_papers))
+                logging.info('The {:} th File:{:}, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}/{:}'.format(file_index,filepath,line_index,len(already_in),n_count_papers,all_paper_count))
                 
                 new_lines = []
             
@@ -43,6 +43,7 @@ def build_reference_network(dirpath,field_path):
             if pid in paper_pids and pid not in already_in:
                 new_lines.append(line)
                 already_in.add(pid)
+                all_paper_count+=1
 
                 if paper.get('n_citation',0)>0:
                     n_count_papers+=1
