@@ -13,6 +13,7 @@ def build_reference_network(dirpath,field_path):
     already_in  = set([])
 
     n_count_papers = 0
+    all_paper_count=0
 
     for file in os.listdir(dirpath):
         file_index+=1
@@ -35,14 +36,16 @@ def build_reference_network(dirpath,field_path):
             pid = paper['id']
             year = paper['year']
             paper_year[pid] = year
-            if paper.get('n_citation',0)>0:
-                n_count_papers+=1
+            
 
 
 
             if pid in paper_pids and pid not in already_in:
                 new_lines.append(line)
                 already_in.add(pid)
+
+                if paper.get('n_citation',0)>0:
+                    n_count_papers+=1
 
 
             if 'references' in paper.keys():
