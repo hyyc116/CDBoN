@@ -36,25 +36,28 @@ def build_reference_network(dirpath,field_path):
             pid = paper['id']
             year = paper['year']
             paper_year[pid] = year
-            
 
-
-
+            #如果这篇论文是cs,并且没有被记录过
             if pid in paper_pids and pid not in already_in:
                 new_lines.append(line)
                 already_in.add(pid)
                 all_paper_count+=1
 
+                ## 计数 cs引文数量大于1的文章数量
                 if paper.get('n_citation',0)>0:
                     n_count_papers+=1
 
-
+            ## 参考文献
             if 'references' in paper.keys():
+
                 for cpid in paper['references']:
-                    if cpid in paper_pids and cpid not in already_in:
+                    # 如果这篇被引文献是CS
+                    if cpid in paper_pids:
                         citation_network[cpid].append(pid)
-                        already_in.add(cpid)
-                        new_lines.append(line)
+                        ## 记录这篇文章，如果没有记录过
+                        if pid not in already_in:
+                            already_in.add(cpid)
+                            new_lines.append(line)
 
         open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
         
