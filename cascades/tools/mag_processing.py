@@ -27,7 +27,6 @@ def build_reference_network(dirpath,field_path):
 
             if line_index%100000==0:
                 logging.info('The {:} th File, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}/{:}, length of citation network:{:}'.format(file_index,line_index,len(already_in),n_count_papers,all_paper_count,len(citation_network.keys())))
-                
                 new_lines = []
             
             line = line.strip()
@@ -56,12 +55,12 @@ def build_reference_network(dirpath,field_path):
                         citation_network[cpid].append(pid)
                         ## 记录这篇文章，如果没有记录过
                         if pid not in already_in:
-                            already_in.add(cpid)
+                            already_in.add(pid)
                             new_lines.append(line)
 
         open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
         
-    open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
+    # open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
     open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
     open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
     logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
