@@ -14,13 +14,13 @@ def build_reference_network(dirpath,field_path):
 
     n_count_papers = 0
     all_paper_count=0
-
+    
+    citation_network=defaultdict(list)
     for file in os.listdir(dirpath):
         file_index+=1
         filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
         filepath=filepath+"/"+file
 
-        citation_network=defaultdict(list)
         paper_year = defaultdict(int)
         for line in open(filepath):
             line_index+=1
