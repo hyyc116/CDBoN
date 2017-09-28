@@ -26,7 +26,7 @@ def build_reference_network(dirpath,field_path):
             line_index+=1
 
             if line_index%100000==0:
-                logging.info('The {:} th File:{:}, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}/{:}'.format(file_index,filepath,line_index,len(already_in),n_count_papers,all_paper_count))
+                logging.info('The {:} th File, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}/{:}, length of citation network:{:}'.format(file_index,line_index,len(already_in),n_count_papers,all_paper_count,len(citation_network.keys())))
                 
                 new_lines = []
             
@@ -61,7 +61,6 @@ def build_reference_network(dirpath,field_path):
 
         open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
         
-    logging.info('The {:} th File:{:}, total progress:{:}, length of lines {:}'.format(file_index,filepath,line_index,len(new_lines)))
     open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
     open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
     open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
