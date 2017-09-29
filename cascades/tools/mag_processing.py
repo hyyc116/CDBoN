@@ -153,7 +153,7 @@ def all_nodes_in_citation_network(citation_network):
     all_nodes  = list(set(all_nodes))
     logging.info('total nodes:{:}'.format(len(all_nodes)))
 
-    open('data/mag/all_nodes.txt'.'w').write('\n'.join(all_nodes))
+    open('data/mag/all_nodes.txt','w').write('\n'.join(all_nodes))
 
 
 
