@@ -245,6 +245,44 @@ def build_mag_cascade(citation_network,cs_papers):
     open('data/mag/mag_cs_citation_cascade.json','a').write(json.dumps(citation_cascade)+"\n") 
     logging.info('Done, total edges:{:}'.format(num_of_edges))
 
+## 根据citation network构建cascade
+def stats_edges(citation_network,cs_papers):
+
+    cs_pids = [line.strip() for line in open(cs_papers)]
+
+    cn = json.loads(open(citation_network).read())
+    total = len(cs_pids)
+    logging.info('total number of papers:{:}'.format(total))
+    ## progress index
+    progress_index = 0
+    ## num of edges
+    num_of_edges = 0
+    ## cascade
+
+    for pid in cs_pids:
+        if progress_index%100000==1:
+            logging.info('progress of building cascade:{:}/{:}, number of edges:{:}'.format(progress_index,total,num_of_edges))
+
+
+        progress_index+=1
+
+        citing_pids = cn.get(pid,[])
+
+        if len(citing_pids)==0:
+            continue
+
+        ## for each paper
+        edges = []
+        for citing_pid in citing_pids:
+            # if errors
+            if citing_pid == pid:
+                continue
+
+            edges.append([citing_pid,pid])
+            num_of_edges+=1
+
+    logging.info('Done, total edges:{:}'.format(num_of_edges))
+
 
 
 if __name__ == '__main__':
