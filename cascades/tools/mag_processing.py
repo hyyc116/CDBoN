@@ -149,10 +149,10 @@ def all_nodes_in_citation_network(citation_network):
 
     open('data/mag/all_nodes.txt','w').write('\n'.join(all_nodes))
 
-def build_cc_of_all_nodes(all_nodes):
+def build_cc_of_all_nodes(dirpath,all_nodes):
+
     # load 
     paper_pids = set([paperid.strip() for paperid in open(all_nodes)])
-    
     file_index = 0
     line_index = 0
     citation_network=defaultdict(list)
