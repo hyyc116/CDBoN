@@ -139,8 +139,72 @@ def cs_papers(dirpath):
 
     open('data/cs_papers.txt','w').write('\n'.join(paper_ids))
 
+### 统计citation network中所有涉及到的所有论文的id
+def all_nodes_in_citation_network(citation_network):
+    cn = json.loads(open(citation_network).read())
+    total = len(cn.keys())
+    logging.info('total number of papers:{:}'.format(total))
+
+    all_nodes = []
+    for pid in cn.keys():
+        all_nodes.append(pid)
+        all_nodes.append(cn[pid])
+
+    all_nodes  = list(set(all_nodes))
+    logging.info('total nodes:{:}'.format(len(all_nodes)))
+
+    open('data/mag/all_nodes.txt'.'w').write('\n'.join(all_nodes))
+
+
+
+
+## 根据citation network构建cascade
+def build_amg_cascade(citation_network,outpath):
+    cn = json.loads(open(citation_network).read())
+    total = len(cn.keys())
+    logging.info('total number of papers:{:}'.format(total))
+    ## progress index
+    progress_index = 0
+    ## num of edges
+    num_of_edges = 0
+    ## cascade
+    citation_cascade = defaultdict(dict)
+
+    for pid in cn.keys():
+        if progress_index%100000==1:
+            logging.info('progress of building cascade:{:}/{:}'.format(progress_index,total))
+
+        progress_index+=1
+
+
+        ## for each paper
+
+        citing_pids = cn[pid]
+
+        edges = []
+        for citing_pid in citing_pids:
+            # if errors
+            if citing_pid == pid:
+                continue
+
+            edges.append([citing_pid,pid])
+            num_of_edges+=1
+
+            ## for every citing papers
+            citing_citing_pids = cn[citing_pid]
+            
+            inter_citing_pids = set(citing_citing_pids)&set(citing_pids)  
+            
+            for inter_citing_pid in inter_citing_pids:
+                if inter_citing_pid == citing_pid:
+                    continue
+                
+                edges.append([inter_citing_pid,citing_pid])
+
+
+
 if __name__ == '__main__':
-    build_reference_network(sys.argv[1],sys.argv[2])
-    # merger_dict(sys.argv[1],sys.argv[2],sys.argv[3])
-    # cs_papers(sys.argv[1])
+    # build_reference_network(sys.argv[1],sys.argv[2])
+
+    all_nodes_in_citation_network(sys.argv[1])
 
