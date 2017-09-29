@@ -184,7 +184,7 @@ def build_cc_of_all_nodes(dirpath,all_nodes):
 
 
 ## 根据citation network构建cascade
-def build_amg_cascade(citation_network,cs_papers):
+def build_mag_cascade(citation_network,cs_papers):
 
     cs_pids = [line.strip() for line in open(cs_papers)]
 
@@ -246,4 +246,4 @@ if __name__ == '__main__':
 
     # all_nodes_in_citation_network(sys.argv[1])
     # build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
-    build_amg_cascade(sys.argv[1],sys.argv[2])
+    build_mag_cascade(sys.argv[1],sys.argv[2])
