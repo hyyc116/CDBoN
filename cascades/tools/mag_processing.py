@@ -232,4 +232,4 @@ if __name__ == '__main__':
     # build_reference_network(sys.argv[1],sys.argv[2])
 
     # all_nodes_in_citation_network(sys.argv[1])
-    build_cc_of_all_nodes(sys.argv[1])
+    build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
