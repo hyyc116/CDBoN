@@ -238,7 +238,9 @@ def build_mag_cascade(citation_network,cs_papers):
 
         citation_cascade[pid] = pid_dict
 
+
     open('data/mag/mag_cs_citation_cascade.json','w').write(json.dumps(citation_cascade)) 
+    logging.info('Done, total edges:{:}'.format(num_of_edges))
 
 
 
