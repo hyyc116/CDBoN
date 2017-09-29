@@ -66,12 +66,6 @@ def build_reference_network(dirpath,field_path):
     logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
 
 
-def count_citation(path):
-    for line in open(path):
-        line = line.strip()
-
-
-
 
 def merger_dict(dirpath,prefix,t='list'):
     file_index = 0
@@ -148,7 +142,7 @@ def all_nodes_in_citation_network(citation_network):
     all_nodes = []
     for pid in cn.keys():
         all_nodes.append(pid)
-        all_nodes.append(cn[pid])
+        all_nodes.extend(cn[pid])
 
     all_nodes  = list(set(all_nodes))
     logging.info('total nodes:{:}'.format(len(all_nodes)))
