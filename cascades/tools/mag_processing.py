@@ -1,7 +1,7 @@
 #coding:utf-8
 from basic_config import *
 
-def build_reference_network(dirpath,field_path):
+def build_citation_network(dirpath,field_path):
 
     # load 
     paper_pids = set([paperid.strip() for paperid in open(field_path)])
@@ -149,6 +149,37 @@ def all_nodes_in_citation_network(citation_network):
 
     open('data/mag/all_nodes.txt','w').write('\n'.join(all_nodes))
 
+def build_cc_of_all_nodes(all_nodes):
+    # load 
+    paper_pids = set([paperid.strip() for paperid in open(all_nodes)])
+    
+    file_index = 0
+    line_index = 0
+    citation_network=defaultdict(list)
+
+    for file in os.listdir(dirpath):
+        file_index+=1
+        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
+        filepath=filepath+"/"+file
+
+        paper_year = defaultdict(int)
+        for line in open(filepath):
+            line_index+=1
+
+            if line_index%100000==0:
+                logging.info('The {:} th File, total progress:{:}, length of citation network:{:}'.format(file_index,line_index,len(citation_network.keys())))
+            
+            line = line.strip()
+            paper = json.loads(line)
+
+            pid = paper['id']
+
+            if 'references' in paper.keys():
+                for cpid in paper['references']:
+                    if cpid in paper_pids:
+                        citation_network[cpid].append(pid)
+
+    open('data/mag/mag_all_nodes_citation_network.json','w').write(json.dumps(citation_network))
 
 
 
@@ -200,5 +231,5 @@ def build_amg_cascade(citation_network,outpath):
 if __name__ == '__main__':
     # build_reference_network(sys.argv[1],sys.argv[2])
 
-    all_nodes_in_citation_network(sys.argv[1])
-
+    # all_nodes_in_citation_network(sys.argv[1])
+    build_cc_of_all_nodes(sys.argv[1])
