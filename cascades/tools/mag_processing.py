@@ -184,9 +184,12 @@ def build_cc_of_all_nodes(dirpath,all_nodes):
 
 
 ## 根据citation network构建cascade
-def build_amg_cascade(citation_network,outpath):
+def build_amg_cascade(citation_network,cs_papers):
+
+    cs_pids = [line.strip() for line in open(cs_papers)]
+
     cn = json.loads(open(citation_network).read())
-    total = len(cn.keys())
+    total = len(cs_papers)
     logging.info('total number of papers:{:}'.format(total))
     ## progress index
     progress_index = 0
@@ -195,17 +198,18 @@ def build_amg_cascade(citation_network,outpath):
     ## cascade
     citation_cascade = defaultdict(dict)
 
-    for pid in cn.keys():
+    for pid in cs_pids:
         if progress_index%100000==1:
             logging.info('progress of building cascade:{:}/{:}'.format(progress_index,total))
 
         progress_index+=1
 
+        citing_pids = cn.get(pid,[])
+
+        if len(citing_pids)==0:
+            continue
 
         ## for each paper
-
-        citing_pids = cn[pid]
-
         edges = []
         for citing_pid in citing_pids:
             # if errors
@@ -216,8 +220,8 @@ def build_amg_cascade(citation_network,outpath):
             num_of_edges+=1
 
             ## for every citing papers
-            citing_citing_pids = cn[citing_pid]
-            
+            citing_citing_pids = cn.get(citing_pid,[])
+
             inter_citing_pids = set(citing_citing_pids)&set(citing_pids)  
             
             for inter_citing_pid in inter_citing_pids:
@@ -226,10 +230,20 @@ def build_amg_cascade(citation_network,outpath):
                 
                 edges.append([inter_citing_pid,citing_pid])
 
+        pid_dict = {}
+        pid_dict['cc']=len(citing_pids)
+        pid_dict['cs']=len(edges)
+        pid_dict['edges'] = edges
+
+        citation_cascade[pid] = pid_dict
+
+    open('data/mag/mag_cs_citation_cascade.json','w').write(json.dumps(citation_cascade)) 
+
 
 
 if __name__ == '__main__':
     # build_reference_network(sys.argv[1],sys.argv[2])
 
     # all_nodes_in_citation_network(sys.argv[1])
-    build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
+    # build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
+    build_amg_cascade(sys.argv[1],sys.argv[2])
