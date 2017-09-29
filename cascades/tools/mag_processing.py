@@ -189,7 +189,7 @@ def build_mag_cascade(citation_network,cs_papers):
     cs_pids = [line.strip() for line in open(cs_papers)]
 
     cn = json.loads(open(citation_network).read())
-    total = len(cs_papers)
+    total = len(cs_pids)
     logging.info('total number of papers:{:}'.format(total))
     ## progress index
     progress_index = 0
