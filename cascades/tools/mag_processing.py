@@ -201,6 +201,9 @@ def build_mag_cascade(citation_network,cs_papers):
     for pid in cs_pids:
         if progress_index%100000==1:
             logging.info('progress of building cascade:{:}/{:}, number of edges:{:}'.format(progress_index,total,num_of_edges))
+            open('data/mag/mag_cs_citation_cascade.json','a').write(json.dumps(citation_cascade)+"\n") 
+
+            citation_cascade = defaultdict(list)
 
         progress_index+=1
 
@@ -239,7 +242,7 @@ def build_mag_cascade(citation_network,cs_papers):
         citation_cascade[pid] = pid_dict
 
 
-    open('data/mag/mag_cs_citation_cascade.json','w').write(json.dumps(citation_cascade)) 
+    open('data/mag/mag_cs_citation_cascade.json','a').write(json.dumps(citation_cascade)+"\n") 
     logging.info('Done, total edges:{:}'.format(num_of_edges))
 
 
