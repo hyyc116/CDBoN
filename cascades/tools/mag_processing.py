@@ -290,4 +290,5 @@ if __name__ == '__main__':
 
     # all_nodes_in_citation_network(sys.argv[1])
     # build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
-    build_mag_cascade(sys.argv[1],sys.argv[2])
+    # build_mag_cascade(sys.argv[1],sys.argv[2])
+    stats_edges(sys.argv[1],sys.argv[2])
