@@ -15,7 +15,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     cxs= plot_dict['cxs']
     eys= plot_dict['eys']
     dys= plot_dict['dys']
-    dcxs=plot_dict['dcx']
+    dcxs=plot_dict['cxs']
     od_ys = plot_dict['od_ys']
     id_ys = plot_dict['id_ys']
 
