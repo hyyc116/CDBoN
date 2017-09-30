@@ -5,7 +5,7 @@
 from basic_config import *
 
 def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
-    hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wista'), bins='log',xscale=bins[0] ,yscale=bins[1])
+    hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wistia'), bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 随着citation count的增加，各个指标的变化
 def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
