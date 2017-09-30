@@ -111,6 +111,8 @@ def gen_statistics_data(citation_cascade):
     open('data/mag/stats/plot_dict.json','w').write(json.dumps(plot_dict))
 
 
+if __name__ == '__main__':
+    gen_statistics_data(sys.argv[1])
 
 
 
