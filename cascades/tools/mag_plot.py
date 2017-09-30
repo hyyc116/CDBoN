@@ -95,7 +95,7 @@ def gen_statistics_data(citation_cascade):
             id_ys.append(id_count/float(cc[pid]['cc']))
 
     print 'zero od count:',zero_od_count
-    open('data/mag/stats/nodes_size.json','w').write(json.dumps(cnum_dict))
+    open('data/mag/stats/citation_count.json','w').write(json.dumps(cnum_dict))
     open('data/mag/stats/cascade_size.json','w').write(json.dumps(enum_dict))
     open('data/mag/stats/depth.json','w').write(json.dumps(depth_dict))
     open('data/mag/stats/out_degree.json','w').write(json.dumps(od_dict))
