@@ -49,7 +49,7 @@ def stats_plot(dirpath):
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('citation count distribution')
-    ax1.set_xlabel('$x=$citation count\n(a)')
+    ax1.set_xlabel('$x=$citation count\n(e)')
     ax1.set_ylabel('$N(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -92,7 +92,7 @@ def stats_plot(dirpath):
     ax2.plot(np.linspace(30, 1000, 10), power_low_func(np.linspace(30, 1000, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
-    ax2.set_xlabel('$x=$cascade size\n(b)')
+    ax2.set_xlabel('$x=$cascade size\n(f)')
     ax2.set_ylabel('$N(x)$')
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
@@ -137,7 +137,7 @@ def stats_plot(dirpath):
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
-    ax3.set_xlabel('$x=$cascade depth\n(c)')
+    ax3.set_xlabel('$x=$cascade depth\n(g)')
     ax3.set_ylabel('$N(x)$')
     ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
@@ -184,7 +184,7 @@ def stats_plot(dirpath):
 
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
-    ax4.set_xlabel('$x = degree$\n(d)')
+    ax4.set_xlabel('$x = degree$\n(h)')
     ax4.set_ylabel('$N(x)$')
     
     ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
