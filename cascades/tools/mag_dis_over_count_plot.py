@@ -289,9 +289,9 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         
     # else:
         ax4.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.8)
-        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
         ax4.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.5)
-        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
 
         ax4.plot(max_xs,max_zs,c='g')
         ax4.plot(avg_xs,avg_zs,c='r')
