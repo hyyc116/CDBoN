@@ -88,8 +88,8 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-    popt,pcov = curve_fit(power_low_func,xs[20:400],ys[20:400])
-    ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    popt,pcov = curve_fit(power_low_func,xs[20:1000],ys[20:1000])
+    ax2.plot(np.linspace(30, 1000, 10), power_low_func(np.linspace(30, 1000, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size\n(b)')
@@ -243,8 +243,8 @@ def stats_plot(dirpath):
     ax5.legend()
 
     plt.tight_layout()
-    plt.savefig('pdf/statistics.pdf',dpi=300)
-    logging.info('figures saved to pdf/statistics.pdf.')
+    plt.savefig('pdf/mag_statistics.pdf',dpi=300)
+    logging.info('figures saved to pdf/mag_statistics.pdf.')
 
 ### centrality
 def plot_centrality():
@@ -278,7 +278,7 @@ def plot_centrality():
 
 
     plt.tight_layout()
-    plt.savefig('pdf/centrality.pdf',dpi=200)
+    plt.savefig('pdf/mag_centrality.pdf',dpi=200)
 
 # plot one kind of centrality
 def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
