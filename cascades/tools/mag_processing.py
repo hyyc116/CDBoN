@@ -1,107 +1,8 @@
 #coding:utf-8
 from basic_config import *
 
-def build_citation_network(dirpath,field_path):
-
-    # load 
-    paper_pids = set([paperid.strip() for paperid in open(field_path)])
-    
-    file_index = 0
-    line_index = 0
-
-    new_lines = []
-    already_in  = set([])
-
-    n_count_papers = 0
-    all_paper_count=0
-    
-    citation_network=defaultdict(list)
-    for file in os.listdir(dirpath):
-        file_index+=1
-        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
-        filepath=filepath+"/"+file
-
-        paper_year = defaultdict(int)
-        for line in open(filepath):
-            line_index+=1
-
-            if line_index%100000==0:
-                logging.info('The {:} th File, total progress:{:}, length of already_in {:}, size of citation count >1 : {:}/{:}, length of citation network:{:}'.format(file_index,line_index,len(already_in),n_count_papers,all_paper_count,len(citation_network.keys())))
-                new_lines = []
-            
-            line = line.strip()
-            paper = json.loads(line)
-
-            pid = paper['id']
-            year = paper['year']
-            paper_year[pid] = year
-
-            #如果这篇论文是cs,并且没有被记录过
-            if pid in paper_pids and pid not in already_in:
-                new_lines.append(line)
-                already_in.add(pid)
-                all_paper_count+=1
-
-                ## 计数 cs引文数量大于1的文章数量
-                if paper.get('n_citation',0)>0:
-                    n_count_papers+=1
-
-            ## 参考文献
-            if 'references' in paper.keys():
-
-                for cpid in paper['references']:
-                    # 如果这篇被引文献是CS
-                    if cpid in paper_pids:
-                        citation_network[cpid].append(pid)
-                        ## 记录这篇文章，如果没有记录过
-                        if pid not in already_in:
-                            already_in.add(pid)
-                            new_lines.append(line)
-
-        open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
-        
-    # open('data/mag/mag_cs_papers.txt','a').write('\n'.join(new_lines))
-    open('data/mag/mag_citation_network.json','w').write(json.dumps(citation_network))
-    open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
-    logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
-
-
-
-def merger_dict(dirpath,prefix,t='list'):
-    file_index = 0
-    if t =='list':
-        merger_dict = defaultdict(list)
-    else:
-        merger_dict = defaultdict(int)
-
-    for file in os.listdir(dirpath):
-        if not file.startswith(prefix):
-            continue
-        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
-        filepath=filepath+"/"+file
-
-        file_index+=1
-
-        logging.info('file index : {:}'.format(file_index))
-
-        data = json.loads(open(filepath).read())
-
-        for key in data.keys():
-            if t=='list':
-                for v in data[key]:
-                    merger_dict[key].append(v)
-            else:
-                merger_dict[key] = data[key]
-    if t=='list':
-        outpath = 'data/mag_citation_network.json'
-    else:
-        outpath = 'data/mag_paper_year.json'
-
-    open('outpath','w').write(merger_dict)
-
-    logging.info('writing to {:}'.format(outpath))
-
-def cs_papers(dirpath):
+# fetch paper ids of specific field
+def field_papers(dirpath,field,keywords):
     file_index = 0
     line_index = 0
     paper_ids = []
@@ -128,13 +29,112 @@ def cs_papers(dirpath):
             fos = paper.get('fos',-1)
             if fos!=-1:
                 fos = ','.join(fos).lower()
-                if 'computer science' in fos:
+                if keywords in fos:
                     paper_ids.append(paper['id'])
 
-    open('data/cs_papers.txt','w').write('\n'.join(paper_ids))
+    open('data/{:}_papers.txt'.format(field),'w').write('\n'.join(paper_ids))
+    # delete variables
+    del paper_ids
 
-### 统计citation network中所有涉及到的所有论文的id
-def all_nodes_in_citation_network(citation_network):
+    return 'data/{:}_papers.txt'.format(field)
+
+
+## build citation network related to specific fields
+def build_citation_network(dirpath,field_path,fieldname):
+
+    # load pids of field
+    paper_pids = set([paperid.strip() for paperid in open(field_path)])
+    
+    # index of mag dataset
+    file_index = 0
+    line_index = 0
+
+    ## save the data related to this field
+    new_lines = []
+
+    # recording the pids saved
+    already_in  = set([])
+
+    ## num of paper of which citation is bigger than 0.
+    n_count_papers = 0
+
+    ## total number in this field
+    all_paper_count=0
+
+    ## num_of_edges
+    num_of_edges = 0
+    
+    ## citation network finally saved
+    citation_network=defaultdict(list)
+
+    ## record all publication year of papers
+    paper_year = defaultdict(int)
+
+
+    for file in os.listdir(dirpath):
+        file_index+=1
+        filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
+        filepath=filepath+"/"+file
+
+        for line in open(filepath):
+            line_index+=1
+
+            if line_index%100000==0:
+                logging.info('==== The {:} th File, total progress:{:} ====').format(file_index,line_index)
+                logging.info('---- length of already_in {:}, size of citation count >0 : {:}/{:}, length of citation network:{:}, number of edges:{:} ----'.format(len(already_in),n_count_papers,all_paper_count,len(citation_network.keys()),num_of_edges))
+                new_lines = []
+            
+            line = line.strip()
+            paper = json.loads(line)
+
+            pid = paper['id']
+            year = paper['year']
+            paper_year[pid] = year
+
+            # one paper is belong to this field and has not been recorded
+            if pid in paper_pids and pid not in already_in:
+                new_lines.append(line)
+                already_in.add(pid)
+
+                all_paper_count+=1
+
+                ## record n_citatin>0
+                if paper.get('n_citation',0)>0:
+                    n_count_papers+=1
+
+            ## references
+            if 'references' in paper.keys():
+
+                for cited_pid in paper['references']:
+                    # If this paper is in paper_ids
+                    if cited_pid in paper_pids:
+                        # update the citation network if cited_pid
+                        citation_network[cited_pid].append(pid)
+
+                        num_of_edges+=1
+
+                        ##  if this paper not recorded, record whatever its filed is
+                        if pid not in already_in:
+                            already_in.add(pid)
+                            new_lines.append(line)
+
+        open('data/mag/mag_{:}_papers.txt'.format(fieldname),'a').write('\n'.join(new_lines))
+        
+    open('data/mag/mag_{:}_citation_network.json'.format(fieldname),'w').write(json.dumps(citation_network))
+    open('data/mag/mag_{:}_paper_year.json'.format(fieldname),'w').write(json.dumps(paper_year))
+    logging.info('save json, file index: {:}, line_index:{:}'.format(file_index,line_index))
+    logging.info('---- length of already_in {:}, size of citation count >0 : {:}/{:}, length of citation network:{:}, number of edges:{:} ----'.format(len(already_in),n_count_papers,all_paper_count,len(citation_network.keys()),num_of_edges))
+
+    #delete variable
+    del citation_network
+    del paper_year
+    del new_lines
+
+    return 'data/mag/mag_{:}_citation_network.json'.format(fieldname)
+
+### stats all nodes in already built citation network
+def all_nodes_in_citation_network(citation_network,fieldname):
+
     cn = json.loads(open(citation_network).read())
     total = len(cn.keys())
     logging.info('total number of papers:{:}'.format(total))
@@ -147,9 +147,14 @@ def all_nodes_in_citation_network(citation_network):
     all_nodes  = list(set(all_nodes))
     logging.info('total nodes:{:}'.format(len(all_nodes)))
 
-    open('data/mag/all_nodes.txt','w').write('\n'.join(all_nodes))
+    open('data/mag/{:}_all_nodes.txt'.format(fieldname),'w').write('\n'.join(all_nodes))
 
-def build_cc_of_all_nodes(dirpath,all_nodes):
+    del all_nodes
+
+    return 'data/mag/{:}_all_nodes.txt'.format(fieldname)
+
+## to build the citation cascade, the citations of papers that not in a filed is also useful.
+def build_cc_of_all_nodes(dirpath,all_nodes,fieldname):
 
     # load 
     paper_pids = set([paperid.strip() for paperid in open(all_nodes)])
@@ -179,12 +184,15 @@ def build_cc_of_all_nodes(dirpath,all_nodes):
                     if cpid in paper_pids:
                         citation_network[cpid].append(pid)
 
-    open('data/mag/mag_all_nodes_citation_network.json','w').write(json.dumps(citation_network))
+    open('data/mag/mag_{:}_all_citation_network.json'.format(fieldname),'w').write(json.dumps(citation_network))
 
+    del all_nodes
+
+    return 'data/mag/mag_{:}_all_citation_network.json'.format(fieldname)
 
 
 ## 根据citation network构建cascade
-def build_mag_cascade(citation_network,cs_papers):
+def build_mag_cascade(citation_network,cs_papers,fieldname):
 
     cs_pids = [line.strip() for line in open(cs_papers)]
 
@@ -201,7 +209,7 @@ def build_mag_cascade(citation_network,cs_papers):
     for pid in cs_pids:
         if progress_index%100000==1:
             logging.info('progress of building cascade:{:}/{:}, number of edges:{:}'.format(progress_index,total,num_of_edges))
-            open('data/mag/mag_cs_citation_cascade.json','a').write(json.dumps(citation_cascade)+"\n") 
+            open('data/mag/mag_{:}_citation_cascade.json'.format(fieldname),'a').write(json.dumps(citation_cascade)+"\n") 
 
             citation_cascade = defaultdict(list)
 
@@ -241,45 +249,29 @@ def build_mag_cascade(citation_network,cs_papers):
 
         citation_cascade[pid] = pid_dict
 
+    open('data/mag/mag_{:}_citation_cascade.json'.format(fieldname),'a').write(json.dumps(citation_cascade)+"\n")
 
-    open('data/mag/mag_cs_citation_cascade.json','a').write(json.dumps(citation_cascade)+"\n") 
-    logging.info('Done, total edges:{:}'.format(num_of_edges))
-
-## 根据citation network构建cascade
-def stats_edges(citation_network):
-
-
-    cn = json.loads(open(citation_network).read())
-    total = len(cn.keys())
-    logging.info('total number of papers:{:}'.format(total))
-    ## progress index
-    progress_index = 0
-    ## num of edges
-    num_of_edges = 0
-    ## cascade
-
-    for pid in cn.keys():
-        if progress_index%100000==1:
-            logging.info('progress of building cascade:{:}/{:}, number of edges:{:}'.format(progress_index,total,num_of_edges))
-
-
-        progress_index+=1
-
-        citing_pids = cn.get(pid,[])
-
-        length = len(citing_pids)
-
-        num_of_edges+=length
-
+    del citation_cascade
 
     logging.info('Done, total edges:{:}'.format(num_of_edges))
+
+
+def build_cascade_of_a_filed(dirpath,keywords='computer science',fieldname='cs'):
+
+
+    ## filter out paper ids in specific field
+    field_path = field_papers(dirpath,fieldname,keywords)
+    # first around build basic citation network
+    citation_network = build_citation_network(dirpath,field_path,fieldname)
+    ## get all nodes in citation network
+    all_nodes  = all_nodes_in_citation_network(citation_network,fieldname)
+    ## citation citation network of all nodes
+    all_nodes_citation_network = build_cc_of_all_nodes(dirpath,all_nodes,fieldname)
+    ## build citation cascade
+    build_mag_cascade(all_nodes_citation_network,field_path,fieldname)
+
 
 
 
 if __name__ == '__main__':
-    # build_reference_network(sys.argv[1],sys.argv[2])
-
-    # all_nodes_in_citation_network(sys.argv[1])
-    # build_cc_of_all_nodes(sys.argv[1],sys.argv[2])
-    # build_mag_cascade(sys.argv[1],sys.argv[2])
-    stats_edges(sys.argv[1],sys.argv[2])
+    build_cascade_of_a_filed(sys.argv[1],sys.argv[2],sys.argv[3])
