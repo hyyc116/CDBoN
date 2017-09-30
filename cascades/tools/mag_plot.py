@@ -63,10 +63,10 @@ def gen_statistics_data(citation_cascade):
             size_depth_dict[len(edges)].append(depth)
 
             #number of nodes
-            cnum_dict[cc[pid]['cc']]+=1
+            cc_dict[cc[pid]['cc']]+=1
             cxs.append(cc[pid]['cc'])
             #number of edges
-            enum_dict[cc[pid]['cs']]+=1
+            cs_dict[cc[pid]['cs']]+=1
             eys.append(cc[pid]['cs'])
         
             dys.append(depth)
@@ -98,8 +98,8 @@ def gen_statistics_data(citation_cascade):
             id_ys.append(id_count/float(cc[pid]['cc']))
 
     print 'zero od count:',zero_od_count
-    open('data/mag/stats/citation_count.json','w').write(json.dumps(cnum_dict))
-    open('data/mag/stats/cascade_size.json','w').write(json.dumps(enum_dict))
+    open('data/mag/stats/citation_count.json','w').write(json.dumps(cc_dict))
+    open('data/mag/stats/cascade_size.json','w').write(json.dumps(cs_dict))
     open('data/mag/stats/depth.json','w').write(json.dumps(depth_dict))
     open('data/mag/stats/out_degree.json','w').write(json.dumps(od_dict))
     open('data/mag/stats/in_degree.json','w').write(json.dumps(in_dict))
