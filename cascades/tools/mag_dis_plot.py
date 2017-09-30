@@ -304,4 +304,4 @@ def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
 
 
 if __name__ == '__main__':
-    stats_plot()
+    stats_plot(sys.argv[1])
