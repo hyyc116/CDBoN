@@ -4,8 +4,8 @@
 '''
 from basic_config import *
 
-def plot_heatmap(x,y,ax,bins,fig,gridsize=50):
-    hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
+def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
+    hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wista'), bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 随着citation count的增加，各个指标的变化
 def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
@@ -128,14 +128,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         
     # else:
         ##均值图
-        ax1.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.9)
+        ax1.plot(avg_xs,avg_ys,c=color_sequence[6],alpha=0.9)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.5)
+        ax1.plot(max_xs,max_ys,c=color_sequence[0],alpha=0.5)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_zs,c='r')
-        ax1.plot(avg_xs,avg_zs,c='y')
+        ax1.plot(max_xs,max_zs,c=color_sequence[7])
+        ax1.plot(avg_xs,avg_zs,c=color_sequence[1])
 
 
     ax1.set_xlabel('Citation Count\n(b)')
@@ -157,8 +157,8 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax2.set_xscale('log')
     ax2.set_title('Percentage of connectors')
     np_pc_xs = np.array([float(i) for i in sorted(pc_xs) if i>1])
-    ax2.plot(np_pc_xs,1/np_pc_xs,'--',c=color_sequence[4])
-    ax2.plot(np_pc_xs,1-1/np_pc_xs,'--',c=color_sequence[4])
+    ax2.plot(np_pc_xs,1/np_pc_xs,'--',c=color_sequence[14])
+    ax2.plot(np_pc_xs,1-1/np_pc_xs,'--',c=color_sequence[14])
 
     max_xs = []
     max_ys = []
