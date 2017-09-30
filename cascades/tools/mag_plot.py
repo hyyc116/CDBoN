@@ -25,12 +25,12 @@ def gen_statistics_data(citation_cascade):
 
     zero_od_count=0
 
+    line_index = 0
     for line in open(citation_cascade):
         line = line.strip()
+        line_index+=1
         cc = json.loads(open(citation_cascade).read())
         logi = 0
-
-    
 
         for pid in cc.keys():
 
@@ -42,7 +42,7 @@ def gen_statistics_data(citation_cascade):
             #progress 
             logi+=1
             if logi%10000==1:
-                logging.info('progress {:}'.format(logi))
+                logging.info('progress {:}, line_index:{:}'.format(logi,line_index))
         
 
             diG = nx.DiGraph()
