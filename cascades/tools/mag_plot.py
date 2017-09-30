@@ -29,7 +29,7 @@ def gen_statistics_data(citation_cascade):
     for line in open(citation_cascade):
         line = line.strip()
         line_index+=1
-        cc = json.loads(open(citation_cascade).read())
+        cc = json.loads(line)
         logi = 0
 
         for pid in cc.keys():
