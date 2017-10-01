@@ -113,7 +113,7 @@ def plot_heat_scatter(xs,ys,ax,fig):
     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
     ax.scatter(xs, ys, c=CM.Wistia(norm(zs)), marker='o')
 
-    colmap = CM.ScalarMappable(norm=LogNorm, cmap=cm.hsv)
+    colmap = CM.ScalarMappable(norm=LogNorm, cmap=CM.Wistia)
     colmap.set_array(zs)
     fig.colorbar(colmap)
 
