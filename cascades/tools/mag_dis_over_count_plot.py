@@ -42,7 +42,7 @@ def plot_heat_scatter(xs,ys,ax):
     zs = np.array(zs)
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
-    ax.scatter(xs, ys, c=CM.cool(np.log(zs)/math.log(max(zs))),s=0.5, marker='o')
+    ax.scatter(xs, ys, c=CM.hsv(np.log(zs)/math.log(max(zs))),s=1, marker='o')
 
 
 
