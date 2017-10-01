@@ -28,7 +28,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     id_ys = plot_dict['id_ys']
 
     num = len(plt.get_fignums())
-    fig,axes = plt.subplots(1,5,figsize=(25,5))
+    fig,axes = plt.subplots(1,4,figsize=(20,5))
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
     ## 将数量少于一定值的citation count 向上靠近
@@ -94,7 +94,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
 
     ## percentage of  cascade size = ciattion count vs citation count
-    print 'percentage of cascade size = citation count'
+    # print 'percentage of cascade size = citation count'
     # ax0 = axes[0]
 
     # e_xs = []
@@ -128,7 +128,9 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_ys.append(sum(size_list)/float(len(size_list)))
 
     if is_heat:
-        plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
+        # plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
+        plot_heat_scatter(rxs,rys,ax1)
+
     else:
         ax1.scatter(rxs,rys)
     if not is_average:
@@ -136,14 +138,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         
     # else:
         ##均值图
-        ax1.plot(avg_xs,avg_ys,c=color_sequence[5],alpha=0.9)
+        ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_ys,c=color_sequence[3],alpha=0.5)
+        ax1.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
         max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_zs,c='r')
-        ax1.plot(avg_xs,avg_zs,c=color_sequence[11])
+        ax1.plot(max_xs,max_zs,c=maximal_smooth)
+        ax1.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
     ax1.set_xlabel('Citation Count\n(b)')
@@ -156,7 +158,9 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     print 'percentage of connectors'
     ax2 = axes[1]
     if is_heat:
-        plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
+        # plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
+        plot_heat_scatter(pc_xs,pc_ys,ax2)
+
     else:
         ax2.scatter(pc_xs,pc_ys)
         
@@ -307,10 +311,11 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         ax4.plot(max_xs,max_zs,c=maximal_smooth)
         ax4.plot(avg_xs,avg_zs,c=avg_smooth)
 
+    plt.colorbar(ax=ax4)
+
     if is_smooth:
         for ax in axes:
             ax.set_xlim(0.9,1100)
-
 
 
     plt.tight_layout()
