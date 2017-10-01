@@ -43,10 +43,8 @@ def plot_heat_scatter(xs,ys,ax):
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
     # ax.scatter(xs, ys, c=CM.hsv(np.log(zs)/math.log(max(zs))),s=1, marker='o')
-    ax.pcolor(xs, ys, zs,
-                   norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),
-                   cmap='Wistia')
-
+    # ax.pcolor(xs, ys, zs,norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),cmap='Wistia')
+    ax.hist2d(xs, ys, bins=40, norm=LogNorm())
 
 
 
