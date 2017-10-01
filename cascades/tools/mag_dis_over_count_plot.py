@@ -19,7 +19,7 @@ avg_smooth = color_sequence[0]
 def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wistia'), bins='log',xscale=bins[0] ,yscale=bins[1])
 
-def plot_heat_scatter_2(xs,ys,ax):
+def plot_heat_scatter(xs,ys,ax):
 
     xyz = defaultdict(lambda: defaultdict(int))
     for i,x in enumerate(xs):
@@ -42,12 +42,12 @@ def plot_heat_scatter_2(xs,ys,ax):
     zs = np.array(zs)
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
-    ax.scatter(xs, ys, c=CM.hsv(np.log(zs)/math.log(max(zs))),s=1, marker='o')
+    ax.scatter(xs, ys, c=CM.summer(np.log(zs)/math.log(max(zs))),s=1, marker='o')
     # ax.pcolor(xs, ys, zs,norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),cmap='Wistia')
 
-def plot_heat_scatter(xs,ys,ax):
+# def plot_heat_scatter(xs,ys,ax):
 
-    ax.hist2d(xs, ys, bins=1000, norm=LogNorm())
+#     ax.hist2d(xs, ys, bins=1000, norm=LogNorm())
 
 
 
