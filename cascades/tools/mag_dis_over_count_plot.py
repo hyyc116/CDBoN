@@ -39,7 +39,7 @@ def plot_heat_scatter(xs,ys,ax):
             zs.append(z)
 
     zs = np.array(zs)
-    print zs[:10],max_zs
+    print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
     ax.scatter(xs, ys, c=CM.Wistia(zs/max(zs)), marker='o')
 
