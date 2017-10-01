@@ -86,3 +86,29 @@ def autolabel(rects,ax,total_count=None,step=1,):
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
                     '{:}'.format(int(height)),
                     ha='center', va='bottom')
+
+def plot_heat_scatter(xs,ys,ax):
+
+    xyz = defaultdict(lambda: defaultdict(int))
+    for i,x in enumerate(xs):
+        y = ys[i]
+
+        xyz[x][y]+=1
+
+    xs = []
+    ys = []
+    zs = []
+    for x in xyz.keys():
+        yz = xyz[x]
+        for y in yz.keys():
+            z = xyz[x][y]
+
+            xs.append(x)
+            ys.append(y)
+            zs.append(z)
+
+    zs = np.array(zs)
+    print zs[:10],max(zs)
+    print len(xs),len(ys),len(zs)
+    norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
+    ax.scatter(xs, ys, c=CM.Wistia(norm(zs)), marker='o')
