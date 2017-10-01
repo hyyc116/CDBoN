@@ -29,6 +29,7 @@ from scipy.signal import wiener
 import matplotlib as mpl
 from matplotlib.patches import Circle
 from matplotlib.patheffects import withStroke
+import matplotlib.colors as colors
 
 mpl.rcParams['agg.path.chunksize'] = 10000
 
