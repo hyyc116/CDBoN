@@ -47,7 +47,7 @@ def plot_heat_scatter_2(xs,ys,ax):
 
 def plot_heat_scatter(xs,ys,ax):
 
-    ax.hist2d(xs, ys, bins=40, norm=LogNorm())
+    ax.hist2d(xs, ys, bins=1000, norm=LogNorm())
 
 
 
