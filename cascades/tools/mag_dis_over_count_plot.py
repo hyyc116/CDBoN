@@ -131,25 +131,25 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
 
     ## percentage of  cascade size = ciattion count vs citation count
-    print 'percentage of cascade size = citation count'
-    ax0 = axes[0]
+    # print 'percentage of cascade size = citation count'
+    # ax0 = axes[0]
 
-    e_xs = []
-    e_ys = []
-    for cc in sorted(equal_dict.keys()):
-        e_xs.append(cc)
-        y = equal_dict[cc]
-        e_ys.append(sum(y)/float(len(y)))
+    # e_xs = []
+    # e_ys = []
+    # for cc in sorted(equal_dict.keys()):
+    #     e_xs.append(cc)
+    #     y = equal_dict[cc]
+    #     e_ys.append(sum(y)/float(len(y)))
 
-    ax0.plot(e_xs,e_ys)
-    ax0.set_xscale('log')
-    # ax0.set_yscale('log')
-    ax0.set_title('citation count = cascade size')
-    ax0.set_xlabel('citation count\n(a)')
-    ax0.set_ylabel('percentage')
+    # ax0.plot(e_xs,e_ys)
+    # ax0.set_xscale('log')
+    # # ax0.set_yscale('log')
+    # ax0.set_title('citation count = cascade size')
+    # ax0.set_xlabel('citation count\n(a)')
+    # ax0.set_ylabel('percentage')
 
     print 'percentage of AMV'
-    ax1 = axes[1]
+    ax1 = axes[0]
     #max values
     max_xs = []
     max_ys = []
@@ -189,7 +189,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     #### percentage of connectors over citation count
     print 'percentage of connectors'
-    ax2 = axes[2]
+    ax2 = axes[1]
     if is_heat:
         # plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
         plot_heat_scatter(pc_xs,pc_ys,ax2)
@@ -232,7 +232,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
-    ax3 = axes[3]
+    ax3 = axes[2]
     if is_heat:
         # plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
         plot_heat_scatter(po_xs,po_ys,ax3)
@@ -278,7 +278,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     print 'plot acmv..'
     ### average connector marginal value
-    ax4 = axes[4]
+    ax4 = axes[3]
 
     xs = []
     ys = []
