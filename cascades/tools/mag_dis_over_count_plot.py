@@ -42,7 +42,8 @@ def plot_heat_scatter(xs,ys,ax):
     zs = np.array(zs)
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
-    ax.scatter(xs, ys, c=CM.summer(np.log(zs)/math.log(max(zs))),s=1, marker='o')
+    norm = mpl.colors.Normalize(vmin=min(zs),vmax=max(zs))
+    ax.scatter(xs, ys, c=CM.summer(norm(zs)),s=1, marker='o')
     # ax.pcolor(xs, ys, zs,norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),cmap='Wistia')
 
 # def plot_heat_scatter(xs,ys,ax):
