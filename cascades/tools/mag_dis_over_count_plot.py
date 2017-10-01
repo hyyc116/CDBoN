@@ -3,6 +3,7 @@
 @author: hy@tTt
 '''
 from basic_config import *
+import math
 
 
 color_map_name = 'Wistia'
@@ -41,7 +42,7 @@ def plot_heat_scatter(xs,ys,ax):
     zs = np.array(zs)
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
-    ax.scatter(xs, ys, c=CM.Wistia(log(zs)/log(max(zs))), marker='o')
+    ax.scatter(xs, ys, c=CM.Wistia(np.log(zs)/math.log(max(zs))), marker='o')
 
 
 
