@@ -19,31 +19,31 @@ avg_smooth = color_sequence[0]
 def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wistia'), bins='log',xscale=bins[0] ,yscale=bins[1])
 
-def plot_heat_scatter(xs,ys,ax):
+# def plot_heat_scatter(xs,ys,ax):
 
-    xyz = defaultdict(lambda: defaultdict(int))
-    for i,x in enumerate(xs):
-        y = ys[i]
+#     xyz = defaultdict(lambda: defaultdict(int))
+#     for i,x in enumerate(xs):
+#         y = ys[i]
 
-        xyz[x][y]+=1
+#         xyz[x][y]+=1
 
-    xs = []
-    ys = []
-    zs = []
-    for x in xyz.keys():
-        yz = xyz[x]
-        for y in yz.keys():
-            z = xyz[x][y]
+#     xs = []
+#     ys = []
+#     zs = []
+#     for x in xyz.keys():
+#         yz = xyz[x]
+#         for y in yz.keys():
+#             z = xyz[x][y]
 
-            xs.append(x)
-            ys.append(y)
-            zs.append(z)
+#             xs.append(x)
+#             ys.append(y)
+#             zs.append(z)
 
-    zs = np.array(zs)
-    print zs[:10],max(zs)
-    print len(xs),len(ys),len(zs)
-    norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
-    ax.scatter(xs, ys, c=CM.Wistia(norm(zs)),s=2, marker='o')
+#     zs = np.array(zs)
+#     print zs[:10],max(zs)
+#     print len(xs),len(ys),len(zs)
+#     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
+#     ax.scatter(xs, ys, c=CM.Wistia(norm(zs)),s=2, marker='o')
     # ax.pcolor(xs, ys, zs,norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),cmap='Wistia')
 
 # def plot_heat_scatter(xs,ys,ax):
@@ -166,7 +166,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     if is_heat:
         # plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
-        plot_heat_scatter(rxs,rys,ax1)
+        plot_heat_scatter(rxs,rys,ax1,fig)
     else:
         ax1.scatter(rxs,rys)
     if not is_average:
@@ -192,7 +192,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax2 = axes[1]
     if is_heat:
         # plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
-        plot_heat_scatter(pc_xs,pc_ys,ax2)
+        plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
     else:
         ax2.scatter(pc_xs,pc_ys)
         
@@ -235,7 +235,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax3 = axes[2]
     if is_heat:
         # plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
-        plot_heat_scatter(po_xs,po_ys,ax3)
+        plot_heat_scatter(po_xs,po_ys,ax3,fig)
     else:
         ax3.scatter(po_xs,po_ys)
 
@@ -297,7 +297,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     if is_heat:
         # plot_heatmap(xs,ys,ax4,['log','linear'],fig)
-        plot_heat_scatter(xs,ys,ax4)
+        plot_heat_scatter(xs,ys,ax4,fig)
     else:
         ax4.scatter(xs,ys)
 

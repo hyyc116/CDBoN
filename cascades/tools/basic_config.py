@@ -87,7 +87,7 @@ def autolabel(rects,ax,total_count=None,step=1,):
                     '{:}'.format(int(height)),
                     ha='center', va='bottom')
 
-def plot_heat_scatter(xs,ys,ax):
+def plot_heat_scatter(xs,ys,ax,fig):
 
     xyz = defaultdict(lambda: defaultdict(int))
     for i,x in enumerate(xs):
@@ -112,3 +112,9 @@ def plot_heat_scatter(xs,ys,ax):
     print len(xs),len(ys),len(zs)
     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
     ax.scatter(xs, ys, c=CM.Wistia(norm(zs)), marker='o')
+
+    colmap = CM.ScalarMappable(norm=LogNorm, cmap=cm.hsv)
+    colmap.set_array(zs)
+    fig.colorbar(colmap)
+
+

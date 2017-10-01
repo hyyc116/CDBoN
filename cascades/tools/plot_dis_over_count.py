@@ -129,7 +129,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     if is_heat:
         # plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
-        plot_heat_scatter(rxs,rys,ax1)
+        plot_heat_scatter(rxs,rys,ax1,fig)
 
     else:
         ax1.scatter(rxs,rys)
@@ -159,7 +159,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax2 = axes[1]
     if is_heat:
         # plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
-        plot_heat_scatter(pc_xs,pc_ys,ax2)
+        plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
 
     else:
         ax2.scatter(pc_xs,pc_ys)
@@ -206,7 +206,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     ax3 = axes[2]
     if is_heat:
         # plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
-        plot_heat_scatter(po_xs,po_ys,ax3)
+        plot_heat_scatter(po_xs,po_ys,ax3,fig)
     else:
         ax3.scatter(po_xs,po_ys)
 
@@ -268,7 +268,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
     if is_heat:
         # plot_heatmap(xs,ys,ax4,['log','linear'],fig)
-        plot_heat_scatter(xs,ys,ax4)
+        plot_heat_scatter(xs,ys,ax4,fig)
 
     else:
         ax4.scatter(xs,ys)
@@ -300,9 +300,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
 
     if not is_average:
-        
-        
-    # else:
         ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
         avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
         ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
@@ -310,8 +307,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
         ax4.plot(max_xs,max_zs,c=maximal_smooth)
         ax4.plot(avg_xs,avg_zs,c=avg_smooth)
-
-    plt.colorbar(ax=ax4)
 
     if is_smooth:
         for ax in axes:
