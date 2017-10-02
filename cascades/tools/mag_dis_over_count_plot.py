@@ -340,7 +340,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         ax4.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
-    plt.colorbar(ax=ax4)
+    # plt.colorbar(ax=ax4)
     if is_smooth:
         for ax in axes:
             ax.set_xlim(0.9,1100)
