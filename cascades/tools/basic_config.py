@@ -115,6 +115,6 @@ def plot_heat_scatter(xs,ys,ax,fig):
 
     colmap = CM.ScalarMappable(norm=norm, cmap=CM.Wistia)
     colmap.set_array(zs)
-    fig.colorbar(colmap)
+    plt.colorbar(colmap,ax=ax)
 
 
