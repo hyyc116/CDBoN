@@ -111,9 +111,9 @@ def plot_heat_scatter(xs,ys,ax,fig):
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
-    ax.scatter(xs, ys, c=CM.Wistia(norm(zs)), marker='o')
+    ax.scatter(xs, ys, c=CM.Blues(norm(zs)), marker='o')
 
-    colmap = CM.ScalarMappable(norm=norm, cmap=CM.Wistia)
+    colmap = CM.ScalarMappable(norm=norm, cmap=CM.Blues)
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
