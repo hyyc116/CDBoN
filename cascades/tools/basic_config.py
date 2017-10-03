@@ -31,6 +31,7 @@ from matplotlib.patches import Circle
 from matplotlib.patheffects import withStroke
 import matplotlib.colors as colors
 from matplotlib.colors import LogNorm
+from matplotlib.colors import LinearSegmentedColormap
 
 mpl.rcParams['agg.path.chunksize'] = 10000
 
