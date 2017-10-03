@@ -87,6 +87,20 @@ def autolabel(rects,ax,total_count=None,step=1,):
                     '{:}'.format(int(height)),
                     ha='center', va='bottom')
 
+cdict = {'red': ((0.0, 1.0, 1.0),   # Full red at the first stop
+                 (0.5, 0.0, 0.0),   # No red at second stop
+                 (1.0, 1.0, 1.0)),  # Full red at final stop
+        #
+        'green': ((0.0, 0.0, 0.0),  # No green at all stop
+                 (0.5, 0.0, 0.0),   # 
+                 (1.0, 0.0, 0.0)),  # 
+        #
+        'blue': ((0.0, 0.0, 0.0),   # No blue at first stop
+                 (0.5, 1.0, 1.0),   # Full blue at second stop
+                 (1.0, 0.0, 0.0))}
+
+
+
 def plot_heat_scatter(xs,ys,ax,fig):
 
     xyz = defaultdict(lambda: defaultdict(int))
@@ -111,9 +125,15 @@ def plot_heat_scatter(xs,ys,ax,fig):
     print zs[:10],max(zs)
     print len(xs),len(ys),len(zs)
     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
-    ax.scatter(xs, ys, c=CM.winter(norm(zs)), marker='o')
 
-    colmap = CM.ScalarMappable(norm=norm, cmap=CM.winter)
+    yellow = colors.to_rgba(color_sequence[2])
+    blue = colors.to_rgba(color_sequence[0])
+    ccs = [blue,yellow]
+    cm = LinearSegmentedColormap.from_list('my_list', ccs)
+
+    ax.scatter(xs, ys, c=cm(norm(zs)), marker='o')
+
+    colmap = CM.ScalarMappable(norm=norm, cmap=cm)
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
