@@ -39,7 +39,7 @@ def plot_citation_num(num_counter):
         total_count+=data[count]
         ys.append(data[count])
 
-        if count<=10:
+        if count<=14:
             low_citation_count+=data[count]
         if count>1000:
             high_citation_count+=data[count]
@@ -57,13 +57,14 @@ def plot_citation_num(num_counter):
     fig,axes = plt.subplots(1,2,figsize=(10,5))
     ax = axes[0]
     ax.plot(xs,ys,'o',fillstyle='none')
-    ax.plot(np.linspace(10, 1000, 10), power_low_func(np.linspace(10, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax.plot([10]*10,np.linspace(10**3, 10**5, 10),'--',c='r')
+    ax.plot(np.linspace(30, 1000, 10), power_low_func(np.linspace(30, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax.plot([14]*10,np.linspace(10**3, 10**5, 10),'--',c='r')
+    ax.plot([1000]*10,np.linspace(10**0, 10**2, 10),'--',c='r')
     ax.plot(xs,xs,'--',label='$y=x$')
 
-    ax.text(20,5*10**4,'$x_{low}$')
-    ax.text(100,2*10**2,'$x_{medium}$')
-    ax.text(2000,5*10**0,'$x_{high}$')
+    ax.text(20,5*10**4,'$x_{low}=14$')
+    ax.text(100,2*10**2,'$x_{medium}=100$')
+    ax.text(2000,5*10**0,'$x_{high}=1000$')
     ax.set_title('Citation distribution',fontsize=15)
     ax.set_xscale('log')
     ax.set_yscale('log')
