@@ -140,8 +140,8 @@ def paras_square(xs,ys):
     plt.savefig('fitting_lines.png',dpi=200)
     
     fig=plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    plt.scatter(rxs,rys,rzs)
+    ax = Axes3D(fig)
+    ax.scatter(rxs,rys,rzs)
     plt.savefig('para_space.pdf',dpi=200)
 
 
