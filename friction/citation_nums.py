@@ -72,6 +72,8 @@ def plot_citation_num(num_counter):
     ax.set_ylabel('$N(x)$',fontsize=10)
     ax.legend()
 
+    paras_square(xs,ys)
+
     logging.info('plot paper distribution...')
     ax2 = axes[1]
     xs=['$x<=x_{low}$','$x_{low}<x<x_{high}$','$x>=x_{high}$']
@@ -92,9 +94,27 @@ def plot_citation_num(num_counter):
     plt.savefig(fig_path,dpi=300)
     logging.info('fig saved to {:}'.format(fig_path))
 
+
+
+
 def main():
     num_counter = citation_count_json(sys.argv[1],int(sys.argv[2]))
     plot_citation_num(num_counter)
+
+
+def paras_square(xs,ys):
+
+    for start in [0,5,10,15,20,25,30,40,50]:
+        for end in [200,300,400,500,600,700,800,900,1000]:
+            x = xs[start:end]
+            y = ys[start:end]
+
+            popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start,end])
+            fit_y = power_low_func(xs[start:end], *popt)
+            r2 = r2_score(ys[start:end])
+
+            print start,end,r2,popt[0]
+
 
 
 if __name__ == '__main__':
