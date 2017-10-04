@@ -103,9 +103,9 @@ def main():
 
 
 def paras_square(xs,ys):
-
-    for start in [0,5,10,15,20,25,30,40,50]:
-        for end in [200,300,400,500,600,700,800,900,1000]:
+    plt.subplots(9,9,figsize=(45,45))
+    for i,start in enumerate([0,5,10,15,20,25,30,40,50]):
+        for j,end in enumerate([200,300,400,500,600,700,800,900,1000]):
             x = xs[start:end]
             y = ys[start:end]
 
@@ -114,6 +114,13 @@ def paras_square(xs,ys):
             r2 = r2_score(y,fit_y)
 
             print start,end,r2,popt[0]
+
+            ax.plot(x,y,marker='o')
+            ax.plot(x,fit_y,label='$\\alpha={:4f}, R^2={:.10f}$'.format(popt[0],r2))
+            ax.legend()
+
+    plt.tight_layout()
+    plt.savefig('fitting_lines.png',dpi=200)
 
 
 
