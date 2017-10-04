@@ -47,9 +47,9 @@ def autolabel(rects,ax,total_count=None,step=1):
         # print height
         if not total_count is None:
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                    '{:}\n({:.8f})'.format(float(height),height/float(total_count)),
+                    '{:}\n({:.6f})'.format(float(height),height/float(total_count)),
                     ha='center', va='bottom')
         else:
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                    '{:.8f}'.format(float(height)),
+                    '{:.6f}'.format(float(height)),
                     ha='center', va='bottom')
