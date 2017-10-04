@@ -123,11 +123,13 @@ def paras_square(xs,ys):
             ax.plot(x,fit_y,label='$\\alpha={:4f}, R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
+            ax.set_yscale('log')
+            ax.set_xscale('log')
+            ax.set_title('{:}-{:}'.format(start,end))
+
     plt.tight_layout()
     plt.savefig('fitting_lines.png',dpi=200)
-    ax.set_yscale('log')
-    ax.set_xscale('log')
-    ax.set_title('{:}-{:}'.format(start,end))
+    
 
 
 
