@@ -109,9 +109,9 @@ def paras_square(xs,ys):
             x = xs[start:end]
             y = ys[start:end]
 
-            popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start,end])
-            fit_y = power_low_func(xs[start:end], *popt)
-            r2 = r2_score(ys[start:end])
+            popt,pcov = curve_fit(power_low_func,x,y)
+            fit_y = power_low_func(x, *popt)
+            r2 = r2_score(y,fit_y)
 
             print start,end,r2,popt[0]
 
