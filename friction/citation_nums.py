@@ -59,7 +59,7 @@ def plot_citation_num(num_counter):
     ax.plot(xs,ys,'o',fillstyle='none')
     ax.plot(np.linspace(15, 1000, 10), power_low_func(np.linspace(15, 1000, 10), *popt),c='r',label='$\\alpha={:.2f}$'.format(popt[0]))
     ax.plot([14]*10,np.linspace(10**3, 10**4.5, 10),'--',c='r')
-    ax.plot([1000]*10,np.linspace(10**0.9, 10**2, 10),'--',c='r')
+    ax.plot([1000]*10,np.linspace(0.9, 10**2, 10),'--',c='r')
     ax.plot(xs,xs,'--',label='$y=x$')
 
     ax.text(8,10**3.5,'$x_{low}=14$')
