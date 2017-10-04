@@ -120,7 +120,7 @@ def paras_square(xs,ys):
             ax = axes[i,j]
 
             ax.plot(xs,ys,'o',fillstyle='none')
-            ax.plot(x,fit_y,label='$\\alpha={:4f},\n R^2={:.10f}$'.format(popt[0],r2))
+            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n $R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
             ax.set_yscale('log')
