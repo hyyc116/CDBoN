@@ -17,6 +17,7 @@ import logging
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from sklearn.metrics import r2_score
+from mpl_toolkits.mplot3d import Axes3D
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.INFO)
 PREFIX='all'
