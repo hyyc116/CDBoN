@@ -105,8 +105,8 @@ def main():
 
 
 def paras_square(xs,ys):
-    fig,axes = plt.subplots(9,6,figsize=(30,45))
-    for i,start in enumerate([0,5,10,15,20,25,30,40,50]):
+    fig,axes = plt.subplots(13,6,figsize=(30,65))
+    for i,start in enumerate([0,5,10,15,20,21,22,23,24,25,30,40,50]):
         for j,end in enumerate([200,300,400,500,600,700]):
             x = xs[start:end]
             y = ys[start:end]
