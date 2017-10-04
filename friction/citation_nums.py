@@ -50,7 +50,7 @@ def plot_citation_num(num_counter):
     logging.info('total number of medium cited papers:{:}'.format(medium_count))
     logging.info('total number of high cited papers:{:}'.format(high_citation_count))
 
-    popt,pcov = curve_fit(power_low_func,xs[15:500],ys[15:500])
+    popt,pcov = curve_fit(power_low_func,xs[15:400],ys[15:400])
     logging.info('the alpha value of power law is {:.2f}'.format(popt[0]))
 
     logging.info('plot citation distribution...')
