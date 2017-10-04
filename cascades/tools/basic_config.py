@@ -17,6 +17,7 @@ import networkx as nx
 from itertools import combinations
 import pylab
 import itertools
+from mpl_toolkits.mplot3d import Axes3D
 import statsmodels.api as sm
 lowess = sm.nonparametric.lowess
 from scipy.interpolate import spline
