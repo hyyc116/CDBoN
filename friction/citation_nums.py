@@ -111,16 +111,15 @@ def paras_square(xs,ys):
             x = xs[start:end]
             y = ys[start:end]
 
-            print x[-1]
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(y,fit_y)
 
-            print start,end,r2,popt[0]
+            print start,end,r2,popt[0],x[-1]
 
             ax = axes[i,j]
 
-            ax.scatter(xs,ys,'o',fillstyle='none')
+            ax.plot(xs,ys,'o',fillstyle='none')
             ax.plot(x,fit_y,label='$\\alpha={:4f},\n R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
