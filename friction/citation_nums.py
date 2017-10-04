@@ -105,6 +105,11 @@ def main():
 
 
 def paras_square(xs,ys):
+
+    rxs=[]
+    rys=[]
+    rzs=[]
+
     fig,axes = plt.subplots(13,6,figsize=(30,65))
     for i,start in enumerate([0,5,10,15,20,21,22,23,24,25,30,40,50]):
         for j,end in enumerate([200,300,400,500,600,700]):
@@ -123,6 +128,10 @@ def paras_square(xs,ys):
             ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n $R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
+            rxs.append(start)
+            rys.append(end)
+            rzs.append(r2)
+
             ax.set_yscale('log')
             ax.set_xscale('log')
             ax.set_title('{:}-{:}'.format(x[0],x[-1]))
@@ -130,7 +139,9 @@ def paras_square(xs,ys):
     plt.tight_layout()
     plt.savefig('fitting_lines.png',dpi=200)
     
-
+    plt.figure()
+    plt.plot(rxs,rys,rzs)
+    plt.savefig('para_space.pdf',dpi=200)
 
 
 if __name__ == '__main__':
