@@ -62,9 +62,9 @@ def plot_citation_num(num_counter):
     ax.plot([1000]*10,np.linspace(0.9, 10**2, 10),'--',c='r')
     ax.plot(xs,xs,'--',label='$y=x$')
 
-    ax.text(8,10**3.5,'$x_{low}=14$')
+    ax.text(2,10**3.5,'$x_{low}=14$')
     ax.text(100,2*10**2,'$x_{medium}=100$')
-    ax.text(1000,5*10**0,'$x_{high}=1000$')
+    ax.text(1050,5*10**0,'$x_{high}=1000$')
     ax.set_title('Citation distribution',fontsize=15)
     ax.set_xscale('log')
     ax.set_yscale('log')
