@@ -72,7 +72,8 @@ def plot_citation_num(num_counter):
     ax.set_ylabel('$N(x)$',fontsize=10)
     ax.legend()
 
-    paras_square(xs,ys)
+    para_xs= xs
+    para_ys = ys 
 
     logging.info('plot paper distribution...')
     ax2 = axes[1]
@@ -94,6 +95,7 @@ def plot_citation_num(num_counter):
     plt.savefig(fig_path,dpi=300)
     logging.info('fig saved to {:}'.format(fig_path))
 
+    paras_square(para_xs,para_ys)
 
 
 
