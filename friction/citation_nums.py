@@ -110,7 +110,7 @@ def paras_square(xs,ys):
     rys=[]
     rzs=[]
 
-    fig,axes = plt.subplots(12,8,figsize=(40,60))
+    fig,axes = plt.subplots(12,13,figsize=(65,60))
     for i,start in enumerate([5,10,15,20,21,22,23,24,25,30,40,50]):
         for j,maxc in enumerate([200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000]):
 
