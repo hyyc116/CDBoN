@@ -125,7 +125,7 @@ def paras_square(xs,ys):
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            r2 = r2_score(np.log(y),np.log(fit_y))*sum(x)/float(sum(ys))
+            r2 = r2_score(np.log(y),np.log(fit_y))*sum(y)/float(sum(ys))
 
             print start,end,r2,popt[0],x[-1],sum(y)/float(sum(ys))
 
