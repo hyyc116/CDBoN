@@ -24,7 +24,7 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
     logging.info('paper distribution with index {:} ...'.format(index))
 
     title = 'Paper distribution'
-    xls = 'published year'
+    xls = 'Year'
     if index is not None:
         xls += '\n{:}'.format(index)
     yls = 'Number of papers'
@@ -64,11 +64,11 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
             avg.append(sum(age_dict[year])/float(len(age_dict[year])))
 
     a_avg = sum(avg)/float(len(avg))
-    title = 'Average Citation Age'
-    xls = 'published year x'
+    title = 'Average citation age over year'
+    xls = 'Year'
     if index is not None:
         xls += '\n{:}'.format(index)
-    yls = 'Average Citation Age'
+    yls = 'Average citation age'
     subplot_line(ax,xs,ys,title,xls,yls)
     ax.plot(np.linspace(1980,2015,10),[a_avg]*10,'--',label='mean:{:.2f}'.format(a_avg))
     # ax.set_xlim(1930,2020)
