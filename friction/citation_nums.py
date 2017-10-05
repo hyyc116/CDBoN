@@ -118,14 +118,14 @@ def paras_square(xs,ys):
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            r2 = r2_score(np.log(y),np.log(fit_y))
+            r2 = r2_score(np.log(y),np.log(fit_y))*len(x)/float(len(xs))
 
             print start,end,r2,popt[0],x[-1]
 
             ax = axes[i,j]
 
             ax.plot(xs,ys,'o',fillstyle='none')
-            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n $R^2={:.10f}$'.format(popt[0],r2))
+            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n $Global R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
             rxs.append(start)
@@ -141,7 +141,7 @@ def paras_square(xs,ys):
     
     fig=plt.figure()
     ax = Axes3D(fig)
-    ax.scatter(rxs,rys,rzs)
+    ax.plot_wireframe(rxs,rys,rzs)
     plt.savefig('para_space.pdf',dpi=200)
 
 
