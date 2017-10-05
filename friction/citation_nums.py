@@ -120,7 +120,7 @@ def paras_square(xs,ys):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))*len(x)/float(len(xs))
 
-            print start,end,r2,popt[0],x[-1]
+            print start,end,r2,popt[0],x[-1],len(x)/float(len(xs))
 
             ax = axes[i,j]
 
