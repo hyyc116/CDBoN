@@ -28,8 +28,8 @@ DATADIR='data'
 params = {'legend.fontsize': 15,
          'axes.labelsize': 10,
          'axes.titlesize':20,
-         'xtick.labelsize':15,
-         'ytick.labelsize':15
+         'xtick.labelsize':10,
+         'ytick.labelsize':10
          }
 pylab.rcParams.update(params)
 
