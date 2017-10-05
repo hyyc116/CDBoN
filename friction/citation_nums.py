@@ -115,7 +115,7 @@ def paras_square(xs,ys):
         for j,end in enumerate([200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000]):
 
 
-            for xi,v in enumerate(x):
+            for xi,v in enumerate(xs):
                 if v>j:
                     end = xi-1
                     break
@@ -132,7 +132,7 @@ def paras_square(xs,ys):
             ax = axes[i,j]
 
             ax.plot(xs,ys,'o',fillstyle='none')
-            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n $Global R^2={:.10f}$'.format(popt[0],r2))
+            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.10f}$'.format(popt[0],r2))
             ax.legend()
 
             rxs.append(start)
