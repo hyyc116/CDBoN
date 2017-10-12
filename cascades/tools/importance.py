@@ -73,10 +73,13 @@ def importance():
     _10_y=0
     for cc in sorted(equal_dict.keys()):
         e_xs.append(cc)
-        if cc==10:
-            _10_y=equal_dict[cc]
+        
 
         y = equal_dict[cc]
+
+        if cc==10:
+            _10_y=sum(y)/float(len(y))
+
         e_ys.append(sum(y)/float(len(y)))
 
     ax.plot(e_xs,e_ys,label='MAG')
