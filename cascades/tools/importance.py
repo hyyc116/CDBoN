@@ -53,8 +53,6 @@ def importance():
     od_ys = plot_dict['od_ys']
     id_ys = plot_dict['id_ys']
 
-    num = len(plt.get_fignums())
-    fig,axes = plt.subplots(1,4,figsize=(22.5,5))
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
@@ -77,12 +75,8 @@ def importance():
         e_ys.append(sum(y)/float(len(y)))
 
     ax.plot(e_xs,e_ys,label='MAG')
-    ax.set_xscale('log')
-    # ax0.set_yscale('log')
-    ax.set_title('citation count = cascade size')
-
+    
     ax.legend()
-
     plt.savefig('pdf/importance.pdf',dpi=200)
 
 
