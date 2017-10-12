@@ -57,8 +57,14 @@ def importance():
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
 
+    _10_y=0
+
     for i in range(len(cxs)):
         sx = cxs[i]
+
+        if sx ==10:
+            _10_y=equal_dict[sx]
+
         if eys[i]==cxs[i]:
             equal_dict[sx].append(1)
         else:
@@ -75,6 +81,11 @@ def importance():
         e_ys.append(sum(y)/float(len(y)))
 
     ax.plot(e_xs,e_ys,label='MAG')
+
+    ax.plot(np.arange(0,10,10),[_10_y]*10,'--')
+    ax.plot([10]*10,np.arange(0,_10_y,10),'--')
+
+
     
     ax.legend()
     plt.savefig('pdf/importance.pdf',dpi=200)
