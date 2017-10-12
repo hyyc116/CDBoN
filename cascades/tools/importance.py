@@ -21,7 +21,7 @@ def importance():
     equal_dict=defaultdict(list)
 
     for i in range(len(cxs)):
-
+        sx = cxs[i]
         if eys[i]==cxs[i]:
             equal_dict[sx].append(1)
         else:
@@ -60,7 +60,7 @@ def importance():
     equal_dict=defaultdict(list)
 
     for i in range(len(cxs)):
-
+        sx = cxs[i]
         if eys[i]==cxs[i]:
             equal_dict[sx].append(1)
         else:
