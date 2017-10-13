@@ -93,6 +93,7 @@ def importance():
     ax.text(12,0.15,'$({:},{:.2f})$'.format(10,_10_y))
     
     ax.legend()
+    plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
 
 
