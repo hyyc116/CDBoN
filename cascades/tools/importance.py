@@ -4,7 +4,7 @@ from basic_config import *
 
 
 def importance():   
-    fig,ax = plt.subplots(figsize=(5,5))
+    fig,ax = plt.subplots(figsize=(5,4))
 
     plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
