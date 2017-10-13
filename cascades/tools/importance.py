@@ -85,8 +85,8 @@ def importance():
     ax.plot(e_xs,e_ys,label='MAG')
 
     print _10_y
-    ax.plot(np.linspace(1,10,10),[_10_y]*10)
-    ax.plot([10]*10,np.linspace(0,_10_y,10))
+    ax.plot(np.linspace(0.6,10,10),[_10_y]*10,'--',c='r')
+    ax.plot([10]*10,np.linspace(-0.5,_10_y,10),'--',c='r')
 
 
     
