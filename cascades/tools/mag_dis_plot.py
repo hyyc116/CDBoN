@@ -56,6 +56,8 @@ def stats_plot(dirpath):
     # plot the 80%
     mean = np.sum(np.array(xs[30:400])*np.array(ys[30:400]))
     ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    logging.info('-- mean -- {:}'.format(mean))
+    
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()

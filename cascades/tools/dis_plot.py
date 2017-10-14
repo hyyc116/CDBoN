@@ -52,6 +52,7 @@ def stats_plot():
 
     mean = np.sum(np.array(xs[30:400])*np.array(ys[30:400]))
     ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    logging.info('-- mean -- {:}'.format(mean))
 
     ax1.set_yscale('log')
     ax1.set_xscale('log')
