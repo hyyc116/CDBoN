@@ -49,6 +49,10 @@ def stats_plot():
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count\n(a)')
     ax1.set_ylabel('$N_{count}(x)$')
+
+    mean = np.sum(np.array(xs)*np.array(ys))
+    ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10,'--',label='mean={:.2f}'.format(mean))
+
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
