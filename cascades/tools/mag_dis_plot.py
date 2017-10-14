@@ -54,6 +54,8 @@ def stats_plot(dirpath):
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # plot the 80%
+    mean = np.sum(np.array(xs)*np.array(ys))
+    ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
