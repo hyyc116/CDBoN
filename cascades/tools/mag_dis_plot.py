@@ -61,8 +61,9 @@ def stats_plot(dirpath):
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
-    ## 画 space para
-    paras_square(xs,ys,'mag_cd')
+
+    cd_xs = xs
+    cd_ys = ys
 
 
 
@@ -105,9 +106,9 @@ def stats_plot(dirpath):
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
     ax2.legend()
-    ## 画 para space
-    paras_square(xs,ys,'mag_sd')
-
+    
+    sd_xs = xs
+    sd_ys = ys
 
     ####depth
     logging.info('plotting cascade depth ...')
@@ -255,6 +256,11 @@ def stats_plot(dirpath):
     plt.tight_layout()
     plt.savefig('pdf/mag_statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/mag_statistics.pdf.')
+
+    ## 画 para space
+    paras_square(cd_xs,cd_ys,'mag_sd')
+    paras_square(sd_xs,sd_ys,'mag_sd')
+
 
 ### centrality
 def plot_centrality():

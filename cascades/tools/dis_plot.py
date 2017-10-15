@@ -61,10 +61,8 @@ def stats_plot():
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
-
-    ### 画 para space
-    paras_square(xs,ys,'aminer_cd')
-
+    cd_xs = xs
+    cd_ys = ys
 
 
     #### cascade size
@@ -107,8 +105,8 @@ def stats_plot():
     ax2.set_xscale('log') 
     ax2.legend()
     ## 画 para space
-    paras_square(xs,ys,'aminer_sd')
-
+    sd_xs = xs
+    sd_ys = ys
 
     ####depth
     logging.info('plotting cascade depth ...')
@@ -256,6 +254,11 @@ def stats_plot():
     plt.tight_layout()
     plt.savefig('pdf/statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/statistics.pdf.')
+
+
+    paras_square(cd_xs,cd_ys,'aminer_dd')
+    paras_square(sd_xs,sd_ys,'aminer_sd')
+
 
 ### centrality
 def plot_centrality():
