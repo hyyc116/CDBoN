@@ -133,15 +133,16 @@ def paras_square(xs,ys,tag,total=0):
     min_y = np.log(np.min(ys))
     norm_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
-    fig,axes = plt.subplots(12,8,figsize=(40,40))
-    for i,start in enumerate([5,10,15,20,21,22,23,24,25,26,27,30]):
-        for j,maxc in enumerate([400,600,800,1000,2000,4000,5000,10000]):
 
+    x_is = np.arange(1,50,2)
+    y_is = np.arange(100,len(xs),50)
 
-            for xi,v in enumerate(xs):
-                if v>maxc:
-                    end = xi-1
-                    break
+    ROWS = len(x_is)
+    COLS = len(y_is)
+
+    fig,axes = plt.subplots(ROWS,COLS,figsize=(COLS*5,ROWS*5))
+    for i,start in enumerate(x_is):
+        for j,end in enumerate(y_is):
 
             x = xs[start:end]
             y = ys[start:end]
@@ -177,10 +178,10 @@ def paras_square(xs,ys,tag,total=0):
     
     fig=plt.figure()
     ax = Axes3D(fig)
-    X = np.reshape(rys,(12,8))
-    Y = np.reshape(rxs,(12,8))
-    Z = np.reshape(rzs,(12,8))
+    X = np.reshape(rys,(ROWS,COLS))
+    Y = np.reshape(rxs,(ROWS,COLS))
+    Z = np.reshape(rzs,(ROWS,COLS))
 
-    ax.plot_wireframe(X,Y,Z, rstride=1, cstride=1)
+    ax.plot_surface(X,Y,Z, rstride=1, cstride=1)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
 
