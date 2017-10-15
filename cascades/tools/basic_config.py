@@ -146,7 +146,7 @@ def paras_square(xs,ys,tag):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            percent = np.sum(np.log(x))/float(np.sum(np.log(xs)))
+            percent =1 - np.sum(np.log(x))/float(np.sum(np.log(xs)))
 
             r2 = r2*percent
 
