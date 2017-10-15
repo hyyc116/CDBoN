@@ -191,7 +191,10 @@ def paras_square(xs,ys,tag,total=0):
     X = np.reshape(rys,(ROWS,COLS))
     Y = np.reshape(rxs,(ROWS,COLS))
     Z = np.reshape(rzs,(ROWS,COLS))
-
+    ax.set_xlabel('$x_{max}$')
+    ax.set_ylabel('$x_{min}$')
+    ax.set_zlabel('Global $R^2$')
+    ax.set_zscale('log')
     ax.plot_surface(X,Y,Z, rstride=1, cstride=1)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
     print max_start,max_end,max_z
