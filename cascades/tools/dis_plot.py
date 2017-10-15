@@ -41,16 +41,16 @@ def stats_plot():
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
-    popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
+    popt,pcov = curve_fit(power_low_func,xs[23:530],ys[23:530])
 
 
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(23, 530, 10), power_low_func(np.linspace(23, 530, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count\n(a)')
     ax1.set_ylabel('$N_{count}(x)$')
 
-    mean = np.sum(np.array(xs[30:400])*np.array(ys[30:400]))
+    mean = np.sum(np.array(xs[23:530])*np.array(ys[23:530]))
     ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
     logging.info('-- mean -- {:}'.format(mean))
 
@@ -95,8 +95,8 @@ def stats_plot():
             _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-    popt,pcov = curve_fit(power_low_func,xs[20:400],ys[20:400])
-    ax2.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    popt,pcov = curve_fit(power_low_func,xs[25:1060],ys[25:1060])
+    ax2.plot(np.linspace(25, 1060, 10), power_low_func(np.linspace(25, 1060, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size\n(b)')
