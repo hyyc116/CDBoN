@@ -140,7 +140,7 @@ def paras_square(xs,ys,tag,total=0):
     ROWS = len(x_is)
     COLS = len(y_is)
 
-    fig,axes = plt.subplots(ROWS,COLS,figsize=(COLS*5,ROWS*5))
+    # fig,axes = plt.subplots(ROWS,COLS,figsize=(COLS*5,ROWS*5))
     for i,start in enumerate(x_is):
         for j,end in enumerate(y_is):
 
@@ -159,21 +159,21 @@ def paras_square(xs,ys,tag,total=0):
 
             print start,end,r2,popt[0],x[-1],percent
 
-            ax = axes[i,j]
+            # ax = axes[i,j]
 
-            ax.plot(xs,ys,'o',fillstyle='none')
-            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.5f}$'.format(popt[0],r2))
-            ax.legend()
+            # ax.plot(xs,ys,'o',fillstyle='none')
+            # ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.5f}$'.format(popt[0],r2))
+            # ax.legend()
 
             rxs.append(start)
             rys.append(end)
             rzs.append(r2)
 
-            ax.set_yscale('log')
-            ax.set_xscale('log')
-            ax.set_title('{:}-{:}'.format(x[0],x[-1]))
+            # ax.set_yscale('log')
+            # ax.set_xscale('log')
+            # ax.set_title('{:}-{:}'.format(x[0],x[-1]))
 
-    plt.tight_layout()
+    # plt.tight_layout()
     # plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
     
     fig=plt.figure()
