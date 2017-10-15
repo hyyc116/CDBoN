@@ -185,7 +185,7 @@ def paras_square(xs,ys,tag,total=0):
     # plt.tight_layout()
     # plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
     
-    fig=plt.figure()
+    fig=plt.figure(figsize=(10,10))
     ax = Axes3D(fig)
     ax.view_init(60, 240)
     X = np.reshape(rys,(ROWS,COLS))
@@ -198,7 +198,7 @@ def paras_square(xs,ys,tag,total=0):
     ax.text(max_end[0],max_start[0],max_z+0.1,'$max(R^2)=({:},{:},{:})$'.format(max_end[0],max_start[0],max_z))
     surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
-    plt.tight_layout()
+    # plt.tight_layout()
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
     print max_start,max_end,max_z
 
