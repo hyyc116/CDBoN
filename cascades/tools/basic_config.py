@@ -174,8 +174,8 @@ def paras_square(xs,ys,tag,total=0):
             rzs.append(r2)
 
             if r2>max_z:
-                max_start = start
-                max_end = end
+                max_start = x[0]
+                max_end = x[-1]
                 max_z = r2
 
             # ax.set_yscale('log')
