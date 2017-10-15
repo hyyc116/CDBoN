@@ -43,22 +43,23 @@ def stats_plot(dirpath):
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
-    popt,pcov = curve_fit(power_low_func,xs[30:400],ys[30:400])
+    popt,pcov = curve_fit(power_low_func,xs[46:790],ys[46:790])
 
 
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(30, 500, 10), power_low_func(np.linspace(30, 500, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(46, 790, 10), power_low_func(np.linspace(46, 790, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('citation count distribution')
     ax1.set_xlabel('$x=$citation count\n(e)')
     ax1.set_ylabel('$N_{count}(x)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
-    # plot the 80%
-    mean = np.sum(np.array(xs[30:400])*np.array(ys[30:400]))
-    ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    logging.info('-- mean -- {:}'.format(mean))
     
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    mean = np.sum(np.array(xs[46:790])*np.array(ys[46:790]))
+    ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    logging.info('-- mean -- {:}'.format(mean))
+
+
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
@@ -98,12 +99,17 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-    popt,pcov = curve_fit(power_low_func,xs[20:1000],ys[20:1000])
-    ax2.plot(np.linspace(30, 1000, 10), power_low_func(np.linspace(30, 1000, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    popt,pcov = curve_fit(power_low_func,xs[48:1810],ys[48:1810])
+    ax2.plot(np.linspace(48, 1810, 10), power_low_func(np.linspace(48, 1810, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('cascade size distribution')
     ax2.set_xlabel('$x=$cascade size\n(f)')
     ax2.set_ylabel('$N_{size}(x)$')
+
+    mean = np.sum(np.array(xs[48:1810])*np.array(ys[48:1810])/np.sum(ys[48:1810]))
+    ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    logging.info('-- mean -- {:}'.format(mean))
+
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
     ax2.legend()

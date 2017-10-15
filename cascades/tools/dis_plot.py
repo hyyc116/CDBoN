@@ -50,16 +50,18 @@ def stats_plot():
     ax1.set_xlabel('$x=$citation count\n(a)')
     ax1.set_ylabel('$N_{count}(x)$')
 
+    # plot the 80%
+    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
+    ax1.legend()
+    
     mean = np.sum(np.array(xs[23:530])*np.array(ys[23:530])/np.sum(ys[23:530]))
     ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
     logging.info('-- mean -- {:}'.format(mean))
 
     ax1.set_yscale('log')
     ax1.set_xscale('log')
-    # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
-    ax1.legend()
+    
 
     cd_xs = xs
     cd_ys = ys
