@@ -63,7 +63,7 @@ def stats_plot(dirpath):
     ax1.legend()
 
     cd_xs = xs
-    cd_ys = ys*int(total)
+    cd_ys = ys
 
 
 
@@ -108,7 +108,7 @@ def stats_plot(dirpath):
     ax2.legend()
     
     sd_xs = xs
-    sd_ys = ys*int(total)
+    sd_ys = ys
 
     ####depth
     logging.info('plotting cascade depth ...')
