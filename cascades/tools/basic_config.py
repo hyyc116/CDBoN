@@ -171,6 +171,6 @@ def paras_square(xs,ys,tag):
     
     fig=plt.figure()
     ax = Axes3D(fig)
-    ax.plot_wireframe(rxs,rys,rzs, rstride=10, cstride=100)
+    ax.plot_wireframe(rxs,rys,rzs, rstride=10, cstride=10)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
 
