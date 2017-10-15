@@ -141,6 +141,10 @@ def paras_square(xs,ys,tag,total=0):
     COLS = len(y_is)
 
     # fig,axes = plt.subplots(ROWS,COLS,figsize=(COLS*5,ROWS*5))
+    max_start=0
+    max_end =0
+    max_z = 0
+
     for i,start in enumerate(x_is):
         for j,end in enumerate(y_is):
 
@@ -169,6 +173,11 @@ def paras_square(xs,ys,tag,total=0):
             rys.append(end)
             rzs.append(r2)
 
+            if r2>max_z:
+                max_start = start
+                max_end = end
+                max_z = r2
+
             # ax.set_yscale('log')
             # ax.set_xscale('log')
             # ax.set_title('{:}-{:}'.format(x[0],x[-1]))
@@ -184,4 +193,5 @@ def paras_square(xs,ys,tag,total=0):
 
     ax.plot_surface(X,Y,Z, rstride=1, cstride=1)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
+    print max_start,max_end,max_z
 
