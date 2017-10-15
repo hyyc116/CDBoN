@@ -195,7 +195,8 @@ def paras_square(xs,ys,tag,total=0):
     ax.set_ylabel('$x_{min}$')
     ax.set_zlabel('Global $R^2$')
     ax.set_zscale('log')
-    ax.plot_surface(X,Y,Z, rstride=1, cstride=1)
+    surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
+    fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
     print max_start,max_end,max_z
 
