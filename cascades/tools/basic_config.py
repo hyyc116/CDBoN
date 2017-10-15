@@ -185,7 +185,7 @@ def paras_square(xs,ys,tag,total=0):
     # plt.tight_layout()
     # plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
     
-    fig=plt.figure(figsize=(10,10))
+    fig=plt.figure(figsize=(14,10))
     ax = Axes3D(fig)
     ax.view_init(60, 240)
     X = np.reshape(rys,(ROWS,COLS))
