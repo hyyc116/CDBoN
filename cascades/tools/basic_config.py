@@ -135,7 +135,7 @@ def paras_square(xs,ys,tag,total=0):
 
 
     x_is = np.arange(1,50,2)
-    y_is = np.arange(100,len(xs),50)
+    y_is = np.arange(100,len(xs),10)
 
     ROWS = len(x_is)
     COLS = len(y_is)
@@ -174,7 +174,7 @@ def paras_square(xs,ys,tag,total=0):
             ax.set_title('{:}-{:}'.format(x[0],x[-1]))
 
     plt.tight_layout()
-    plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
+    # plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
     
     fig=plt.figure()
     ax = Axes3D(fig)
