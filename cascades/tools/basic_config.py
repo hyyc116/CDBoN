@@ -129,6 +129,8 @@ def paras_square(xs,ys,tag,total):
     rys=[]
     rzs=[]
 
+    total_ys = ys*total
+
     fig,axes = plt.subplots(8,8,figsize=(40,40))
     for i,start in enumerate([5,10,15,20,25,30,40,50]):
         for j,maxc in enumerate([400,600,800,1000,2000,4000,5000,10000]):
@@ -146,7 +148,7 @@ def paras_square(xs,ys,tag,total):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            percent =np.sum(np.log(x*total))/float(np.sum(np.log(xs*total)))
+            percent =np.sum(np.log(total_ys[start:end]))/float(np.sum(np.log(total_ys)))
 
             r2 = r2*percent
 
