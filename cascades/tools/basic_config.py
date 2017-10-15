@@ -177,8 +177,8 @@ def paras_square(xs,ys,tag,total=0):
     
     fig=plt.figure()
     ax = Axes3D(fig)
-    X = np.reshape(rxs,(12,8))
-    Y = np.reshape(rys,(12,8))
+    X = np.reshape(rys,(12,8))
+    Y = np.reshape(rxs,(12,8))
     Z = np.reshape(rzs,(12,8))
 
     ax.plot_wireframe(X,Y,Z, rstride=10, cstride=10)
