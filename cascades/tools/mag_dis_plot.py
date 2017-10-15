@@ -55,7 +55,7 @@ def stats_plot(dirpath):
     ax1.set_xscale('log')
     
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    mean = np.sum(np.array(xs[46:790])*np.array(ys[46:790]/np.sum(ys[46:790]))
+    mean = np.sum(np.array(xs[46:790])*np.array(ys[46:790]/np.sum(ys[46:790])))
     ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
     logging.info('-- mean -- {:}'.format(mean))
 
