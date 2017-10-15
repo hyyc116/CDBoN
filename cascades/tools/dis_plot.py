@@ -55,9 +55,9 @@ def stats_plot():
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
     
-    mean = np.sum(np.array(xs[23:530])*np.array(ys[23:530])/np.sum(ys[23:530]))
-    ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    logging.info('-- mean -- {:}'.format(mean))
+    # mean = np.sum(np.array(xs[23:530])*np.array(ys[23:530])/np.sum(ys[23:530]))
+    # ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    # logging.info('-- mean -- {:}'.format(mean))
 
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -104,9 +104,9 @@ def stats_plot():
     ax2.set_xlabel('$x=$cascade size\n(b)')
     ax2.set_ylabel('$N_{size}(x)$')
 
-    mean = np.sum(np.array(xs[25:1060])*np.array(ys[25:1060])/np.sum(ys[25:1060]))
-    ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    logging.info('-- mean -- {:}'.format(mean))
+    # mean = np.sum(np.array(xs[25:1060])*np.array(ys[25:1060])/np.sum(ys[25:1060]))
+    # ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
+    # logging.info('-- mean -- {:}'.format(mean))
 
 
     ax2.set_yscale('log')
