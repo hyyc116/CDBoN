@@ -63,7 +63,7 @@ def stats_plot():
 
     cd_xs = xs
     cd_ys = ys
-
+    cd_total = int(total)
 
     #### cascade size
     logging.info('plotting cascade size ...')
@@ -107,6 +107,7 @@ def stats_plot():
     ## 画 para space
     sd_xs = xs
     sd_ys = ys
+    sd_total = int(total)
 
     ####depth
     logging.info('plotting cascade depth ...')
@@ -256,8 +257,8 @@ def stats_plot():
     logging.info('figures saved to pdf/statistics.pdf.')
 
 
-    paras_square(cd_xs,cd_ys,'aminer_cd')
-    paras_square(sd_xs,sd_ys,'aminer_sd')
+    paras_square(cd_xs,cd_ys,'aminer_cd',cd_total)
+    paras_square(sd_xs,sd_ys,'aminer_sd',sd_total)
 
 
 ### centrality

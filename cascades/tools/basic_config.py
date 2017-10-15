@@ -123,7 +123,7 @@ def plot_heat_scatter(xs,ys,ax,fig):
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
-def paras_square(xs,ys,tag):
+def paras_square(xs,ys,tag,total):
 
     rxs=[]
     rys=[]
@@ -146,7 +146,7 @@ def paras_square(xs,ys,tag):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            percent =1 - np.sum(np.log(x))/float(np.sum(np.log(xs)))
+            percent =np.sum(np.log(x*total))/float(np.sum(np.log(xs*total)))
 
             r2 = r2*percent
 

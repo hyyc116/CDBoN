@@ -64,6 +64,7 @@ def stats_plot(dirpath):
 
     cd_xs = xs
     cd_ys = ys
+    cd_total=int(total)
 
 
 
@@ -109,6 +110,7 @@ def stats_plot(dirpath):
     
     sd_xs = xs
     sd_ys = ys
+    sd_total=int(total)
 
     ####depth
     logging.info('plotting cascade depth ...')
@@ -258,8 +260,8 @@ def stats_plot(dirpath):
     logging.info('figures saved to pdf/mag_statistics.pdf.')
 
     ## 画 para space
-    paras_square(cd_xs,cd_ys,'mag_cd')
-    paras_square(sd_xs,sd_ys,'mag_sd')
+    paras_square(cd_xs,cd_ys,'mag_cd',cd_total)
+    paras_square(sd_xs,sd_ys,'mag_sd',sd_total)
 
 
 ### centrality
