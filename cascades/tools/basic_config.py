@@ -195,7 +195,7 @@ def paras_square(xs,ys,tag,total=0):
     ax.set_ylabel('$x_{min}$')
     ax.set_zlabel('Global $R^2$')
     ax.set_zscale('log')
-    ax.set_title('$x_{min}$:'+'{:}'.format(max_end[0])+' - $x_{max}$:'+'{:}'.format(max_start[0])+', $R^2={:.4f}$'.format(max_z))
+    ax.set_title('$x_{min}$:'+'{:}'.format(max_start[0])+' - $x_{max}$:'+'{:}'.format(max_end[0])+', $R^2={:.4f}$'.format(max_z))
     surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
     # plt.tight_layout()
