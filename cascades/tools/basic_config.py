@@ -161,7 +161,7 @@ def paras_square(xs,ys,tag,total=0):
 
             r2 = r2*percent
 
-            print start,end,r2,popt[0],x[-1],percent
+            # print start,end,r2,popt[0],x[-1],percent
 
             # ax = axes[i,j]
 
