@@ -187,6 +187,7 @@ def paras_square(xs,ys,tag,total=0):
     
     fig=plt.figure()
     ax = Axes3D(fig)
+    ax.view_init(30, 180)
     X = np.reshape(rys,(ROWS,COLS))
     Y = np.reshape(rxs,(ROWS,COLS))
     Z = np.reshape(rzs,(ROWS,COLS))
