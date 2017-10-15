@@ -256,7 +256,7 @@ def stats_plot():
     logging.info('figures saved to pdf/statistics.pdf.')
 
 
-    paras_square(cd_xs,cd_ys,'aminer_dd')
+    paras_square(cd_xs,cd_ys,'aminer_cd')
     paras_square(sd_xs,sd_ys,'aminer_sd')
 
 

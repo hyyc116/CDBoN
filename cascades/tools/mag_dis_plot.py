@@ -258,7 +258,7 @@ def stats_plot(dirpath):
     logging.info('figures saved to pdf/mag_statistics.pdf.')
 
     ## 画 para space
-    paras_square(cd_xs,cd_ys,'mag_sd')
+    paras_square(cd_xs,cd_ys,'mag_cd')
     paras_square(sd_xs,sd_ys,'mag_sd')
 
 
