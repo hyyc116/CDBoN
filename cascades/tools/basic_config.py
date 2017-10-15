@@ -181,6 +181,6 @@ def paras_square(xs,ys,tag,total=0):
     Y = np.reshape(rxs,(12,8))
     Z = np.reshape(rzs,(12,8))
 
-    ax.plot_wireframe(X,Y,Z, rstride=10, cstride=10)
+    ax.plot_wireframe(X,Y,Z, rstride=1, cstride=1)
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
 
