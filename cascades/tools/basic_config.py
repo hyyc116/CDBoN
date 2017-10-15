@@ -133,8 +133,8 @@ def paras_square(xs,ys,tag,total=0):
     min_y = np.log(np.min(ys))
     norm_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
-    fig,axes = plt.subplots(8,8,figsize=(40,40))
-    for i,start in enumerate([5,10,15,20,25,30,40,50]):
+    fig,axes = plt.subplots(12,8,figsize=(40,40))
+    for i,start in enumerate([5,10,15,20,21,22,23,24,25,26,27,30]):
         for j,maxc in enumerate([400,600,800,1000,2000,4000,5000,10000]):
 
 
