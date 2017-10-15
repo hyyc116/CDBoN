@@ -129,9 +129,9 @@ def paras_square(xs,ys,tag):
     rys=[]
     rzs=[]
 
-    fig,axes = plt.subplots(12,13,figsize=(65,60))
-    for i,start in enumerate([5,10,15,20,21,22,23,24,25,30,40,50]):
-        for j,maxc in enumerate([200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000]):
+    fig,axes = plt.subplots(8,8,figsize=(40,40))
+    for i,start in enumerate([5,10,15,20,25,30,40,50]):
+        for j,maxc in enumerate([700,800,900,1000,2000,3000,4000,5000]):
 
 
             for xi,v in enumerate(xs):
@@ -144,7 +144,7 @@ def paras_square(xs,ys,tag):
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            r2 = r2_score(np.log(y),np.log(fit_y))*len(x)/float(len(xs))
+            r2 = r2_score(np.log(y),np.log(fit_y))
 
             print start,end,r2,popt[0],x[-1],len(x)/float(len(xs))
 
