@@ -62,7 +62,7 @@ def stats_plot():
     ax1.legend()
 
     cd_xs = xs
-    cd_ys = ys*total
+    cd_ys = ys*int(total)
 
 
     #### cascade size
@@ -106,7 +106,7 @@ def stats_plot():
     ax2.legend()
     ## 画 para space
     sd_xs = xs
-    sd_ys = ys*total
+    sd_ys = ys*int(total)
 
     ####depth
     logging.info('plotting cascade depth ...')
