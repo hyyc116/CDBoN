@@ -129,6 +129,10 @@ def paras_square(xs,ys,tag,total=0):
     rys=[]
     rzs=[]
 
+    max_y = np.log(np.max(ys))
+    min_y = np.log(np.min(ys))
+    norm_ys = (np.log(ys)-min_y)/(max_y-min_y)
+
     fig,axes = plt.subplots(8,8,figsize=(40,40))
     for i,start in enumerate([5,10,15,20,25,30,40,50]):
         for j,maxc in enumerate([400,600,800,1000,2000,4000,5000,10000]):
@@ -146,7 +150,9 @@ def paras_square(xs,ys,tag,total=0):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            percent =1 - np.sum(np.log(y))/float(np.sum(np.log(ys)))
+            normed_y = (np.log(y)-min_y)/(max_y-min_y)
+
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))
 
             r2 = r2*percent
 
