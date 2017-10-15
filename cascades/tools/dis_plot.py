@@ -61,6 +61,12 @@ def stats_plot():
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
 
+
+    ### 画 para space
+    paras_square(xs,ys,'aminer_cd')
+
+
+
     #### cascade size
     logging.info('plotting cascade size ...')
     enum_dict = json.loads(open('data/cascade_size.json').read())
@@ -100,6 +106,8 @@ def stats_plot():
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
     ax2.legend()
+    ## 画 para space
+    paras_square(xs,ys,'aminer_sd')
 
 
     ####depth

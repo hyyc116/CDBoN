@@ -61,6 +61,10 @@ def stats_plot(dirpath):
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
+    ## 画 space para
+    paras_square(xs,ys,'mag_cd')
+
+
 
     #### cascade size
     logging.info('plotting cascade size ...')
@@ -101,6 +105,8 @@ def stats_plot(dirpath):
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
     ax2.legend()
+    ## 画 para space
+    paras_square(xs,ys,'mag_sd')
 
 
     ####depth

@@ -123,4 +123,50 @@ def plot_heat_scatter(xs,ys,ax,fig):
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
+def paras_square(xs,ys,tag):
+
+    rxs=[]
+    rys=[]
+    rzs=[]
+
+    fig,axes = plt.subplots(12,13,figsize=(65,60))
+    for i,start in enumerate([5,10,15,20,21,22,23,24,25,30,40,50]):
+        for j,maxc in enumerate([200,300,400,500,600,700,800,900,1000,2000,3000,4000,5000]):
+
+
+            for xi,v in enumerate(xs):
+                if v>maxc:
+                    end = xi-1
+                    break
+
+            x = xs[start:end]
+            y = ys[start:end]
+
+            popt,pcov = curve_fit(power_low_func,x,y)
+            fit_y = power_low_func(x, *popt)
+            r2 = r2_score(np.log(y),np.log(fit_y))*len(x)/float(len(xs))
+
+            print start,end,r2,popt[0],x[-1],len(x)/float(len(xs))
+
+            ax = axes[i,j]
+
+            ax.plot(xs,ys,'o',fillstyle='none')
+            ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.5f}$'.format(popt[0],r2))
+            ax.legend()
+
+            rxs.append(start)
+            rys.append(end)
+            rzs.append(r2)
+
+            ax.set_yscale('log')
+            ax.set_xscale('log')
+            ax.set_title('{:}-{:}'.format(x[0],x[-1]))
+
+    plt.tight_layout()
+    plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
+    
+    fig=plt.figure()
+    ax = Axes3D(fig)
+    ax.plot_wireframe(rxs,rys,rzs, rstride=10, cstride=100)
+    plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
 
