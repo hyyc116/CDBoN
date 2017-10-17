@@ -169,8 +169,8 @@ def paras_square(xs,ys,tag,total=0):
             # ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.5f}$'.format(popt[0],r2))
             # ax.legend()
 
-            rxs.append(start)
-            rys.append(end)
+            rxs.append(x[0])
+            rys.append(x[-1])
             rzs.append(r2)
 
             if r2>max_z:
