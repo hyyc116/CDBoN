@@ -101,7 +101,7 @@ def stats_plot():
     ax2.plot(np.linspace(25, 1060, 10), power_low_func(np.linspace(25, 1060, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('Edge size distribution')
-    ax2.set_xlabel('$x=$Edge size\n(b)')
+    ax2.set_xlabel('$x=$edge size\n(b)')
     ax2.set_ylabel('$N_{size}(x)/N$')
 
     # mean = np.sum(np.array(xs[25:1060])*np.array(ys[25:1060])/np.sum(ys[25:1060]))
