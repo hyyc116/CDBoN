@@ -55,7 +55,7 @@ def stats_plot(dirpath):
     ax1.set_ylabel('$N_{size}(x)/N$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
-    ax1.text(1,0.001,'MAG',color='k',fontweight='bold')
+    ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=30)
     
     ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     # mean = np.sum(np.array(xs[46:790])*np.array(ys[46:790]/np.sum(ys[46:790])))
