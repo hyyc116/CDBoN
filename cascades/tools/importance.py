@@ -40,7 +40,7 @@ def importance():
     ax.plot(e_xs,e_ys,label='Aminer')
     ax.set_xscale('log')
     # ax0.set_yscale('log')
-    ax.set_title('$P(cascade size = edge size)$')
+    ax.set_title('$P(cascade\ size = edge\ size)$')
     ax.set_xlabel('citation count')
     ax.set_ylabel('percentage')
 
