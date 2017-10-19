@@ -1,6 +1,8 @@
 #coding:utf-8
 '''
 @author: hy@tTt
+最基本的那些属性的分布图
+
 '''
 from basic_config import *
 

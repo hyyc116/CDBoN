@@ -1,6 +1,8 @@
 #coding:utf-8
 '''
 @author: hy@tTt
+最基本属性的分布图
+
 '''
 from basic_config import *
 
@@ -10,7 +12,7 @@ def stats_plot():
     # add 80% percent x
     num = len(plt.get_fignums())
     # plt.figure(num)
-    fig,axes = plt.subplots(1,4,figsize=(20,5))
+    fig,axes = plt.subplots(4,1,figsize=(7,20))
     #### node size 
     logging.info('plot node size ...')
     cnum_dict = json.loads(open('data/nodes_size.json').read())
