@@ -166,6 +166,7 @@ def stats_plot():
     ax3.set_yscale('log')
     # ax3.set_xlim(0,13)
     ax3.set_xticks(range(14),[str(i) for i in range(14)])
+    ax3.set_xlim(0,40)
     ax3.legend()
 
     #### In and out degree
