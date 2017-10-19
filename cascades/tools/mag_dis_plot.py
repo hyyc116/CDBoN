@@ -48,9 +48,9 @@ def stats_plot(dirpath):
 
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.plot(np.linspace(46, 790, 10), power_low_func(np.linspace(46, 790, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax1.set_title('citation count distribution')
-    ax1.set_xlabel('$x=$citation count\n(e)')
-    ax1.set_ylabel('$N_{count}(x)$')
+    ax1.set_title('Cascade size distribution')
+    ax1.set_xlabel('$x=$cascade size\n(e)')
+    ax1.set_ylabel('$N_{size}(x)/N$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     
@@ -70,7 +70,7 @@ def stats_plot(dirpath):
 
 
     #### cascade size
-    logging.info('plotting cascade size ...')
+    logging.info('plotting edge size ...')
     enum_dict = json.loads(open('{:}/cascade_size.json'.format(dirpath)).read())
     ax2 = axes[1]
     total = float(sum(enum_dict.values()))
@@ -102,9 +102,9 @@ def stats_plot(dirpath):
     popt,pcov = curve_fit(power_low_func,xs[48:1810],ys[48:1810])
     ax2.plot(np.linspace(48, 1810, 10), power_low_func(np.linspace(48, 1810, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    ax2.set_title('cascade size distribution')
-    ax2.set_xlabel('$x=$cascade size\n(f)')
-    ax2.set_ylabel('$N_{size}(x)$')
+    ax2.set_title('Edge size distribution')
+    ax2.set_xlabel('$x=$edge size\n(f)')
+    ax2.set_ylabel('$N_{edge}(x)/N$')
 
     # mean = np.sum(np.array(xs[48:1810])*np.array(ys[48:1810])/np.sum(ys[48:1810]))
     # ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
@@ -157,11 +157,11 @@ def stats_plot(dirpath):
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$x=$cascade depth\n(g)')
-    ax3.set_ylabel('$N_{depth}(x)$')
+    ax3.set_ylabel('$N_{depth}(x)/N$')
     ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
-    ax3.set_title('cascade depth distribution')
+    ax3.set_title('Cascade depth distribution')
     ax3.set_yscale('log')
     # ax3.set_xlim(0,13)
     ax3.set_xticks(range(14),[str(i) for i in range(14)])
@@ -204,7 +204,7 @@ def stats_plot(dirpath):
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
     ax4.set_xlabel('$x = degree$\n(h)')
-    ax4.set_ylabel('$N_{degree}(x)$')
+    ax4.set_ylabel('$N_{degree}(x)/N$')
     
     ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
     ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
@@ -213,7 +213,7 @@ def stats_plot(dirpath):
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
     ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2],marker='^')
 
-    ax4.set_title('degree distribution')
+    ax4.set_title('Degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
     ax4.legend()
