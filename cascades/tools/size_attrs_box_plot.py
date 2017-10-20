@@ -16,6 +16,9 @@ def plot_relation_size_attr(dataset):
         data_path = 'data/mag/stats/plot_dict.json'
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
+    else:
+        logging.info('No Such datasets, please type in MAG or AMiner')
+        return
 
     plot_dict = json.loads(open(data_path).read())
 
