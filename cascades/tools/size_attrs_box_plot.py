@@ -105,7 +105,8 @@ def surface_plot(data_dict,xlabel,scale=False):
         count_list = data_dict[attr]
         count_dict = Counter(count_list)
         unique_counts.extend(count_list)
-        attr_count_num[attr] = count_dict
+        for count in count_dict.keys():
+            attr_count_num[attr][count]=count_dict[count]
 
 
     unique_counts = list(set(unique_counts))
