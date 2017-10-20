@@ -52,14 +52,18 @@ def plot_relation_size_attr(dataset):
     direct_citation_size_dict = defaultdict(list)
     for i,depth in enumerate(dys):
         # cascade 的大小
-        cascade_size = int(cxs[i])
+        cascade_size = cxs[i]
+
+        ### citation  count数量为10以下的都抛弃，只看中高被引的论文
+        if cascade_size<100:
+            continue 
 
         # owner 直接引文, 是一个比例，如何归一化呢
-        n_direct_cps = int(normed_direct_cps[i])
+        n_direct_cps = normed_direct_cps[i]
         # owner 的发布时间
-        owner_year = int(n_owner_years[i])
+        owner_year = n_owner_years[i]
         # owner diffusion的时间
-        diff_age = int(citation_ages[i])
+        diff_age = citation_ages[i]
 
         # 深度与大小的关系
         depth_size_dict[depth].append(cascade_size)
@@ -67,51 +71,39 @@ def plot_relation_size_attr(dataset):
         year_size_dict[owner_year].append(cascade_size)
         age_size_dict[diff_age].append(cascade_size)
 
+
+    ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
-    three_count_plots(ax1,depth_size_dict,'Depth')
+    attr_box_plot(ax1,depth_size_dict,'Depth')
     ax2 = axes[1]
-    three_count_plots(ax2,direct_cp_size_dict,'Direct Citation')
+    attr_box_plot(ax2,direct_cp_size_dict,'Direct Citation')
     ax3 = axes[2]
-    three_count_plots(ax3,year_size_dict,'publishing year')
+    attr_box_plot(ax3,year_size_dict,'publishing year')
     ax4 = axes[3]
-    three_count_plots(ax4,age_size_dict,'Citation Age')
+    attr_box_plot(ax4,age_size_dict,'Citation Age')
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_box_plot.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-def three_count_plots(ax,data_dict,title):
+def attr_box_plot(ax,data_dict,title):
     logging.info('Plotting {:} ...'.format(title))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
+    data = []
+    xs = []
+    for key in sorted(data_dict.keys()):
+        # print key
+        xs.append(key)
+        data.append(data_dict[key])
 
-    size_attr_count = defaultdict(lambda: defaultdict(int))
-    for attr in sorted(data_dict.keys()):
-        count_dict = Counter(data_dict[attr])
-        for count in sorted(count_dict.keys()):
-            if count == 10 or count ==100 or count>=1000:
-                cc = count
-                if count>=1000:
-                    cc=1000
-
-                size_attr_count[cc][attr]+=count_dict[count]
-                
-    for size in sorted(size_attr_count.keys()):
-        xs = []
-        ys = []
-        attr_count = size_attr_count[size]
-        count_total = float(np.sum(attr_count.values()))
-        for attr in sorted(attr_count.keys()):
-            xs.append(attr)
-            ys.append(attr_count[attr]/count_total)
-        
-        ax.plot(xs,ys,label='cascade size = {:}'.format(size))
-
-    ax.legend()
+    poses= np.arange(0,len(data_dict.keys()),2)
+    print poses
+    labels = [xs[i] for i in poses]
+    ax.boxplot(data,showfliers = False,showmeans=True)
     ax.set_title(title)
-    ax.set_xlabel(title)
-    ax.set_ylabel('percentage')
-
+    ax.set_xticks(poses)
+    ax.set_xticklabels(labels)
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
