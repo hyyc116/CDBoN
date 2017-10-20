@@ -91,7 +91,7 @@ def three_count_plots(ax,data_dict,title):
     logging.info('Plotting {:} ...'.format(title))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
-    size_attr_count = defaultdict(dict)
+    size_attr_count = defaultdict(lambda: defaultdict(int))
     for attr in sorted(data_dict.keys()):
         count_dict = Counter(data_dict[attr])
         for count in sorted(count_dict.keys()):
