@@ -29,8 +29,6 @@ def gen_statistics_data(citation_cascade):
     dcxs=[]
     od_ys = []
     id_ys = []
-
-
     ## 时间长度
     citation_ages = []
     ## 直接引文的数量
@@ -76,7 +74,8 @@ def gen_statistics_data(citation_cascade):
 
         citing_age = np.max(cc[pid]['citations'].values())-year
 
-        print year,citing_age       
+        print year,citing_age    
+        citation_ages.append(citing_age)   
 
 
 
@@ -118,7 +117,7 @@ def gen_statistics_data(citation_cascade):
             ##od 
             if od > 1:
                 od_count+=1
-            elif oid ==1:
+            elif od ==1:
                 ##如果出度等于1， 就是直接引文
                 direct_count +=1
 
@@ -151,7 +150,6 @@ def gen_statistics_data(citation_cascade):
     open('data/depth.json','w').write(json.dumps(depth_dict))
     open('data/out_degree.json','w').write(json.dumps(od_dict))
     open('data/in_degree.json','w').write(json.dumps(in_dict))
-
     open('data/centrality.json','w').write(json.dumps(centrality_dict))
 
     
@@ -161,6 +159,10 @@ def gen_statistics_data(citation_cascade):
     plot_dict['dcx'] = dcxs;
     plot_dict['od_ys'] = od_ys
     plot_dict['id_ys'] = id_ys
+    plot_dict['age'] = citation_ages
+    plot_dict['direct'] = n_direct_citations
+    plot_dict['indirect'] = n_indirect_citations
+    plot_dict['year'] = n_owner_years
 
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
