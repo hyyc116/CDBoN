@@ -74,9 +74,9 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
-    attr_box_plot(ax1,depth_size_dict,'Depth')
+    attr_box_plot(ax1,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_box_plot(ax2,direct_cp_size_dict,'Direct Citation',True)
+    attr_box_plot(ax2,direct_cp_size_dict,'#(direct citations)/#(cascade size)',True)
     ax3 = axes[2]
     attr_box_plot(ax3,year_size_dict,'publishing year')
     ax4 = axes[3]
@@ -86,27 +86,21 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-def attr_box_plot(ax,data_dict,title,scale=False):
+def attr_box_plot(ax,data_dict,xlabel,scale=False):
     logging.info('Plotting {:} ...'.format(title))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        # print key
         xs.append(key)
-        # data.append(data_dict[key])
         ys.append(np.mean(data_dict[key]))
 
-    # ax.boxplot(data,showfliers = False,showmeans=True)
     ax.plot(xs,ys)
-    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel('Cascade size')
     if scale:
         ax.set_xscale('log')
-    # ax.set_xticks(poses)
-    # ax.set_xticklabels(labels)
-
-# def attr_histogram(ax,data_dict,title)
 
 
 
