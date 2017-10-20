@@ -133,7 +133,7 @@ def surface_plot(data_dict,xlabel,scale=False):
     ax.set_zlabel('#papers')
     if scale:
         ax.set_xscale('log')
-    ax.set_yscale('log')
+    # ax.set_yscale('log')
     ax.set_zscale('log')
 
 
