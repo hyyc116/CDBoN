@@ -50,21 +50,16 @@ def plot_relation_size_attr(dataset):
     normed_direct_cps = np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
     normed_direct_cps = [10**np.round(i) for i in normed_direct_cps]
     direct_citation_size_dict = defaultdict(list)
-    _10_count = 0
     for i,depth in enumerate(dys):
         # cascade 的大小
-        cascade_size = cxs[i]
-
-        if cascade_size==10:
-            _10_count+=1
-
+        cascade_size = int(cxs[i])
 
         # owner 直接引文, 是一个比例，如何归一化呢
-        n_direct_cps = normed_direct_cps[i]
+        n_direct_cps = int(normed_direct_cps[i])
         # owner 的发布时间
-        owner_year = n_owner_years[i]
+        owner_year = int(n_owner_years[i])
         # owner diffusion的时间
-        diff_age = citation_ages[i]
+        diff_age = int(citation_ages[i])
 
         # 深度与大小的关系
         depth_size_dict[depth].append(cascade_size)
@@ -72,8 +67,6 @@ def plot_relation_size_attr(dataset):
         year_size_dict[owner_year].append(cascade_size)
         age_size_dict[diff_age].append(cascade_size)
 
-    print '______10 ___',_10_count
-    ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
     three_count_plots(ax1,depth_size_dict,'Depth')
@@ -94,6 +87,7 @@ def three_count_plots(ax,data_dict,title):
 
     size_attr_count = defaultdict(lambda: defaultdict(int))
     for attr in sorted(data_dict.keys()):
+        print attr,len(data_dict[attr])
         count_dict = Counter(data_dict[attr])
         for count in sorted(count_dict.keys()):
             if count == 10 or count ==100 or count>=1000:
