@@ -96,7 +96,7 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if x>23:
+        if key>23:
             continue
         xs.append(key)
         ys.append(np.mean(data_dict[key]))
@@ -107,7 +107,7 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if x<=23 or x>988:
+        if key<=23 or key>988:
             continue
         xs.append(key)
         ys.append(np.mean(data_dict[key]))
@@ -118,7 +118,7 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if x< 988:
+        if key< 988:
             continue
         xs.append(key)
         ys.append(np.mean(data_dict[key]))
