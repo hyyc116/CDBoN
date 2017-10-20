@@ -86,7 +86,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
             dys.append(depth)
 
             ## year 
-            year = pid_year[pid]
+            year = pid_year.get(pid,-1)
 
 
             #degree
@@ -120,11 +120,13 @@ def gen_statistics_data(citation_cascade,paper_year_path):
                 elif od ==1:
                     direct_count+=1
 
+            if year!=-1:
+                citing_age = np.max(citing_years)-year
+                citation_ages.append(citing_age)
 
-            citing_age = np.max(citing_years)-year
+
             od_ys.append(od_count/float(cc[pid]['cc']))
             id_ys.append(id_count/float(cc[pid]['cc']))
-            citation_ages.append(citing_age)
             n_owner_years.append(year)
             n_direct_citations.append(direct_count/float(cc[pid]['cc']))
             n_indirect_citations.append(od_count/float(cc[pid]['cc']))
