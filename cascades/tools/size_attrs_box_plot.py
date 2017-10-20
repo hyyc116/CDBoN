@@ -111,8 +111,8 @@ def three_count_plots(ax,data_dict,title):
             xs.append(attr)
             ys.append(attr_count[attr]/count_total)
         
-        print xs
-        print ys
+        print size,len(xs)
+        print size,len(ys)
         ax.plot(xs,ys,label='cascade size = {:}'.format(size))
 
     ax.legend()
