@@ -30,6 +30,15 @@ def plot_relation_size_attr(dataset):
     n_indirect_citations = plot_dict['indirect']
     n_owner_years = plot_dict['year']
 
+    sorted_cxs = sorted(cxs,reverse=True)
+
+    plt.plot(range(len(sorted_cxs)+1,sorted_cxs))
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.savefig('pdf/citation_PLE.pdf',dpi=200)
+
+
+
     logging.info('length of cascade size {:}, edge size {:}, depth {:}, citation ages {:}, direct citations {:}, owner years {:}, n_indirect_citations {:}'.format(len(cxs),len(eys),len(dys),len(citation_ages),len(n_direct_citations),len(n_owner_years),len(n_indirect_citations)))
 
     

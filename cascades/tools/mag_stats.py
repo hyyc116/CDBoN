@@ -155,6 +155,9 @@ def gen_statistics_data(citation_cascade,paper_year_path):
     open('data/mag/stats/plot_dict.json','w').write(json.dumps(plot_dict))
 
 
+    
+
+
 if __name__ == '__main__':
     ## data/mag/mag_cs_citation_cascade.json, data/mag/mag_paper_year.json
     gen_statistics_data(sys.argv[1],sys.argv[2])
