@@ -118,9 +118,9 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
         xs.append(key)
         ys.append(np.mean([i for i in data_dict[key] if i>=988 ]))
 
-
+    print xs
+    print ys
     ax.plot(xs,ys,label='High cited papers')
-
 
 
     ax.set_xlabel(xlabel)
