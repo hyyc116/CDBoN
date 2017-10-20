@@ -86,12 +86,17 @@ def attr_box_plot(ax,data_dict,title):
     logging.info('Plotting {:} ...'.format(title))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
+    xs = []
     for key in sorted(data_dict.keys()):
         # print key
+        xs.append(key)
         data.append(data_dict[key])
 
+    poses= np.linspace(0,len(data_dict.keys()),np.min([len(data_dict.keys()),10]))
+    labels = [xs[i] for i in poses]
     ax.boxplot(data,showfliers = False,showmeans=True)
     ax.set_title(title)
+    ax.set_xticks(poses,labels)
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
