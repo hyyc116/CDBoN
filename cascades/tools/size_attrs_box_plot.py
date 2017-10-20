@@ -116,6 +116,8 @@ def surface_plot(data_dict,xlabel,scale=False):
 
     for attr in sorted(unique_attrs):
         for count in sorted(unique_counts):
+            if count<1:
+                continue            
             rxs.append(attr)
             rys.append(count)
             rzs.append(attr_count_num[attr].get(count,0)+10)
@@ -134,12 +136,12 @@ def surface_plot(data_dict,xlabel,scale=False):
     if scale:
         ax.set_xscale('log')
     ax.set_yscale('log')
-    # ax.set_zscale('log')
+    ax.set_zscale('log')
 
 
     surf = ax.plot_surface(Y,X,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
-    plt.savefig('pdf/{:}.png'.format(xlabel),dpi=200)
+    plt.savefig('pdf/{:}.pdf'.format(xlabel),dpi=200)
 
 
 def attr_box_plot(ax,data_dict,xlabel,scale=False):
