@@ -71,7 +71,6 @@ def plot_relation_size_attr(dataset):
         year_size_dict[owner_year].append(cascade_size)
         age_size_dict[diff_age].append(cascade_size)
 
-
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
@@ -87,7 +86,7 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-def attr_box_plot(ax,data_dict,title):
+def attr_box_plot(ax,data_dict,title,scale=False):
     logging.info('Plotting {:} ...'.format(title))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
@@ -102,8 +101,14 @@ def attr_box_plot(ax,data_dict,title):
     # ax.boxplot(data,showfliers = False,showmeans=True)
     ax.plot(xs,ys)
     ax.set_title(title)
+    if scale:
+        ax.set_xscale('log')
     # ax.set_xticks(poses)
     # ax.set_xticklabels(labels)
+
+# def attr_histogram(ax,data_dict,title)
+
+
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
