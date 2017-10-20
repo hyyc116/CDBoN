@@ -91,7 +91,7 @@ def plot_relation_size_attr(dataset):
 
 
 
-def surface_plot(data_dict,xlabel,scale=False)
+def surface_plot(data_dict,xlabel,scale=False):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     rxs = []
