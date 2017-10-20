@@ -85,7 +85,7 @@ def attr_box_plot(ax,data_dict,title):
         print key
         data.append(data_dict[key])
 
-    ax.violinplot(data,showmeans=True)
+    ax.boxplot(data,showmeans=True)
     ax.set_title(title)
 
 if __name__ == '__main__':
