@@ -88,14 +88,13 @@ def three_count_plots(ax,data_dict,title):
     size_attr_count = defaultdict(lambda: defaultdict(int))
     for attr in sorted(data_dict.keys()):
         count_dict = Counter(data_dict[attr])
-        print count_dict
         for count in sorted(count_dict.keys()):
             if count == 10 or count ==100 or count>=1000:
                 cc = count
                 if count>=1000:
                     cc=1000
 
-                size_attr_count[cc][attr]+=1
+                size_attr_count[cc][attr]+=count_dict[count]
                 
     for size in sorted(size_attr_count.keys()):
         xs = []
