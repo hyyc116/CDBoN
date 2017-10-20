@@ -47,8 +47,6 @@ def gen_statistics_data(citation_cascade):
         id_count=0
         ## direct count 
         direct_count = 0
-        # citation paper years 
-
 
         #progress 
         logi+=1

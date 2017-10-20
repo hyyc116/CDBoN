@@ -5,7 +5,10 @@ from basic_config import *
 '''
 
 
-def gen_statistics_data(citation_cascade):
+def gen_statistics_data(citation_cascade,paper_year_path):
+
+    ## 每一篇文章的年限
+    pid_year = json.loads(open(paper_year_path).read())
 
     # general indicators
     cc_dict=defaultdict(int)
@@ -22,6 +25,15 @@ def gen_statistics_data(citation_cascade):
     dys=[]
     od_ys = []
     id_ys = []
+    ## 时间长度
+    citation_ages = []
+    ## 直接引文的数量
+    n_direct_citations = []
+    ## 间接引文数量
+    n_indirect_citations = []
+    # owner发布时间, aminer citation cascade中有year , mag 需要mag_paper_year.json
+    n_owner_years = []
+
 
     zero_od_count=0
 
@@ -41,6 +53,8 @@ def gen_statistics_data(citation_cascade):
             od_count=0
             #in-degree count
             id_count=0
+            ## direct count 
+            direct_count = 0
 
             #progress 
             logi+=1
@@ -71,16 +85,23 @@ def gen_statistics_data(citation_cascade):
         
             dys.append(depth)
 
+            ## year 
+            year = pid_year[pid]
+
+
             #degree
             outdegree_dict = diG.out_degree()
             # print outdegree_dict
+            citing_years = []
             for nid,od in outdegree_dict:
                 # od = outdegree_dict[nid]
+
 
                 if od==0:
                     zero_od_count+=1
 
                 if od>0:
+                    citing_years.append(pid_year[nid])
                     # out degree
                     od_dict[od]+=1
                     # in degree
@@ -93,9 +114,17 @@ def gen_statistics_data(citation_cascade):
                 ##od 
                 if od > 1:
                     od_count+=1
+                elif od ==1:
+                    direct_count+=1
 
+
+            citing_age = np.max(citing_years)-year
             od_ys.append(od_count/float(cc[pid]['cc']))
             id_ys.append(id_count/float(cc[pid]['cc']))
+            citation_ages.append(citing_age)
+            n_owner_years.append(year)
+            n_direct_citations.append(direct_count/float(cc[pid]['cc']))
+            n_indirect_citations.append(od_count/float(cc[pid]['cc']))
 
     print 'zero od count:',zero_od_count
     open('data/mag/stats/citation_count.json','w').write(json.dumps(cc_dict))
@@ -110,6 +139,10 @@ def gen_statistics_data(citation_cascade):
     plot_dict['dys'] = dys;
     plot_dict['od_ys'] = od_ys
     plot_dict['id_ys'] = id_ys
+    plot_dict['age'] = citation_ages
+    plot_dict['direct'] = n_direct_citations
+    plot_dict['indirect'] = n_indirect_citations
+    plot_dict['year'] = n_owner_years
 
     open('data/mag/stats/plot_dict.json','w').write(json.dumps(plot_dict))
 
@@ -118,7 +151,8 @@ def gen_statistics_data(citation_cascade):
 
 
 if __name__ == '__main__':
-    gen_statistics_data(sys.argv[1])
+    ## data/mag/mag_cs_citation_cascade.json, data/mag/mag_paper_year.json
+    gen_statistics_data(sys.argv[1],sys.argv[2])
 
 
 
