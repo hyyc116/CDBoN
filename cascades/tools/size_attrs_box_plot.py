@@ -82,10 +82,10 @@ def attr_box_plot(ax,data_dict,title):
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
     for key in sorted(data_dict.keys()):
-        print key
+        # print key
         data.append(data_dict[key])
 
-    ax.boxplot(data,showmeans=True)
+    ax.boxplot(data,showfiers = False,showmeans=True)
     ax.set_title(title)
 
 if __name__ == '__main__':
