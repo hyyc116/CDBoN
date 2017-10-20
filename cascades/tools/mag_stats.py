@@ -96,12 +96,15 @@ def gen_statistics_data(citation_cascade,paper_year_path):
             for nid,od in outdegree_dict:
                 # od = outdegree_dict[nid]
 
-
                 if od==0:
                     zero_od_count+=1
 
                 if od>0:
-                    citing_years.append(pid_year[nid])
+
+                    print nid,pid_year.get(nid,-1)
+                    citing_years.append(pid_year.get(nid,-1))
+
+
                     # out degree
                     od_dict[od]+=1
                     # in degree
