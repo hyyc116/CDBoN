@@ -128,6 +128,15 @@ def surface_plot(data_dict,xlabel,scale=False):
     ax = Axes3D(fig)
     ax.view_init(60, 240)
     ax.set_title(xlabel)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel('cascade_size')
+    ax.set_zlabel('#papers')
+    if scale:
+        ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_zscale('log')
+
+
     surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.savefig('pdf/{:}.pdf'.format(xlabel),dpi=200)
