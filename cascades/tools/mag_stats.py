@@ -142,9 +142,9 @@ def gen_statistics_data(citation_cascade,paper_year_path):
     open('data/mag/stats/in_degree.json','w').write(json.dumps(in_dict))
 
     
-    plot_dict['cxs'] = cxs;
-    plot_dict['eys'] = eys;
-    plot_dict['dys'] = dys;
+    plot_dict['cxs'] = cxs
+    plot_dict['eys'] = eys
+    plot_dict['dys'] = dys
     plot_dict['od_ys'] = od_ys
     plot_dict['id_ys'] = id_ys
     plot_dict['age'] = citation_ages
@@ -153,9 +153,6 @@ def gen_statistics_data(citation_cascade,paper_year_path):
     plot_dict['year'] = n_owner_years
 
     open('data/mag/stats/plot_dict.json','w').write(json.dumps(plot_dict))
-
-
-
 
 
 if __name__ == '__main__':

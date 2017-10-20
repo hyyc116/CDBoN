@@ -151,10 +151,10 @@ def gen_statistics_data(citation_cascade):
     open('data/centrality.json','w').write(json.dumps(centrality_dict))
 
     
-    plot_dict['cxs'] = cxs;
-    plot_dict['eys'] = eys;
-    plot_dict['dys'] = dys;
-    plot_dict['dcx'] = dcxs;
+    plot_dict['cxs'] = cxs
+    plot_dict['eys'] = eys
+    plot_dict['dys'] = dys
+    plot_dict['dcx'] = dcxs
     plot_dict['od_ys'] = od_ys
     plot_dict['id_ys'] = id_ys
     plot_dict['age'] = citation_ages
