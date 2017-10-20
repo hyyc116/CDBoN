@@ -110,7 +110,7 @@ def surface_plot(data_dict,xlabel,scale=False):
 
 
     unique_counts = list(set(unique_counts))
-    print sorted(unique_counts)
+    # print sorted(unique_counts)
 
     ROWS = len(unique_attrs)
     COLS = len(unique_counts)
@@ -123,6 +123,10 @@ def surface_plot(data_dict,xlabel,scale=False):
             rxs.append(attr)
             rys.append(count)
             rzs.append(num)
+
+    print rxs[:100]
+    print rys[:100]
+    print rzs[:100]
 
     X = np.reshape(rxs,(ROWS,COLS))
     Y = np.reshape(rys,(ROWS,COLS))
