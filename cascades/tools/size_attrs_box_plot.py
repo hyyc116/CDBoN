@@ -47,7 +47,7 @@ def plot_relation_size_attr(dataset):
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
-    normed_direct_cps = np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
+    normed_direct_cps = np.log(np.array(n_direct_citations))
     print normed_direct_cps
     normed_direct_cps = [10**float('{:.1f}'.format(float(i))) for i in normed_direct_cps]
     direct_citation_size_dict = defaultdict(list)
@@ -77,7 +77,7 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     attr_box_plot(ax1,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_box_plot(ax2,direct_cp_size_dict,'$k/k_{max}$',True)
+    attr_box_plot(ax2,direct_cp_size_dict,'$k$',True)
     ax3 = axes[2]
     attr_box_plot(ax3,year_size_dict,'publishing year')
     ax4 = axes[3]
