@@ -29,7 +29,16 @@ def gen_statistics_data(citation_cascade):
     dcxs=[]
     od_ys = []
     id_ys = []
-    kcores=[]
+
+
+    ## 时间长度
+    citation_ages = []
+    ## 直接引文的数量
+    n_direct_citations = []
+    ## 间接引文数量
+    n_indirect_citations = []
+    # owner发布时间, aminer citation cascade中有year , mag 需要mag_paper_year.json
+    n_owner_years = []
 
     zero_od_count=0
     for pid in cc.keys():
@@ -38,6 +47,10 @@ def gen_statistics_data(citation_cascade):
         od_count=0
         #in-degree count
         id_count=0
+        ## direct count 
+        direct_count = 0
+        # citation paper years 
+
 
         #progress 
         logi+=1
@@ -55,9 +68,17 @@ def gen_statistics_data(citation_cascade):
         ## DEPTH
         depth=nx.dag_longest_path_length(diG)
 
-        ## k_CORE
-        k_core = core_number(diG)
-        print k_core
+        year = cc[pid]['year']
+
+        n_owner_years.append(year) 
+
+        ## citing age
+
+        citing_age = np.max(cc[pid]['citations'].values())-year
+
+        print year,citing_age       
+
+
 
 
         # cascade_depths.append(depth)
@@ -97,9 +118,19 @@ def gen_statistics_data(citation_cascade):
             ##od 
             if od > 1:
                 od_count+=1
+            elif oid ==1:
+                ##如果出度等于1， 就是直接引文
+                direct_count +=1
 
         od_ys.append(od_count/float(cc[pid]['cnum']))
         id_ys.append(id_count/float(cc[pid]['cnum']))
+
+        ## od 就是indirect  
+        n_direct_citations.append(direct_count/float(cc[pid]['cnum']))
+        n_indirect_citations.append(od_count/float(cc[pid]['cnum']))
+
+
+
 
         #centrality
         # degree centrality
