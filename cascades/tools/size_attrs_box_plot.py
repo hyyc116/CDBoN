@@ -96,7 +96,7 @@ def three_count_plots(ax,data_dict,title):
         count_dict = Counter(data_dict[attr])
         for count in sorted(count_dict.keys()):
             if count == 10 or count ==100 or count>=1000:
-
+                cc = count
                 if count>=1000:
                     cc=1000
 
