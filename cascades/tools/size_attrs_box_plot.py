@@ -87,8 +87,8 @@ def three_count_plots(ax,data_dict,title):
 
     size_attr_count = defaultdict(lambda: defaultdict(int))
     for attr in sorted(data_dict.keys()):
-        print attr,len(data_dict[attr])
         count_dict = Counter(data_dict[attr])
+        print count_dict
         for count in sorted(count_dict.keys()):
             if count == 10 or count ==100 or count>=1000:
                 cc = count
@@ -106,8 +106,6 @@ def three_count_plots(ax,data_dict,title):
             xs.append(attr)
             ys.append(attr_count[attr]/count_total)
         
-        print size,len(xs)
-        print size,len(ys)
         ax.plot(xs,ys,label='cascade size = {:}'.format(size))
 
     ax.legend()
