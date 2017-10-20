@@ -69,7 +69,9 @@ def plot_relation_size_attr(dataset):
     ax4 = axes[3]
     attr_box_plot(ax4,age_size_dict,'Citation Age')
     plt.tight_layout()
-    plt.savefig('pdf/{:}_attr_box_plot.pdf'.format(dataset),dpi=200)
+    fig_path = 'pdf/{:}_attr_box_plot.pdf'.format(dataset.lower())
+    plt.savefig(fig_path,dpi=200)
+    logging.info('saved to {:}.'.format(fig_path))
 
 def attr_box_plot(ax,data_dict,title):
     data = []
