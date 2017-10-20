@@ -100,7 +100,6 @@ def surface_plot(data_dict,xlabel,scale=False):
     ## 首先获得所有的attr的值
     unique_attrs = data_dict.keys()
     unique_counts = []
-
     attr_count_num = defaultdict(dict)
     for attr in sorted(data_dict.keys()):
         count_list = data_dict[attr]
@@ -110,6 +109,7 @@ def surface_plot(data_dict,xlabel,scale=False):
 
 
     unique_counts = list(set(unique_counts))
+    print sorted(unique_counts)
 
     ROWS = len(unique_attrs)
     COLS = len(unique_counts)
