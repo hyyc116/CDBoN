@@ -167,7 +167,6 @@ def build_cc_of_all_nodes(dirpath,all_nodes,fieldname):
         filepath = dirpath[:-1] if dirpath.endswith('/') else dirpath
         filepath=filepath+"/"+file
 
-        paper_year = defaultdict(int)
         for line in open(filepath):
             line_index+=1
 
