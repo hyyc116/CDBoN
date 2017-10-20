@@ -139,9 +139,9 @@ def surface_plot(data_dict,xlabel,scale=False):
     ax.set_xlabel(xlabel)
     ax.set_ylabel('cascade_size')
     ax.set_zlabel('#papers')
-    if scale:
-        ax.set_xscale('log')
-    ax.set_yscale('log')
+    # if scale:
+        # ax.set_xscale('log')
+    # ax.set_yscale('log')
     ax.set_zscale('log')
 
 
