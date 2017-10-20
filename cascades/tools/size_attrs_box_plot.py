@@ -96,10 +96,8 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if key>23:
-            continue
         xs.append(key)
-        ys.append(np.mean(data_dict[key]))
+        ys.append(np.mean([i for i in data_dict[key] if i<23 ]))
 
     ax.plot(xs,ys,label='Low cited papers')
 
@@ -107,10 +105,9 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if key<=23 or key>988:
-            continue
         xs.append(key)
-        ys.append(np.mean(data_dict[key]))
+        ys.append(np.mean([i for i in data_dict[key] if i>=23 and i <988 ]))
+        
 
     ax.plot(xs,ys,label='Medium cited papers')
 
@@ -118,10 +115,9 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        if key< 988:
-            continue
         xs.append(key)
-        ys.append(np.mean(data_dict[key]))
+        ys.append(np.mean([i for i in data_dict[key] if i>=988 ]))
+
 
     ax.plot(xs,ys,label='High cited papers')
 
