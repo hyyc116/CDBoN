@@ -47,7 +47,7 @@ def plot_relation_size_attr(dataset):
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
-    normed_direct_cps = np.log(np.array(n_direct_citations))
+    normed_direct_cps = np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
     print normed_direct_cps
     normed_direct_cps = [10**float('{:.1f}'.format(float(i))) for i in normed_direct_cps]
     direct_citation_size_dict = defaultdict(list)
@@ -86,6 +86,52 @@ def plot_relation_size_attr(dataset):
     fig_path = 'pdf/{:}_attr_box_plot.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
+
+    surface_plot(depth_size_dict,'depth')
+
+
+
+def surface_plot(data_dict,xlabel,scale=False)
+    logging.info('Plotting {:} ...'.format(xlabel))
+    logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
+    rxs = []
+    rys = []
+    rzs = []
+    ## 首先获得所有的attr的值
+    unique_attrs = data_dict.keys()
+    unique_counts = []
+
+    attr_count_num = defaultdict(dict)
+    for attr in sorted(data_dict.keys()):
+        count_list = data_dict[attr]
+        count_dict = Counter(count_list)
+        unique_counts.extend(count_list)
+        attr_count_num[attr] = count_dict
+
+
+    unique_counts = list(set(unique_counts))
+
+    ROWS = len(unique_attrs)
+    COLS = len(unique_counts)
+
+    for attr in sorted(unique_attrs):
+        for count in sorted(unique_counts):
+            rxs.append(attr)
+            rys.append(count)
+            rzs.append(attr_count_num[attr][count])
+
+    X = np.reshape(rxs,(ROWS,COLS))
+    Y = np.reshape(rys,(ROWS,COLS))
+    Z = np.reshape(rzs,(ROWS,COLS))
+
+    fig=plt.figure(figsize=(14,10))
+    ax = Axes3D(fig)
+    ax.view_init(60, 240)
+    ax.set_title(xlabel)
+    surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
+    fig.colorbar(surf, shrink=0.5, aspect=10)
+    plt.savefig('pdf/{:}.pdf'.format(xlabel),dpi=200)
+
 
 def attr_box_plot(ax,data_dict,xlabel,scale=False):
     logging.info('Plotting {:} ...'.format(xlabel))
