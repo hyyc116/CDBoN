@@ -77,6 +77,8 @@ def plot_relation_size_attr(dataset):
     logging.info('saved to {:}.'.format(fig_path))
 
 def attr_box_plot(ax,data_dict,title):
+    logging.info('Plotting {:} ...'.format(title))
+    logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
     for key in sorted(data_dict.keys()):
         data.append(data_dict[key])
