@@ -49,7 +49,7 @@ def plot_relation_size_attr(dataset):
         cascade_size = cxs[i]
 
         ### citation  count数量为10以下的都抛弃，只看中高被引的论文
-        if cascade_size<10:
+        if cascade_size<100:
             continue 
 
         # owner 直接引文, 是一个比例，如何归一化呢
