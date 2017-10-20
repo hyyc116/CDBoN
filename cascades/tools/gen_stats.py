@@ -74,7 +74,7 @@ def gen_statistics_data(citation_cascade):
 
         citing_age = np.max(cc[pid]['citations'].values())-year
 
-        print year,citing_age    
+        # print year,citing_age    
         citation_ages.append(citing_age)   
 
 
