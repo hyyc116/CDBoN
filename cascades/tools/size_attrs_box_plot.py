@@ -116,10 +116,9 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     ys = []
     for key in sorted(data_dict.keys()):
         mean = np.mean([i for i in data_dict[key] if i>=988 ])
-        if mean is None:
-            continue
-        xs.append(key)
-        ys.append(mean)
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
 
     print xs
     print ys
