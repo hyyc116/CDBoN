@@ -53,9 +53,9 @@ def plot_relation_size_attr(dataset):
 
         # 深度与大小的关系
         depth_size_dict[depth].append(cascade_size)
-        direct_cp_size_dict[n_direct_citations].append(cascade_size)
+        direct_cp_size_dict[n_direct_cps].append(cascade_size)
         year_size_dict[owner_year].append(cascade_size)
-        age_size_dict[owner_year].append(diff_age)
+        age_size_dict[diff_age].append(cascade_size)
 
 
     ## 对上述图画 画箱式图
