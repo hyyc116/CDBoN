@@ -47,6 +47,11 @@ def plot_relation_size_attr(dataset):
     for i,depth in enumerate(dys):
         # cascade 的大小
         cascade_size = cxs[i]
+
+        ### citation  count数量为10以下的都抛弃，只看中高被引的论文
+        if cascade_size<10:
+            continue 
+
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
         # owner 的发布时间
