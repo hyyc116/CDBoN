@@ -97,7 +97,8 @@ def attr_box_plot(ax,data_dict,title):
     labels = [xs[i] for i in poses]
     ax.boxplot(data,showfliers = False,showmeans=True)
     ax.set_title(title)
-    ax.set_xticks(poses,labels)
+    ax.set_xticks(poses)
+    ax.set_xticklabels(labels)
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
