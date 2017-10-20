@@ -118,7 +118,7 @@ def surface_plot(data_dict,xlabel,scale=False):
         for count in sorted(unique_counts):
             rxs.append(attr)
             rys.append(count)
-            rzs.append(attr_count_num[attr][count])
+            rzs.append(attr_count_num[attr].get(count,1))
 
     X = np.reshape(rxs,(ROWS,COLS))
     Y = np.reshape(rys,(ROWS,COLS))
