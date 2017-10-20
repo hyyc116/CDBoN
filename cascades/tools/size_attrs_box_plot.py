@@ -133,8 +133,8 @@ def surface_plot(data_dict,xlabel,scale=False):
     ax.set_zlabel('#papers')
     if scale:
         ax.set_xscale('log')
-    # ax.set_yscale('log')
-    ax.set_zscale('log')
+    ax.set_yscale('log')
+    # ax.set_zscale('log')
 
 
     surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
