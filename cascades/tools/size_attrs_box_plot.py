@@ -137,7 +137,7 @@ def surface_plot(data_dict,xlabel,scale=False):
     # ax.set_zscale('log')
 
 
-    surf = ax.plot_surface(X,Y,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
+    surf = ax.plot_surface(Y,X,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.savefig('pdf/{:}.png'.format(xlabel),dpi=200)
 
