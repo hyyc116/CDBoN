@@ -84,7 +84,7 @@ def attr_box_plot(ax,data_dict,title):
     for key in sorted(data_dict.keys()):
         data.append(data_dict[key])
 
-    ax.boxplot(data)
+    ax.boxplot(data,showfliers=False)
     ax.set_title(title)
 
 if __name__ == '__main__':
