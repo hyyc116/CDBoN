@@ -76,7 +76,7 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     attr_box_plot(ax1,depth_size_dict,'Depth')
     ax2 = axes[1]
-    attr_box_plot(ax2,direct_cp_size_dict,'Direct Citation')
+    attr_box_plot(ax2,direct_cp_size_dict,'Direct Citation',true)
     ax3 = axes[2]
     attr_box_plot(ax3,year_size_dict,'publishing year')
     ax4 = axes[3]
