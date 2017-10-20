@@ -32,7 +32,7 @@ def plot_relation_size_attr(dataset):
 
     sorted_cxs = sorted(cxs,reverse=True)
 
-    plt.plot(range(len(sorted_cxs))+1,sorted_cxs)
+    plt.plot(np.arange(len(sorted_cxs))+1,sorted_cxs)
     plt.xscale('log')
     plt.yscale('log')
     plt.savefig('pdf/citation_PLE.pdf',dpi=200)
