@@ -50,13 +50,14 @@ def plot_relation_size_attr(dataset):
     normed_direct_cps = np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
     normed_direct_cps = [10**np.round(i) for i in normed_direct_cps]
     direct_citation_size_dict = defaultdict(list)
+    _10_count = 0
     for i,depth in enumerate(dys):
         # cascade 的大小
         cascade_size = cxs[i]
 
-        ### citation  count数量为10以下的都抛弃，只看中高被引的论文
-        # if cascade_size<100:
-        #     continue 
+        if cascade_size==10:
+            _10_count+=1
+
 
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
@@ -71,7 +72,7 @@ def plot_relation_size_attr(dataset):
         year_size_dict[owner_year].append(cascade_size)
         age_size_dict[diff_age].append(cascade_size)
 
-
+    print '______10 ___',_10_count
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
