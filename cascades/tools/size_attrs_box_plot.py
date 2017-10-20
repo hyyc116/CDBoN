@@ -119,7 +119,7 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
         if mean is None:
             continue
         xs.append(key)
-        ys.append()
+        ys.append(mean)
 
     print xs
     print ys
