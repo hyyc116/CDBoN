@@ -20,7 +20,7 @@ def build_citation_network(dirpath):
             line_index+=1
 
             if line_index%100000==0:
-                logging.info('==== The {:} th File, total progress:{:}, length of paper years {:} ====').format(file_index,line_index,len(paper_year.keys()))
+                logging.info('==== The {:} th File, total progress:{:}, length of paper years {:} ===='.format(file_index,line_index,len(paper_year.keys())))
                 new_lines = []
             
             line = line.strip()
