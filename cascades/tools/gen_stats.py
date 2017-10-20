@@ -29,6 +29,7 @@ def gen_statistics_data(citation_cascade):
     dcxs=[]
     od_ys = []
     id_ys = []
+    kcores=[]
 
     zero_od_count=0
     for pid in cc.keys():
@@ -51,8 +52,14 @@ def gen_statistics_data(citation_cascade):
         # if citation cascade is not acyclic graph
         if not nx.is_directed_acyclic_graph(diG):
             continue
-
+        ## DEPTH
         depth=nx.dag_longest_path_length(diG)
+
+        ## k_CORE
+        core_numer = core_numer(diG)
+        print core_numer
+
+
         # cascade_depths.append(depth)
         depth_dict[depth]+=1
         # cascade_sizes.append(len(edges))
