@@ -92,7 +92,7 @@ def attr_box_plot(ax,data_dict,title):
         xs.append(key)
         data.append(data_dict[key])
 
-    poses= np.linspace(0,len(data_dict.keys()),np.min([len(data_dict.keys()),10]))
+    poses= np.arange(0,len(data_dict.keys()),np.min([len(data_dict.keys()),10]))
     print poses
     labels = [xs[i] for i in poses]
     ax.boxplot(data,showfliers = False,showmeans=True)
