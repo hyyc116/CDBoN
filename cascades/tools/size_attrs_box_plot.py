@@ -130,6 +130,8 @@ def attr_box_plot(ax,data_dict,xlabel,scale=False):
     if scale:
         ax.set_xscale('log')
 
+    ax.set_yscale('log')
+
     ax.legend()
 
 
