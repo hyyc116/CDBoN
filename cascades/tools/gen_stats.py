@@ -56,8 +56,8 @@ def gen_statistics_data(citation_cascade):
         depth=nx.dag_longest_path_length(diG)
 
         ## k_CORE
-        core_numer = core_numer(diG)
-        print core_numer
+        k_core = core_number(diG)
+        print k_core
 
 
         # cascade_depths.append(depth)
