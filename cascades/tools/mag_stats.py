@@ -9,6 +9,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
 
     ## 每一篇文章的年限
     pid_year = json.loads(open(paper_year_path).read())
+    logging.info('Size of papers with year:{:}'.format(len(pid_year.keys())))
 
     # general indicators
     cc_dict=defaultdict(int)
@@ -87,6 +88,8 @@ def gen_statistics_data(citation_cascade,paper_year_path):
 
             ## year 
             year = pid_year.get(pid,-1)
+            print '--------',year
+            
 
 
             #degree
