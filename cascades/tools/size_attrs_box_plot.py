@@ -117,7 +117,7 @@ def surface_plot(data_dict,xlabel,scale=False):
 
     for attr in sorted(unique_attrs):
         for count in sorted(unique_counts):
-            num = attr_count_num[attr][count]+10
+            num = attr_count_num[attr].get(count,0)+10
             if num < 0:
                 print '..'
             rxs.append(attr)
