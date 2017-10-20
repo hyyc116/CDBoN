@@ -109,7 +109,7 @@ def three_count_plots(ax,data_dict,title):
         count_total = float(np.sum(attr_count.values()))
         for attr in sorted(attr_count.keys()):
             xs.append(attr)
-            ys.append(attr_count[attr_count]/count_total)
+            ys.append(attr_count[attr]/count_total)
 
 
         ax.plot(xs,ys,label='cascade size = {:}'.format(size))
