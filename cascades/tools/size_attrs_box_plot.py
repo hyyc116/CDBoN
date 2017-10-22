@@ -88,7 +88,7 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links','cascade size',True)
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links')
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
