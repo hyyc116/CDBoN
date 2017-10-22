@@ -92,7 +92,7 @@ def plot_relation_size_attr(dataset):
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     ax4 = axes[3]
-    attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'Citation Age',True)
+    attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'Citation Age',True,'linear')
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -100,7 +100,7 @@ def plot_relation_size_attr(dataset):
 
     # surface_plot(depth_size_dict,'depth')
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,xscale=False,yscale='log'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -127,7 +127,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
     # if scale:
         # ax.set_xscale('log')
 
-    ax.set_yscale('log')
+    ax.set_yscale(yscale)
 
     ax.legend()
 

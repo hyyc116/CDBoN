@@ -12,7 +12,7 @@ def stats_plot():
     # add 80% percent x
     num = len(plt.get_fignums())
     # plt.figure(num)
-    fig,axes = plt.subplots(4,1,figsize=(7,20))
+    fig,axes = plt.subplots(4,1,figsize=(6,20))
     #### node size 
     logging.info('plot node size ...')
     cnum_dict = json.loads(open('data/nodes_size.json').read())
