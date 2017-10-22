@@ -81,7 +81,7 @@ def plot_relation_size_attr(dataset):
         indirect_dict[n_indirect_links].append(cascade_size)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(3,1,figsize=(7,12))
+    fig,axes  = plt.subplots(3,1,figsize=(7,15))
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
@@ -90,7 +90,7 @@ def plot_relation_size_attr(dataset):
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
     # attr_size_plots(ax4,fig,x_min,x_max,age_size_dict,'Citation Age')
-    # plt.tight_layout()
+    plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
