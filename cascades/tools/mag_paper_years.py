@@ -30,7 +30,7 @@ def build_citation_network(dirpath):
             year = paper['year']
             paper_year[pid] = year
 
-    open('data/mag/mag_paper_year.json'.format(fieldname),'w').write(json.dumps(paper_year))
+    open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
 
     print len(paper_year.keys())
 
