@@ -47,9 +47,10 @@ def plot_relation_size_attr(dataset):
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
-    normed_direct_cps = np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
-    print normed_direct_cps
-    normed_direct_cps = [10**float('{:.1f}'.format(float(i))) for i in normed_direct_cps]
+    normed_direct_cps = n_direct_citations
+    #  np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
+    # print normed_direct_cps
+    # normed_direct_cps = [10**float('{:.1f}'.format(float(i))) for i in normed_direct_cps]
     direct_citation_size_dict = defaultdict(list)
     for i,depth in enumerate(dys):
         # cascade 的大小
