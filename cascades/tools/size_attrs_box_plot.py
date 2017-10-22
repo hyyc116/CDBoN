@@ -85,7 +85,7 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links')
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',True)
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
@@ -119,6 +119,17 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
     ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
     data = []
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel('Cascade size')
+    if scale:
+        ax.set_xscale('log')
+
+    ax.set_yscale('log')
+
+    ax.legend()
+
+    if scale:
+        return
 
     ## 1<x<23
     xs = []
@@ -153,15 +164,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
     ax.plot(xs,ys,label='High cited papers')
 
 
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel('Cascade size')
-    if scale:
-        ax.set_xscale('log')
-
-    ax.set_yscale('log')
-
-    ax.legend()
-
+   
 
 
 if __name__ == '__main__':
