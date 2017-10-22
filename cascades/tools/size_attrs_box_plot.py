@@ -84,23 +84,23 @@ def plot_relation_size_attr(dataset):
         year_indirect_dict[owner_year].append(n_indirect_links)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(4,1,figsize=(7,20))
+    fig,axes  = plt.subplots(3,1,figsize=(7,15))
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',True)
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links','cascade size',True)
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
-    ax4 = axes[3]
-    attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'publishing year','indirect links',True,'linear')
-    plt.tight_layout()
+    # ax4 = axes[3]
+    # attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'publishing year','indirect links',True,'linear')
+    # plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
     # surface_plot(depth_size_dict,'depth')
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',xscale=False,yscale='log'):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -125,15 +125,9 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',xs
     data = []
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    # if scale:
-        # ax.set_xscale('log')
-
     ax.set_yscale(yscale)
 
     ax.legend()
-
-    if xscale:
-        return
 
     ## 1<x<23
     xs = []
@@ -142,7 +136,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',xs
         xs.append(key)
         ys.append(np.mean([i for i in data_dict[key] if i<23 ]))
 
-    ax.plot(xs,ys,label='Low cited papers')
+    ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
 
     # 23 < x <988
     xs = []
@@ -152,7 +146,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',xs
         ys.append(np.mean([i for i in data_dict[key] if i>=23 and i <988 ]))
         
 
-    ax.plot(xs,ys,label='Medium cited papers')
+    ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
 
     # x> 988
     xs = []
@@ -165,7 +159,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',xs
 
     print xs
     print ys
-    ax.plot(xs,ys,label='High cited papers')
+    ax.plot(xs,ys,label='Highly cited papers',alpha=0.7)
 
 
    
