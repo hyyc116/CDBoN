@@ -100,8 +100,9 @@ def attr_size_plots(ax,fig,data_dict,xlabel,scale=False):
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        xs.append(key)
-        ys.append(np.mean(data_dict[key]))
+        for y in data_dict[key]:
+            xs.append(key)
+            ys.append(y)
 
     plot_heat_scatter(xs,ys,ax,fig)
 
