@@ -121,8 +121,8 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
     data = []
     ax.set_xlabel(xlabel)
     ax.set_ylabel('Cascade size')
-    if scale:
-        ax.set_xscale('log')
+    # if scale:
+        # ax.set_xscale('log')
 
     ax.set_yscale('log')
 
