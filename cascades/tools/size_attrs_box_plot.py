@@ -48,15 +48,12 @@ def plot_relation_size_attr(dataset):
     direct_cp_size_dict = defaultdict(list)
     year_size_dict = defaultdict(list)
     age_size_dict = defaultdict(list)
+    indirect_dict = defaultdict(list)
 
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
     normed_direct_cps = n_direct_citations
-    #  np.log(np.array(n_direct_citations)/np.max(n_direct_citations))
-    # print normed_direct_cps
-    # normed_direct_cps = [10**float('{:.1f}'.format(float(i))) for i in normed_direct_cps]
-    direct_citation_size_dict = defaultdict(list)
     for i,depth in enumerate(dys):
         # cascade 的大小
         cascade_size = cxs[i]
@@ -67,6 +64,9 @@ def plot_relation_size_attr(dataset):
 
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
+        ## indirect links的数量
+        n_indirect_links = (eys[i]-cascade_size)/cascade_size
+
         # owner 的发布时间
         owner_year = n_owner_years[i]
         # owner diffusion的时间
@@ -78,17 +78,19 @@ def plot_relation_size_attr(dataset):
         year_size_dict[owner_year].append(cascade_size)
         age_size_dict[diff_age].append(cascade_size)
 
+        indirect_dict[n_indirect_links].append(cascade_size)
+
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(4,1,figsize=(7,20))
+    fig,axes  = plt.subplots(3,1,figsize=(7,15))
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,direct_cp_size_dict,'$k$',True)
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',True)
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
-    ax4 = axes[3]
-    attr_size_plots(ax4,fig,x_min,x_max,age_size_dict,'Citation Age')
-    plt.tight_layout()
+    # ax4 = axes[3]
+    # attr_size_plots(ax4,fig,x_min,x_max,age_size_dict,'Citation Age')
+    # plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
