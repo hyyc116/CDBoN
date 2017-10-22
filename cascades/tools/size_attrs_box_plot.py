@@ -93,7 +93,7 @@ def plot_relation_size_attr(dataset):
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
     # attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'publishing year','indirect links',True,'linear')
-    # plt.tight_layout()
+    plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
@@ -103,8 +103,6 @@ def plot_relation_size_attr(dataset):
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
-
-    data = []
 
     ## 1<x<23
     xs = []
@@ -122,7 +120,6 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
-    data = []
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_yscale(yscale)
@@ -133,8 +130,10 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        xs.append(key)
-        ys.append(np.mean([i for i in data_dict[key] if i<23 ]))
+        mean = np.mean([i for i in data_dict[key] if i<23 ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
 
     ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
 
@@ -142,9 +141,10 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        xs.append(key)
-        ys.append(np.mean([i for i in data_dict[key] if i>=23 and i <988 ]))
-        
+        mean = np.mean([i for i in data_dict[key] if i>=23 and i < 988 ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
 
     ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
 
