@@ -76,84 +76,35 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
-    attr_box_plot(ax1,depth_size_dict,'cascade depth')
+    attr_size_plots(ax1,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_box_plot(ax2,direct_cp_size_dict,'$k$',True)
+    attr_size_plots(ax2,direct_cp_size_dict,'$k$',True)
     ax3 = axes[2]
-    attr_box_plot(ax3,year_size_dict,'publishing year')
+    attr_size_plots(ax3,year_size_dict,'publishing year')
     ax4 = axes[3]
-    attr_box_plot(ax4,age_size_dict,'Citation Age')
+    attr_size_plots(ax4,age_size_dict,'Citation Age')
     plt.tight_layout()
-    fig_path = 'pdf/{:}_attr_box_plot.png'.format(dataset.lower())
+    fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    surface_plot(depth_size_dict,'depth')
+    # surface_plot(depth_size_dict,'depth')
 
-
-
-def surface_plot(data_dict,xlabel,scale=False):
+def attr_size_plots(ax,fig,data_dict,xlabel,scale=False):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
-    rxs = []
-    rys = []
-    rzs = []
-    ## 首先获得所有的attr的值
-    unique_attrs = data_dict.keys()
-    unique_counts = []
-    attr_count_num = defaultdict(dict)
-    for attr in sorted(data_dict.keys()):
-        count_list = data_dict[attr]
-        count_dict = Counter(count_list)
-        unique_counts.extend(count_list)
-        for count in count_dict.keys():
-            attr_count_num[attr][count]=count_dict[count]
 
+    data = []
 
-    unique_counts = list(set(unique_counts))
-    # print sorted(unique_counts)
+    ## 1<x<23
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        xs.append(key)
+        ys.append(np.mean(data_dict[key]))
 
-    ROWS = len(unique_attrs)
-    COLS = len(unique_counts)
+    plot_heat_scatter(xs,ys,ax,fig)
 
-    for attr in sorted(unique_attrs):
-        for count in sorted(unique_counts):
-            num = attr_count_num[attr].get(count,0)+10
-            if num < 0:
-                print '..'
-            rxs.append(attr)
-            rys.append(count)
-            rzs.append(num)
-
-    print rxs[:100]
-    print rys[:100]
-    print rzs[:100]
-
-    X = np.reshape(rxs,(ROWS,COLS))
-    Y = np.reshape(rys,(ROWS,COLS))
-    Z = np.reshape(rzs,(ROWS,COLS))
-
-    fig=plt.figure(figsize=(14,10))
-    ax = Axes3D(fig)
-    ax.view_init(60, 240)
-    ax.set_title(xlabel)
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel('cascade_size')
-    ax.set_zlabel('#papers')
-    # if scale:
-        # ax.set_xscale('log')
-    ax.set_xscale('log')
-    ax.set_zscale('log')
-
-
-    surf = ax.plot_surface(Y,X,Z, rstride=1, cstride=1, cmap=CM.coolwarm)
-    fig.colorbar(surf, shrink=0.5, aspect=10)
-    plt.savefig('pdf/{:}.pdf'.format(xlabel),dpi=100)
-
-
-def attr_box_plot(ax,data_dict,xlabel,scale=False):
-    logging.info('Plotting {:} ...'.format(xlabel))
-    logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
     data = []
 
     ## 1<x<23
