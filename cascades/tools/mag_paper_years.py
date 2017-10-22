@@ -21,7 +21,7 @@ def build_citation_network(dirpath):
 
             if line_index%100000==0:
                 logging.info('==== The {:} th File, total progress:{:}, length of paper years {:} ===='.format(file_index,line_index,len(paper_year.keys())))
-                new_lines = []
+                open('data/mag/mag_paper_year.json','a').write(json.dumps(paper_year))
             
             line = line.strip()
             paper = json.loads(line)
@@ -30,7 +30,7 @@ def build_citation_network(dirpath):
             year = paper['year']
             paper_year[pid] = year
 
-    open('data/mag/mag_paper_year.json','w').write(json.dumps(paper_year))
+    open('data/mag/mag_paper_year.json','a').write(json.dumps(paper_year))
 
     print len(paper_year.keys())
 
