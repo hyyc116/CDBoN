@@ -76,13 +76,13 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
-    attr_size_plots(ax1,depth_size_dict,'cascade depth')
+    attr_size_plots(ax1,fig,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,direct_cp_size_dict,'$k$',True)
+    attr_size_plots(ax2,fig,direct_cp_size_dict,'$k$',True)
     ax3 = axes[2]
-    attr_size_plots(ax3,year_size_dict,'publishing year')
+    attr_size_plots(ax3,fig,year_size_dict,'publishing year')
     ax4 = axes[3]
-    attr_size_plots(ax4,age_size_dict,'Citation Age')
+    attr_size_plots(ax4,fig,age_size_dict,'Citation Age')
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
