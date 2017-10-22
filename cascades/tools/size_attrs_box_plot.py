@@ -131,7 +131,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,xscale=False,yscale='log
 
     ax.legend()
 
-    if scale:
+    if xscale:
         return
 
     ## 1<x<23
