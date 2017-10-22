@@ -25,6 +25,8 @@ def build_citation_network(dirpath):
             if line_index%100000==0:
                 logging.info('==== The {:} th File, total progress:{:}, length of paper years {:} ===='.format(file_index,line_index,len(paper_year.keys())))
                 open(year_filepath,'a').write(json.dumps(paper_year)+'\n')
+                paper_year = defaultdict(int)
+
             
             line = line.strip()
             paper = json.loads(line)

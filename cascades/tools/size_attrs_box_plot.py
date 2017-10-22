@@ -161,10 +161,6 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     print ys
     ax.plot(xs,ys,label='Highly cited papers',alpha=0.7)
 
-
-   
-
-
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
 
