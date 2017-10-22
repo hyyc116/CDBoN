@@ -14,8 +14,13 @@ aminer:data/plot_dict.json
 def plot_relation_size_attr(dataset):
     if dataset =='MAG':
         data_path = 'data/mag/stats/plot_dict.json'
+        x_min = 47
+        x_max = 2086
+
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
+        x_min = 23
+        x_max = 988
     else:
         logging.info('No Such datasets, please type in MAG or AMiner')
         return
@@ -76,13 +81,13 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
-    attr_size_plots(ax1,fig,depth_size_dict,'cascade depth')
+    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,direct_cp_size_dict,'$k$',True)
+    attr_size_plots(ax2,fig,x_min,x_max,direct_cp_size_dict,'$k$',True)
     ax3 = axes[2]
-    attr_size_plots(ax3,fig,year_size_dict,'publishing year')
+    attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     ax4 = axes[3]
-    attr_size_plots(ax4,fig,age_size_dict,'Citation Age')
+    attr_size_plots(ax4,fig,x_min,x_max,age_size_dict,'Citation Age')
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -90,7 +95,7 @@ def plot_relation_size_attr(dataset):
 
     # surface_plot(depth_size_dict,'depth')
 
-def attr_size_plots(ax,fig,data_dict,xlabel,scale=False):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,scale=False):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -105,6 +110,11 @@ def attr_size_plots(ax,fig,data_dict,xlabel,scale=False):
             ys.append(y)
 
     plot_heat_scatter(xs,ys,ax,fig)
+
+
+    ## 画两条线
+    ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
+    ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
     data = []
 
