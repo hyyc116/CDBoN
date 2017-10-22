@@ -84,7 +84,7 @@ def plot_relation_size_attr(dataset):
         year_indirect_dict[owner_year].append(n_indirect_links)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(3,1,figsize=(7,20))
+    fig,axes  = plt.subplots(4,1,figsize=(7,20))
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
