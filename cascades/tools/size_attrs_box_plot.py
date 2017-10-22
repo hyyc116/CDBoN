@@ -65,7 +65,7 @@ def plot_relation_size_attr(dataset):
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
         ## indirect links的数量
-        n_indirect_links = (eys[i]-cascade_size)/cascade_size
+        n_indirect_links = (eys[i]-cascade_size)/float(cascade_size)
 
         # owner 的发布时间
         owner_year = n_owner_years[i]
@@ -85,7 +85,7 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',True)
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links')
     ax3 = axes[2]
     attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
