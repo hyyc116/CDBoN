@@ -144,7 +144,7 @@ def year_analysis(cxs,eys,n_owner_years):
         y = low_ys[i]
         data_dict[x].append(y) 
 
-    print 'length of data_dict:',len(data_dict.size())
+    print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
         mean = np.mean(data_dict[key])
         if not np.isnan(mean):
@@ -161,7 +161,7 @@ def year_analysis(cxs,eys,n_owner_years):
         y = medium_ys[i]
         data_dict[x].append(y) 
 
-    print 'length of data_dict:',len(data_dict.size())
+    print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
         mean = np.mean(data_dict[key])
         if not np.isnan(mean):
@@ -178,7 +178,7 @@ def year_analysis(cxs,eys,n_owner_years):
         y = high_ys[i]
         data_dict[x].append(y) 
 
-    print 'length of data_dict:',len(data_dict.size())
+    print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
         mean = np.mean(data_dict[key])
         if not np.isnan(mean):
