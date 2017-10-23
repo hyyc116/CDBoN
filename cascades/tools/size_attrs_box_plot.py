@@ -98,7 +98,43 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    # surface_plot(depth_size_dict,'depth')
+    year_analysis(cxs,eys,n_owner_years)
+
+def year_analysis(csx,eys,n_owner_years):
+    ## 首先对于三种类别的文章进行分析
+
+    high_xs =[] 
+    high_ys = []
+
+    medium_xs = []
+    medium_ys = []
+
+    low_xs = []
+    low_ys = []
+
+    for i,cc in enumerate(cxs):
+        es = eys[i]
+        year = n_owner_years[i]
+
+        if cc>=988:
+            high_xs.append(year)
+            high_ys.append((es-cc)/float(cc))
+
+        if cc==100:
+            medium_xs.append(year)
+            medium_ys.append((es-cc)/float(cc))
+
+        if cc==20:
+            low_xs.append(year)
+            low_ys.append((es-cc)/float(cc))
+
+    print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
+
+    
+
+
+
+
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log'):
     logging.info('Plotting {:} ...'.format(xlabel))
