@@ -131,9 +131,9 @@ def year_analysis(cxs,eys,n_owner_years):
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     plt.figure()
 
-    plt.scatter(low_xs,low_ys, size=1)
-    plt.scatter(medium_xs,medium_ys, size=1)
-    plt.scatter(high_xs,high_ys, size=1)
+    plt.scatter(low_xs,low_ys, s=1)
+    plt.scatter(medium_xs,medium_ys, s=1)
+    plt.scatter(high_xs,high_ys, s=1)
 
     
     
