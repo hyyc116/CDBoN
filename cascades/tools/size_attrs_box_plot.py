@@ -130,9 +130,11 @@ def year_analysis(cxs,eys,n_owner_years):
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     plt.figure()
-    plt.scatter(high_xs,high_ys)
-    plt.scatter(medium_xs,medium_ys)
+
     plt.scatter(low_xs,low_ys)
+    plt.scatter(medium_xs,medium_ys)
+    plt.scatter(high_xs,high_ys)
+    
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
     plt.tight_layout()
