@@ -93,7 +93,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
 
             ## year 
             year = pid_year.get(pid,-1)
-            print '--------',year
+            # print '--------',year
             
 
 
@@ -109,7 +109,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
 
                 if od>0:
 
-                    print nid,pid_year.get(nid,-1)
+                    # print nid,pid_year.get(nid,-1)
                     citing_years.append(pid_year.get(nid,-1))
 
 
