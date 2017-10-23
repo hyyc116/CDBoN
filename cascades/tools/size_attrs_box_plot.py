@@ -129,14 +129,48 @@ def year_analysis(cxs,eys,n_owner_years):
             low_ys.append((es-cc)/float(cc))
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
-    plt.figure()
-
-    plt.scatter(low_xs,low_ys, s=2)
-    plt.scatter(medium_xs,medium_ys, s=2)
-    plt.scatter(high_xs,high_ys, s=2)
-
     
-    
+    fig,ax = plt.subplots(figsize=(6,5))
+    ax.scatter(low_xs,low_ys, s=3)
+    ax.scatter(medium_xs,medium_ys, s=3)
+    ax.scatter(high_xs,high_ys, s=3)
+
+    ## 1<x<23
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i<23 ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
+
+    # 23 < x <988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=23 and i < 988 ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
+
+    # x> 988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=988 ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    print xs
+    print ys
+    ax.plot(xs,ys,label='Highly cited papers',alpha=0.7)
+
+
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
     plt.tight_layout()
