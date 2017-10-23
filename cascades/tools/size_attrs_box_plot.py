@@ -98,9 +98,9 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    year_analysis(cxs,eys,n_owner_years)
+    year_analysis(cxs,eys,n_owner_years,year_indirect_dict)
 
-def year_analysis(cxs,eys,n_owner_years):
+def year_analysis(cxs,eys,n_owner_years,data_dict):
     ## 首先对于三种类别的文章进行分析
 
     high_xs =[] 
@@ -120,11 +120,11 @@ def year_analysis(cxs,eys,n_owner_years):
             high_xs.append(year)
             high_ys.append((es-cc)/float(cc))
 
-        if cc==100:
+        if cc>=23 and cc<988:
             medium_xs.append(year)
             medium_ys.append((es-cc)/float(cc))
 
-        if cc==20:
+        if cc<23:
             low_xs.append(year)
             low_ys.append((es-cc)/float(cc))
 
