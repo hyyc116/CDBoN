@@ -135,6 +135,7 @@ def year_analysis(cxs,eys,n_owner_years):
     plt.scatter(low_xs,low_ys)
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
+    plt.tight_layout()
     plt.savefig('pdf/aminer_year_indirect.png',dpi=200)
 
 
