@@ -98,9 +98,9 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    year_analysis(cxs,eys,n_owner_years,year_indirect_dict)
+    year_analysis(cxs,eys,n_owner_years)
 
-def year_analysis(cxs,eys,n_owner_years,data_dict):
+def year_analysis(cxs,eys,n_owner_years):
     ## 首先对于三种类别的文章进行分析
 
     high_xs =[] 
@@ -136,40 +136,56 @@ def year_analysis(cxs,eys,n_owner_years,data_dict):
     ax.scatter(high_xs,high_ys, s=3)
 
     ## 1<x<23
+    print 'low cited papers ...'
     xs = []
     ys = []
+    data_dict = defaultdict(list)
+    for i,x in enumerate(low_xs):
+        y = low_ys[i]
+        data_dict[x].append(y) 
+
+    print 'length of data_dict:',len(data_dict.size())
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i<23 ])
+        mean = np.mean(data_dict[key])
         if not np.isnan(mean):
             xs.append(key)
             ys.append(mean)
 
     ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
 
-    # 23 < x <988
+    print 'Medium cited papers ...'
     xs = []
     ys = []
+    data_dict = defaultdict(list)
+    for i,x in enumerate(medium_xs):
+        y = medium_ys[i]
+        data_dict[x].append(y) 
+
+    print 'length of data_dict:',len(data_dict.size())
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i>=23 and i < 988 ])
+        mean = np.mean(data_dict[key])
         if not np.isnan(mean):
             xs.append(key)
             ys.append(mean)
 
     ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
 
-    # x> 988
+    print 'low cited papers ...'
     xs = []
     ys = []
+    data_dict = defaultdict(list)
+    for i,x in enumerate(high_xs):
+        y = high_ys[i]
+        data_dict[x].append(y) 
+
+    print 'length of data_dict:',len(data_dict.size())
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i>=988 ])
+        mean = np.mean(data_dict[key])
         if not np.isnan(mean):
             xs.append(key)
             ys.append(mean)
 
-    print xs
-    print ys
-    ax.plot(xs,ys,label='Highly cited papers',alpha=0.7)
-
+    ax.plot(xs,ys,label='High cited papers',alpha=0.7)
 
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
