@@ -131,9 +131,9 @@ def year_analysis(cxs,eys,n_owner_years):
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
     fig,ax = plt.subplots(figsize=(6,5))
-    ax.scatter(low_xs,low_ys, s=3)
-    ax.scatter(medium_xs,medium_ys, s=3)
-    ax.scatter(high_xs,high_ys, s=3)
+    ax.scatter(low_xs,low_ys, s=3, label='Low cited papers')
+    ax.scatter(medium_xs,medium_ys, s=3, label='Medium cited papers')
+    ax.scatter(high_xs,high_ys, s=3,label='Highly cited papers')
 
     ## 1<x<23
     print 'low cited papers ...'
@@ -189,6 +189,7 @@ def year_analysis(cxs,eys,n_owner_years):
 
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
+    ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/aminer_year_indirect.png',dpi=300)
 
