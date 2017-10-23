@@ -8,10 +8,15 @@ from basic_config import *
 def gen_statistics_data(citation_cascade,paper_year_path):
 
     ## 每一篇文章的年限
-    pid_year = json.loads(open(paper_year_path).read())
+    pid_year = {}
+    for line in open(paper_year_path):
+        line = line.strip()
+
+        data = json.loads(open(paper_year_path).read())
+        pid_year.update(data)
+
     logging.info('Size of papers with year:{:}'.format(len(pid_year.keys())))
 
-    # general indicators
     cc_dict=defaultdict(int)
     cs_dict=defaultdict(int)
     size_depth_dict=defaultdict(list)
