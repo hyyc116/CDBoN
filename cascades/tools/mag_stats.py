@@ -12,7 +12,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
     for line in open(paper_year_path):
         line = line.strip()
 
-        data = json.loads(open(paper_year_path).read())
+        data = json.loads(line)
         pid_year.update(data)
 
     logging.info('Size of papers with year:{:}'.format(len(pid_year.keys())))
