@@ -140,7 +140,7 @@ def year_analysis(cxs,eys,n_owner_years,data_dict):
     ys = []
     for key in sorted(data_dict.keys()):
         mean = np.mean([i for i in data_dict[key] if i<23 ])
-        if mean > 0:
+        if not np.isnan(mean):
             xs.append(key)
             ys.append(mean)
 
@@ -151,7 +151,7 @@ def year_analysis(cxs,eys,n_owner_years,data_dict):
     ys = []
     for key in sorted(data_dict.keys()):
         mean = np.mean([i for i in data_dict[key] if i>=23 and i < 988 ])
-        if mean > 0:
+        if not np.isnana(mean):
             xs.append(key)
             ys.append(mean)
 
@@ -162,7 +162,7 @@ def year_analysis(cxs,eys,n_owner_years,data_dict):
     ys = []
     for key in sorted(data_dict.keys()):
         mean = np.mean([i for i in data_dict[key] if i>=988 ])
-        if mean > 0:
+        if not np.isnan(mean):
             xs.append(key)
             ys.append(mean)
 
