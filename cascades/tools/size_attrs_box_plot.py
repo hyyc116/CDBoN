@@ -100,7 +100,7 @@ def plot_relation_size_attr(dataset):
 
     year_analysis(cxs,eys,n_owner_years)
 
-def year_analysis(csx,eys,n_owner_years):
+def year_analysis(cxs,eys,n_owner_years):
     ## 首先对于三种类别的文章进行分析
 
     high_xs =[] 
