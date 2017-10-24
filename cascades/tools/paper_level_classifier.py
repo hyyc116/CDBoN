@@ -56,7 +56,7 @@ def fit_xmin_xmax(xs,ys,path):
 
     mid = len(xs)/2
     x_is = np.arange(1,mid-10)
-    y_is = np.arange(mid-5,len(xs))
+    y_is = np.arange(mid,len(xs))
 
     ROWS = len(x_is)
     COLS = len(y_is)

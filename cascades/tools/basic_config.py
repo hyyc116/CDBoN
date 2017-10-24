@@ -125,7 +125,7 @@ def plot_heat_scatter(xs,ys,ax,fig):
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
-def paras_square(xs,ys,tag,total=0):
+def paras_square(xs,ys,tag,total):
 
     rxs=[]
     rys=[]
@@ -159,17 +159,9 @@ def paras_square(xs,ys,tag,total=0):
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
 
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))/len(y)
 
             r2 = r2*percent
-
-            # print start,end,r2,popt[0],x[-1],percent
-
-            # ax = axes[i,j]
-
-            # ax.plot(xs,ys,'o',fillstyle='none')
-            # ax.plot(x,fit_y,label='$\\alpha={:4f}$,\n Global $R^2={:.5f}$'.format(popt[0],r2))
-            # ax.legend()
 
             rxs.append(x[0])
             rys.append(x[-1])
@@ -180,13 +172,6 @@ def paras_square(xs,ys,tag,total=0):
                 max_end = x[-1],end
                 max_z = r2
 
-            # ax.set_yscale('log')
-            # ax.set_xscale('log')
-            # ax.set_title('{:}-{:}'.format(x[0],x[-1]))
-
-    # plt.tight_layout()
-    # plt.savefig('pdf/fitting_lines_{:}.png'.format(tag),dpi=200)
-    
     fig=plt.figure(figsize=(14,10))
     ax = Axes3D(fig)
     ax.view_init(60, 240)
