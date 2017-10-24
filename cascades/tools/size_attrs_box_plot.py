@@ -144,7 +144,7 @@ def citation_links(direct_links,indirect_links,dataset):
 
     plt.xlabel('citation count')
     plt.ylabel('percentage')
-    plt.title('types of citations change over count')
+    plt.title('citation changes over count')
     plt.xscale('log')
     plt.legend()
     plt.tight_layout()
