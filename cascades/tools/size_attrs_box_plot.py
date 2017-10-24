@@ -151,7 +151,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Low cited papers')
+    ax.plot(xs,ys,c='r',label='Low cited papers')
 
     print 'Medium cited papers ...'
     xs = []
@@ -168,7 +168,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Medium cited papers')
+    ax.plot(xs,ys,'--',c='r',label='Medium cited papers')
 
     print 'low cited papers ...'
     xs = []
