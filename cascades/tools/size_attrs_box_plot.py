@@ -51,6 +51,10 @@ def plot_relation_size_attr(dataset):
     indirect_dict = defaultdict(list)
     year_indirect_dict = defaultdict(list)
 
+
+    citation_direct_dict = defaultdict(list)
+    citation_indirect_dict = defaultdict(list)
+
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
@@ -72,6 +76,11 @@ def plot_relation_size_attr(dataset):
         owner_year = n_owner_years[i]
         # owner diffusion的时间
         diff_age = citation_ages[i]
+
+        ## citation 与 direct links, indirect links的关系
+        citation_direct_dict[cascade_size].append(n_direct_cps)
+        citation_indirect_dict[cascade_size].append(n_indirect_links)
+
 
         # 深度与大小的关系
         depth_size_dict[depth].append(cascade_size)
@@ -99,6 +108,41 @@ def plot_relation_size_attr(dataset):
     logging.info('saved to {:}.'.format(fig_path))
 
     year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max)
+
+    citation_links(citation_direct_dict,citation_indirect_dict,dataset)
+
+
+def citation_links(direct_links,indirect_links,dataset):
+
+    plt.subplots(figsize=(6,5))
+    xs = []
+    ys = []
+    for size in direct_links.keys():
+        mean = np.mean(direct_links[size])
+        xs.append(size)
+        ys.append(mean)
+
+    plt.plot(xs,ys,label='direct citation')
+
+    xs = []
+    ys = []
+    for size in indirect_links.keys():
+        mean = np.mean(direct_links[size])
+        xs.append(size)
+        ys.append(mean)
+
+    plt.plot(xs,ys,label='indirect citation')
+
+    plt.xlabel('citation count')
+    plt.ylabel('percentage')
+    plt.title('types of citations change over count')
+    plt.tight_layout()
+    out_path = 'pdf/{:}_types_curves.pdf'.format(dataset.lower())
+    plt.savefig(out_path,dpi=200)
+    logging.info('fig saved to {:}'.format(out_path))
+
+
+
 
 def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
