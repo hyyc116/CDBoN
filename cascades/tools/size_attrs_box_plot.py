@@ -69,6 +69,7 @@ def plot_relation_size_attr(dataset):
 
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
+        n_indirect_cps = n_indirect_citations[i]
         ## indirect links的数量
         n_indirect_links = float('{:.1f}'.format((eys[i]-cascade_size)/float(cascade_size)))
 
@@ -79,7 +80,7 @@ def plot_relation_size_attr(dataset):
 
         ## citation 与 direct links, indirect links的关系
         citation_direct_dict[cascade_size].append(n_direct_cps)
-        citation_indirect_dict[cascade_size].append(n_indirect_links)
+        citation_indirect_dict[cascade_size].append(n_indirect_cps)
 
 
         # 深度与大小的关系
