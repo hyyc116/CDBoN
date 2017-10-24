@@ -115,16 +115,16 @@ def plot_relation_size_attr(dataset):
 def citation_links(direct_links,indirect_links,dataset):
 
     plt.subplots(figsize=(6,5))
-    xs = []
-    ys = []
+    d_xs = []
+    d_ys = []
     for size in direct_links.keys():
         mean = np.mean(direct_links[size])
-        xs.append(size)
-        ys.append(mean)
+        d_xs.append(size)
+        d_ys.append(mean)
 
-    plt.plot(xs,ys,alpha=0.5,c=color_sequence[0])
-    zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    plt.plot(xs,zs,c=color_sequence[0],label='direct citation')
+    plt.plot(d_xs,d_ys,alpha=0.5,c=color_sequence[0])
+    d_zs = [i for i in zip(*lowess(d_ys,np.log(d_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    
 
     xs = []
     ys = []
@@ -133,9 +133,11 @@ def citation_links(direct_links,indirect_links,dataset):
         xs.append(size)
         ys.append(mean)
 
-    plt.plot(xs,ys,alpha=0.5,c=color_sequence[1])
+    plt.plot(xs,ys,alpha=0.5,c=color_sequence[2])
     zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    plt.plot(xs,zs,c=color_sequence[1],label='indirect citation')
+
+    plt.plot(d_xs,d_zs,c=color_sequence[0],label='direct citation')
+    plt.plot(xs,zs,c=color_sequence[2],label='indirect citation')
 
 
 
