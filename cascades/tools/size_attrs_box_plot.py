@@ -127,7 +127,7 @@ def citation_links(direct_links,indirect_links,dataset):
     xs = []
     ys = []
     for size in indirect_links.keys():
-        mean = np.mean(direct_links[size])
+        mean = np.mean(indirect_links[size])
         xs.append(size)
         ys.append(mean)
 
@@ -136,6 +136,8 @@ def citation_links(direct_links,indirect_links,dataset):
     plt.xlabel('citation count')
     plt.ylabel('percentage')
     plt.title('types of citations change over count')
+    plt.xscale('log')
+    plt.legend('log')
     plt.tight_layout()
     out_path = 'pdf/{:}_types_curves.pdf'.format(dataset.lower())
     plt.savefig(out_path,dpi=200)
