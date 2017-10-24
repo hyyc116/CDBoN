@@ -118,7 +118,7 @@ def citation_links(direct_links,indirect_links,dataset):
     plt.subplots(figsize=(6,5))
     d_xs = []
     d_ys = []
-    for size in direct_links.keys():
+    for size in sorted(direct_links.keys()):
         mean = np.mean(direct_links[size])
         d_xs.append(size)
         d_ys.append(mean)
@@ -129,7 +129,7 @@ def citation_links(direct_links,indirect_links,dataset):
 
     xs = []
     ys = []
-    for size in indirect_links.keys():
+    for size in sorted(indirect_links.keys()):
         mean = np.mean(indirect_links[size])
         xs.append(size)
         ys.append(mean)
