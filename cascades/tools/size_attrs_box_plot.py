@@ -40,7 +40,7 @@ def plot_relation_size_attr(dataset):
     plt.plot(np.arange(len(sorted_cxs))+1,sorted_cxs)
     plt.xscale('log')
     plt.yscale('log')
-    plt.savefig('pdf/citation_PLE.pdf',dpi=200)
+    plt.savefig('pdf/{:}_citation_PLE.pdf'.format(dataset),dpi=200)
 
     logging.info('length of cascade size {:}, edge size {:}, depth {:}, citation ages {:}, direct citations {:}, owner years {:}, n_indirect_citations {:}'.format(len(cxs),len(eys),len(dys),len(citation_ages),len(n_direct_citations),len(n_owner_years),len(n_indirect_citations)))
     
