@@ -123,7 +123,7 @@ def citation_links(direct_links,indirect_links,dataset):
         d_ys.append(mean)
 
     plt.plot(d_xs,d_ys,alpha=0.5,c=color_sequence[0])
-    d_zs = [i for i in zip(*lowess(d_ys,np.log(d_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    d_zs = [i for i in zip(*lowess(d_ys,np.log(d_xs),frac=0.1,it=1,is_sorted =True))[1]]
     
 
     xs = []
@@ -134,7 +134,7 @@ def citation_links(direct_links,indirect_links,dataset):
         ys.append(mean)
 
     plt.plot(xs,ys,alpha=0.5,c=color_sequence[2])
-    zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
+    zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.1,it=1,is_sorted =True))[1]]
 
     plt.plot(d_xs,d_zs,c=color_sequence[0],label='direct citation')
     plt.plot(xs,zs,c=color_sequence[2],label='indirect citation')
