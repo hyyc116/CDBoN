@@ -124,7 +124,7 @@ def citation_links(direct_links,indirect_links,dataset):
 
     plt.plot(xs,ys,alpha=0.5,c=color_sequence[0])
     zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    plt.plot(avg_xs,avg_zs,c=color_sequence[0],label='direct citation')
+    plt.plot(xs,zs,c=color_sequence[0],label='direct citation')
 
     xs = []
     ys = []
@@ -135,7 +135,7 @@ def citation_links(direct_links,indirect_links,dataset):
 
     plt.plot(xs,ys,alpha=0.5,c=color_sequence[1])
     zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
-    plt.plot(avg_xs,avg_zs,c=color_sequence[1],label='indirect citation')
+    plt.plot(xs,zs,c=color_sequence[1],label='indirect citation')
 
 
 
