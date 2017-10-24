@@ -43,11 +43,13 @@ def stats_plot():
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
-    popt,pcov = curve_fit(power_low_func,xs[23:530],ys[23:530])
 
+    start,end = paras_square(cd_xs,cd_ys,'aminer_cd',total)
+
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
 
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(23, 530, 10), power_low_func(np.linspace(23, 530, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('Cascade size distribution')
     ax1.set_xlabel('$x=$cascade size\n(a)')
     ax1.set_ylabel('$N_{count}(x)/N$')
@@ -99,8 +101,11 @@ def stats_plot():
             _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
-    popt,pcov = curve_fit(power_low_func,xs[25:1060],ys[25:1060])
-    ax2.plot(np.linspace(25, 1060, 10), power_low_func(np.linspace(25, 1060, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+
+    start,end = paras_square(sd_xs,sd_ys,'aminer_sd',total)
+
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('Edge size distribution')
     ax2.set_xlabel('$x=$edge size\n(b)')
@@ -268,8 +273,6 @@ def stats_plot():
     logging.info('figures saved to pdf/statistics.pdf.')
 
 
-    paras_square(cd_xs,cd_ys,'aminer_cd',cd_total)
-    paras_square(sd_xs,sd_ys,'aminer_sd',sd_total)
 
 
 ### centrality

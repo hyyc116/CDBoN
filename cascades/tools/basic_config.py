@@ -189,4 +189,5 @@ def paras_square(xs,ys,tag,total):
     # plt.tight_layout()
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
     print max_start,max_end,max_z
+    return max_start[-1],max_end[-1]
 
