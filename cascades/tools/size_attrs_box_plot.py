@@ -98,7 +98,7 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    year_analysis(cxs,eys,n_owner_years,dataset)
+    year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max)
 
 def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
