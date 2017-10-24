@@ -119,7 +119,7 @@ def plot_heat_scatter(xs,ys,ax,fig):
     ccs = [colors.to_rgba(color_sequence[0]),colors.to_rgba(color_sequence[2]),colors.to_rgba(c='y')]
     cm = LinearSegmentedColormap.from_list('my_list', ccs)
 
-    ax.scatter(xs, ys, c=cm(norm(zs)), marker='o', s = norm(zs)+1)
+    ax.scatter(xs, ys, c=cm(norm(zs)), marker='o', s = norm(zs)+1,alpha=0.7)
 
     colmap = CM.ScalarMappable(norm=norm, cmap=cm)
     colmap.set_array(zs)

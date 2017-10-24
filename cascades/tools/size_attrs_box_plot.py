@@ -131,9 +131,9 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
     fig,ax = plt.subplots(figsize=(6,5))
-    ax.scatter(low_xs,low_ys, s=3, label='Low cited papers')
-    ax.scatter(medium_xs,medium_ys, s=3, label='Medium cited papers')
-    ax.scatter(high_xs,high_ys, s=3,label='Highly cited papers')
+    ax.scatter(low_xs,low_ys, s=3, label='Low cited papers',alpha=0.7)
+    ax.scatter(medium_xs,medium_ys, s=3, label='Medium cited papers',alpha=0.7)
+    ax.scatter(high_xs,high_ys, s=3,label='Highly cited papers',alpha=0.7)
 
     ## 1<x<23
     print 'low cited papers ...'
@@ -151,7 +151,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='Low cited papers')
 
     print 'Medium cited papers ...'
     xs = []
@@ -168,7 +168,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='Medium cited papers')
 
     print 'low cited papers ...'
     xs = []
@@ -185,7 +185,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='High cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='High cited papers')
 
     plt.xlabel('publishing year')
     plt.ylabel('indirect links')
@@ -232,7 +232,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Low cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='Low cited papers')
 
     # 23 < x <988
     xs = []
@@ -243,7 +243,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='Medium cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='Medium cited papers')
 
     # x> 988
     xs = []
@@ -256,7 +256,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
 
     print xs
     print ys
-    ax.plot(xs,ys,label='Highly cited papers',alpha=0.7)
+    ax.plot(xs,ys,label='Highly cited papers')
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
