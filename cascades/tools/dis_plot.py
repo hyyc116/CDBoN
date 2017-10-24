@@ -9,14 +9,9 @@ from basic_config import *
 # 统计指标的分布图
 def stats_plot():
     logging.info('plot data ...')
-    # add 80% percent x
-    num = len(plt.get_fignums())
-    # plt.figure(num)
-    fig,axes = plt.subplots(4,1,figsize=(6,20))
     #### node size 
     logging.info('plot node size ...')
     cnum_dict = json.loads(open('data/nodes_size.json').read())
-    ax1 = axes[0]
     xs=[]
     ys=[]
     total = float(sum(cnum_dict.values()))
@@ -43,33 +38,11 @@ def stats_plot():
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
+    cd_start,cd_end = paras_square(xs,ys,'aminer_cd',total)
+    cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y = xs,ys,_80_x,_min_y,_max_y
 
-    start,end = paras_square(xs,ys,'aminer_cd',total)
-
-    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-
-    ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax1.set_title('Cascade size distribution')
-    ax1.set_xlabel('$x=$cascade size\n(a)')
-    ax1.set_ylabel('$N_{count}(x)/N$')
-
-    # plot the 80%
-    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
-    ax1.legend()
-    
-    # mean = np.sum(np.array(xs[23:530])*np.array(ys[23:530])/np.sum(ys[23:530]))
-    # ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    # logging.info('-- mean -- {:}'.format(mean))
-    ax1.text(1,0.001,'AMiner',color='k',fontweight='bold',size=25)
-    ax1.set_yscale('log')
-    ax1.set_xscale('log')
-
-    #### cascade size
     logging.info('plotting edge size ...')
     enum_dict = json.loads(open('data/cascade_size.json').read())
-    ax2 = axes[1]
     total = float(sum(enum_dict.values()))
     _80_total = float(0)
     _80_x = 0
@@ -95,21 +68,38 @@ def stats_plot():
         if v/total < _min_y:
             _min_y = v/total
 
+    sd_start,sd_end = paras_square(xs,ys,'aminer_sd',total)
+    sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y = xs,ys,_80_x,_min_y,_max_y
+
+    fig,axes = plt.subplots(4,1,figsize=(6,20))
+    ax1 = axes[0]
+    xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
+    start,end = cd_start,cd_end
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.set_title('Cascade size distribution')
+    ax1.set_xlabel('$x=$cascade size\n(a)')
+    ax1.set_ylabel('$N_{count}(x)/N$')
+    # plot the 80%
+    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
+    ax1.legend()
+    ax1.text(1,0.001,'AMiner',color='k',fontweight='bold',size=25)
+    ax1.set_yscale('log')
+    ax1.set_xscale('log')
+
+    #### cascade size
+    ax2 = axes[1]
+    xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
+    start,end = sd_start,sd_end
     ax2.plot(xs,ys,'o',fillstyle='none')
-
-    start,end = paras_square(xs,ys,'aminer_sd',total)
-
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('Edge size distribution')
     ax2.set_xlabel('$x=$edge size\n(b)')
     ax2.set_ylabel('$N_{size}(x)/N$')
-
-    # mean = np.sum(np.array(xs[25:1060])*np.array(ys[25:1060])/np.sum(ys[25:1060]))
-    # ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    # logging.info('-- mean -- {:}'.format(mean))
-
 
     ax2.set_yscale('log')
     ax2.set_xscale('log') 

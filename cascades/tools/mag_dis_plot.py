@@ -11,14 +11,9 @@ def stats_plot(dirpath):
     dirpath = dirpath[:-1] if dirpath.endswith('/') else dirpath
 
     logging.info('plot data ...')
-    # add 80% percent x
-    num = len(plt.get_fignums())
-    # plt.figure(num)
-    fig,axes = plt.subplots(4,1,figsize=(6,20))
-    #### node size 
+
     logging.info('plot node size ...')
     cnum_dict = json.loads(open('{:}/citation_count.json'.format(dirpath)).read())
-    ax1 = axes[0]
     xs=[]
     ys=[]
     total = float(sum(cnum_dict.values()))
@@ -46,33 +41,11 @@ def stats_plot(dirpath):
             _min_y = v/float(total)
 
     ## 画 para space
-    start,end = paras_square(xs,ys,'mag_cd',total)
+    cd_start,cd_end = paras_square(xs,ys,'mag_cd',total)
+    cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y = xs,ys,_80_x,_min_y,_max_y
 
-    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-
-
-    ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax1.set_title('Cascade size distribution')
-    ax1.set_xlabel('$x=$cascade size\n(e)')
-    ax1.set_ylabel('$N_{size}(x)/N$')
-    ax1.set_yscale('log')
-    ax1.set_xscale('log')
-    ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=25)
-    
-    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    # mean = np.sum(np.array(xs[46:790])*np.array(ys[46:790]/np.sum(ys[46:790])))
-    # ax1.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    # logging.info('-- mean -- {:}'.format(mean))
-
-
-    # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
-    ax1.legend()
-
-    #### cascade size
     logging.info('plotting edge size ...')
     enum_dict = json.loads(open('{:}/cascade_size.json'.format(dirpath)).read())
-    ax2 = axes[1]
     total = float(sum(enum_dict.values()))
     _80_total = float(0)
     _80_x = 0
@@ -98,13 +71,34 @@ def stats_plot(dirpath):
         if v/total < _min_y:
             _min_y = v/total
 
+    sd_start,sd_end = paras_square(xs,ys,'mag_sd',total)
+    sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y = xs,ys,_80_x,_min_y,_max_y
+
+
+    fig,axes = plt.subplots(4,1,figsize=(6,20))
+    #### node size 
+    ax1 = axes[0]
+    xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
+    start,end = cd_start,cd_end
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.set_title('Cascade size distribution')
+    ax1.set_xlabel('$x=$cascade size\n(e)')
+    ax1.set_ylabel('$N_{size}(x)/N$')
+    ax1.set_yscale('log')
+    ax1.set_xscale('log')
+    ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=25)
+    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    ax1.legend()
+
+    #### cascade size
+    ax2 = axes[1]
     ax2.plot(xs,ys,'o',fillstyle='none')
-
-    start,end = paras_square(xs,ys,'mag_sd',total)
-
-
-    popt,pcov = curve_fit(power_low_func,xs[48:1810],ys[48:1810])
-    ax2.plot(np.linspace(48, 1810, 10), power_low_func(np.linspace(48, 1810, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
+    start,end = sd_start,sd_end
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('Edge size distribution')
     ax2.set_xlabel('$x=$edge size\n(f)')
