@@ -225,7 +225,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i<23 ])
+        mean = np.mean([i for i in data_dict[key] if i<x_min ])
         if mean > 0:
             xs.append(key)
             ys.append(mean)
@@ -236,7 +236,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i>=23 and i < 988 ])
+        mean = np.mean([i for i in data_dict[key] if i>=x_min and i < x_max ])
         if mean > 0:
             xs.append(key)
             ys.append(mean)
@@ -247,7 +247,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key] if i>=988 ])
+        mean = np.mean([i for i in data_dict[key] if i>=x_max ])
         if mean > 0:
             xs.append(key)
             ys.append(mean)
