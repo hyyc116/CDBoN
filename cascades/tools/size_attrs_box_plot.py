@@ -98,9 +98,9 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    year_analysis(cxs,eys,n_owner_years)
+    year_analysis(cxs,eys,n_owner_years,dataset)
 
-def year_analysis(cxs,eys,n_owner_years):
+def year_analysis(cxs,eys,n_owner_years,dataset):
     ## 首先对于三种类别的文章进行分析
 
     high_xs =[] 
@@ -191,7 +191,7 @@ def year_analysis(cxs,eys,n_owner_years):
     plt.ylabel('indirect links')
     ax.legend()
     plt.tight_layout()
-    plt.savefig('pdf/aminer_year_indirect.png',dpi=300)
+    plt.savefig('pdf/{:}_year_indirect.png'.format(dataset.lower()),dpi=300)
 
 
 
