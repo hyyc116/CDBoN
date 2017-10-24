@@ -191,7 +191,9 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     plt.ylabel('indirect links')
     ax.legend()
     plt.tight_layout()
-    plt.savefig('pdf/{:}_year_indirect.png'.format(dataset.lower()),dpi=300)
+    out_path = 'pdf/{:}_year_indirect.png'.format(dataset.lower())
+    plt.savefig(out_path,dpi=300)
+    logging.info('file saved to {:}'.format(out_path))
 
 
 
