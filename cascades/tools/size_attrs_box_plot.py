@@ -122,7 +122,9 @@ def citation_links(direct_links,indirect_links,dataset):
         xs.append(size)
         ys.append(mean)
 
-    plt.plot(xs,ys,label='direct citation')
+    plt.plot(xs,ys,alpha=0.5,c=color_sequence[0])
+    zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
+    plt.plot(avg_xs,avg_zs,c=color_sequence[0],label='direct citation')
 
     xs = []
     ys = []
@@ -131,13 +133,17 @@ def citation_links(direct_links,indirect_links,dataset):
         xs.append(size)
         ys.append(mean)
 
-    plt.plot(xs,ys,label='indirect citation')
+    plt.plot(xs,ys,alpha=0.5,c=color_sequence[1])
+    zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.05,it=1,is_sorted =True))[1]]
+    plt.plot(avg_xs,avg_zs,c=color_sequence[1],label='indirect citation')
+
+
 
     plt.xlabel('citation count')
     plt.ylabel('percentage')
     plt.title('types of citations change over count')
     plt.xscale('log')
-    plt.legend('log')
+    plt.legend()
     plt.tight_layout()
     out_path = 'pdf/{:}_types_curves.pdf'.format(dataset.lower())
     plt.savefig(out_path,dpi=200)
