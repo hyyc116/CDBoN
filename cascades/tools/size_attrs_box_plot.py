@@ -100,7 +100,7 @@ def plot_relation_size_attr(dataset):
 
     year_analysis(cxs,eys,n_owner_years,dataset)
 
-def year_analysis(cxs,eys,n_owner_years,dataset):
+def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
 
     high_xs =[] 
@@ -116,15 +116,15 @@ def year_analysis(cxs,eys,n_owner_years,dataset):
         es = eys[i]
         year = n_owner_years[i]
 
-        if cc>=988:
+        if cc>=x_max:
             high_xs.append(year)
             high_ys.append((es-cc)/float(cc))
 
-        if cc>=23 and cc<988:
+        if cc>=x_min and cc<x_max:
             medium_xs.append(year)
             medium_ys.append((es-cc)/float(cc))
 
-        if cc<23:
+        if cc<x_min:
             low_xs.append(year)
             low_ys.append((es-cc)/float(cc))
 
