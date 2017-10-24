@@ -55,6 +55,10 @@ def plot_relation_size_attr(dataset):
     citation_direct_dict = defaultdict(list)
     citation_indirect_dict = defaultdict(list)
 
+    ## citation n
+    citation_direct_links = defaultdict(list)
+    citation_indirect_links = defaultdict(list)
+
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
@@ -78,9 +82,13 @@ def plot_relation_size_attr(dataset):
         # owner diffusion的时间
         diff_age = citation_ages[i]
 
-        ## citation 与 direct links, indirect links的关系
+        ## citation 与 direct citations, indirect citations 的关系
         citation_direct_dict[cascade_size].append(n_direct_cps)
         citation_indirect_dict[cascade_size].append(n_indirect_cps)
+
+        ### citation count 与 direct links, indirect links 的关系
+        citation_direct_links[cascade_size].append(cascade_size/float(eys[i]))
+        citation_indirect_links[cascade_size].append((eys[i]-cascade_size)/float(eys[i]))
 
 
         # 深度与大小的关系
@@ -110,10 +118,11 @@ def plot_relation_size_attr(dataset):
 
     year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max)
 
-    citation_links(citation_direct_dict,citation_indirect_dict,dataset)
+    citation_links(citation_direct_dict,citation_indirect_dict,dataset,'citations')
 
 
-def citation_links(direct_links,indirect_links,dataset):
+
+def citation_links(direct_links,indirect_links,dataset,name):
 
     plt.subplots(figsize=(6,5))
     d_xs = []
@@ -137,18 +146,16 @@ def citation_links(direct_links,indirect_links,dataset):
     plt.plot(xs,ys,alpha=0.5,c=color_sequence[2])
     zs = [i for i in zip(*lowess(ys,np.log(xs),frac=0.5,it=1,is_sorted =True))[1]]
 
-    plt.plot(d_xs,d_zs,c=color_sequence[0],label='direct citation')
-    plt.plot(xs,zs,c=color_sequence[2],label='indirect citation')
-
-
+    plt.plot(d_xs,d_zs,c=color_sequence[0],label='direct {:}'.format(name))
+    plt.plot(xs,zs,c=color_sequence[2],label='indirect {:}'.format(name))
 
     plt.xlabel('citation count')
     plt.ylabel('percentage')
-    plt.title('citation changes over count')
+    plt.title(dataset)
     plt.xscale('log')
     plt.legend()
     plt.tight_layout()
-    out_path = 'pdf/{:}_types_curves.pdf'.format(dataset.lower())
+    out_path = 'pdf/{:}_types_curves_{:}.pdf'.format(dataset.lower(),name)
     plt.savefig(out_path,dpi=200)
     logging.info('fig saved to {:}'.format(out_path))
 
