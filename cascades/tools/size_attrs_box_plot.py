@@ -14,13 +14,13 @@ aminer:data/plot_dict.json
 def plot_relation_size_attr(dataset):
     if dataset =='MAG':
         data_path = 'data/mag/stats/plot_dict.json'
-        x_min = 47
-        x_max = 2086
+        x_min = 37
+        x_max = 390
 
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
         x_min = 23
-        x_max = 988
+        x_max = 270
     else:
         logging.info('No Such datasets, please type in MAG or AMiner')
         return
