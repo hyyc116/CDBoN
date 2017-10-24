@@ -158,7 +158,7 @@ def paras_square(xs,ys,tag,total):
             r2 = r2_score(np.log(y),np.log(fit_y))
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
-            print start,end,float(len(y))/len(ys)
+            # print start,end,float(len(y))/len(ys)
 
             percent = np.sum(normed_y)/float(np.sum(norm_ys))*((float(len(y))/len(ys))**(-0.2))
 
