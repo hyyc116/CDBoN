@@ -119,6 +119,7 @@ def plot_relation_size_attr(dataset):
     year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max)
 
     citation_links(citation_direct_dict,citation_indirect_dict,dataset,'citations')
+    citation_links(citation_direct_links,citation_indirect_links,dataset,'links')
 
 
 
