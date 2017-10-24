@@ -45,11 +45,14 @@ def stats_plot(dirpath):
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
-    popt,pcov = curve_fit(power_low_func,xs[46:790],ys[46:790])
+    ## 画 para space
+    start,end = paras_square(xs,ys,'mag_cd',total)
+
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
 
 
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(46, 790, 10), power_low_func(np.linspace(46, 790, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('Cascade size distribution')
     ax1.set_xlabel('$x=$cascade size\n(e)')
     ax1.set_ylabel('$N_{size}(x)/N$')
@@ -65,12 +68,6 @@ def stats_plot(dirpath):
 
     # ax1.text(_80_x-5,_80_y,'({:},{:})'.format(_80_x,_80_y))
     ax1.legend()
-
-    cd_xs = xs
-    cd_ys = ys
-    cd_total=int(total)
-
-
 
     #### cascade size
     logging.info('plotting edge size ...')
@@ -102,6 +99,10 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     ax2.plot(xs,ys,'o',fillstyle='none')
+
+    start,end = paras_square(xs,ys,'mag_sd',total)
+
+
     popt,pcov = curve_fit(power_low_func,xs[48:1810],ys[48:1810])
     ax2.plot(np.linspace(48, 1810, 10), power_low_func(np.linspace(48, 1810, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
@@ -268,9 +269,7 @@ def stats_plot(dirpath):
     plt.savefig('pdf/mag_statistics.pdf',dpi=300)
     logging.info('figures saved to pdf/mag_statistics.pdf.')
 
-    ## 画 para space
-    paras_square(cd_xs,cd_ys,'mag_cd',cd_total)
-    paras_square(sd_xs,sd_ys,'mag_sd',sd_total)
+    
 
 
 ### centrality

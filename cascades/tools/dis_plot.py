@@ -44,7 +44,7 @@ def stats_plot():
             _min_y = v/float(total)
 
 
-    start,end = paras_square(cd_xs,cd_ys,'aminer_cd',total)
+    start,end = paras_square(xs,ys,'aminer_cd',total)
 
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
 
@@ -65,11 +65,6 @@ def stats_plot():
     ax1.text(1,0.001,'AMiner',color='k',fontweight='bold',size=25)
     ax1.set_yscale('log')
     ax1.set_xscale('log')
-    
-
-    cd_xs = xs
-    cd_ys = ys
-    cd_total = int(total)
 
     #### cascade size
     logging.info('plotting edge size ...')
@@ -102,7 +97,7 @@ def stats_plot():
 
     ax2.plot(xs,ys,'o',fillstyle='none')
 
-    start,end = paras_square(sd_xs,sd_ys,'aminer_sd',total)
+    start,end = paras_square(xs,ys,'aminer_sd',total)
 
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
