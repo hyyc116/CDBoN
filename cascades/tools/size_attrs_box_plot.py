@@ -103,9 +103,9 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(2,1,figsize=(7,10))
     ax1 = axes[0]
-    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
+    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth',dataset=dataset)
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links')
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',dataset=dataset)
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -115,7 +115,7 @@ def plot_relation_size_attr(dataset):
     # ax3 = axes[2]
     # attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
-    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year')
+    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year',dataset=dataset)
     plt.tight_layout()
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -271,7 +271,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
 
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log'):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -294,7 +294,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_yscale(yscale)
-
+    ax.set_title(dataset)
     ax.legend()
 
     ## 1<x<23
@@ -328,8 +328,8 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
             xs.append(key)
             ys.append(mean)
 
-    print xs
-    print ys
+    # print xs
+    # print ys
     ax.plot(xs,ys,label='Highly cited papers')
 
 if __name__ == '__main__':
