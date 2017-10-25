@@ -46,7 +46,7 @@ def stats_plot(dirpath):
 
     logging.info('plotting edge size ...')
     # enum_dict = json.loads(open('{:}/cascade_size.json'.format(dirpath)).read())
-    plot_dict = json.loads(open(data_path).read())
+    plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
     enum_dict = Counter(plot_dict['eys'])
     total = float(sum(enum_dict.values()))
     _80_total = float(0)
