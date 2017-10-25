@@ -136,8 +136,8 @@ def paras_square(xs,ys,tag,total):
     norm_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
 
-    x_is = np.arange(10,50,2)
-    y_is = np.arange(100,len(xs),10)
+    x_is = np.arange(10,100,2)
+    y_is = np.arange(150,len(xs),10)
 
     ROWS = len(x_is)
     COLS = len(y_is)

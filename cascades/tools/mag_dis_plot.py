@@ -82,7 +82,7 @@ def stats_plot(dirpath):
     start,end = cd_start,cd_end
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('Cascade size distribution')
     ax1.set_xlabel('$x=$cascade size\n(e)')
     ax1.set_ylabel('$N_{size}(x)/N$')
