@@ -12,6 +12,7 @@ aminer:data/plot_dict.json
 
 '''
 def plot_relation_size_attr(dataset):
+
     if dataset =='MAG':
         data_path = 'data/mag/stats/plot_dict.json'
         x_min = 37
@@ -51,7 +52,6 @@ def plot_relation_size_attr(dataset):
     indirect_dict = defaultdict(list)
     year_indirect_dict = defaultdict(list)
 
-
     citation_direct_dict = defaultdict(list)
     citation_indirect_dict = defaultdict(list)
 
@@ -90,7 +90,6 @@ def plot_relation_size_attr(dataset):
         citation_direct_links[cascade_size].append(cascade_size/float(eys[i]))
         citation_indirect_links[cascade_size].append((eys[i]-cascade_size)/float(eys[i]))
 
-
         # 深度与大小的关系
         depth_size_dict[depth].append(cascade_size)
         direct_cp_size_dict[n_direct_cps].append(cascade_size)
@@ -102,17 +101,23 @@ def plot_relation_size_attr(dataset):
         year_indirect_dict[owner_year].append(n_indirect_links)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(3,1,figsize=(7,15))
+    fig,axes  = plt.subplots(2,1,figsize=(7,10))
     ax1 = axes[0]
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth')
     ax2 = axes[1]
     attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links')
-    ax3 = axes[2]
-    attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
-    # ax4 = axes[3]
-    # attr_size_plots(ax4,fig,x_min,x_max,year_indirect_dict,'publishing year','indirect links',True,'linear')
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
+    plt.savefig(fig_path,dpi=200)
+    logging.info('saved to {:}.'.format(fig_path))
+
+    fig,ax = plt.subplots(figsize=(7,5))
+    # ax3 = axes[2]
+    # attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
+    # ax4 = axes[3]
+    attr_size_plots(ax,fig,x_min,x_max,year_indirect_dict,'publishing year','indirect links',True,'linear')
+    plt.tight_layout()
+    fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
@@ -160,9 +165,6 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.savefig(out_path,dpi=200)
     logging.info('fig saved to {:}'.format(out_path))
 
-
-
-
 def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
 
@@ -193,10 +195,14 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
-    fig,ax = plt.subplots(figsize=(6,5))
-    ax.scatter(low_xs,low_ys, s=3, label='Low cited papers',alpha=0.7)
-    ax.scatter(medium_xs,medium_ys, s=3, label='Medium cited papers',alpha=0.7)
-    ax.scatter(high_xs,high_ys, s=3,label='Highly cited papers',alpha=0.7)
+    fig,ax = plt.subplots(3,1,figsize=(7,5))
+    ax1 = ax[0]
+    ax2 = ax[1]
+    ax3 = ax[2]
+
+    plot_heat_scatter(low_xs,low_ys,ax1,fig)
+    plot_heat_scatter(medium_xs,medium_ys,ax2,fig)
+    plot_heat_scatter(high_xs,high_ys,ax3,fig)
 
     ## 1<x<23
     print 'low cited papers ...'
@@ -214,7 +220,8 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,c='r',label='Low cited papers')
+    ax1.plot(xs,ys,c='r')
+    ax1.set_title('Low cited papers')
 
     print 'Medium cited papers ...'
     xs = []
@@ -231,7 +238,8 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,'--',c='r',label='Medium cited papers')
+    ax2.plot(xs,ys,'--')
+    ax2.set_title('Medium cited papers')
 
     print 'low cited papers ...'
     xs = []
@@ -248,11 +256,14 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,label='High cited papers')
+    ax3.plot(xs,ys)
+    ax3.set_title('Highly cited papers')
 
-    plt.xlabel('publishing year')
-    plt.ylabel('indirect links')
-    ax.legend()
+    for ax in axes:
+
+        ax.set_xlabel('publishing year')
+        ax.set_ylabel('indirect links')
+        # ax.legend()
     plt.tight_layout()
     out_path = 'pdf/{:}_year_indirect.png'.format(dataset.lower())
     plt.savefig(out_path,dpi=300)
