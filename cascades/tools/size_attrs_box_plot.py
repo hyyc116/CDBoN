@@ -195,7 +195,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
-    fig,axes = plt.subplots(3,1,figsize=(7,5))
+    fig,axes = plt.subplots(3,1,figsize=(7,15))
     ax1 = axes[0]
     ax2 = axes[1]
     ax3 = axes[2]
