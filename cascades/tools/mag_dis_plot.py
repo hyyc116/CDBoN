@@ -82,7 +82,7 @@ def stats_plot(dirpath):
     start,end = cd_start,cd_end
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'o',fillstyle='none')
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('Cascade size distribution')
     ax1.set_xlabel('$x=$cascade size\n(e)')
     ax1.set_ylabel('$N_{size}(x)/N$')
@@ -104,18 +104,10 @@ def stats_plot(dirpath):
     ax2.set_xlabel('$x=$edge count\n(f)')
     ax2.set_ylabel('$N_{edge}(x)/N$')
 
-    # mean = np.sum(np.array(xs[48:1810])*np.array(ys[48:1810])/np.sum(ys[48:1810]))
-    # ax2.plot([mean]*10,np.linspace(_min_y,_max_y,10),'--',label='mean={:.2f}'.format(mean))
-    # logging.info('-- mean -- {:}'.format(mean))
-
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
     ax2.legend()
     
-    sd_xs = xs
-    sd_ys = ys
-    sd_total=int(total)
-
     ####depth
     logging.info('plotting cascade depth ...')
     depth_dict = json.loads(open('{:}/depth.json'.format(dirpath)).read())
@@ -149,8 +141,6 @@ def stats_plot(dirpath):
 
     popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
-    print xs
-    print ys
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
@@ -195,9 +185,6 @@ def stats_plot(dirpath):
 
         if v/total<_min_y:
             _min_y = v/total
-
-
-    
 
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
