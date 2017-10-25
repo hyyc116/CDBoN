@@ -75,7 +75,7 @@ def plot_relation_size_attr(dataset):
         n_direct_cps = normed_direct_cps[i]
         n_indirect_cps = n_indirect_citations[i]
         ## indirect links的数量
-        n_indirect_links = (eys[i]-cascade_size)/float(cascade_size)
+        n_indirect_links = float('{:.2f}'.format((eys[i]-cascade_size)/float(cascade_size)))
 
         # owner 的发布时间
         owner_year = n_owner_years[i]
