@@ -45,7 +45,9 @@ def stats_plot(dirpath):
     cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y = xs,ys,_80_x,_min_y,_max_y
 
     logging.info('plotting edge size ...')
-    enum_dict = json.loads(open('{:}/cascade_size.json'.format(dirpath)).read())
+    # enum_dict = json.loads(open('{:}/cascade_size.json'.format(dirpath)).read())
+    plot_dict = json.loads(open(data_path).read())
+    enum_dict = Counter(plot_dict['eys'])
     total = float(sum(enum_dict.values()))
     _80_total = float(0)
     _80_x = 0
@@ -56,7 +58,7 @@ def stats_plot(dirpath):
     ys=[]
     for num in sorted([int(num) for num in enum_dict.keys()]):
         xs.append(num)
-        v = enum_dict[str(num)]
+        v = enum_dict[num]
         ys.append(v/total)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
