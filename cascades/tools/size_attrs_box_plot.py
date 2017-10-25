@@ -195,10 +195,10 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
-    fig,ax = plt.subplots(3,1,figsize=(7,5))
-    ax1 = ax[0]
-    ax2 = ax[1]
-    ax3 = ax[2]
+    fig,axes = plt.subplots(3,1,figsize=(7,5))
+    ax1 = axes[0]
+    ax2 = axes[1]
+    ax3 = axes[2]
 
     plot_heat_scatter(low_xs,low_ys,ax1,fig)
     plot_heat_scatter(medium_xs,medium_ys,ax2,fig)
