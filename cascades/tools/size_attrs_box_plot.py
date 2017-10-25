@@ -112,9 +112,6 @@ def plot_relation_size_attr(dataset):
     logging.info('saved to {:}.'.format(fig_path))
 
     fig,ax = plt.subplots(figsize=(7,5))
-    # ax3 = axes[2]
-    # attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
-    # ax4 = axes[3]
     attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year',dataset=dataset)
     plt.tight_layout()
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
@@ -130,7 +127,7 @@ def plot_relation_size_attr(dataset):
 
 def citation_links(direct_links,indirect_links,dataset,name):
 
-    plt.subplots(figsize=(6,5))
+    plt.subplots(figsize=(7,5))
     d_xs = []
     d_ys = []
     for size in sorted(direct_links.keys()):
@@ -238,7 +235,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax2.plot(xs,ys,'--')
+    ax2.plot(xs,ys,'--',c='r')
     ax2.set_title('Medium cited papers')
 
     print 'low cited papers ...'
@@ -256,7 +253,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
             xs.append(key)
             ys.append(mean)
 
-    ax3.plot(xs,ys)
+    ax3.plot(xs,ys,'--',c='r')
     ax3.set_title('Highly cited papers')
 
     for ax in axes:
@@ -328,8 +325,6 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',ys
             xs.append(key)
             ys.append(mean)
 
-    # print xs
-    # print ys
     ax.plot(xs,ys,label='Highly cited papers')
 
 if __name__ == '__main__':
