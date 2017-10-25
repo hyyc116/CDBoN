@@ -97,8 +97,8 @@ def stats_plot():
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    ax2.set_title('Edge size distribution')
-    ax2.set_xlabel('$x=$edge size\n(b)')
+    ax2.set_title('Edge count distribution')
+    ax2.set_xlabel('$x=$edge count\n(b)')
     ax2.set_ylabel('$N_{edge}(x)/N$')
 
     ax2.set_yscale('log')
