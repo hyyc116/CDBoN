@@ -138,7 +138,6 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.plot(d_xs,d_ys,alpha=0.5,c=color_sequence[0])
     d_zs = [i for i in zip(*lowess(d_ys,np.log(d_xs),frac=0.5,it=1,is_sorted =True))[1]]
     
-
     xs = []
     ys = []
     for size in sorted(indirect_links.keys()):
@@ -164,7 +163,6 @@ def citation_links(direct_links,indirect_links,dataset,name):
 
 def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
-
     high_xs =[] 
     high_ys = []
 
