@@ -115,7 +115,7 @@ def plot_relation_size_attr(dataset):
     # ax3 = axes[2]
     # attr_size_plots(ax3,fig,x_min,x_max,year_size_dict,'publishing year')
     # ax4 = axes[3]
-    attr_size_plots(ax,fig,x_min,x_max,year_indirect_dict,'publishing year')
+    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year')
     plt.tight_layout()
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
