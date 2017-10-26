@@ -111,7 +111,7 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    fig,axes = plt.subplots(3,1,figsize=(7,20))
+    fig,axes = plt.subplots(4,1,figsize=(7,20))
     ax = axes[0]
     ax1 = axes[1]
     ax2 = axes[2]
