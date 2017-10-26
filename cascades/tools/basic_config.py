@@ -160,7 +160,7 @@ def paras_square(xs,ys,tag,total):
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
             # print start,end,float(len(y))/len(ys)
 
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))*((float(len(y))/len(ys))**(-0.2))
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))*((float(len(y))/len(ys))**(-0.1))
 
             r2 = r2*percent
 
