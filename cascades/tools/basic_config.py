@@ -137,7 +137,7 @@ def paras_square(xs,ys,tag,total):
 
 
     x_is = np.arange(10,100,2)
-    y_is = np.arange(150,len(xs),10)
+    y_is = np.arange(110,len(xs),10)
 
     ROWS = len(x_is)
     COLS = len(y_is)
@@ -160,7 +160,7 @@ def paras_square(xs,ys,tag,total):
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
             # print start,end,float(len(y))/len(ys)
 
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))*((float(len(y))/len(ys))**(-0.15))
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))*((float(len(y))/len(ys))**(-0.2))
 
             r2 = r2*percent
 
