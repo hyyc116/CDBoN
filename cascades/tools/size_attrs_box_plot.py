@@ -254,11 +254,14 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.plot(xs,ys,'--',c='r')
     ax3.set_title('Highly cited papers')
 
-    for ax in axes:
+    ax1.set_xlabel('publishing year')
+    ax1.set_ylabel('indirect links')
 
-        ax.set_xlabel('publishing year')
-        ax.set_ylabel('indirect links')
+    ax2.set_xlabel('publishing year')
+    ax2.set_ylabel('indirect links')
 
+    ax3.set_xlabel('publishing year')
+    ax3.set_ylabel('indirect links')
 
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log',dataset='AMiner'):
