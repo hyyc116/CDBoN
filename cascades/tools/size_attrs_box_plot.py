@@ -15,13 +15,13 @@ def plot_relation_size_attr(dataset):
 
     if dataset =='MAG':
         data_path = 'data/mag/stats/plot_dict.json'
-        x_min = 37
-        x_max = 390
+        x_min = 31
+        x_max = 260
 
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
         x_min = 23
-        x_max = 270
+        x_max = 200
     else:
         logging.info('No Such datasets, please type in MAG or AMiner')
         return
@@ -111,14 +111,17 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    fig,ax = plt.subplots(figsize=(7,5))
+    fig,axes = plt.subplots(3,1,figsize=(7,20))
+    ax = axes[0]
+    ax1 = axes[1]
+    ax2 = axes[2]
+    ax3 = axes[3]
     attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year',dataset=dataset)
-    plt.tight_layout()
+    year_analysis(ax1,ax2,ax3,cxs,eys,n_owner_years,dataset,x_min,x_max)
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
+    plt.tight_layout()
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
-
-    year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max)
 
     citation_links(citation_direct_dict,citation_indirect_dict,dataset,'citations')
     citation_links(citation_direct_links,citation_indirect_links,dataset,'links')
@@ -161,7 +164,7 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.savefig(out_path,dpi=200)
     logging.info('fig saved to {:}'.format(out_path))
 
-def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
+def year_analysis(ax1,ax2,ax3,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
     high_xs =[] 
     high_ys = []
@@ -190,10 +193,7 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
     
-    fig,axes = plt.subplots(3,1,figsize=(7,15))
-    ax1 = axes[0]
-    ax2 = axes[1]
-    ax3 = axes[2]
+    
 
     plot_heat_scatter(low_xs,low_ys,ax1,fig)
     plot_heat_scatter(medium_xs,medium_ys,ax2,fig)
@@ -258,11 +258,6 @@ def year_analysis(cxs,eys,n_owner_years,dataset,x_min,x_max):
 
         ax.set_xlabel('publishing year')
         ax.set_ylabel('indirect links')
-        # ax.legend()
-    plt.tight_layout()
-    out_path = 'pdf/{:}_year_indirect.png'.format(dataset.lower())
-    plt.savefig(out_path,dpi=300)
-    logging.info('file saved to {:}'.format(out_path))
 
 
 
