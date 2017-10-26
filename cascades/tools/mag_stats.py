@@ -94,8 +94,6 @@ def gen_statistics_data(citation_cascade,paper_year_path):
             ## year 
             year = pid_year.get(pid,-1)
             # print '--------',year
-            
-
 
             #degree
             outdegree_dict = diG.out_degree()

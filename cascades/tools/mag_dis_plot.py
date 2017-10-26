@@ -96,9 +96,9 @@ def stats_plot(dirpath):
 
     #### cascade size
     ax2 = axes[1]
-    ax2.plot(xs,ys,'o',fillstyle='none')
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
     start,end = sd_start,sd_end
+    ax2.plot(xs,ys,'o',fillstyle='none')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
