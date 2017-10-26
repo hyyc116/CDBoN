@@ -29,7 +29,7 @@ def importance():
 
 
     # percentage of  cascade size = ciattion count vs citation count
-    print 'percentage of cascade size = edge size'
+    print 'percentage of cascade size = edge count'
     e_xs = []
     e_ys = []
     for cc in sorted(equal_dict.keys()):
@@ -40,7 +40,7 @@ def importance():
     ax.plot(e_xs,e_ys,label='Aminer')
     ax.set_xscale('log')
     # ax0.set_yscale('log')
-    ax.set_title('$P(cascade\ size = edge\ size)$')
+    ax.set_title('$P(cascade\ size = edge\ count)$')
     ax.set_xlabel('citation count')
     ax.set_ylabel('percentage')
 
