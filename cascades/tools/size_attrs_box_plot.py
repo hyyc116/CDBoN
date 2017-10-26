@@ -117,7 +117,7 @@ def plot_relation_size_attr(dataset):
     ax2 = axes[2]
     ax3 = axes[3]
     attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year',dataset=dataset)
-    year_analysis(ax1,ax2,ax3,cxs,eys,n_owner_years,dataset,x_min,x_max)
+    year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max)
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.tight_layout()
     plt.savefig(fig_path,dpi=200)
@@ -164,7 +164,7 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.savefig(out_path,dpi=200)
     logging.info('fig saved to {:}'.format(out_path))
 
-def year_analysis(ax1,ax2,ax3,cxs,eys,n_owner_years,dataset,x_min,x_max):
+def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
     high_xs =[] 
     high_ys = []
