@@ -60,10 +60,10 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             normed_fos = '-1'
             if fos!='-1':
                 normed_fos=[]
+                print '--',fos
+                print '--',fos_dict.keys()
                 for f in fos:
                     for k in fos_dict.keys():
-                        print '--',f
-                        print '==',k
                         if f.lower() in k.lower():
                             normed_fos.append(fos_dict[k])
             obj={}
