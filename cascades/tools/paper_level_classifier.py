@@ -2,8 +2,9 @@
 from basic_config import *
 
 ## from a citation distribution dict {count: #(count)}, to split papers to three levels
-def classify_papers(citation_dis):
+def classify_papers(citation_list,distribution_path,paras_path):
     # 所有文章的被引次数
+    citation_dis = Counter(citation_list)
     total = np.sum(citation_dis.values())
     xs = []
     ys = []
@@ -23,7 +24,7 @@ def classify_papers(citation_dis):
             _min_y = y
 
     logging.info('Optimize ... ')
-    start,end = fit_xmin_xmax(xs,ys,'../pdf/para_space.pdf')
+    start,end = fit_xmin_xmax(xs,ys,paras_path)
     # start,end = 0,len(xs)
     logging.info('from {:} to {:} ...'.format(start,end))
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
@@ -41,7 +42,8 @@ def classify_papers(citation_dis):
     ax.set_xscale('log')
     ax.set_yscale('log')
     plt.tight_layout()
-    plt.savefig('../pdf/cits_dis.pdf')
+    plt.savefig(distribution_path,dpi=200)
+    logging.info('distribution saved to {:}.'.format(distribution_path))
 
 
 def fit_xmin_xmax(xs,ys,path):
@@ -77,7 +79,7 @@ def fit_xmin_xmax(xs,ys,path):
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
 
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))*(1-(float(len(y))/len(ys)))
 
             r2 = r2*percent
 
@@ -105,19 +107,32 @@ def fit_xmin_xmax(xs,ys,path):
     surf = ax.plot_surface(X,Y,Z, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.savefig(path,dpi=200)
+    logging.info('paras saved to {:}.'.format(path))
 
     return max_start[-1],max_end[-1]
 
-def plot_citation_counts(path):
-    logging.info('loading data from path:{:}'.format(path))
-    content = open(path).read().strip()
-    citation_dis = Counter([int(i) for i in content.split(',') if i !=''])
-    logging.info('data loaded: {:} citations.'.format(len(citation_dis.keys())))
-    classify_papers(citation_dis)
-    logging.info('Done!')
+
+def divide_dataset(dataset):
+    if dataset = 'AMiner':
+        data_path =  'data/mag/stats/plot_dict.json'
+    elif dataset= 'MAG':
+        data_path = 'data/plot_dict.json'
+    else:
+        logging.info('no such dataset!')
+        return
+    logging.info('load dataset {:} ... '.format(dataset))
+
+    citation_list = json.loads(open(data_path).read())['cxs']
+    dis_path = 'pdf/paper_levels_{:}_dis.pdf'.format(dataset)
+    paras_path = 'pdf/paper_levels_{:}_paras.pdf'.format(dataset)
+    classify_papers(citation_list,dis_path,paras_path)
+
+def experiments():
+    divide_dataset('Aminer')
+    divide_dataset('MAG')
 
 if __name__ == '__main__':
-    plot_citation_counts('/Users/huangyong/Downloads/citation_counts.txt')
+    experiments()
 
 
 
