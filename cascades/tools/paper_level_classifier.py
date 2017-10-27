@@ -75,7 +75,8 @@ def fit_xmin_xmax(xs,ys,path):
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            r2 = r2_score(np.log(y),np.log(fit_y))
+            # r2 = r2_score(np.log(y),np.log(fit_y))
+            r2 = 1
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
 
