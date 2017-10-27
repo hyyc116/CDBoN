@@ -16,6 +16,8 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
 
     fos_dict[content]=[top,second]
 
+    print fos_dict
+
     ## load the datas related
     all_nodes = set([i.strip() for i in open(all_nodes_path)])
 
