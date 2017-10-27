@@ -48,6 +48,10 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             paper = json.loads(line)
 
             pid = paper['id']
+            # 如果不在 就省略
+            if pid not in all_nodes:
+                continue
+
             pyear = paper.get('year','-1')
             doctype = paper.get('doc_type','-1')
             fos = paper.get('fos','-1')
