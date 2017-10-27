@@ -70,6 +70,7 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
                             print '***',s
                             if f.lower() in s[1].lower():
                                 normed_fos.append([t,s[0]])
+                                print '#############'
 
             obj={}
             obj['id']=pid
