@@ -65,6 +65,7 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
                 for f in fos:
                     for k in fos_dict.keys():
                         if f.lower() in k.lower():
+                            print f,k,'==========='
                             normed_fos.append(fos_dict[k])
             obj={}
             obj['id']=pid
