@@ -1,5 +1,6 @@
 #coding:utf-8
 from basic_config import *
+import beautifulsoup as bs
 
 def build_citation_network(dirpath):
 
