@@ -9,12 +9,12 @@ from basic_config import *
 def gen_all_nodes_objs(dirpath,all_nodes_path):
 
     ## load the fos mapping
-    fos_dict = {}
+    fos_dict = defaultdict(list)
     for line in open('tools/OCDE_fos.txt'):
         line= line.strip()
         top,second,content = line.split('\t')
 
-    fos_dict[content]=[top,second]
+    fos_dict[top].append([second,content])
 
     print fos_dict
 
@@ -62,13 +62,15 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             normed_fos = '-1'
             if fos!='-1':
                 normed_fos=[]
-                print '--',fos
-                print '**',fos_dict.keys()
+                print '========='
                 for f in fos:
-                    for k in fos_dict.keys():
-                        if f.lower() in k.lower():
-                            print f,k,'==========='
-                            normed_fos.append(fos_dict[k])
+                    print '----',f
+                    for t in fos_dict.keys():
+                        for s in fos_dict[t]:
+                            print '***',s
+                            if f.lower() in s[1].lower():
+                                normed_fos.append([t,s[0]])
+
             obj={}
             obj['id']=pid
             obj['year'] = pyear
