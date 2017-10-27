@@ -63,7 +63,7 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             if fos!='-1':
                 normed_fos=[]
                 print '--',fos
-                print '--',fos_dict.keys()
+                print '**',fos_dict.keys()
                 for f in fos:
                     for k in fos_dict.keys():
                         if f.lower() in k.lower():
