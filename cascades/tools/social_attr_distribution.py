@@ -14,7 +14,7 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
         line= line.strip()
         top,second,content = line.split('\t')
 
-    fos_dict[top].append([second,content])
+        fos_dict[top].append([second,content])
 
     print fos_dict
 
