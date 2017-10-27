@@ -62,6 +62,7 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
                 normed_fos=[]
                 for f in fos:
                     for k in fos_dict.keys():
+                        print f,k
                         if f.lower() in k.lower():
                             normed_fos.append(fos_dict[k])
             obj={}
