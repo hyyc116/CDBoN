@@ -113,9 +113,9 @@ def fit_xmin_xmax(xs,ys,path):
 
 
 def divide_dataset(dataset):
-    if dataset = 'AMiner':
+    if dataset == 'MAG':
         data_path =  'data/mag/stats/plot_dict.json'
-    elif dataset= 'MAG':
+    elif dataset== 'Aminer':
         data_path = 'data/plot_dict.json'
     else:
         logging.info('no such dataset!')
