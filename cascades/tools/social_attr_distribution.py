@@ -16,8 +16,6 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
 
         fos_dict[top].append([second,content])
 
-    print fos_dict
-
     ## load the datas related
     all_nodes = set([i.strip() for i in open(all_nodes_path)])
 
@@ -62,15 +60,14 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             normed_fos = '-1'
             if fos!='-1':
                 normed_fos=[]
-                print '========='
                 for f in fos:
-                    print '----',f
                     for t in fos_dict.keys():
                         for s in fos_dict[t]:
-                            print '***',s
                             if f.lower() in s[1].lower():
                                 normed_fos.append([t,s[0]])
-                                print '#############'
+
+                if len(normed_fos)==0:
+                    normed_fos='-1'
 
             obj={}
             obj['id']=pid
