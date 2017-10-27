@@ -67,6 +67,7 @@ def fit_xmin_xmax(xs,ys,path):
     max_end =0
     max_z = 0
 
+    ## 第一步 找出最符合数据集的那条线，只是用R2进行
     for i,start in enumerate(x_is):
         for j,end in enumerate(y_is):
 
@@ -75,12 +76,13 @@ def fit_xmin_xmax(xs,ys,path):
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            # r2 = r2_score(np.log(y),np.log(fit_y))
-            r2 = 1
+            r2 = r2_score(np.log(y),np.log(fit_y))
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
 
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))*(1-(float(len(y))/len(ys)))
+            # percent = np.sum(normed_y)/float(np.sum(norm_ys))*(1-(float(len(y))/len(ys)))
+            percent = np.sum(normed_y)/float(np.sum(norm_ys))*np.log((len(ys)/float(len(y))))
+
 
             r2 = r2*percent
 
