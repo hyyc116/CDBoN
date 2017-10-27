@@ -57,11 +57,19 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
             fos = paper.get('fos','-1')
             n_citation = paper.get('n_citation','-1')
 
+            normed_fos = '-1'
+            if fos!='-1':
+                normed_fos=[]
+                for f in fos:
+                    for k in fos_dict.keys():
+                        if f.lower() in k.lower():
+                            normed_fos.append(fos_dict[k])
             obj={}
             obj['id']=pid
             obj['year'] = pyear
             obj['dt'] = doctype
             obj['fos'] = fos
+            obj['n_fos'] = normed_fos
             obj['n_citation'] = n_citation
 
             paper_obj[pid] = obj
