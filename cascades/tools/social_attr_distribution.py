@@ -111,8 +111,8 @@ def cascade_attrs(citation_cascade):
             if not nx.is_directed_acyclic_graph(diG):
                 continue
 
-            print '==== PRE NUM OF EDGES:',len(edges)
-            print '==== PRE NODES SIZE:', len(diG.nodes())
+            # print '==== PRE NUM OF EDGES:',len(edges)
+            # print '==== PRE NODES SIZE:', len(diG.nodes())
 
             outdegree_dict = diG.out_degree()
             removed_links = []
@@ -140,12 +140,12 @@ def cascade_attrs(citation_cascade):
                 # print removed_links
                 diG.remove_edges_from(removed_links)
 
-            print 'REMOVED LINKS LEN:',len(removed_links)
-            print '==== LATER NUM OF EDGES:',len(diG.edges())
-            print '==== LATER NODES SIZE:',len(diG.nodes())
+            # print 'REMOVED LINKS LEN:',len(removed_links)
+            # print '==== LATER NUM OF EDGES:',len(diG.edges())
+            # print '==== LATER NODES SIZE:',len(diG.nodes())
+            later_edge_size = len(diG.edges())
             for nid in diG.nodes():
-                # print nid
-                depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
+                depth = nx.shortest_path_length(diG,nid,pid)
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
         open(field_path,'a').write(json.dumps(pid_cpid_obj)+'\n')
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
 
     # generate the cascade attrs' data
-    cascade_attrs(sys.argv[1])
+    # cascade_attrs(sys.argv[1])
 
     # dig =nx.DiGraph()
     # dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
