@@ -155,7 +155,7 @@ if __name__ == '__main__':
     # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
 
     # generate the cascade attrs' data
-    # cascade_attrs(sys.argv[1])
+    cascade_attrs(sys.argv[1])
 
     # dig =nx.DiGraph()
     # dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
