@@ -145,6 +145,8 @@ def cascade_attrs(citation_cascade):
             # print '==== LATER NODES SIZE:',len(diG.nodes())
             later_edge_size = len(diG.edges())
             for nid in diG.nodes():
+                if nid==pid:
+                    continue
                 depth = nx.shortest_path_length(diG,nid,pid)
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
