@@ -89,7 +89,7 @@ def cascade_attrs(citation_cascade):
     field_path = 'data/mag/mag_cs_cascade_attrs.txt'
     if os.path.exists(field_path):
         os.remove(field_path)
-
+    line_index=0
     for line in open(citation_cascade):
         line = line.strip()
         line_index+=1
@@ -97,13 +97,15 @@ def cascade_attrs(citation_cascade):
         total = len(cc.keys())
         logging.info('line {:} loaded, total: {:}'.format(line_index,total))
         logi = 0
-
         pid_cpid_obj=defaultdict(lambda: defaultdict(dict))
-
         for pid in cc.keys():
             diG = nx.DiGraph()
             edges = cc[pid]['edges']
             diG.add_edges_from(edges)
+
+            logi+=1
+            if logi%10000==1:
+                logging.info('progress {:}/{:}...'.format(logi,total))
 
             # if citation cascade is not acyclic graph
             if not nx.is_directed_acyclic_graph(diG):
