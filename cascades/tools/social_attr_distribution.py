@@ -112,6 +112,8 @@ def cascade_attrs(citation_cascade):
             if not nx.is_directed_acyclic_graph(diG):
                 continue
 
+            print '==== PRE NUM OF EDGES:',len(edges)
+
             outdegree_dict = diG.out_degree()
 
             ## 对于每一个节点来讲
@@ -131,8 +133,10 @@ def cascade_attrs(citation_cascade):
                 pid_cpid_obj[pid][nid]['id'] = ind
 
             ## 将直接连接删除，那么这个图边的相对较小
-            diG.remove_edges_from(removed_links)
-            print diG.edges()
+            if len(removed_links)>0:
+                diG.remove_edges_from(removed_links)
+            print 'REMOVED LINKS LEN:',len(removed_links)
+            print '==== LATER NUM OF EDGES:',len(edges)
             for nid in diG.nodes():
                 print nid
                 depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
