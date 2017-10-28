@@ -132,8 +132,9 @@ def cascade_attrs(citation_cascade):
 
             ## 将直接连接删除，那么这个图边的相对较小
             diG.remove_edges_from(removed_links)
-
+            print diG.edges()
             for nid in diG.nodes():
+                print nid
                 depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
