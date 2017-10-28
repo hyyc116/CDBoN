@@ -98,6 +98,7 @@ def cascade_attrs(citation_cascade):
         logging.info('line {:} loaded, total: {:}'.format(line_index,total))
         logi = 0
         pid_cpid_obj=defaultdict(lambda: defaultdict(dict))
+        removed_links = []
         for pid in cc.keys():
             diG = nx.DiGraph()
             edges = cc[pid]['edges']
@@ -120,13 +121,20 @@ def cascade_attrs(citation_cascade):
                 if od==0:
                     continue
 
+                #如果出度是大于1的，那么将直接citation link给去掉
+                if od >1:
+                    removed_links.append((nid,pid))
+
                 ## 入度
                 ind = diG.in_degree(nid)
-
-                depth = np.mean([len(l) for l in  nx.all_simple_paths(diG,nid,pid)])
-
                 pid_cpid_obj[pid][nid]['od'] = od
                 pid_cpid_obj[pid][nid]['id'] = ind
+
+            ## 将直接连接删除，那么这个图边的相对较小
+            diG.remove_edges_from(removed_links)
+
+            for nid in diG.nodes():
+                depth = np.mean(nx.all_simple_paths(diG,nid,pid))
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
         open(field_path,'a').write(json.dumps(pid_cpid_obj)+'\n')
