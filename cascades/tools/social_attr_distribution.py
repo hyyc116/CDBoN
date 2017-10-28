@@ -98,7 +98,6 @@ def cascade_attrs(citation_cascade):
         logging.info('line {:} loaded, total: {:}'.format(line_index,total))
         logi = 0
         pid_cpid_obj=defaultdict(lambda: defaultdict(dict))
-        removed_links = []
         for pid in cc.keys():
             diG = nx.DiGraph()
             edges = cc[pid]['edges']
@@ -115,6 +114,7 @@ def cascade_attrs(citation_cascade):
             print '==== PRE NUM OF EDGES:',len(edges)
 
             outdegree_dict = diG.out_degree()
+            removed_links = []
 
             ## 对于每一个节点来讲
             for nid,od in outdegree_dict:
