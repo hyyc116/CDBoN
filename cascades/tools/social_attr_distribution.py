@@ -125,7 +125,7 @@ def cascade_attrs(citation_cascade):
 
                 #如果出度是大于1的，那么将直接citation link给去掉
                 if od >1:
-                    removed_links.append((nid,pid))
+                    removed_links.append([nid,pid])
 
                 ## 入度
                 ind = diG.in_degree(nid)
