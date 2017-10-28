@@ -83,7 +83,54 @@ def gen_all_nodes_objs(dirpath,all_nodes_path):
 
     print len(paper_obj.keys())
 
+## 对每一个citation cascade中的每一个节点的距离，以及属性进行整合
+def cascade_attrs(citation_cascade):
+
+    field_path = 'data/mag/mag_cs_cascade_attrs.txt'
+    if os.path.exists(field_path):
+        os.remove(field_path)
+
+    for line in open(citation_cascade):
+        line = line.strip()
+        line_index+=1
+        cc = json.loads(line)
+        total = len(cc.keys())
+        logging.info('line {:} loaded, total: {:}'.format(line_index,total))
+        logi = 0
+
+        pid_cpid_obj=defaultdict(lambda: defaultdict(dict))
+
+        for pid in cc.keys():
+            diG = nx.DiGraph()
+            edges = cc[pid]['edges']
+            diG.add_edges_from(edges)
+
+            # if citation cascade is not acyclic graph
+            if not nx.is_directed_acyclic_graph(diG):
+                continue
+
+            ## 对于每一个节点来讲
+            for nid,od in outdegree_dict:
+
+                ## 出度为0的为owner
+                if od==0:
+                    continue
+
+                ## 入度
+                ind = diG.in_degree(nid)
+
+                depth = nx.all_simple_paths(diG,nid,pid)
+
+                pid_cpid_obj[pid][nid]['od'] = od
+                pid_cpid_obj[pid][nid]['id'] = ind
+                pid_cpid_obj[pid][nid]['depth'] = depth
+
+        open(field_path,'a').write(json.dumps(pid_cpid_obj)+'\n')
 
 if __name__ == '__main__':
     ## /public/data/Aminer_MAG/MAG/txt/ , data/mag/all_nodes.txt
-    gen_all_nodes_objs(sys.argv[1],sys.argv[2])
+    # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
+
+    # generate the cascade attrs' data
+    cascade_attrs(sys.argv[1])
+
