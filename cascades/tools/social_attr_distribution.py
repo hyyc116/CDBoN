@@ -134,7 +134,7 @@ def cascade_attrs(citation_cascade):
             diG.remove_edges_from(removed_links)
 
             for nid in diG.nodes():
-                depth = np.mean(nx.all_simple_paths(diG,nid,pid))
+                depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
         open(field_path,'a').write(json.dumps(pid_cpid_obj)+'\n')
