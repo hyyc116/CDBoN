@@ -112,6 +112,7 @@ def cascade_attrs(citation_cascade):
                 continue
 
             print '==== PRE NUM OF EDGES:',len(edges)
+            print '==== PRE NODES SIZE:', len(diG.nodes())
 
             outdegree_dict = diG.out_degree()
             removed_links = []
@@ -136,11 +137,12 @@ def cascade_attrs(citation_cascade):
             # print len(edges-removed_links)
             ## 将直接连接删除，那么这个图边的相对较小
             if len(removed_links)>0:
-                print removed_links
+                # print removed_links
                 diG.remove_edges_from(removed_links)
 
             print 'REMOVED LINKS LEN:',len(removed_links)
             print '==== LATER NUM OF EDGES:',len(diG.edges())
+            print '==== LATER NODES SIZE:',len(diG.nodes())
             for nid in diG.nodes():
                 # print nid
                 depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
