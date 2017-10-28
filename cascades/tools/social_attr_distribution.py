@@ -134,6 +134,7 @@ def cascade_attrs(citation_cascade):
 
             ## 将直接连接删除，那么这个图边的相对较小
             if len(removed_links)>0:
+                print removed_links
                 diG.remove_edges_from(removed_links)
             print 'REMOVED LINKS LEN:',len(removed_links)
             print '==== LATER NUM OF EDGES:',len(edges)
