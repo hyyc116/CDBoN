@@ -123,7 +123,7 @@ def cascade_attrs(citation_cascade):
                 ## 入度
                 ind = diG.in_degree(nid)
 
-                depth = np.mean([len(l) for l in  nx.shortest_simple_paths(diG,nid,pid)])
+                depth = np.mean([len(l) for l in  nx.all_simple_paths(diG,nid,pid)])
 
                 pid_cpid_obj[pid][nid]['od'] = od
                 pid_cpid_obj[pid][nid]['id'] = ind
@@ -137,4 +137,9 @@ if __name__ == '__main__':
 
     # generate the cascade attrs' data
     cascade_attrs(sys.argv[1])
+
+    # dig =nx.DiGraph()
+    # dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
+    # for l in nx.shortest_simple_paths(dig,5,1):
+        # print l
 
