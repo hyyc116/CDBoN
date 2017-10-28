@@ -133,11 +133,13 @@ def cascade_attrs(citation_cascade):
                 pid_cpid_obj[pid][nid]['od'] = od
                 pid_cpid_obj[pid][nid]['id'] = ind
 
-            print len(edges-removed_links)
+            # print len(edges-removed_links)
             ## 将直接连接删除，那么这个图边的相对较小
             if len(removed_links)>0:
                 print removed_links
-                diG.remove_edges_from(removed_links)
+                # diG.remove_edges_from(removed_links)
+                for link in removed_links:
+                    diG.remove_edge(link[0],link[1])
 
             print 'REMOVED LINKS LEN:',len(removed_links)
             print '==== LATER NUM OF EDGES:',len(edges)
