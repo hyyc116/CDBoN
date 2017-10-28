@@ -111,6 +111,8 @@ def cascade_attrs(citation_cascade):
             if not nx.is_directed_acyclic_graph(diG):
                 continue
 
+            outdegree_dict = diG.out_degree()
+
             ## 对于每一个节点来讲
             for nid,od in outdegree_dict:
 
