@@ -138,7 +138,7 @@ def cascade_attrs(citation_cascade):
             print 'REMOVED LINKS LEN:',len(removed_links)
             print '==== LATER NUM OF EDGES:',len(edges)
             for nid in diG.nodes():
-                print nid
+                # print nid
                 depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
