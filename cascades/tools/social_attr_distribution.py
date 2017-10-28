@@ -137,12 +137,10 @@ def cascade_attrs(citation_cascade):
             ## 将直接连接删除，那么这个图边的相对较小
             if len(removed_links)>0:
                 print removed_links
-                # diG.remove_edges_from(removed_links)
-                for link in removed_links:
-                    diG.remove_edge(link[0],link[1])
+                diG.remove_edges_from(removed_links)
 
             print 'REMOVED LINKS LEN:',len(removed_links)
-            print '==== LATER NUM OF EDGES:',len(edges)
+            print '==== LATER NUM OF EDGES:',len(diG.edges())
             for nid in diG.nodes():
                 # print nid
                 depth = np.mean([len(l)-1 for l in nx.all_simple_paths(diG,nid,pid)])
@@ -155,10 +153,13 @@ if __name__ == '__main__':
     # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
 
     # generate the cascade attrs' data
-    cascade_attrs(sys.argv[1])
+    # cascade_attrs(sys.argv[1])
 
-    # dig =nx.DiGraph()
-    # dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
+    dig =nx.DiGraph()
+    dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
+    # print dig
+    # dig.remove_edges_from([(2,1)])
+    # print dig.edges()
     # for l in nx.shortest_simple_paths(dig,5,1):
-        # print l
+    #     print l
 
