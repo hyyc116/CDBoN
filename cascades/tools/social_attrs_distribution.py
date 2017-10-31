@@ -23,23 +23,30 @@ def filed_distribution():
                 fos = list(set([f[0] for f in n_fos]))
                 paper_fos[pid]=fos
                 num_list.append(len(fos))
-
-        logging.info('reading paper obj , the {:}th line ... '.format(read_index))
+        if read_index%50==1:
+            logging.info('reading paper obj , the {:}th line ... '.format(read_index))
 
     logging.info('Number of existing all nodes having fos:{:}'.format(len(paper_fos.keys())))
     logging.info('Average number of field of papers:{:.2f}'.format(np.average(num_list)))
 
     ## 读取 mag_cs_cascade_attrs 看分布
     cascade_social_attr = {}
+    read_index=0
     for line in open('data/mag/mag_cs_cascade_attrs.txt'):
+        read_index+=1
         line = line.strip()
         ca = json.loads(line)
         cascade_social_attr.update(ca)
 
+        logging.info('loading cascade attrs {:} th ...'.format(read_index))
+
     ## 对于cascade中每一篇文章，对应的citing papers的分析
 
     cc_depth_fos_list=[]
+    logging.info('processing the depth and field ...')
+    read_index=0
     for pid in cascade_social_attr.keys():
+        read_index+=1
         ## 引文数量
         cc = len(cascade_social_attr[pid].keys())
         # 对于每一个节点的属性
@@ -52,10 +59,15 @@ def filed_distribution():
                 for f in fos:
                     cc_depth_fos_list.append([cc,depth,f])
 
+        if read_index%100000==1:
+            logging.info('process the depth, process {:} ...'.format(read_index))
+
     ### 对于现在的list,画出整体的分布图
     field_list = []
+    filed_depth = defaultdict(list)
     for cc,depth,f in cc_depth_fos_list:
         field_list.append(f)
+        filed_depth[f].append(depth)
 
     fc = Counter(field_list)
 
@@ -64,16 +76,37 @@ def filed_distribution():
 
     for x in sorted(fc.keys()):
         xs.append(x)
-        ys.append(y)
+        ys.append(fc[x])
 
     plt.figure(figsize=(5,5))
     plt.bar(range(len(xs)),ys)
     plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
     plt.ylabel('Number')
+    plt.yscale('log')
     plt.title('General Distribution')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_dis.pdf',dpi=200)
+
+
+    xs=[]
+    ys=[]
+    for x in sorted(filed_depth.keys()):
+        xs.append(x)
+        ys.append(np.mean(filed_depth[x]))
+
+    plt.figure(figsize=(5,5))
+    plt.bar(range(len(xs)),ys)
+    plt.xticks(range(len(xs)),xs, rotation='vertical')
+    plt.xlabel('Fields')
+    plt.ylabel('Average Depth')
+    plt.title('Filed Depth')
+    plt.tight_layout()
+    plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
+
+
+
+
 
 if __name__ == '__main__':
     filed_distribution()
