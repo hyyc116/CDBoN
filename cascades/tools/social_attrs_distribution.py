@@ -11,8 +11,10 @@ def filed_distribution():
     ## 读取cascade attrs， data/mag/mag_all_nodes_paper_objs.txt
     paper_fos={}
     num_list = []
+    read_index=0
     for line in open('data/mag/mag_all_nodes_paper_objs.txt'):
         line = line.strip()
+        read_index+=1
         d = json.loads(line)
         for pid in d.keys():
             n_fos = d[pid]['n_fos']
@@ -21,6 +23,8 @@ def filed_distribution():
                 fos = list(set([f[0] for f in n_fos]))
                 paper_fos[pid]=fos
                 num_list.append(len(fos))
+
+        logging.info('reading paper obj , the {:}th line ... '.format(read_index))
 
     logging.info('Number of existing all nodes having fos:{:}'.format(len(paper_fos.keys())))
     logging.info('Average number of field of papers:{:.2f}'.format(np.average(num_list)))
@@ -64,10 +68,11 @@ def filed_distribution():
 
     plt.figure(figsize=(5,5))
     plt.bar(range(len(xs)),ys)
-    plt.xticks(range(len(xs)),xs)
+    plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
     plt.ylabel('Number')
     plt.title('General Distribution')
+    plt.tight_layout()
     plt.savefig('pdf/mag_field_dis.pdf',dpi=200)
 
 if __name__ == '__main__':
