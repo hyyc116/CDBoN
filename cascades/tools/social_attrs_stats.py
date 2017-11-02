@@ -102,7 +102,7 @@ def cascade_attrs(citation_cascade):
             diG = nx.DiGraph()
             edges = cc[pid]['edges']
             diG.add_edges_from(edges)
-            edge_dict = _edge_dict(edges)
+            # edge_dict = _edge_dict(edges)
             logi+=1
 
             if logi%1000==1:
@@ -139,7 +139,7 @@ def cascade_attrs(citation_cascade):
                 pid_cpid_obj[pid][nid]['od'] = od
                 pid_cpid_obj[pid][nid]['id'] = ind
 
-                depth = _depth_of_node(nid,edge_dict)
+                depth = _depth_of_node(nid,diG,edges)
                 
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
