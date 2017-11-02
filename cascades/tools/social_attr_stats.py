@@ -102,7 +102,7 @@ def cascade_attrs(citation_cascade):
             diG = nx.DiGraph()
             edges = cc[pid]['edges']
             diG.add_edges_from(edges)
-
+            edge_dict = _edge_dict(edges)
             logi+=1
             if logi%10000==1:
                 logging.info('progress {:}/{:}...'.format(logi,total))
@@ -115,7 +115,7 @@ def cascade_attrs(citation_cascade):
             # print '==== PRE NODES SIZE:', len(diG.nodes())
 
             outdegree_dict = diG.out_degree()
-            removed_links = []
+            # removed_links = []
 
 
             ## 对于每一个节点来讲
@@ -126,31 +126,57 @@ def cascade_attrs(citation_cascade):
                     continue
 
                 #如果出度是大于1的，那么将直接citation link给去掉
-                if od >1:
-                    removed_links.append([nid,pid])
+                # if od >1:
+                    # removed_links.append([nid,pid])
 
                 ## 入度
                 ind = diG.in_degree(nid)
                 pid_cpid_obj[pid][nid]['od'] = od
                 pid_cpid_obj[pid][nid]['id'] = ind
 
+                depth = _depth_of_node(nid,edge_dict)
+
+                pid_cpid_obj[pid][nid]['depth'] = depth
+
             # print len(edges-removed_links)
             ## 将直接连接删除，那么这个图边的相对较小
-            if len(removed_links)>0:
+            # if len(removed_links)>0:
                 # print removed_links
-                diG.remove_edges_from(removed_links)
+                # diG.remove_edges_from(removed_links)
 
             # print 'REMOVED LINKS LEN:',len(removed_links)
             # print '==== LATER NUM OF EDGES:',len(diG.edges())
             # print '==== LATER NODES SIZE:',len(diG.nodes())
-            later_edge_size = len(diG.edges())
-            for nid in diG.nodes():
-                if nid==pid:
-                    continue
-                depth = nx.shortest_path_length(diG,nid,pid)
-                pid_cpid_obj[pid][nid]['depth'] = depth
+            # later_edge_size = len(diG.edges())
+            # for nid in diG.nodes():
+                # if nid==pid:
+                    # continue
+                # depth = nx.shortest_path_length(diG,nid,pid)
+                # pid_cpid_obj[pid][nid]['depth'] = depth
 
         open(field_path,'a').write(json.dumps(pid_cpid_obj)+'\n')
+
+def _edge_dict(edges):
+    edge_dict = defaultdict(list)
+    for edge in edges:
+        edge_dict[edge[0]].append(edge[1])
+
+    return edge_dict
+
+def _depth_of_node(nid,edge_dict):
+    node_edge_list = []
+    pre(node,edge_dict,node_edge_list)
+    node_edge_list = list(set(node_edge_list))
+    new_dig = nx.DiGraph(node_edge_list)
+    depth = nx.dag_longest_path_length(new_dig)
+    return depth
+
+def pre(nid,edge_dict,edge_list):
+    for pn in edge_dict[nid]:
+        edge_list.append((nid,pn))
+        pre(pn,edge_dict,edge_list)
+
+
 
 if __name__ == '__main__':
     ## /public/data/Aminer_MAG/MAG/txt/ , data/mag/all_nodes.txt
@@ -158,9 +184,22 @@ if __name__ == '__main__':
 
     # generate the cascade attrs' data
     cascade_attrs(sys.argv[1])
+    # edges = [(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1),(5,1),(5,3)]
+    # edge_dict = defaultdict(list)
+    # for edge in edges:
+    #     edge_dict[edge[0]].append(edge[1])
 
     # dig =nx.DiGraph()
-    # dig.add_edges_from([(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1)])
+    # dig.add_edges_from(edges)
+    # for node in dig.nodes():
+    #     if node!=1:
+    #         node_edge_list = []
+    #         pre(node,edge_dict,node_edge_list)
+    #         node_edge_list = list(set(node_edge_list))
+    #         new_dig = nx.DiGraph(node_edge_list)
+    #         depth = nx.dag_longest_path_length(new_dig)
+    #         print node,'==',node_edge_list,'==',depth
+
     # print dig
     # dig.remove_edges_from([(2,1)])
     # print dig.edges()

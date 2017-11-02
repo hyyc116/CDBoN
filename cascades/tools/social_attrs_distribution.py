@@ -78,7 +78,7 @@ def filed_distribution():
         xs.append(x)
         ys.append(fc[x])
 
-    plt.figure(figsize=(5,5))
+    plt.figure()
     plt.bar(range(len(xs)),ys)
     plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
@@ -95,7 +95,7 @@ def filed_distribution():
         xs.append(x)
         ys.append(np.mean(filed_depth[x]))
 
-    plt.figure(figsize=(5,5))
+    plt.figure()
     plt.bar(range(len(xs)),ys)
     plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
@@ -103,6 +103,8 @@ def filed_distribution():
     plt.title('Filed Depth')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
+
+    logging.info('Done')
 
 
 
