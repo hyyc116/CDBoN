@@ -186,19 +186,19 @@ if __name__ == '__main__':
     # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
 
     # generate the cascade attrs' data
-    # cascade_attrs(sys.argv[1])
-    edges = [(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1),(5,1),(5,3),(6,5),(6,4),(6,1)]
+    cascade_attrs(sys.argv[1])
+    # edges = [(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1),(5,1),(5,3),(6,5),(6,4),(6,1)]
     # edge_dict = defaultdict(list)
     # for edge in edges:
     #     edge_dict[edge[0]].append(edge[1])
 
-    dig =nx.DiGraph()
-    dig.add_edges_from(edges)
-    print nx.dfs_predecessors(dig,6)
-    print nx.dfs_successors(dig,6)
-    print [e for e in nx.dfs_preorder_nodes(dig,6)]
-    print [e for e in nx.dfs_postorder_nodes(dig,6)]
-    print [e for e in nx.bfs_edges(dig,6)]
+    # dig =nx.DiGraph()
+    # dig.add_edges_from(edges)
+    # print nx.dfs_predecessors(dig,6)
+    # print nx.dfs_successors(dig,6)
+    # print [e for e in nx.dfs_preorder_nodes(dig,6)]
+    # print [e for e in nx.dfs_postorder_nodes(dig,6)]
+    # print [e for e in nx.bfs_edges(dig,6)]
     # print nx.bfs_edges(dig,4)
     # print nx.bfs_edges(dig,3)
 
