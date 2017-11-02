@@ -105,7 +105,7 @@ def cascade_attrs(citation_cascade):
             edge_dict = _edge_dict(edges)
             logi+=1
 
-            if logi%10000==1:
+            if logi%1000==1:
                 logging.info('progress {:}/{:}...'.format(logi,total))
 
             # if citation cascade is not acyclic graph
