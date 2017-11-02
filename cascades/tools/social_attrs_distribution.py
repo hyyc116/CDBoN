@@ -82,7 +82,7 @@ def filed_distribution():
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
-    plt.xticks(range(len(xs)),xs, rotation='vertical')
+    # plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
     plt.ylabel('Number')
     plt.yscale('log')
@@ -99,7 +99,7 @@ def filed_distribution():
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
-    plt.xticks(range(len(xs)),xs, rotation='vertical')
+    # plt.xticks(range(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
     plt.ylabel('Average Depth')
     plt.title('Filed Depth')
