@@ -122,7 +122,7 @@ def cascade_attrs(citation_cascade):
             ## 对于每一个节点来讲
             for nid,od in outdegree_dict:
                 read_index+=1
-                if len(edges)>100:
+                if len(edges)>1000:
                     if read_index%10==1:
                         logging.info('edges of {:} is {:}, {:}/{:}'.format(pid,len(edges),read_index,len(edges)))
 
