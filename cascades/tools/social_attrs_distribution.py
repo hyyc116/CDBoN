@@ -64,12 +64,14 @@ def filed_distribution():
 
     ### 对于现在的list,画出整体的分布图
     field_list = []
-    filed_depth = defaultdict(list)
+    field_depth = defaultdict(list)
     for cc,depth,f in cc_depth_fos_list:
         field_list.append(f)
-        filed_depth[f].append(depth)
+        field_depth[f].append(depth)
 
     fc = Counter(field_list)
+    logging.info('field dict {:}'.format(fc))
+
 
     xs = []
     ys = []
@@ -91,9 +93,9 @@ def filed_distribution():
 
     xs=[]
     ys=[]
-    for x in sorted(filed_depth.keys()):
+    for x in sorted(field_depth.keys()):
         xs.append(x)
-        ys.append(np.mean(filed_depth[x]))
+        ys.append(np.mean(field_depth[x]))
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
