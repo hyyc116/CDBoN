@@ -33,7 +33,7 @@ def classify_papers(citation_list,distribution_path,paras_path):
     logging.info('from {:} to {:} ...'.format(start,end))
     popt,pcov = curve_fit(power_low_func,xs[start:end],ccdf[start:end])
     fig,ax = plt.subplots(figsize=(5,5))
-    ax.plot(xs,ys,'o',fillstyle='none')
+    ax.plot(xs,ccdf,fillstyle='none')
     ax.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     
     ax.plot([start]*10, np.linspace(_min_y, 1, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
@@ -82,13 +82,13 @@ def fit_xmin_xmax(xs,ys,path):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            normed_y = (np.log(y)-min_y)/(max_y-min_y)
+            # normed_y = (np.log(y)-min_y)/(max_y-min_y)
 
             # percent = np.sum(normed_y)/float(np.sum(norm_ys))*(1-(float(len(y))/len(ys)))
-            percent = np.sum(normed_y)/float(np.sum(norm_ys))*np.log((len(ys)/float(len(y))))
+            # percent = np.sum(normed_y)/float(np.sum(norm_ys))*np.log((len(ys)/float(len(y))))
 
 
-            r2 = r2*percent
+            # r2 = r2*percent
 
             rxs.append(x[0])
             rys.append(x[-1])
