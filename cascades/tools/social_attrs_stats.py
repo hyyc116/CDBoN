@@ -123,7 +123,7 @@ def cascade_attrs(citation_cascade):
             for nid,od in outdegree_dict:
                 read_index+=1
                 if len(edges)>1000:
-                    if read_index%10==1:
+                    if read_index%100==1:
                         logging.info('edges of {:} is {:}, {:}/{:}'.format(pid,len(edges),read_index,len(edges)))
 
                 ## 出度为0的为owner
