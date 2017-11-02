@@ -140,7 +140,7 @@ def cascade_attrs(citation_cascade):
                 pid_cpid_obj[pid][nid]['id'] = ind
 
                 depth = _depth_of_node(nid,edge_dict)
-
+                
                 pid_cpid_obj[pid][nid]['depth'] = depth
 
             # print len(edges-removed_links)
@@ -168,19 +168,17 @@ def _edge_dict(edges):
 
     return edge_dict
 
-def _depth_of_node(nid,edge_dict):
-    node_edge_list = []
-    pre(nid,edge_dict,node_edge_list)
-    node_edge_list = list(set(node_edge_list))
-    new_dig = nx.DiGraph(node_edge_list)
+def _depth_of_node(nid,dig,edges):
+    nodes = set([e for e in nx.dfs_preorder_nodes(dig,nid)])
+    edge_list = []
+    for e in edges:
+        if e[0] in nodes and e[1] in nodes:
+            edge_list.append(e)
+
+    new_dig = nx.DiGraph()
+    new_dig.add_edges_from(edge_list)
     depth = nx.dag_longest_path_length(new_dig)
     return depth
-
-def pre(nid,edge_dict,edge_list):
-    for pn in edge_dict[nid]:
-        edge_list.append((nid,pn))
-        pre(pn,edge_dict,edge_list)
-
 
 
 if __name__ == '__main__':
@@ -188,14 +186,22 @@ if __name__ == '__main__':
     # gen_all_nodes_objs(sys.argv[1],sys.argv[2])
 
     # generate the cascade attrs' data
-    cascade_attrs(sys.argv[1])
-    # edges = [(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1),(5,1),(5,3)]
+    # cascade_attrs(sys.argv[1])
+    edges = [(2,1),(3,1),(2,3),(4,2),(4,3),(5,4),(4,1),(5,1),(5,3),(6,5),(6,4),(6,1)]
     # edge_dict = defaultdict(list)
     # for edge in edges:
     #     edge_dict[edge[0]].append(edge[1])
 
-    # dig =nx.DiGraph()
-    # dig.add_edges_from(edges)
+    dig =nx.DiGraph()
+    dig.add_edges_from(edges)
+    print nx.dfs_predecessors(dig,6)
+    print nx.dfs_successors(dig,6)
+    print [e for e in nx.dfs_preorder_nodes(dig,6)]
+    print [e for e in nx.dfs_postorder_nodes(dig,6)]
+    print [e for e in nx.bfs_edges(dig,6)]
+    # print nx.bfs_edges(dig,4)
+    # print nx.bfs_edges(dig,3)
+
     # for node in dig.nodes():
     #     if node!=1:
     #         node_edge_list = []
