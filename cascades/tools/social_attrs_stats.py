@@ -104,6 +104,7 @@ def cascade_attrs(citation_cascade):
             diG.add_edges_from(edges)
             edge_dict = _edge_dict(edges)
             logi+=1
+
             if logi%10000==1:
                 logging.info('progress {:}/{:}...'.format(logi,total))
 
@@ -165,7 +166,7 @@ def _edge_dict(edges):
 
 def _depth_of_node(nid,edge_dict):
     node_edge_list = []
-    pre(node,edge_dict,node_edge_list)
+    pre(nid,edge_dict,node_edge_list)
     node_edge_list = list(set(node_edge_list))
     new_dig = nx.DiGraph(node_edge_list)
     depth = nx.dag_longest_path_length(new_dig)
