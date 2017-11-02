@@ -10,30 +10,34 @@ def classify_papers(citation_list,distribution_path,paras_path):
     ys = []
     _max_y = 0
     _min_y = 1
-    for citation_count in citation_dis:
+    for citation_count in sorted(citation_dis.keys()):
         if citation_count==0:
             continue
 
         xs.append(citation_count)
-        y = citation_dis[citation_count]/float(total)
-        ys.append(y)
+        y = citation_dis[citation_count]
+        ys.append(y/float(total))
         if y>_max_y:
             _max_y = y
 
         if y<_min_y:
             _min_y = y
 
+    ccdf = []
+    for i,x in enumerate(xs):
+        ccdf.append(np.sum(ys[i:]))
+
     logging.info('Optimize ... ')
-    start,end = fit_xmin_xmax(xs,ys,paras_path)
+    start,end = fit_xmin_xmax(xs,ccdf,paras_path)
     # start,end = 0,len(xs)
     logging.info('from {:} to {:} ...'.format(start,end))
-    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ccdf[start:end])
     fig,ax = plt.subplots(figsize=(5,5))
     ax.plot(xs,ys,'o',fillstyle='none')
     ax.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     
-    ax.plot([start]*10, np.linspace(0.01, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
-    ax.plot([end]*10, np.linspace(_min_y, 0.01, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
+    ax.plot([start]*10, np.linspace(_min_y, 1, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
+    ax.plot([end]*10, np.linspace(_min_y, 1, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
 
     ax.legend()
     ax.set_title('Citation distribution')
