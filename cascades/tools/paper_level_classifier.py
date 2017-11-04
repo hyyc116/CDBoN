@@ -23,21 +23,26 @@ def classify_papers(citation_list,distribution_path):
         if y<_min_y:
             _min_y = y
 
-    fig,axes = plt.subplots(4,2,figsize=(14,20))
+    # fig,axes = plt.subplots(4,2,figsize=(14,20))
+    fig = plt.figure(figsize=(14,20))
     ## first plot citation distribution
-    ax00 = axes[0,0]
+    # ax00 = axes[0,0]
+    ax00 = fig.add_subplot(4,2,1)
     logging.info('plot the original distribution...')
     plot_citation_distribution(ax00,xs,ys)
     ## plot the grid search result of using R2 directly
-    ax10,ax11 = axes[1]
+    ax10 = fig.add_subplot(4,2,3)
+    ax11 = fig.add_subplot(4,2,4, projection='3d')
     plot_fitting_and_distribution(fig,ax10,ax11,xs,ys,'r2',_min_y,_max_y)
 
     ## plot the grid search result of using percentage r2
-    ax20,ax21 = axes[2]
+    ax20 = fig.add_subplot(4,2,5)
+    ax21 = fig.add_subplot(4,2,6, projection='3d')
     plot_fitting_and_distribution(fig,ax20,ax21,xs,ys,'percentage_r2',_min_y,_max_y)
     
     ## plot the grid search result of using percentage r2
-    ax30,ax31 = axes[3]
+    ax30 = fig.add_subplot(4,2,7)
+    ax31 = fig.add_subplot(4,2,8, projection='3d')
     plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'adjusted_r2',_min_y,_max_y)
 
     plt.tight_layout()
@@ -120,7 +125,7 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
                 max_z = evaluator
 
     # fig=plt.figure(figsize=(14,10))
-    ax = Axes3D(fig)
+    # ax = Axes3D(fig)
     ax.view_init(60, 210)
     X = np.reshape(rys,(ROWS,COLS))
     Y = np.reshape(rxs,(ROWS,COLS))
