@@ -23,7 +23,7 @@ def classify_papers(citation_list,distribution_path):
         if y<_min_y:
             _min_y = y
 
-    fig,axes = plt.subplots(4,2,figsize(14,20))
+    fig,axes = plt.subplots(4,2,figsize=(14,20))
     ## first plot citation distribution
     ax00 = axes[0,0]
     logging.info('plot the original distribution...')
