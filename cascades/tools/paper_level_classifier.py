@@ -69,7 +69,7 @@ def plot_citation_distribution(ax,xs,ys):
     ax.set_xscale('log')
     ax.set_yscale('log')
 
-def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
+def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2',end_x=80,start_y=100):
 
     rxs=[]
     rys=[]
@@ -79,9 +79,8 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
     min_y = np.log(np.min(ys))
     normed_total_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
-    mid = len(xs)/2
-    x_is = np.arange(1,int(mid*0.8),2)
-    y_is = np.arange(mid,len(xs),5)
+    x_is = np.arange(1,end_x,2)
+    y_is = np.arange(start_y,len(xs),5)
 
     ROWS = len(x_is)
     COLS = len(y_is)
@@ -126,7 +125,7 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
 
     # fig=plt.figure(figsize=(14,10))
     # ax = Axes3D(fig)
-    ax.view_init(60, 210)
+    # ax.view_init(60, 210)
     X = np.reshape(rys,(ROWS,COLS))
     Y = np.reshape(rxs,(ROWS,COLS))
     Z = np.reshape(rzs,(ROWS,COLS))
