@@ -80,8 +80,8 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
     normed_total_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
     mid = len(xs)/2
-    x_is = np.arange(1,80,2)
-    y_is = np.arange(120,len(xs),5)
+    x_is = np.arange(1,mid,2)
+    y_is = np.arange(mid,len(xs),5)
 
     ROWS = len(x_is)
     COLS = len(y_is)
