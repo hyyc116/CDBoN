@@ -45,7 +45,7 @@ def classify_papers(citation_list,distribution_path):
     logging.info('distribution saved to {:}.'.format(distribution_path))
 
 
-def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y)
+def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y):
     logging.info('Optimize using {:} ... '.format(evaluator_name))
     start,end = fit_xmin_xmax(xs,ys,fig,ax2,evaluator_name)
     logging.info('Search result: X_min =  {:},  X_max = {:} ...'.format(start,end))
