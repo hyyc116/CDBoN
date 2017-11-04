@@ -10,34 +10,30 @@ def classify_papers(citation_list,distribution_path,paras_path):
     ys = []
     _max_y = 0
     _min_y = 1
-    for citation_count in sorted(citation_dis.keys()):
+    for citation_count in sorted(citation_dis):
         if citation_count==0:
             continue
 
         xs.append(citation_count)
-        y = citation_dis[citation_count]
-        ys.append(y/float(total))
+        y = citation_dis[citation_count]/float(total)
+        ys.append(y)
         if y>_max_y:
             _max_y = y
 
         if y<_min_y:
             _min_y = y
 
-    ccdf = []
-    for i,x in enumerate(xs):
-        ccdf.append(np.sum(ys[i:]))
-
     logging.info('Optimize ... ')
-    start,end = fit_xmin_xmax(xs,ccdf,paras_path)
+    start,end = fit_xmin_xmax(xs,ys,paras_path)
     # start,end = 0,len(xs)
     logging.info('from {:} to {:} ...'.format(start,end))
-    popt,pcov = curve_fit(power_low_func,xs[start:end],ccdf[start:end])
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     fig,ax = plt.subplots(figsize=(5,5))
-    ax.plot(xs,ccdf,fillstyle='none')
+    ax.plot(xs,ys,'o',fillstyle='none')
     ax.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     
-    ax.plot([start]*10, np.linspace(_min_y, 1, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
-    ax.plot([end]*10, np.linspace(_min_y, 1, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
+    ax.plot([start]*10, np.linspace(0.01, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
+    ax.plot([end]*10, np.linspace(_min_y, 0.01, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
 
     ax.legend()
     ax.set_title('Citation distribution')
@@ -58,7 +54,7 @@ def fit_xmin_xmax(xs,ys,path):
 
     max_y = np.log(np.max(ys))
     min_y = np.log(np.min(ys))
-    norm_ys = (np.log(ys)-min_y)/(max_y-min_y)
+    normed_total_ys = (np.log(ys)-min_y)/(max_y-min_y)
 
     mid = len(xs)/2
     x_is = np.arange(1,80,2)
@@ -71,7 +67,7 @@ def fit_xmin_xmax(xs,ys,path):
     max_end =0
     max_z = 0
 
-    ## 第一步 找出最符合数据集的那条线，只是用R2进行
+    ## 第一步 找出最符合数据集的那条线，只是用adjusted_r2进行
     for i,start in enumerate(x_is):
         for j,end in enumerate(y_is):
 
@@ -82,22 +78,24 @@ def fit_xmin_xmax(xs,ys,path):
             fit_y = power_low_func(x, *popt)
             r2 = r2_score(np.log(y),np.log(fit_y))
 
-            # normed_y = (np.log(y)-min_y)/(max_y-min_y)
+            normed_y = (np.log(y)-min_y)/(max_y-min_y)
+            percent_of_num = np.sum(normed_y)/float(np.sum(normed_total_ys))
 
-            # percent = np.sum(normed_y)/float(np.sum(norm_ys))*(1-(float(len(y))/len(ys)))
-            # percent = np.sum(normed_y)/float(np.sum(norm_ys))*np.log((len(ys)/float(len(y))))
+            ## efficiency of description
+            percent_of_x = float(len(y))/float(len(ys))
+            efficiency = percent_of_num/percent_of_x
 
 
-            # r2 = r2*percent
+            adjusted_r2 = r2*percent_of_num*efficiency
 
             rxs.append(x[0])
             rys.append(x[-1])
-            rzs.append(r2)
+            rzs.append(adjusted_r2)
 
-            if r2>max_z:
+            if adjusted_r2>max_z:
                 max_start = x[0],start
                 max_end = x[-1],end
-                max_z = r2
+                max_z = adjusted_r2
 
     fig=plt.figure(figsize=(14,10))
     ax = Axes3D(fig)
@@ -110,7 +108,7 @@ def fit_xmin_xmax(xs,ys,path):
     ax.set_zlabel('Global $R^2$')
     # ax.set_zscale('log')
     logging.info('max_start: {:}, max_end:{:}.'.format(max_start,max_end))
-    ax.set_title('$x_{min}$:'+'{:}'.format(max_start[0])+' - $x_{max}$:'+'{:}'.format(max_end[0])+', $R^2={:.4f}$'.format(max_z))
+    ax.set_title('$x_{min}$:'+'{:}'.format(max_start[0])+' - $x_{max}$:'+'{:}'.format(max_end[0])+', adjusted $R^2={:.4f}$'.format(max_z))
     surf = ax.plot_surface(X,Y,Z, cmap=CM.coolwarm)
     fig.colorbar(surf, shrink=0.5, aspect=10)
     plt.savefig(path,dpi=200)
