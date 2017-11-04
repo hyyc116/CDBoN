@@ -2,7 +2,7 @@
 from basic_config import *
 
 ## from a citation distribution dict {count: #(count)}, to split papers to three levels
-def classify_papers(citation_list,distribution_path,paras_path):
+def classify_papers(citation_list,distribution_path):
     # 所有文章的被引次数
     citation_dis = Counter(citation_list)
     total = np.sum(citation_dis.values())
@@ -23,30 +23,48 @@ def classify_papers(citation_list,distribution_path,paras_path):
         if y<_min_y:
             _min_y = y
 
-    logging.info('Optimize ... ')
-    start,end = fit_xmin_xmax(xs,ys,paras_path)
-    # start,end = 0,len(xs)
-    logging.info('from {:} to {:} ...'.format(start,end))
-    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-    fig,ax = plt.subplots(figsize=(5,5))
-    ax.plot(xs,ys,'o',fillstyle='none')
-    ax.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
-    
-    ax.plot([start]*10, np.linspace(0.01, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
-    ax.plot([end]*10, np.linspace(_min_y, 0.01, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
+    fig,axes = plt.subplots(4,2,figsize(14,20))
+    ## first plot citation distribution
+    ax00 = axes[0,0]
+    logging.info('plot the original distribution...')
+    plot_citation_distribution(ax00,xs,ys)
+    ## plot the grid search result of using R2 directly
+    ax10,ax11 = axes[1]
+    plot_fitting_and_distribution(fig,ax10,ax11,xs,ys,'r2',_min_y,_max_y)
 
-    ax.legend()
-    ax.set_title('Citation distribution')
-    ax.set_xlabel('$x=$citation count\n(a)')
-    ax.set_ylabel('$\#(x)/N$')
-    ax.set_xscale('log')
-    ax.set_yscale('log')
+    ## plot the grid search result of using percentage r2
+    ax20,ax21 = axes[2]
+    plot_fitting_and_distribution(fig,ax20,ax21,xs,ys,'percentage_r2',_min_y,_max_y)
+    
+    ## plot the grid search result of using percentage r2
+    ax30,ax31 = axes[3]
+    plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'adjusted_r2',_min_y,_max_y)
+
     plt.tight_layout()
     plt.savefig(distribution_path,dpi=200)
     logging.info('distribution saved to {:}.'.format(distribution_path))
 
 
-def fit_xmin_xmax(xs,ys,path):
+def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y)
+    logging.info('Optimize using {:} ... '.format(evaluator_name))
+    start,end = fit_xmin_xmax(xs,ys,fig,ax2,evaluator_name)
+    logging.info('Search result: X_min =  {:},  X_max = {:} ...'.format(start,end))
+    popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
+    plot_citation_distribution(ax1,xs,ys)
+    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax1.plot([start]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(start))
+    ax1.plot([end]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{max}$'+'$={:}$'.format(end))
+    ax1.legend()
+
+def plot_citation_distribution(ax,xs,ys):
+    ax.plot(xs,ys,'o',fillstyle='none')
+    ax.set_title('Citation Distribution')
+    ax.set_xlabel('Citation Count')
+    ax.set_ylabel('Relative Frequency')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2'):
 
     rxs=[]
     rys=[]
@@ -67,7 +85,6 @@ def fit_xmin_xmax(xs,ys,path):
     max_end =0
     max_z = 0
 
-    ## 第一步 找出最符合数据集的那条线，只是用adjusted_r2进行
     for i,start in enumerate(x_is):
         for j,end in enumerate(y_is):
 
@@ -80,24 +97,29 @@ def fit_xmin_xmax(xs,ys,path):
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
             percent_of_num = np.sum(normed_y)/float(np.sum(normed_total_ys))
-
+            percentage_r2 = r2*percent_of_num
             ## efficiency of description
             percent_of_x = float(len(y))/float(len(ys))
             efficiency = percent_of_num/percent_of_x
+            adjusted_r2 = percentage_r2*efficiency
 
-
-            adjusted_r2 = r2*percent_of_num*efficiency
+            if evaluator_name=='adjusted_r2':
+                evaluator = adjusted_r2
+            elif evaluator_name =='percentage_r2':
+                evaluator = percentage_r2
+            elif evaluator_name == 'r2':
+                evaluator = r2
 
             rxs.append(x[0])
             rys.append(x[-1])
-            rzs.append(adjusted_r2)
+            rzs.append(evaluator)
 
-            if adjusted_r2>max_z:
+            if evaluator>max_z:
                 max_start = x[0],start
                 max_end = x[-1],end
-                max_z = adjusted_r2
+                max_z = evaluator
 
-    fig=plt.figure(figsize=(14,10))
+    # fig=plt.figure(figsize=(14,10))
     ax = Axes3D(fig)
     ax.view_init(60, 210)
     X = np.reshape(rys,(ROWS,COLS))
@@ -105,14 +127,14 @@ def fit_xmin_xmax(xs,ys,path):
     Z = np.reshape(rzs,(ROWS,COLS))
     ax.set_xlabel('$x_{max}$')
     ax.set_ylabel('$x_{min}$')
-    ax.set_zlabel('Global $R^2$')
+    ax.set_zlabel(evaluator_name)
     # ax.set_zscale('log')
     logging.info('max_start: {:}, max_end:{:}.'.format(max_start,max_end))
-    ax.set_title('$x_{min}$:'+'{:}'.format(max_start[0])+' - $x_{max}$:'+'{:}'.format(max_end[0])+', adjusted $R^2={:.4f}$'.format(max_z))
+    ax.set_title('$x_{min}$:'+'{:}'.format(max_start[0])+' - $x_{max}$:'+'{:}'.format(max_end[0])+', {:}={:.4f}'.format(evaluator_name,max_z))
     surf = ax.plot_surface(X,Y,Z, cmap=CM.coolwarm)
-    fig.colorbar(surf, shrink=0.5, aspect=10)
-    plt.savefig(path,dpi=200)
-    logging.info('paras saved to {:}.'.format(path))
+    fig.colorbar(surf, shrink=0.5, aspect=10,ax=ax)
+    # plt.savefig(path,dpi=200)
+    # logging.info('paras saved to {:}.'.format(path))
 
     return max_start[-1],max_end[-1]
 
@@ -129,8 +151,8 @@ def divide_dataset(dataset):
 
     citation_list = json.loads(open(data_path).read())['cxs']
     dis_path = 'pdf/paper_levels_{:}_dis.pdf'.format(dataset)
-    paras_path = 'pdf/paper_levels_{:}_paras.pdf'.format(dataset)
-    classify_papers(citation_list,dis_path,paras_path)
+    # paras_path = 'pdf/paper_levels_{:}_paras.pdf'.format(dataset)
+    classify_papers(citation_list,dis_path)
 
 def experiments():
     divide_dataset('Aminer')
