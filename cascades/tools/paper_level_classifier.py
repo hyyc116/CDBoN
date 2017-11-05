@@ -125,7 +125,7 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2',end_x=80,start_y=100
 
     # fig=plt.figure(figsize=(14,10))
     # ax = Axes3D(fig)
-    # ax.view_init(60, 210)
+    ax.view_init(60, 210)
     X = np.reshape(rys,(ROWS,COLS))
     Y = np.reshape(rxs,(ROWS,COLS))
     Z = np.reshape(rzs,(ROWS,COLS))
