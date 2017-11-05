@@ -13,7 +13,11 @@ def classify_papers(citation_list,distribution_path):
 
     p_xs = []
     p_ys = []
-    p_sum=0
+    p_sum = 0
+
+    px_xs = []
+    px_ys = []
+    px_sum = 0
     for citation_count in sorted(citation_dis):
         if citation_count==0:
             continue
@@ -31,33 +35,46 @@ def classify_papers(citation_list,distribution_path):
         p_sum+=y
         p_ys.append(p_sum)
 
+        px_xs.append(citation_count)
+        px_sum+=1
+        px_ys.append(px_sum)
+
+    px_ys = np.array(px_ys)/px_sum
+
     # fig,axes = plt.subplots(4,2,figsize=(14,20))
-    fig = plt.figure(figsize=(14,20))
+    fig = plt.figure(figsize=(14,25))
     ## first plot citation distribution
     # ax00 = axes[0,0]
-    ax00 = fig.add_subplot(4,2,1)
+    ax00 = fig.add_subplot(5,2,1)
     logging.info('plot the original distribution...')
     plot_citation_distribution(ax00,xs,ys)
 
-    ##plot percent curves as increase of x_max 
-    ax01 = fig.add_subplot(4,2,2)
-    logging.info('plotting the percentage rate .. ')
-    plot_percentage_curves(ax01,p_xs,p_ys)
-
 
     ## plot the grid search result of using R2 directly
-    ax10 = fig.add_subplot(4,2,3)
-    ax11 = fig.add_subplot(4,2,4, projection='3d')
+    ax10 = fig.add_subplot(5,2,3)
+    ax11 = fig.add_subplot(5,2,4, projection='3d')
     plot_fitting_and_distribution(fig,ax10,ax11,xs,ys,'r2',_min_y,_max_y)
 
+    ##plot percent curves as increase of x_max 
+    ax21 = fig.add_subplot(5,2,5)
+    logging.info('plotting the percentage rate .. ')
+    plot_percentage_curves(ax21,p_xs,p_ys)
+    
+    ax22 = fig.add_subplot(5,2,6)
+    logging.info('plotting the points perentage .. ')
+    plot_percentage_curves(ax22,px_xs,px_ys)
+
     ## plot the grid search result of using percentage r2
-    ax20 = fig.add_subplot(4,2,5)
-    ax21 = fig.add_subplot(4,2,6, projection='3d')
+    ax30 = fig.add_subplot(5,2,7)
+    ax31 = fig.add_subplot(5,2,8, projection='3d')
     plot_fitting_and_distribution(fig,ax20,ax21,xs,ys,'percentage_r2',_min_y,_max_y)
     
+
+
+
     ## plot the grid search result of using percentage r2
-    ax30 = fig.add_subplot(4,2,7)
-    ax31 = fig.add_subplot(4,2,8, projection='3d')
+    ax40 = fig.add_subplot(5,2,9)
+    ax41 = fig.add_subplot(5,2,10, projection='3d')
     plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'adjusted_r2',_min_y,_max_y)
 
     plt.tight_layout()
