@@ -56,18 +56,18 @@ def classify_papers(citation_list,distribution_path):
     plot_fitting_and_distribution(fig,ax10,ax11,xs,ys,'r2',_min_y,_max_y)
 
     ##plot percent curves as increase of x_max 
-    ax21 = fig.add_subplot(5,2,5)
+    ax20 = fig.add_subplot(5,2,5)
     logging.info('plotting the percentage rate .. ')
-    plot_percentage_curves(ax21,p_xs,p_ys)
+    plot_percentage_curves(ax20,p_xs,p_ys)
     
-    ax22 = fig.add_subplot(5,2,6)
+    ax21 = fig.add_subplot(5,2,6)
     logging.info('plotting the points perentage .. ')
-    plot_percentage_curves(ax22,px_xs,px_ys)
+    plot_percentage_curves(ax21,px_xs,px_ys)
 
     ## plot the grid search result of using percentage r2
     ax30 = fig.add_subplot(5,2,7)
     ax31 = fig.add_subplot(5,2,8, projection='3d')
-    plot_fitting_and_distribution(fig,ax20,ax21,xs,ys,'percentage_r2',_min_y,_max_y)
+    plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'percentage_r2',_min_y,_max_y)
     
 
 
@@ -75,7 +75,7 @@ def classify_papers(citation_list,distribution_path):
     ## plot the grid search result of using percentage r2
     ax40 = fig.add_subplot(5,2,9)
     ax41 = fig.add_subplot(5,2,10, projection='3d')
-    plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'adjusted_r2',_min_y,_max_y)
+    plot_fitting_and_distribution(fig,ax40,ax41,xs,ys,'adjusted_r2',_min_y,_max_y)
 
     plt.tight_layout()
     plt.savefig(distribution_path,dpi=200)
