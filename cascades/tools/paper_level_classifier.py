@@ -39,7 +39,7 @@ def classify_papers(citation_list,distribution_path):
         px_sum+=1
         px_ys.append(px_sum)
 
-    px_ys = np.array(px_ys)/px_sum
+    px_ys = np.array(px_ys)/float(px_sum)
 
     # fig,axes = plt.subplots(4,2,figsize=(14,20))
     fig = plt.figure(figsize=(14,25))
@@ -68,9 +68,6 @@ def classify_papers(citation_list,distribution_path):
     ax30 = fig.add_subplot(5,2,7)
     ax31 = fig.add_subplot(5,2,8, projection='3d')
     plot_fitting_and_distribution(fig,ax30,ax31,xs,ys,'percentage_r2',_min_y,_max_y)
-    
-
-
 
     ## plot the grid search result of using percentage r2
     ax40 = fig.add_subplot(5,2,9)
