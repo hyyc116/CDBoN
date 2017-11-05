@@ -58,11 +58,11 @@ def classify_papers(citation_list,distribution_path):
     ##plot percent curves as increase of x_max 
     ax20 = fig.add_subplot(5,2,5)
     logging.info('plotting the percentage rate .. ')
-    plot_percentage_curves(ax20,p_xs,p_ys)
+    plot_percentage_curves(ax20,p_xs,p_ys,'$x_{max}$','$P(1,x_{max})$','trend of $P(1,x_{max})$')
     
     ax21 = fig.add_subplot(5,2,6)
     logging.info('plotting the points perentage .. ')
-    plot_percentage_curves(ax21,px_xs,px_ys)
+    plot_percentage_curves(ax21,px_xs,px_ys,'$x_{max}$','$#(x_i)/#(X)$','trend of $#(x_i)/#(X)$')
 
     ## plot the grid search result of using percentage r2
     ax30 = fig.add_subplot(5,2,7)
@@ -101,11 +101,11 @@ def plot_citation_distribution(ax,xs,ys):
     ax.set_xscale('log')
     ax.set_yscale('log')
 
-def plot_percentage_curves(ax,xs,ys):
+def plot_percentage_curves(ax,xs,ys,xlabel,ylabel,title):
     ax.plot(xs,ys)
-    ax.set_title('trend of $P(1,x_{max}$')
-    ax.set_xlabel('$x_{max}$')
-    ax.set_ylabel('$P(1,x_{max}$')
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
     ax.set_xscale('log')
     ax.set_yscale('log')
 
