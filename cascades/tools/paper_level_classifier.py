@@ -29,7 +29,7 @@ def classify_papers(citation_list,distribution_path):
 
         p_xs.append(citation_count)
         p_sum+=y
-        p_xs.append(p_sum)
+        p_ys.append(p_sum)
 
     # fig,axes = plt.subplots(4,2,figsize=(14,20))
     fig = plt.figure(figsize=(14,20))
