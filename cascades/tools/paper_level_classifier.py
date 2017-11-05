@@ -62,7 +62,7 @@ def classify_papers(citation_list,distribution_path):
     
     ax21 = fig.add_subplot(5,2,6)
     logging.info('plotting the points perentage .. ')
-    plot_percentage_curves(ax21,px_xs,px_ys,'$x_{max}$','$#(x_i)/#(X)$','trend of $#(x_i)/#(X)$')
+    plot_percentage_curves(ax21,px_xs,px_ys,'$x_{max}$','#($x_i$)/#($X$)$','trend of #($x_i$)/#($X$)')
 
     ## plot the grid search result of using percentage r2
     ax30 = fig.add_subplot(5,2,7)
