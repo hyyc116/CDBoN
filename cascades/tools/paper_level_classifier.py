@@ -10,6 +10,10 @@ def classify_papers(citation_list,distribution_path):
     ys = []
     _max_y = 0
     _min_y = 1
+
+    p_xs = []
+    p_ys = []
+    p_sum=0
     for citation_count in sorted(citation_dis):
         if citation_count==0:
             continue
@@ -23,6 +27,10 @@ def classify_papers(citation_list,distribution_path):
         if y<_min_y:
             _min_y = y
 
+        p_xs.append(citation_count)
+        p_sum+=y
+        p_xs.append(p_sum)
+
     # fig,axes = plt.subplots(4,2,figsize=(14,20))
     fig = plt.figure(figsize=(14,20))
     ## first plot citation distribution
@@ -30,6 +38,13 @@ def classify_papers(citation_list,distribution_path):
     ax00 = fig.add_subplot(4,2,1)
     logging.info('plot the original distribution...')
     plot_citation_distribution(ax00,xs,ys)
+
+    ##plot percent curves as increase of x_max 
+    ax01 = fig.add_subplot(4,2,2)
+    logging.info('plotting the percentage rate .. ')
+    plot_percentage_curves(ax01,p_xs,p_ys)
+
+
     ## plot the grid search result of using R2 directly
     ax10 = fig.add_subplot(4,2,3)
     ax11 = fig.add_subplot(4,2,4, projection='3d')
@@ -66,6 +81,14 @@ def plot_citation_distribution(ax,xs,ys):
     ax.set_title('Citation Distribution')
     ax.set_xlabel('Citation Count')
     ax.set_ylabel('Relative Frequency')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+def plot_percentage_curves(ax,xs,ys):
+    ax.plot(xs,ys)
+    ax.set_title('trend of $P(1,x_{max}$')
+    ax.set_xlabel('$x_{max}$')
+    ax.set_ylabel('$P(1,x_{max}$')
     ax.set_xscale('log')
     ax.set_yscale('log')
 
