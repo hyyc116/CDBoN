@@ -128,7 +128,8 @@ def plot_field_dis():
 
 
 if __name__ == '__main__':
-    filed_distribution()
+    # filed_distribution()
+    plot_field_dis()
 
 
 
