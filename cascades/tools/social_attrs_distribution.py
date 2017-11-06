@@ -93,7 +93,7 @@ def filed_distribution():
 def plot_field_dis():
     fc = json.loads(open('data/mag/mag_field_dis.json').read())
     total = np.sum(fc.values())
-    field_depth = json.loads(open('data/mag/mag_field_depth.json'.read()))
+    field_depth = json.loads(open('data/mag/mag_field_depth.json').read())
 
     xs = []
     ys = []
