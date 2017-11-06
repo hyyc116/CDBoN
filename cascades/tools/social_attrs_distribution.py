@@ -68,7 +68,16 @@ def filed_distribution():
     ### 对于现在的list,画出整体的分布图
     field_list = []
     field_depth = defaultdict(list)
+    totals = len(cc_depth_fos_list)
+    logging.info('depth processing done, total lines : {:}'.format(totals))
+    read_index=0
     for cc,depth,f in cc_depth_fos_list:
+
+        read_index+=1
+
+        if read_index%10000==1:
+            logging.info('process {:}/{:} ...'.format(read_index,totals))
+
         field_list.append(f)
         field_depth[f].append(depth)
 
@@ -124,26 +133,8 @@ def plot_field_dis():
     logging.info('Done')
 
 
-
-
-
 if __name__ == '__main__':
     # filed_distribution()
     plot_field_dis()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
