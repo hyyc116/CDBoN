@@ -99,8 +99,10 @@ def plot_field_dis():
     ys = []
 
     for x in sorted(fc.keys()):
+        print x[3:]
+        print fc[x]/float(total)
         xs.append(x[3:])
-        ys.append(fc[x]/total)
+        ys.append(fc[x]/float(total))
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
