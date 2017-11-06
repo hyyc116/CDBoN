@@ -107,7 +107,7 @@ def plot_field_dis():
     plt.figure()
     fig,ax = plt.subplots(figsize=(6,5))
     ax.bar(np.arange(len(xs)),ys)
-    plt.xticks(np.arange(len(xs)),xs, rotation=30)
+    plt.xticks(np.arange(len(xs)),xs, rotation='vertical')
     plt.xlabel('Fields')
     plt.ylabel('Number')
     # plt.yscale('log')
