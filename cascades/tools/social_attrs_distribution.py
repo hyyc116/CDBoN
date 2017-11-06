@@ -83,18 +83,19 @@ def filed_distribution():
 
 def plot_field_dis():
     fc = json.loads(open('data/mag/mag_field_dis.json').read())
+    total = np.sum(fc.values())
     field_depth = json.loads(open('data/mag/mag_field_depth.json'.read()))
 
     xs = []
     ys = []
 
     for x in sorted(fc.keys()):
-        xs.append(x)
+        xs.append(x[3:])
         ys.append(fc[x]/total)
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
-    # plt.xticks(range(len(xs)),xs, rotation='vertical')
+    plt.xticks(range(len(xs)),xs, rotation=30)
     plt.xlabel('Fields')
     plt.ylabel('Number')
     plt.yscale('log')
@@ -112,7 +113,7 @@ def plot_field_dis():
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
-    # plt.xticks(range(len(xs)),xs, rotation='vertical')
+    plt.xticks(range(len(xs)),xs, rotation=30)
     plt.xlabel('Fields')
     plt.ylabel('Average Depth')
     plt.title('Filed Depth')
