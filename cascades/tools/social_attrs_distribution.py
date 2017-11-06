@@ -23,7 +23,7 @@ def filed_distribution():
                 fos = list(set([f[0] for f in n_fos]))
                 paper_fos[pid]=fos
                 num_list.append(len(fos))
-        if read_index%50==1:
+        if read_index%100==1:
             logging.info('reading paper obj , the {:}th line ... '.format(read_index))
 
     logging.info('Number of existing all nodes having fos:{:}'.format(len(paper_fos.keys())))
@@ -34,11 +34,14 @@ def filed_distribution():
     read_index=0
     for line in open('data/mag/mag_cs_cascade_attrs.txt'):
         read_index+=1
+
+
         line = line.strip()
         ca = json.loads(line)
         cascade_social_attr.update(ca)
 
-        logging.info('loading cascade attrs {:} th ...'.format(read_index))
+        if read_index%10==1:
+            logging.info('loading cascade attrs {:} th ...'.format(read_index))
 
     ## 对于cascade中每一篇文章，对应的citing papers的分析
 
@@ -59,7 +62,7 @@ def filed_distribution():
                 for f in fos:
                     cc_depth_fos_list.append([cc,depth,f])
 
-        if read_index%100000==1:
+        if read_index%200000==1:
             logging.info('process the depth, process {:} ...'.format(read_index))
 
     ### 对于现在的list,画出整体的分布图
@@ -69,16 +72,25 @@ def filed_distribution():
         field_list.append(f)
         field_depth[f].append(depth)
 
+    total = float(len(field_list))
     fc = Counter(field_list)
     logging.info('field dict {:}'.format(fc))
 
+    open('data/mag/mag_field_dis.json','w').write(json.dumps(fc))
+    open('data/mag/mag_field_depth.json','w').write(json.dumps(field_depth))
+
+    logging.info('filed data saved!')
+
+def plot_field_dis():
+    fc = json.loads(open('data/mag/mag_field_dis.json').read())
+    field_depth = json.loads(open('data/mag/mag_field_depth.json'.read()))
 
     xs = []
     ys = []
 
     for x in sorted(fc.keys()):
         xs.append(x)
-        ys.append(fc[x])
+        ys.append(fc[x]/total)
 
     plt.figure()
     plt.bar(range(len(xs)),ys)
@@ -89,6 +101,7 @@ def filed_distribution():
     plt.title('General Distribution')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_dis.pdf',dpi=200)
+    logging.info('saved to pdf/mag_field_dis.pdf')
 
 
     xs=[]
@@ -105,6 +118,7 @@ def filed_distribution():
     plt.title('Filed Depth')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
+    logging.info('saved to pdf/mag_field_depth.pdf')
 
     logging.info('Done')
 
