@@ -140,6 +140,7 @@ def plot_field_dis():
     plt.xlabel('Depth')
     plt.ylabel('number')
     plt.yscale('log')
+    plt.xscale('log')
     plt.legend()
     plt.title('Depth distribution')
     plt.tight_layout()
