@@ -139,6 +139,8 @@ def plot_field_dis():
 
     plt.xlabel('Depth')
     plt.ylabel('number')
+    plt.yscale('log')
+    plt.legend()
     plt.title('Depth distribution')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
