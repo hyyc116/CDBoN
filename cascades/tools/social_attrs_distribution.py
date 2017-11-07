@@ -66,8 +66,8 @@ def filed_distribution():
             ## field of this paper
             fos = paper_fos.get(cpid,'-1')
             if fos!='-1':
-                for f in fos:
-                    cc_depth_fos_list.append([cc,depth,f])
+                # for f in fos:
+                cc_depth_fos_list.append([cc,depth,fos])
 
         if read_index%200000==1:
             logging.info('process the depth, process {:} ...'.format(read_index))
