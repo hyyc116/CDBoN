@@ -134,7 +134,7 @@ def plot_field_dis():
             depth_xs.append(x)
             depth_ys.append(y)
 
-        plt.plot(depth_xs,depth_ys,label='name')
+        plt.plot(depth_xs,depth_ys,label=name)
 
 
     plt.xlabel('Depth')
