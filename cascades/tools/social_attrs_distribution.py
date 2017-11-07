@@ -121,14 +121,25 @@ def plot_field_dis():
     ys=[]
     for x in sorted(field_depth.keys()):
         xs.append(x)
-        ys.append(np.mean(field_depth[x]))
+        ys.append(Counter(field_depth[x]))
 
     plt.figure()
-    plt.bar(range(len(xs)),ys)
-    plt.xticks(range(len(xs)),xs, rotation=30)
-    plt.xlabel('Fields')
-    plt.ylabel('Average Depth')
-    plt.title('Filed Depth')
+    for i,name in enumerate(xs):
+        depth_dis  = ys[i]
+        depth_xs = []
+        depth_ys = []
+
+        for x in sorted(depth_dis.keys()):
+            y = depth_dis[x]
+            depth_xs.append(x)
+            depth_ys.append(y)
+
+        plt.plot(depth_xs,depth_ys,label='name')
+
+
+    plt.xlabel('Depth')
+    plt.ylabel('number')
+    plt.title('Depth distribution')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
     logging.info('saved to pdf/mag_field_depth.pdf')
