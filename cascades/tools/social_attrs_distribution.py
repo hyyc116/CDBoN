@@ -22,7 +22,7 @@ def filed_distribution():
             if n_fos!="-1":
                 ## 一级类别
                 # fos = list(set([f[0] for f in n_fos]))
-                fos_dis = [f[0] for f in n_fos]
+                fos_dis = Counter([f[0] for f in n_fos])
                 fos = sorted(fos_dis.keys(),key=lambda x:fos_dis[x],reverse=True)[0]
                 paper_fos[pid]=fos
                 num_list.append(len(fos_dis.keys()))
