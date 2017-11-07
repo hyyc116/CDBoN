@@ -12,6 +12,7 @@ def filed_distribution():
     paper_fos={}
     num_list = []
     read_index=0
+    field_list=[]
     for line in open('data/mag/mag_all_nodes_paper_objs.txt'):
         line = line.strip()
         read_index+=1
@@ -20,9 +21,15 @@ def filed_distribution():
             n_fos = d[pid]['n_fos']
             if n_fos!="-1":
                 ## 一级类别
-                fos = list(set([f[0] for f in n_fos]))
+                # fos = list(set([f[0] for f in n_fos]))
+                fos_dis = [f[0] for f in n_fos]
+                fos = sorted(fos_dis.keys(),key=lambda x:fos_dis[x],reverse=True)[0]
                 paper_fos[pid]=fos
-                num_list.append(len(fos))
+                num_list.append(len(fos_dis.keys()))
+                ## filed list
+                field_list.append(fos)
+
+
         if read_index%100==1:
             logging.info('reading paper obj , the {:}th line ... '.format(read_index))
 
@@ -66,7 +73,7 @@ def filed_distribution():
             logging.info('process the depth, process {:} ...'.format(read_index))
 
     ### 对于现在的list,画出整体的分布图
-    field_list = []
+    # field_list = []
     field_depth = defaultdict(list)
     totals = len(cc_depth_fos_list)
     logging.info('depth processing done, total lines : {:}'.format(totals))
@@ -78,10 +85,10 @@ def filed_distribution():
         if read_index%10000==1:
             logging.info('process {:}/{:} ...'.format(read_index,totals))
 
-        field_list.append(f)
+        # field_list.append(f)
         field_depth[f].append(depth)
 
-    total = float(len(field_list))
+    # total = float(len(field_list))
     fc = Counter(field_list)
     logging.info('field dict {:}'.format(fc))
 
