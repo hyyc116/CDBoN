@@ -12,6 +12,7 @@ def filed_distribution():
     paper_fos={}
     num_list = []
     read_index=0
+    field_list=[]
     for line in open('data/mag/mag_all_nodes_paper_objs.txt'):
         line = line.strip()
         read_index+=1
@@ -20,9 +21,15 @@ def filed_distribution():
             n_fos = d[pid]['n_fos']
             if n_fos!="-1":
                 ## 一级类别
-                fos = list(set([f[0] for f in n_fos]))
+                # fos = list(set([f[0] for f in n_fos]))
+                fos_dis = Counter([f[0] for f in n_fos])
+                fos = sorted(fos_dis.keys(),key=lambda x:fos_dis[x],reverse=True)[0]
                 paper_fos[pid]=fos
-                num_list.append(len(fos))
+                num_list.append(len(fos_dis.keys()))
+                ## filed list
+                field_list.append(fos)
+
+
         if read_index%100==1:
             logging.info('reading paper obj , the {:}th line ... '.format(read_index))
 
@@ -59,14 +66,14 @@ def filed_distribution():
             ## field of this paper
             fos = paper_fos.get(cpid,'-1')
             if fos!='-1':
-                for f in fos:
-                    cc_depth_fos_list.append([cc,depth,f])
+                # for f in fos:
+                cc_depth_fos_list.append([cc,depth,fos])
 
         if read_index%200000==1:
             logging.info('process the depth, process {:} ...'.format(read_index))
 
     ### 对于现在的list,画出整体的分布图
-    field_list = []
+    # field_list = []
     field_depth = defaultdict(list)
     totals = len(cc_depth_fos_list)
     logging.info('depth processing done, total lines : {:}'.format(totals))
@@ -78,10 +85,10 @@ def filed_distribution():
         if read_index%10000==1:
             logging.info('process {:}/{:} ...'.format(read_index,totals))
 
-        field_list.append(f)
+        # field_list.append(f)
         field_depth[f].append(depth)
 
-    total = float(len(field_list))
+    # total = float(len(field_list))
     fc = Counter(field_list)
     logging.info('field dict {:}'.format(fc))
 
@@ -121,14 +128,28 @@ def plot_field_dis():
     ys=[]
     for x in sorted(field_depth.keys()):
         xs.append(x)
-        ys.append(np.mean(field_depth[x]))
+        ys.append(Counter(field_depth[x]))
 
     plt.figure()
-    plt.bar(range(len(xs)),ys)
-    plt.xticks(range(len(xs)),xs, rotation=30)
-    plt.xlabel('Fields')
-    plt.ylabel('Average Depth')
-    plt.title('Filed Depth')
+    for i,name in enumerate(xs):
+        depth_dis  = ys[i]
+        depth_xs = []
+        depth_ys = []
+
+        for x in sorted(depth_dis.keys()):
+            y = depth_dis[x]
+            depth_xs.append(x)
+            depth_ys.append(y)
+
+        plt.plot(depth_xs,depth_ys,label=name)
+
+
+    plt.xlabel('Depth')
+    plt.ylabel('number')
+    plt.yscale('log')
+    # plt.xscale('log')
+    plt.legend()
+    plt.title('Depth distribution')
     plt.tight_layout()
     plt.savefig('pdf/mag_field_depth.pdf',dpi=200)
     logging.info('saved to pdf/mag_field_depth.pdf')
@@ -137,7 +158,7 @@ def plot_field_dis():
 
 
 if __name__ == '__main__':
-    # filed_distribution()
+    filed_distribution()
     plot_field_dis()
 
 
