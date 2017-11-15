@@ -134,26 +134,15 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2',end_x=80,start_y=100
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            # r2 = r2_score(np.log(y),np.log(fit_y))
-            r2 = r2_score(y,fit_y)
-
-            if r2<0:
-                print 'error',r2
+            r2 = r2_score(np.log(y),np.log(fit_y))
 
             normed_y = (np.log(y)-min_y)/(max_y-min_y)
             percent_of_num = np.sum(normed_y)/float(np.sum(normed_total_ys))
             percentage_r2 = r2*percent_of_num
 
-            if percentage_r2<0:
-                print 'percent error', r2,percentage_r2,percent_of_num
-            ## efficiency of description
             percent_of_x = float(len(y))/float(len(ys))
             efficiency = percent_of_num/percent_of_x
             adjusted_r2 = percentage_r2*efficiency
-
-            if adjusted_r2<0:
-                print 'adjested r2 error', r2,percent_of_num,efficiency,adjusted_r2
-
 
             if evaluator_name=='adjusted_r2':
                 evaluator = adjusted_r2
