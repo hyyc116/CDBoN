@@ -134,7 +134,8 @@ def fit_xmin_xmax(xs,ys,fig,ax,evaluator_name='adjusted_r2',end_x=80,start_y=100
 
             popt,pcov = curve_fit(power_low_func,x,y)
             fit_y = power_low_func(x, *popt)
-            r2 = r2_score(np.log(y),np.log(fit_y))
+            # r2 = r2_score(np.log(y),np.log(fit_y))
+            r2 = r2_score(y,fit_y)
 
             if r2<0:
                 print 'error',r2
