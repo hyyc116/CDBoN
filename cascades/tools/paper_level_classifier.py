@@ -87,7 +87,7 @@ def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.legend()
 
-def plot_citation_distribution(ax,xs,ys,xmin,x_max,_min_y,_max_y):
+def plot_citation_distribution(ax,xs,ys,xmin,xmax,_min_y,_max_y):
     ax.plot(xs,ys,'o',fillstyle='none')
     ax.plot([xmin]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(xmin))
     ax.plot([xmax]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{max}$'+'$={:}$'.format(xmax))
