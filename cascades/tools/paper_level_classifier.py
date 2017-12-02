@@ -83,18 +83,27 @@ def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y
     start,end = fit_xmin_xmax(xs,ys,fig,ax2,evaluator_name)
     logging.info('Search result: X_min =  {:},  X_max = {:} ...'.format(start,end))
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-    plot_citation_distribution(ax1,xs,ys,start,end,_min_y,_max_y)
+    plot_citation_distribution(ax1,xs,ys,start,end,_min_y,_max_y,True)
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.legend()
 
-def plot_citation_distribution(ax,xs,ys,xmin,xmax,_min_y,_max_y):
+def plot_citation_distribution(ax,xs,ys,xmin,xmax,_min_y,_max_y,isFinal):
     ax.plot(xs,ys,'o',fillstyle='none')
-    ax.plot([xmin]*10, np.linspace(_min_y, _max_y, 10),'--')
-    ax.plot([xmax]*10, np.linspace(_min_y, _max_y, 10),'--')
 
-    ax.text('II',xmin/2,10**-4)
-    ax.text('I',(xmin+xmax)/2,10**-4)
-    ax.text('III',1000,10**-2)
+    if not isFinal:
+        ax.plot([xmin]*10, np.linspace(_min_y, _max_y, 10),'--')
+        ax.plot([xmax]*10, np.linspace(_min_y, _max_y, 10),'--')
+        ax.text(2,10**-3,'II',fontsize=30)
+        ax.text(80,10**-1,'I',fontsize=30)
+        ax.text(1000,10**-4,'III',fontsize=30)
+
+    else:
+        ax.plot([xmin]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{min}$'+'$={:}$'.format(xmin))
+        ax.plot([xmax]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{max}$'+'$={:}$'.format(xmax))
+        ax.text(1,10**-3,'Low cited',fontsize=15)
+        ax.text(xmin,10**-1,'Medium cited',fontsize=15)
+        ax.text(xmax,10**-4,'High cited',fontsize=15)
+        ax.legend()
 
     ax.set_title('Citation Distribution')
     ax.set_xlabel('Citation Count')
