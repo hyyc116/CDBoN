@@ -93,7 +93,7 @@ def plot_citation_distribution(ax,xs,ys,xmin,xmax,_min_y,_max_y):
     ax.plot([xmax]*10, np.linspace(_min_y, _max_y, 10),'--',label='$x_{max}$'+'$={:}$'.format(xmax))
 
     ax.text('II',xmin/2,10**-4)
-    ax.text('I',(xmin+xmax)/x,10**-4)
+    ax.text('I',(xmin+xmax)/2,10**-4)
     ax.text('III',1000,10**-2)
 
     ax.set_title('Citation Distribution')
