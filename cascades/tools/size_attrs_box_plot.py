@@ -268,13 +268,13 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.set_title('Highly cited papers')
 
     if dataset=='AMiner':
-        t1 = 'publishing year\n(a)'
-        t2 = 'publishing year\n(c)'
-        t3 = 'publishing year\n(e)'
+        t1 = 'publishing year\n(c)'
+        t2 = 'publishing year\n(e)'
+        t3 = 'publishing year\n(g)'
     elif dataset=='MAG':
-        t1 = 'publishing year\n(b)'
-        t2 = 'publishing year\n(d)'
-        t3 = 'publishing year\n(e)'
+        t1 = 'publishing year\n(d)'
+        t2 = 'publishing year\n(f)'
+        t3 = 'publishing year\n(h)'
 
     ax1.set_xlabel(t1)
     ax1.set_ylabel('indirect links')
