@@ -105,10 +105,10 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[0]
     if dataset=='AMiner':
         t1 = 'cascade depth\n(a)'
-        t2 = 'indirect links\n(c)'
+        t2 = 'normalized indirect CRs\n(c)'
     elif dataset=='MAG':
         t1 = 'cascade depth\n(b)'
-        t2 = 'indirect links\n(d)'
+        t2 = 'normalized indirect CRs\n(d)'
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
     ax2 = axes[1]
 
