@@ -103,9 +103,16 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(2,1,figsize=(7,10))
     ax1 = axes[0]
-    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,'cascade depth',dataset=dataset)
+    if dataset=='AMiner':
+        t1 = 'cascade depth\n(a)'
+        t2 = 'indirect links\n(c)'
+    elif dataset=='MAG':
+        t1 = 'cascade depth\n(b)'
+        t2 = 'indirect links\n(d)'
+    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
     ax2 = axes[1]
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,'indirect links',dataset=dataset)
+
+    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -116,7 +123,13 @@ def plot_relation_size_attr(dataset):
     ax1 = axes[1]
     ax2 = axes[2]
     ax3 = axes[3]
-    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,'publishing year',dataset=dataset)
+
+    if dataset=='AMiner':
+        t1 = 'publishing year\n(a)'
+    elif dataset=='MAG':
+        t1 = 'publishing year\n(b)'
+
+    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,t1,dataset=dataset)
     year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max)
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.tight_layout()
@@ -254,13 +267,22 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.plot(xs,ys,'--',c='r')
     ax3.set_title('Highly cited papers')
 
-    ax1.set_xlabel('publishing year')
+    if dataset=='AMiner':
+        t1 = 'publishing year\n(a)'
+        t2 = 'publishing year\n(c)'
+        t3 = 'publishing year\n(e)'
+    elif dataset=='MAG':
+        t1 = 'publishing year\n(b)'
+        t2 = 'publishing year\n(d)'
+        t3 = 'publishing year\n(e)'
+
+    ax1.set_xlabel(t1)
     ax1.set_ylabel('indirect links')
 
-    ax2.set_xlabel('publishing year')
+    ax2.set_xlabel(t2)
     ax2.set_ylabel('indirect links')
 
-    ax3.set_xlabel('publishing year')
+    ax3.set_xlabel(t3)
     ax3.set_ylabel('indirect links')
 
 
