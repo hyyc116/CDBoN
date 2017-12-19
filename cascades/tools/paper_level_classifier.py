@@ -83,8 +83,11 @@ def plot_fitting_and_distribution(fig,ax1,ax2,xs,ys,evaluator_name,_min_y,_max_y
     start,end = fit_xmin_xmax(xs,ys,fig,ax2,evaluator_name)
     logging.info('Search result: X_min =  {:},  X_max = {:} ...'.format(start,end))
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-    plot_citation_distribution(ax1,xs,ys,start,end,_min_y,_max_y,True)
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
+
+    xmin = xs[start]
+    xmax = xs[end-1]
+    plot_citation_distribution(ax1,xs,ys,xmin,xmax,_min_y,_max_y,True)
+    ax1.plot(np.linspace(xmin, xmax, 10), power_low_func(np.linspace(xmin, xmax, 10), *popt),label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.legend()
 
 def plot_citation_distribution(ax,xs,ys,xmin,xmax,_min_y,_max_y,isFinal=False):
