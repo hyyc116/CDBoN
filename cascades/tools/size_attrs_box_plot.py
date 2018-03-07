@@ -278,13 +278,13 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
         t3 = 'publishing year\n(h)'
 
     ax1.set_xlabel(t1)
-    ax1.set_ylabel('indirect links')
+    ax1.set_ylabel('normalized number of ICRs')
 
     ax2.set_xlabel(t2)
-    ax2.set_ylabel('indirect links')
+    ax2.set_ylabel('normalized number of ICRs')
 
     ax3.set_xlabel(t3)
-    ax3.set_ylabel('indirect links')
+    ax3.set_ylabel('normalized number of ICRs')
 
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',yscale='log',dataset='AMiner'):
