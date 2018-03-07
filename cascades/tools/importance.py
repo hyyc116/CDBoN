@@ -107,7 +107,7 @@ def importance():
     ax.plot(AD_percentage(aminer_percentages),label='ArnetMiner')
     ax.plot(AD_percentage(mag_percentages),label='MAG-CS')
     ax.set_xlabel('$%i$')
-    ax.set_ylable('P(x>%i)')
+    ax.set_ylabel('P(x>%i)')
     ax.legend()
     plt.savefig('pdf/freq.pdf',dpi=200)
 
