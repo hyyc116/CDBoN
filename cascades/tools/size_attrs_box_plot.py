@@ -103,12 +103,12 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(2,1,figsize=(7,10))
     ax1 = axes[0]
-    if dataset=='AMiner':
-        t1 = 'cascade depth\n(a)'
-        t2 = 'normalized indirect CRs\n(c)'
-    elif dataset=='MAG':
-        t1 = 'cascade depth\n(b)'
-        t2 = 'normalized indirect CRs\n(d)'
+    if dataset=='ArnetMiner':
+        t1 = 'depth\n(a)'
+        t2 = 'number of normalized ICRs\n(c)'
+    elif dataset=='MAG-CS':
+        t1 = 'depth\n(b)'
+        t2 = 'number of normalized ICRs\n(d)'
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
     ax2 = axes[1]
 
@@ -229,7 +229,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
             ys.append(mean)
 
     ax1.plot(xs,ys,c='r')
-    ax1.set_title('Low cited papers')
+    ax1.set_title('Low-impact papers')
 
     print 'Medium cited papers ...'
     xs = []
@@ -247,7 +247,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
             ys.append(mean)
 
     ax2.plot(xs,ys,'--',c='r')
-    ax2.set_title('Medium cited papers')
+    ax2.set_title('Medium-impact papers')
 
     print 'low cited papers ...'
     xs = []
@@ -265,7 +265,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
             ys.append(mean)
 
     ax3.plot(xs,ys,'--',c='r')
-    ax3.set_title('Highly cited papers')
+    ax3.set_title('Highly-impact papers')
 
     if dataset=='AMiner':
         t1 = 'publishing year\n(c)'
@@ -286,7 +286,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.set_ylabel('indirect links')
 
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='cascade size',yscale='log',dataset='AMiner'):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
