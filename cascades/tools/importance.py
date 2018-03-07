@@ -19,6 +19,7 @@ def importance():
 
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
+    aminer_percentages = []
 
     for i in range(len(cxs)):
         sx = cxs[i]
@@ -26,6 +27,9 @@ def importance():
             equal_dict[sx].append(1)
         else:
             equal_dict[sx].append(0)
+
+        percentages.append((eys[i]-cxs[i])/float(eys[i]))
+
 
 
     # percentage of  cascade size = ciattion count vs citation count
@@ -56,7 +60,7 @@ def importance():
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
-
+    mag_percentages = []
     for i in range(len(cxs)):
         sx = cxs[i]
 
@@ -64,6 +68,8 @@ def importance():
             equal_dict[sx].append(1)
         else:
             equal_dict[sx].append(0)
+
+        mag_percentages.append((eys[i]-cxs[i])/float(eys[i]))
 
 
     # percentage of  cascade size = ciattion count vs citation count
@@ -95,6 +101,30 @@ def importance():
     ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
+
+
+    fig,ax = plt.subplots(figsize=(6,4))
+    ax.plot(AD_percentage(aminer_percentages),label='ArnetMiner')
+    ax.plot(AD_percentage(mag_percentages),label='MAG-CS')
+    ax.set_xlabel('$%i$')
+    ax.set_ylable('P(x>%i)')
+    ax.legend()
+    plt.savefig('pdf/freq.pdf',dpi=200)
+
+
+
+def AD_percentage(percentage):
+    pc= Counter(percentage)
+    num = len(percentage)
+    xs = []
+    ys = []
+    a_count=0
+    for i in sorted(pc.keys()):
+        xs.append(i)
+        ys.append(num-a_count)
+        a_count+=pc[i]
+
+    return xs,ys
 
 
 
