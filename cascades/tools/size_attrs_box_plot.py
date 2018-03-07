@@ -103,12 +103,13 @@ def plot_relation_size_attr(dataset):
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(2,1,figsize=(7,10))
     ax1 = axes[0]
-    if dataset=='ArnetMiner':
+    if dataset=='AMiner':
         t1 = 'depth\n(a)'
         t2 = 'number of normalized ICRs\n(c)'
-    elif dataset=='MAG-CS':
+    elif dataset=='MAG':
         t1 = 'depth\n(b)'
         t2 = 'number of normalized ICRs\n(d)'
+
     attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
     ax2 = axes[1]
 
@@ -309,7 +310,12 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_yscale(yscale)
-    ax.set_title(dataset)
+    if dataset=='AMiner':
+        ax.set_title('ArnetMiner')
+    else:
+        ax.set_title('MAG-CS')
+
+
     ax.legend()
 
     ## 1<x<23
