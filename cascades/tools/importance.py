@@ -124,9 +124,9 @@ def AD_percentage(percentage):
     ys = []
     a_count=0
     for i in sorted(pc.keys()):
-        xs.append(i)
-        ys.append(num-a_count)
         a_count+=pc[i]
+        xs.append(i)
+        ys.append(a_count)
 
     return xs,ys
 
