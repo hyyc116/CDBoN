@@ -37,12 +37,12 @@ def importance():
         y = equal_dict[cc]
         e_ys.append(sum(y)/float(len(y)))
 
-    ax.plot(e_xs,e_ys,label='Aminer')
+    ax.plot(e_xs,e_ys,label='Arnetminer')
     ax.set_xscale('log')
     # ax0.set_yscale('log')
-    ax.set_title('$P(cascade\ size = edge\ count)$')
-    ax.set_xlabel('citation count')
-    ax.set_ylabel('percentage')
+    # ax.set_title('$P(e=n-1)$')
+    ax.set_xlabel('N(C)')
+    ax.set_ylabel('P(e=n-1|C)')
 
     plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
     ###plot the comparison figure
@@ -82,7 +82,7 @@ def importance():
 
         e_ys.append(sum(y)/float(len(y)))
 
-    ax.plot(e_xs,e_ys,label='MAG')
+    ax.plot(e_xs,e_ys,label='MAG-CS')
 
     print _10_y
     ax.plot(np.linspace(0.6,10,10),[_10_y]*10,'--',c='r')
