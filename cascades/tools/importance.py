@@ -104,8 +104,10 @@ def importance():
 
 
     fig,ax = plt.subplots(figsize=(6,4))
-    ax.plot(AD_percentage(aminer_percentages),label='ArnetMiner')
-    ax.plot(AD_percentage(mag_percentages),label='MAG-CS')
+    xs,ys = AD_percentage(aminer_percentages)
+    ax.plot(xs,ys,label='ArnetMiner')
+    xs,ys = AD_percentage(mag_percentages)
+    ax.plot(xs,ys,label='MAG-CS')
     ax.set_xlabel('$%i$')
     ax.set_ylabel('P(x>%i)')
     ax.legend()
