@@ -110,7 +110,9 @@ def importance():
     ax.plot(xs,ys,label='MAG-CS')
     ax.set_xlabel('%i')
     ax.set_ylabel('P(x>%i)')
+    ax.set_yscale('log')
     ax.legend()
+    plt.tight_layout()
     plt.savefig('pdf/freq.pdf',dpi=200)
 
 
