@@ -28,7 +28,7 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        percentages.append((eys[i]-cxs[i])/float(eys[i]))
+        aminer_percentages.append((eys[i]-cxs[i])/float(eys[i]))
 
 
 
