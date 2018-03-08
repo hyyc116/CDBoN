@@ -110,7 +110,7 @@ def importance():
     ax.plot(xs,ys,label='MAG-CS')
     ax.set_xlabel('Citation Count')
     ax.set_ylabel('Average $\%i$')
-    # ax.set_yscale('log')
+    ax.set_xscale('log')
     ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/freq.pdf',dpi=200)
