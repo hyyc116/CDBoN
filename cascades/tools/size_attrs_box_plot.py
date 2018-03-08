@@ -102,18 +102,18 @@ def plot_relation_size_attr(dataset):
 
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(2,1,figsize=(7,10))
-    ax1 = axes[0]
     if dataset=='AMiner':
-        t1 = 'depth\n(a)'
-        t2 = 'number of normalized ICRs\n(c)'
+        t1 = 'depth\n(c)'
+        t2 = 'number of normalized ICRs\n(a)'
     elif dataset=='MAG':
-        t1 = 'depth\n(b)'
-        t2 = 'number of normalized ICRs\n(d)'
+        t1 = 'depth\n(d)'
+        t2 = 'number of normalized ICRs\n(b)'
 
-    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
-    ax2 = axes[1]
-
+    ax2 = axes[0]
     attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
+    ax1 = axes[1]
+    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
+
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
     plt.savefig(fig_path,dpi=200)
@@ -278,13 +278,13 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
         t3 = 'publishing year\n(h)'
 
     ax1.set_xlabel(t1)
-    ax1.set_ylabel('normalized number of ICRs')
+    ax1.set_ylabel('number of normalized ICRs')
 
     ax2.set_xlabel(t2)
-    ax2.set_ylabel('normalized number of ICRs')
+    ax2.set_ylabel('number of normalized ICRs')
 
     ax3.set_xlabel(t3)
-    ax3.set_ylabel('normalized number of ICRs')
+    ax3.set_ylabel('number of normalized ICRs')
 
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',yscale='log',dataset='AMiner'):
