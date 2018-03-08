@@ -303,7 +303,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',
 
 
     ## 画两条线
-    if ylabel=='cascade size':
+    if ylabel=='Citation Count':
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
