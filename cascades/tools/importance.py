@@ -117,9 +117,9 @@ def importance():
 
 
 
-def AD_percentage(percentage):
+def AD_percentage(pc):
     
-    num = len(percentage)
+    # num = len(percentage)
     xs = []
     ys = []
     a_count=0
