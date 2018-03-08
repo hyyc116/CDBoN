@@ -19,7 +19,7 @@ def importance():
 
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
-    aminer_percentages = []
+    aminer_percentages = defaultdict(list)
 
     for i in range(len(cxs)):
         sx = cxs[i]
@@ -28,7 +28,7 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        aminer_percentages.append((eys[i]-cxs[i])/float(eys[i]))
+        aminer_percentages[i].append((eys[i]-cxs[i])/float(eys[i]))
 
 
 
@@ -60,7 +60,7 @@ def importance():
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
-    mag_percentages = []
+    mag_percentages = defaultdict(list)
     for i in range(len(cxs)):
         sx = cxs[i]
 
@@ -69,7 +69,7 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        mag_percentages.append((eys[i]-cxs[i])/float(eys[i]))
+        mag_percentages[i].append((eys[i]-cxs[i])/float(eys[i]))
 
 
     # percentage of  cascade size = ciattion count vs citation count
@@ -118,15 +118,14 @@ def importance():
 
 
 def AD_percentage(percentage):
-    pc= Counter(percentage)
+    
     num = len(percentage)
     xs = []
     ys = []
     a_count=0
     for i in sorted(pc.keys()):
-        a_count+=pc[i]
         xs.append(i)
-        ys.append(a_count/float(num))
+        ys.append(np.mean(pc[i]))
 
     return xs,ys
 
