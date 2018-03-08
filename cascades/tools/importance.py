@@ -28,9 +28,9 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        if x<10:
+        if sx<10:
             aminer_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
-        elif x<165:
+        elif sx<165:
             aminer_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
         else:
             aminer_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
@@ -75,9 +75,9 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        if x<22:
+        if sx<22:
             mag_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
-        elif x<260:
+        elif sx<260:
             mag_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
         else:
             mag_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
