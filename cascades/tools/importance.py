@@ -114,18 +114,21 @@ def importance():
     plt.savefig('pdf/importance.pdf',dpi=200)
 
 
-    fig,axes = plt.subplots(2,1,figsize=(12,5))
+    fig,axes = plt.subplots(1,2,figsize=(12,5))
     xs,ys = AD_percentage(aminer_percentages)
     ax = axes[0]
     ax.set_title('ArnetMiner')
-    ax.bar(xs,ys)
+    rect = ax.bar(xs,ys)
+    autolabel(rect,ax)
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
     xs,ys = AD_percentage(mag_percentages)
     ax = axes[1]
     ax.set_title('ArnetMiner')
-    ax.bar(xs,ys)
+    rect = ax.bar(xs,ys)
+    autolabel(rect,ax)
+
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
