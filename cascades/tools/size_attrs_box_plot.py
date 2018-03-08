@@ -101,7 +101,7 @@ def plot_relation_size_attr(dataset):
         year_indirect_dict[owner_year].append(n_indirect_links)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(2,1,figsize=(7,10))
+    fig,axes  = plt.subplots(1,1,figsize=(6,5))
     if dataset=='AMiner':
         t1 = 'depth\n(c)'
         t2 = 'number of normalized ICRs\n(a)'
@@ -109,10 +109,10 @@ def plot_relation_size_attr(dataset):
         t1 = 'depth\n(d)'
         t2 = 'number of normalized ICRs\n(b)'
 
-    ax2 = axes[0]
+    ax2 = axes
     attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
-    ax1 = axes[1]
-    attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
+    # ax1 = axes[1]
+    # attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
 
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
