@@ -46,7 +46,7 @@ def importance():
     # ax0.set_yscale('log')
     # ax.set_title('$P(e=n-1)$')
     ax.set_xlabel('Citation Count')
-    ax.set_ylabel('P(e=n|C)')
+    ax.set_ylabel('P(e=n)')
 
     plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
     ###plot the comparison figure
