@@ -45,8 +45,8 @@ def importance():
     ax.set_xscale('log')
     # ax0.set_yscale('log')
     # ax.set_title('$P(e=n-1)$')
-    ax.set_xlabel('N(C)')
-    ax.set_ylabel('P(e=n-1|C)')
+    ax.set_xlabel('Citation Count')
+    ax.set_ylabel('P(e=n|C)')
 
     plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
     ###plot the comparison figure
@@ -108,8 +108,8 @@ def importance():
     ax.plot(xs,ys,label='ArnetMiner')
     xs,ys = AD_percentage(mag_percentages)
     ax.plot(xs,ys,label='MAG-CS')
-    ax.set_xlabel('%i')
-    ax.set_ylabel('P(x>%i)')
+    ax.set_xlabel('Citation Count')
+    ax.set_ylabel('Average $\%i$')
     # ax.set_yscale('log')
     ax.legend()
     plt.tight_layout()
