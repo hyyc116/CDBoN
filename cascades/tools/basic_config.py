@@ -88,7 +88,7 @@ def autolabel(rects,ax,total_count=None,step=1,):
                     ha='center', va='bottom')
         else:
             ax.text(rect.get_x() + rect.get_width()/2., 1.005*height,
-                    '{:}'.format(int(height)),
+                    '{:.2f}'.format(height),
                     ha='center', va='bottom')
 
 def plot_heat_scatter(xs,ys,ax,fig):
