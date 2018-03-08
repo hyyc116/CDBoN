@@ -118,7 +118,7 @@ def importance():
     xs,ys = AD_percentage(aminer_percentages)
     ax = axes[0]
     ax.set_title('ArnetMiner')
-    rect = ax.bar(xs,ys)
+    rect = ax.bar(xs,ys,width=0.4)
     autolabel(rect,ax)
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
@@ -126,7 +126,7 @@ def importance():
     xs,ys = AD_percentage(mag_percentages)
     ax = axes[1]
     ax.set_title('MAG-CS')
-    rect = ax.bar(xs,ys)
+    rect = ax.bar(xs,ys,width=0.4)
     autolabel(rect,ax)
 
     ax.set_xticks(xs)
