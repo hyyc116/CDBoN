@@ -28,7 +28,7 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        aminer_percentages[i].append((eys[i]-cxs[i])/float(eys[i]))
+        aminer_percentages[sx].append((eys[i]-cxs[i])/float(eys[i]))
 
 
 
@@ -69,7 +69,7 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        mag_percentages[i].append((eys[i]-cxs[i])/float(eys[i]))
+        mag_percentages[sx].append((eys[i]-cxs[i])/float(eys[i]))
 
 
     # percentage of  cascade size = ciattion count vs citation count
