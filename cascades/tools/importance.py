@@ -125,7 +125,7 @@ def importance():
 
     xs,ys = AD_percentage(mag_percentages)
     ax = axes[1]
-    ax.set_title('ArnetMiner')
+    ax.set_title('MAG-CS')
     rect = ax.bar(xs,ys)
     autolabel(rect,ax)
 
