@@ -28,7 +28,13 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        aminer_percentages[sx].append((eys[i]-cxs[i])/float(eys[i]))
+        if x<10:
+            aminer_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
+        elif x<165:
+            aminer_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
+        else:
+            aminer_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
+
 
 
 
@@ -69,7 +75,12 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        mag_percentages[sx].append((eys[i]-cxs[i])/float(eys[i]))
+        if x<22:
+            mag_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
+        elif x<260:
+            mag_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
+        else:
+            mag_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
 
 
     # percentage of  cascade size = ciattion count vs citation count
@@ -103,15 +114,21 @@ def importance():
     plt.savefig('pdf/importance.pdf',dpi=200)
 
 
-    fig,ax = plt.subplots(figsize=(6,4))
+    fig,axes = plt.subplots(2,1,figsize=(12,5))
     xs,ys = AD_percentage(aminer_percentages)
-    ax.plot(xs,ys,label='ArnetMiner')
+    ax = axes[0]
+    ax.set_title('ArnetMiner')
+    ax.bar(xs,ys)
+    ax.set_xticks(xs)
+    ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
+
     xs,ys = AD_percentage(mag_percentages)
-    ax.plot(xs,ys,label='MAG-CS')
-    ax.set_xlabel('Citation Count')
-    ax.set_ylabel('Average $\%i$')
-    ax.set_xscale('log')
-    ax.legend()
+    ax = axes[1]
+    ax.set_title('ArnetMiner')
+    ax.bar(xs,ys)
+    ax.set_xticks(xs)
+    ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
+
     plt.tight_layout()
     plt.savefig('pdf/freq.pdf',dpi=200)
 
