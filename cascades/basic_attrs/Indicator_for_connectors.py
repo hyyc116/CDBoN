@@ -12,8 +12,8 @@ def mag_indicators_for_connectors():
     for line in open('data/mag/mag_all_nodes_paper_objs.txt'):
         line = line.strip()
         read_index+=1
-        if read_index%10==1:
-            logging.info('loading cascade attrs {:} th ...'.format(read_index))
+        if read_index%100==1:
+            logging.info('loading paper obj {:} th ...'.format(read_index))
         d = json.loads(line)
         for pid in d.keys():
             pid_citation[pid] = d[pid]['n_citation']
@@ -23,7 +23,6 @@ def mag_indicators_for_connectors():
 
     ## 从mag_cs_cascade_attrs.txt中读取每个pid的citation的depth, od, id
     ## id大于0的就表示该node为connector
-
     nc_depth = []
     cr_depth = []
     read_index=0
@@ -35,6 +34,7 @@ def mag_indicators_for_connectors():
             logging.info('loading cascade attrs {:} th ...'.format(read_index))
 
         for pid in ca.keys():
+            n_citation = len(ca[pid].keys())
             for cpid in ca[pid].keys():
                 obj= ca[pid][cpid]
 
@@ -45,22 +45,16 @@ def mag_indicators_for_connectors():
                 if ind>0:
 
                     nc = int(pid_citation[cpid])
-
                     if nc!=-1:
-
-                        nc_depth.append([nc,depth])
+                        nc_depth.append([nc,depth,n_citation,pid])
 
                         cr = float(ind)/nc
-
-                        cr_depth.append([cr,depth])
-
+                        cr_depth.append([cr,depth,n_citation,pid])
 
     out_json ={}
     out_json['nc'] = nc_depth
     out_json['cr'] = cr_depth
-
     open('data/mag/mag_connector.json','w').write(json.dumps(out_json)+"\n")
-
 
 if __name__ == '__main__':
     mag_indicators_for_connectors()
