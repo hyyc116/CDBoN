@@ -77,7 +77,7 @@ def draw_box(mag_connector):
             cxs.append(cc)
             acr.append(np.mean(cc_pid_crs[cc][pid]))
 
-    fig.ax = plt.subplots(figsize=(5,5))
+    fig,ax = plt.subplots(figsize=(5,5))
     plot_heat_scatter(cxs,cxs,ax,fig)
 
     ax.set_xscale('log')
