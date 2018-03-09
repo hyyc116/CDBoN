@@ -35,6 +35,7 @@ from matplotlib.colors import LogNorm
 from matplotlib.colors import LinearSegmentedColormap
 from networkx.algorithms.core import core_number
 from networkx.algorithms.core import k_core
+from scipy.stats import pearsonr
 
 mpl.rcParams['agg.path.chunksize'] = 10000
 
