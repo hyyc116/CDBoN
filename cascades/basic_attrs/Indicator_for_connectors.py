@@ -66,7 +66,7 @@ def draw_box(mag_connector):
     logging.info('plotting CR ... ')
 
 
-    level_cat_list =defaultdict(lambda:defaultdict(list))
+    cc_pid_crs =defaultdict(lambda:defaultdict(list))
     for cr,depth,n_citation,pid in nc_list:
         cc_pid_crs[n_citation][pid].append(cr)
 
