@@ -68,22 +68,22 @@ def draw_box(mag_connector):
 
     depth_cr=defaultdict(list)
     level_cat_list =defaultdict(lambda:defaultdict(list))
-    for cr,depth,n_citation,pid in cr_list:
+    for cr,depth,n_citation,pid in nc_list:
         # if n_citation>260:
         depth_cr[depth].append(cr)
 
         level_cat_list['ALL']['cr'].append(cr)
-        level_cat_list['ALL']['depth'].append(n_citation)
+        level_cat_list['ALL']['depth'].append(depth)
 
         if n_citation<22:
             level_cat_list['LOW']['cr'].append(cr)
-            level_cat_list['LOW']['depth'].append(n_citation)
+            level_cat_list['LOW']['depth'].append(depth)
         elif n_citation<260:
             level_cat_list['MEDIUM']['cr'].append(cr)
-            level_cat_list['MEDIUM']['depth'].append(n_citation)
+            level_cat_list['MEDIUM']['depth'].append(depth)
         else:
             level_cat_list['HIGH']['cr'].append(cr)
-            level_cat_list['HIGH']['depth'].append(n_citation) 
+            level_cat_list['HIGH']['depth'].append(depth) 
 
     data=[]
     xlabels=[]
