@@ -58,9 +58,13 @@ def mag_indicators_for_connectors():
 
 
 def draw_box(mag_connector):
+    logging.info('loading data ... ')
     mag_connector_obj = json.loads(open(mag_connector).read())
     nc_list = mag_connector_obj['nc']
     cr_list = mag_connector_obj['cr']
+
+    logging.info('plotting CR ... ')
+
 
     depth_cr=defaultdict(list)
     for cr,depth,n_citation,pid in cr_list:
@@ -78,7 +82,10 @@ def draw_box(mag_connector):
     ax.set_ylabel('Conversion Rate')
 
     plt.tight_layout()
-    plt.savefig('pdf/mag_connector_cr.pdf',dpi=200)
+    plt.savefig('pdf/mag_connector_cr.png',dpi=200)
+
+    logging.info('Saved to pdf/mag_connector_cr.png.')
+
 
 
 if __name__ == '__main__':
