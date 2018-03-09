@@ -7,10 +7,13 @@ from basic_config import *
 def mag_indicators_for_connectors():
 
     pid_citation = defaultdict(int)
+    read_index=0
     ## 对所有可能存在的id的citation数量进行读取
     for line in open('data/mag/mag_all_nodes_paper_objs.txt'):
         line = line.strip()
         read_index+=1
+        if read_index%10==1:
+            logging.info('loading cascade attrs {:} th ...'.format(read_index))
         d = json.loads(line)
         for pid in d.keys():
             pid_citation[pid] = d[pid]['n_citation']
