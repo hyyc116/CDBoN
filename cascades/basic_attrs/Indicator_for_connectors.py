@@ -68,7 +68,8 @@ def draw_box(mag_connector):
 
     depth_cr=defaultdict(list)
     for cr,depth,n_citation,pid in cr_list:
-        depth_cr[depth].append(cr)
+        if n_citation>260:
+            depth_cr[depth].append(cr)
 
     data=[]
     xlabels=[]
