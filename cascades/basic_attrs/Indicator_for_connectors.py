@@ -56,8 +56,34 @@ def mag_indicators_for_connectors():
     out_json['cr'] = cr_depth
     open('data/mag/mag_connector.json','w').write(json.dumps(out_json)+"\n")
 
+
+def draw_box(mag_connector):
+    mag_connector_obj = json.loads(open(mag_connector).read())
+    nc_list = mag_connector_obj['nc']
+    cr_list = mag_connector_obj['cr']
+
+    depth_cr=defaultdict(list)
+    for cr,depth,n_citation,pid in cr_list:
+        depth_cr[depth].append(cr)
+
+    data=[]
+    xlabels=[]
+    for depth in sorted(depth_cr.keys()):
+        xlabels.append(depth)
+        data.append(depth_cr[depth])
+
+    fig,ax = plt.subplots(figsize=(10,5))
+    ax.boxplot(data)
+    ax.set_xlabel('Depth')
+    ax.set_ylabel('Conversion Rate')
+
+    plt.tight_layout()
+    plt.savefig('pdf/mag_connector_cr.pdf',dpi=200)
+
+
 if __name__ == '__main__':
-    mag_indicators_for_connectors()
+    # mag_indicators_for_connectors()
+    draw_box(sys.argv[1])
 
 
 
