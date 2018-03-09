@@ -67,7 +67,7 @@ def draw_box(mag_connector):
 
 
     cc_pid_crs =defaultdict(lambda:defaultdict(list))
-    for cr,depth,n_citation,pid in nc_list:
+    for cr,depth,n_citation,pid in cr_list:
         cc_pid_crs[n_citation][pid].append(cr)
 
     cxs=[]
