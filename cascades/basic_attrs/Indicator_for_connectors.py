@@ -66,48 +66,27 @@ def draw_box(mag_connector):
     logging.info('plotting CR ... ')
 
 
-    depth_cr=defaultdict(list)
     level_cat_list =defaultdict(lambda:defaultdict(list))
     for cr,depth,n_citation,pid in nc_list:
-        # if n_citation>260:
-        depth_cr[depth].append(cr)
+        cc_pid_crs[n_citation][pid].append(cr)
 
-        level_cat_list['ALL']['cr'].append(cr)
-        level_cat_list['ALL']['depth'].append(depth)
+    cxs=[]
+    acr=[]
+    for cc in cc_pid_crs.keys():
+        for pid in cc_pid_crs[cc].keys():
+            cxs.append(cc)
+            acr.append(np.mean(cc_pid_crs[cc][pid]))
 
-        if n_citation<22:
-            level_cat_list['LOW']['cr'].append(cr)
-            level_cat_list['LOW']['depth'].append(depth)
-        elif n_citation<260:
-            level_cat_list['MEDIUM']['cr'].append(cr)
-            level_cat_list['MEDIUM']['depth'].append(depth)
-        else:
-            level_cat_list['HIGH']['cr'].append(cr)
-            level_cat_list['HIGH']['depth'].append(depth) 
+    fig.ax = plt.subplots(figsize=(5,5))
+    plot_heat_scatter(cxs,cxs,ax,fig)
 
-    data=[]
-    xlabels=[]
-    for depth in sorted(depth_cr.keys()):
-        xlabels.append(depth)
-        data.append(depth_cr[depth])
-
-    fig,ax = plt.subplots(figsize=(10,5))
-    ax.boxplot(data)
-    ax.set_xlabel('Depth')
-    ax.set_ylabel('Conversion Rate')
+    ax.set_xscale('log')
+    ax.set_xlabel('citation count')
+    ax.set_ylabel('ACR')
+    ax.set_title('Average Conversion Rate')
 
     plt.tight_layout()
-    plt.savefig('pdf/mag_connector_cr.png',dpi=200)
-
-    logging.info('Saved to pdf/mag_connector_cr.png.')
-
-    for level in level_cat_list.keys():
-        cl = level_cat_list[level]['cr']
-        dl = level_cat_list[level]['depth']
-        score,p = pearsonr(cl,dl)
-
-        print level,score,p
-
+    plt.savefig('pdf/mag_acr.png',dpi=200)
 
 
 if __name__ == '__main__':
