@@ -20,7 +20,6 @@ def aminer_indicator_for_connectors(citation_cascade):
         edges = cc[pid]['edges']
         diG.add_edges_from(edges)
 
-        all_cxs.append(cc[pid]['cnum'])
         # if citation cascade is not acyclic graph
         if not nx.is_directed_acyclic_graph(diG):
             continue
@@ -40,7 +39,9 @@ def aminer_indicator_for_connectors(citation_cascade):
                     cr = ind/float(nc_nid)
 
                     crs.append(cr)
-
+        if len(crs)==0:
+            continue
+        all_cxs.append(cc[pid]['cnum'])
         all_acrs.append(np.mean(crs))
 
     logging.info('length of cxs:{:}, length of acrs:{:}.'.format(len(all_cxs),len(all_acrs)))
