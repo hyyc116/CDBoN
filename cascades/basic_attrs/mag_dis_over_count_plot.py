@@ -271,7 +271,7 @@ def plot_dis_over_count():
 
             cc_crs[cc].append(crm)
 
-    ax = axes[5]
+    ax = axes[4]
     plot_heat_scatter(cxs,acr,ax,fig)
     ax.set_xscale('log')
     ax.set_xlabel('Citation Count\n(i)')
