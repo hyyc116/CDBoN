@@ -29,7 +29,7 @@ def plot_dis_over_count():
     id_ys = plot_dict['id_ys']
 
     num = len(plt.get_fignums())
-    fig,axes = plt.subplots(5,1,figsize=(6,20))
+    fig,axes = plt.subplots(5,1,figsize=(5.5,20))
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
     ## 将数量少于一定值的citation count 向上靠近
