@@ -130,7 +130,7 @@ def plot_dis_over_count():
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
-    ax2.set_title('Percentage of connectors')
+    ax2.set_title('Percentage of Connectors')
     np_pc_xs = np.array([float(i) for i in sorted(pc_xs) if i>1])
     ax2.plot(np_pc_xs,1/np_pc_xs,'--',c=bound_color)
     ax2.plot(np_pc_xs,1-1/np_pc_xs,'--',c=bound_color)
@@ -218,9 +218,9 @@ def plot_dis_over_count():
     plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
-    ax4.set_xlabel('citation count\n(d)')
+    ax4.set_xlabel('Citation Count\n(d)')
     ax4.set_ylabel('ACMV')
-    ax4.set_title('ACMV distribution')
+    ax4.set_title('ACMV Distribution')
 
     max_dict = defaultdict(list)
     for i,xv in enumerate(xs):

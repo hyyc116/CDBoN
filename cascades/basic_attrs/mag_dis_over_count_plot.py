@@ -220,7 +220,7 @@ def plot_dis_over_count():
     ax4.set_xscale('log')
     ax4.set_xlabel('Citation Count\n(h)')
     ax4.set_ylabel('ACMV')
-    ax4.set_title('ACMV distribution')
+    ax4.set_title('ACMV Distribution')
 
     max_dict = defaultdict(list)
     for i,xv in enumerate(xs):
