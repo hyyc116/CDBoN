@@ -117,7 +117,7 @@ def plot_dis_over_count():
     ax1.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
-    ax1.set_xlabel('Citation Count\n(e)')
+    ax1.set_xlabel('Citation Count\n(I)')
     ax1.set_ylabel('Average Marginal Value')
     ax1.set_xscale('log')
     ax1.set_title('Average Marginal Value')
@@ -128,7 +128,7 @@ def plot_dis_over_count():
     ax2 = axes[1]
     plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
         
-    ax2.set_xlabel('Citation Count\n(f)')
+    ax2.set_xlabel('Citation Count\n(II)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
     ax2.set_title('Percentage of Connectors')
@@ -166,7 +166,7 @@ def plot_dis_over_count():
     ax3 = axes[2]
     plot_heat_scatter(po_xs,po_ys,ax3,fig)
 
-    ax3.set_xlabel('Citation Count\n(g)')
+    ax3.set_xlabel('Citation Count\n(III)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
     ax3.set_title('Out degree > 1')
@@ -218,7 +218,7 @@ def plot_dis_over_count():
     plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
-    ax4.set_xlabel('Citation Count\n(h)')
+    ax4.set_xlabel('Citation Count\n(IV)')
     ax4.set_ylabel('ACMV')
     ax4.set_title('ACMV Distribution')
 
@@ -274,7 +274,7 @@ def plot_dis_over_count():
     ax = axes[4]
     plot_heat_scatter(cxs,acr,ax,fig)
     ax.set_xscale('log')
-    ax.set_xlabel('Citation Count\n(i)')
+    ax.set_xlabel('Citation Count\n(V)')
     ax.set_ylabel('ACR')
     ax.set_title('Average Conversion Rate')
 
