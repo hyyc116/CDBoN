@@ -25,6 +25,7 @@ def aminer_indicator_for_connectors(citation_cascade):
         if not nx.is_directed_acyclic_graph(diG):
             continue
 
+        outdegree_dict = diG.out_degree()
         # print outdegree_dict
         crs = []
         for nid,od in outdegree_dict:
