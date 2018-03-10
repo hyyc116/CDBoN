@@ -16,7 +16,7 @@ def plot_heatmap(x,y,ax,bins,fig,gridsize=50):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=CM.Blues, bins='log',xscale=bins[0] ,yscale=bins[1])
 
 # 随着citation count的增加，各个指标的变化
-def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
+def plot_dis_over_count():
 
     plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
@@ -28,7 +28,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     id_ys = plot_dict['id_ys']
 
     num = len(plt.get_fignums())
-    fig,axes = plt.subplots(1,4,figsize=(22.5,5))
+    fig,axes = plt.subplots(5,1,figsize=(5.5,20))
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
     ## 将数量少于一定值的citation count 向上靠近
@@ -62,10 +62,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     for i in range(len(cxs)):
 
          #用于生成xs,ys是 将xs替代
-        if is_smooth:
-            sx = count_mapping[cxs[i]]
-        else:
-            sx = cxs[i]
+        sx = cxs[i]
 
         # 计算时citation count 还是按照原值计算
         y  = eys[i]/float(cxs[i])-1
@@ -91,26 +88,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         po_ys.append(po_y)
         cc_po_dict[sx].append(po_y)
 
-
-
-    ## percentage of  cascade size = ciattion count vs citation count
-    # print 'percentage of cascade size = citation count'
-    # ax0 = axes[0]
-
-    # e_xs = []
-    # e_ys = []
-    # for cc in sorted(equal_dict.keys()):
-    #     e_xs.append(cc)
-    #     y = equal_dict[cc]
-    #     e_ys.append(sum(y)/float(len(y)))
-
-    # ax0.plot(e_xs,e_ys)
-    # ax0.set_xscale('log')
-    # # ax0.set_yscale('log')
-    # ax0.set_title('citation count = cascade size')
-    # ax0.set_xlabel('citation count\n(a)')
-    # ax0.set_ylabel('percentage')
-
     print 'percentage of AMV'
     ax1 = axes[0]
     #max values
@@ -127,25 +104,16 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_xs.append(cc)
         avg_ys.append(sum(size_list)/float(len(size_list)))
 
-    if is_heat:
-        # plot_heatmap(rxs,rys,ax1,['log','linear'],fig)
-        plot_heat_scatter(rxs,rys,ax1,fig)
+    plot_heat_scatter(rxs,rys,ax1,fig)
 
-    else:
-        ax1.scatter(rxs,rys)
-    if not is_average:
-        ##最大值图
-        
-    # else:
-        ##均值图
-        ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
+    ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
+    ax1.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
 
-        ax1.plot(max_xs,max_zs,c=maximal_smooth)
-        ax1.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax1.plot(max_xs,max_zs,c=maximal_smooth)
+    ax1.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
     ax1.set_xlabel('Citation Count\n(a)')
@@ -157,13 +125,8 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     #### percentage of connectors over citation count
     print 'percentage of connectors'
     ax2 = axes[1]
-    if is_heat:
-        # plot_heatmap(pc_xs,pc_ys,ax2,['log','linear'],fig)
-        plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
+    plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
 
-    else:
-        ax2.scatter(pc_xs,pc_ys)
-        
     ax2.set_xlabel('Citation Count\n(b)')
     ax2.set_ylabel('$P(v=connector)$')
     ax2.set_xscale('log')
@@ -187,28 +150,21 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_xs.append(cc)
         avg_ys.append(sum(pc_list)/float(len(pc_list)))
 
-    if not is_average:
-        
-        
-    # else:
-        ax2.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax2.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-        ax2.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax2.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-        ax2.plot(max_xs,max_zs,c=maximal_smooth)
-        ax2.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax2.plot(max_xs,max_zs,c=maximal_smooth)
+    ax2.plot(avg_xs,avg_zs,c=avg_smooth)
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
 
     ax3 = axes[2]
-    if is_heat:
-        # plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
-        plot_heat_scatter(po_xs,po_ys,ax3,fig)
-    else:
-        ax3.scatter(po_xs,po_ys)
+    # plot_heatmap(po_xs,po_ys,ax3,['log','linear'],fig)
+    plot_heat_scatter(po_xs,po_ys,ax3,fig)
 
     ax3.set_xlabel('Citation Count\n(c)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
@@ -233,18 +189,14 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_xs.append(cc)
         avg_ys.append(sum(po_list)/float(len(po_list)))
 
-    if not is_average:
-        
-        
-    # else:
-        ax3.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax3.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-        ax3.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax3.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-        ax3.plot(max_xs,max_zs,c=maximal_smooth)
-        ax3.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax3.plot(max_xs,max_zs,c=maximal_smooth)
+    ax3.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
     print 'plot acmv..'
@@ -258,20 +210,12 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         if idy==0:
             continue
 
-        if is_smooth:
-            sx = count_mapping[dcxs[i]]
-        else:
-            sx = dcxs[i]
+        sx = dcxs[i]
         
         xs.append(sx)
         ys.append(od_ys[i]/id_ys[i])
 
-    if is_heat:
-        # plot_heatmap(xs,ys,ax4,['log','linear'],fig)
-        plot_heat_scatter(xs,ys,ax4,fig)
-
-    else:
-        ax4.scatter(xs,ys)
+    plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(d)')
@@ -281,8 +225,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     max_dict = defaultdict(list)
     for i,xv in enumerate(xs):
         max_dict[xv].append(ys[i])
-        # if ys[i] > max_dict[xv]:
-            # max_dict[xv] = ys[i]
 
     max_xs = []
     max_ys = []
@@ -299,64 +241,64 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
 
 
-    if not is_average:
-        ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-        avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
-        ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-        max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
+    ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-        ax4.plot(max_xs,max_zs,c=maximal_smooth)
-        ax4.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax4.plot(max_xs,max_zs,c=maximal_smooth)
+    ax4.plot(avg_xs,avg_zs,c=avg_smooth)
 
-    if is_smooth:
-        for ax in axes:
-            ax.set_xlim(0.9,1100)
+
+    print 'plotting average CR ... '
+    connector_obj = json.loads(open('data/aminer_connector.json').read())
+
+    cxs=connector_obj['cxs']
+    acr=connector_obj['acrs']
+
+    ax = axes[4]
+    plot_heat_scatter(cxs,acr,ax,fig)
+    ax.set_xscale('log')
+    ax.set_xlabel('Citation Count\n(i)')
+    ax.set_ylabel('ACR')
+    ax.set_title('Average Conversion Rate')
+
+    max_dict = defaultdict(list)
+    for i,xv in enumerate(cxs):
+        max_dict[xv].append(acr[i])
+
+    max_xs = []
+    max_ys = []
+    #avg
+    avg_xs = []
+    avg_ys = []
+
+    for x in sorted(max_dict.keys()):
+        max_xs.append(x)
+        max_ys.append(np.max(max_dict[x]))
+
+        avg_xs.append(x)
+        avg_ys.append(np.mean(max_dict[x]))
+
+    ax.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
+    ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
+
+    ax.plot(max_xs,max_zs,c=maximal_smooth)
+    ax.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
     plt.tight_layout()
-    # save output
-    heat = 0
-    average = 0 
-    smooth = 0
 
-    if is_heat:
-        heat=1
-    if is_average:
-        average = 1
-    if is_smooth:
-        smooth = 1
-
-    outpath = 'pdf/compare_{:}_{:}_{:}.png'.format(heat,smooth,average)
-    plt.savefig(outpath,dpi=200)
+    outpath = 'pdf/aminer_compare.png'
+    plt.savefig(outpath,dpi=400)
     print 'figure saved to {:}'.format(outpath)
-
-
 
 
 if __name__ == '__main__':
 
-    if len(sys.argv) != 4:
-        print 'parameter error! python {:} is_heat is_smooth is_avg'.format(sys.argv[0])
-    else:
-        heat = int(sys.argv[1])
-        if heat>0:
-            is_heat = True
-        else:
-            is_heat = False
-
-        smooth = int(sys.argv[2])
-        if smooth>0:
-            is_smooth = True
-        else:
-            is_smooth = False
-
-        avg = int(sys.argv[3])
-        if avg>0:
-            is_avg = True
-        else:
-            is_avg = False
-
-        plot_dis_over_count(is_heat,is_smooth,is_avg)
+    plot_dis_over_count()
 
 
 
