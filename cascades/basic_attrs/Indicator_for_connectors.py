@@ -72,10 +72,14 @@ def draw_box(mag_connector):
 
     cxs=[]
     acr=[]
+    cc_crs = defaultdict(list)
     for cc in cc_pid_crs.keys():
         for pid in cc_pid_crs[cc].keys():
             cxs.append(cc)
-            acr.append(np.mean(cc_pid_crs[cc][pid]))
+            crm = np.mean(cc_pid_crs[cc][pid])
+            acr.append(crm)
+
+            cc_crs[cc].append(crm)
 
     fig,ax = plt.subplots(figsize=(5,5))
     plot_heat_scatter(cxs,acr,ax,fig)
@@ -84,6 +88,7 @@ def draw_box(mag_connector):
     ax.set_xlabel('citation count')
     ax.set_ylabel('ACR')
     ax.set_title('Average Conversion Rate')
+
 
     plt.tight_layout()
     plt.savefig('pdf/mag_acr.png',dpi=200)
