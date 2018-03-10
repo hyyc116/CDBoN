@@ -259,7 +259,7 @@ def plot_dis_over_count():
     ax = axes[4]
     plot_heat_scatter(cxs,acr,ax,fig)
     ax.set_xscale('log')
-    ax.set_xlabel('Citation Count\n(i)')
+    ax.set_xlabel('Citation Count\n(e)')
     ax.set_ylabel('ACR')
     ax.set_title('Average Conversion Rate')
 
@@ -281,9 +281,9 @@ def plot_dis_over_count():
         avg_ys.append(np.mean(max_dict[x]))
 
     ax.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
+    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.01,it=1,is_sorted =True))[1]]
     ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
+    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.01,it=1,is_sorted =True))[1]]
 
     ax.plot(max_xs,max_zs,c=maximal_smooth)
     ax.plot(avg_xs,avg_zs,c=avg_smooth)
