@@ -5,7 +5,6 @@
 from basic_config import *
 import math
 
-
 color_map_name = 'Wistia'
 bound_color=color_sequence[14]
 maximal_bak = color_sequence[7]
@@ -14,46 +13,11 @@ maximal_smooth = color_sequence[6]
 avg_bak = color_sequence[1]
 avg_smooth = color_sequence[0]
 
-
-
 def plot_heatmap(x,y,ax,bins,fig,gridsize=100):
     hb = ax.hexbin(x, y, gridsize=gridsize, cmap=plt.get_cmap('Wistia'), bins='log',xscale=bins[0] ,yscale=bins[1])
 
-# def plot_heat_scatter(xs,ys,ax):
-
-#     xyz = defaultdict(lambda: defaultdict(int))
-#     for i,x in enumerate(xs):
-#         y = ys[i]
-
-#         xyz[x][y]+=1
-
-#     xs = []
-#     ys = []
-#     zs = []
-#     for x in xyz.keys():
-#         yz = xyz[x]
-#         for y in yz.keys():
-#             z = xyz[x][y]
-
-#             xs.append(x)
-#             ys.append(y)
-#             zs.append(z)
-
-#     zs = np.array(zs)
-#     print zs[:10],max(zs)
-#     print len(xs),len(ys),len(zs)
-#     norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
-#     ax.scatter(xs, ys, c=CM.Wistia(norm(zs)),s=2, marker='o')
-    # ax.pcolor(xs, ys, zs,norm=colors.LogNorm(vmin=zs.min(), vmax=zs.max()),cmap='Wistia')
-
-# def plot_heat_scatter(xs,ys,ax):
-
-#     ax.hist2d(xs, ys, bins=1000, norm=LogNorm())
-
-
-
 # 随着citation count的增加，各个指标的变化
-def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
+def plot_dis_over_count():
 
     plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
     ###plot the comparison figure
@@ -99,10 +63,7 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     for i in range(len(cxs)):
 
          #用于生成xs,ys是 将xs替代
-        if is_smooth:
-            sx = count_mapping[cxs[i]]
-        else:
-            sx = cxs[i]
+        sx = cxs[i]
 
         # 计算时citation count 还是按照原值计算
         y  = eys[i]/float(cxs[i])-1
@@ -127,26 +88,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         po_y = od_ys[i]
         po_ys.append(po_y)
         cc_po_dict[sx].append(po_y)
-
-
-
-    ## percentage of  cascade size = ciattion count vs citation count
-    # print 'percentage of cascade size = citation count'
-    # ax0 = axes[0]
-
-    # e_xs = []
-    # e_ys = []
-    # for cc in sorted(equal_dict.keys()):
-    #     e_xs.append(cc)
-    #     y = equal_dict[cc]
-    #     e_ys.append(sum(y)/float(len(y)))
-
-    # ax0.plot(e_xs,e_ys)
-    # ax0.set_xscale('log')
-    # # ax0.set_yscale('log')
-    # ax0.set_title('citation count = cascade size')
-    # ax0.set_xlabel('citation count\n(a)')
-    # ax0.set_ylabel('percentage')
 
     print 'percentage of AMV'
     ax1 = axes[0]
@@ -268,16 +209,12 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
         if idy==0:
             continue
-
-        if is_smooth:
-            sx = count_mapping[dcxs[i]]
-        else:
-            sx = dcxs[i]
+        
+        sx = dcxs[i]
         
         xs.append(sx)
         ys.append(od_ys[i]/id_ys[i])
 
-    # plot_heatmap(xs,ys,ax4,['log','linear'],fig)
     plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
@@ -288,8 +225,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     max_dict = defaultdict(list)
     for i,xv in enumerate(xs):
         max_dict[xv].append(ys[i])
-        # if ys[i] > max_dict[xv]:
-            # max_dict[xv] = ys[i]
 
     max_xs = []
     max_ys = []
@@ -304,7 +239,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
 
         avg_xs.append(x)
         avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
-
 
     ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
@@ -347,8 +281,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     max_dict = defaultdict(list)
     for i,xv in enumerate(cxs):
         max_dict[xv].append(acr[i])
-        # if ys[i] > max_dict[xv]:
-            # max_dict[xv] = ys[i]
 
     max_xs = []
     max_ys = []
@@ -364,7 +296,6 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
         avg_xs.append(x)
         avg_ys.append(np.mean(max_dict[x]))
 
-
     ax.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
     ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
@@ -379,33 +310,8 @@ def plot_dis_over_count(is_heat=False,is_smooth=False,is_average=False):
     plt.savefig(outpath,dpi=200)
     print 'figure saved to {:}'.format(outpath)
 
-
-
-
 if __name__ == '__main__':
-
-    if len(sys.argv) != 4:
-        print 'parameter error! python {:} is_heat is_smooth is_avg'.format(sys.argv[0])
-    else:
-        heat = int(sys.argv[1])
-        if heat>0:
-            is_heat = True
-        else:
-            is_heat = False
-
-        smooth = int(sys.argv[2])
-        if smooth>0:
-            is_smooth = True
-        else:
-            is_smooth = False
-
-        avg = int(sys.argv[3])
-        if avg>0:
-            is_avg = True
-        else:
-            is_avg = False
-
-        plot_dis_over_count(is_heat,is_smooth,is_avg)
+    plot_dis_over_count()
 
 
 
