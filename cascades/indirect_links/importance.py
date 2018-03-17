@@ -107,7 +107,7 @@ def importance():
     ax.set_xlim(0.9,e_xs[-1])
     ax.set_ylim(-0.01,1.01)
 
-    ax.text(12,0.15,'$({:},{:.4f})$'.format(10,1-_10_y))
+    ax.text(12,0.85,'$({:},{:.4f})$'.format(10,1-_10_y))
     ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
