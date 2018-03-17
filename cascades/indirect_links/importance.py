@@ -138,11 +138,11 @@ def importance():
     plt.plot(xs,ys,label='ArtnetMiner')
     plt.xlabel('$e_{i-norm}$')
     plt.ylabel('$P(X>e_{i-norm})$')
-    plt.tight_layout()
-    plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
+    # plt.tight_layout()
+    # plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
 
     ## aminer_einorm mag_einorm
-    plt.figure(figsize=(6.5,4))
+    # plt.figure(figsize=(6.5,4))
     length = float(len(mag_einorm))
 
     einorm_counter = Counter(mag_einorm)
@@ -158,8 +158,9 @@ def importance():
         small+=einorm_counter[einorm]
 
     plt.plot(xs,ys,label='MAG-CS')
-    plt.xlabel('$e_{i-norm}$')
-    plt.ylabel('$P(X>e_{i-norm})$')
+    # plt.xlabel('$e_{i-norm}$')
+    # plt.ylabel('$P(X>e_{i-norm})$')
+    plt.legend()
     plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
 
