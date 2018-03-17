@@ -104,10 +104,10 @@ def plot_relation_size_attr(dataset):
     fig,axes  = plt.subplots(1,1,figsize=(6,5))
     if dataset=='AMiner':
         t1 = 'depth\n(c)'
-        t2 = 'number of normalized ICRs\n(a)'
+        t2 = '$e_{i-norm}$\n(a)'
     elif dataset=='MAG':
         t1 = 'depth\n(d)'
-        t2 = 'number of normalized ICRs\n(b)'
+        t2 = '$e_{i-norm}$\n(b)'
 
     ax2 = axes
     attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
@@ -278,13 +278,13 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
         t3 = 'publishing year\n(h)'
 
     ax1.set_xlabel(t1)
-    ax1.set_ylabel('number of normalized ICRs')
+    ax1.set_ylabel('$e_{i-norm}$')
 
     ax2.set_xlabel(t2)
-    ax2.set_ylabel('number of normalized ICRs')
+    ax2.set_ylabel('$e_{i-norm}$')
 
     ax3.set_xlabel(t3)
-    ax3.set_ylabel('number of normalized ICRs')
+    ax3.set_ylabel('$e_{i-norm}$')
 
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',yscale='log',dataset='AMiner'):
