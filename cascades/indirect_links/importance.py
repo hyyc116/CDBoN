@@ -169,25 +169,26 @@ def importance():
 
 
     fig,axes = plt.subplots(1,2,figsize=(12,5))
-    xs,ys = AD_percentage(aminer_percentages)
+    xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
     ax = axes[0]
+    asymmetric_error = [lower_errors, upper_errors]
     ax.set_title('ArnetMiner')
-    rect = ax.bar(xs,ys,width=0.4)
-    autolabel(rect,ax)
+    ax.errorbar(x, y, yerr=asymmetric_error, fmt='-o')
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
-    xs,ys = AD_percentage(mag_percentages)
+    xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
     ax = axes[1]
     ax.set_title('MAG-CS')
-    rect = ax.bar(xs,ys,width=0.4)
-    autolabel(rect,ax)
+    asymmetric_error = [lower_errors, upper_errors]
+    ax.set_title('ArnetMiner')
+    ax.errorbar(x, y, yerr=asymmetric_error, fmt='-o')
 
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
     plt.tight_layout()
-    plt.savefig('pdf/freq.pdf',dpi=200)
+    plt.savefig('pdf/error_bars.pdf',dpi=200)
 
 
 
@@ -197,11 +198,15 @@ def AD_percentage(pc):
     xs = []
     ys = []
     a_count=0
+    lower_errors = []
+    upper_errors = []
     for i in sorted(pc.keys()):
         xs.append(i)
-        ys.append(np.mean(pc[i]))
-
-    return xs,ys
+        mean = np.mean(pc[i])
+        ys.append(mean)
+        lower_errors.append(mean-np.min(pc[i]))
+        upper_errors.append(np.max(pc[i])-mean)
+    return xs,ys,lower_errors,upper_errors
 
 
 
