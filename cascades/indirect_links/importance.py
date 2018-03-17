@@ -20,7 +20,7 @@ def importance():
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
     aminer_percentages = defaultdict(list)
-
+    aminer_einorm = []
     for i in range(len(cxs)):
         sx = cxs[i]
         if eys[i]==cxs[i]:
@@ -28,12 +28,15 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        if sx<10:
-            aminer_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
-        elif sx<165:
-            aminer_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
-        else:
-            aminer_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
+            ### 将没有indirect links的文章去掉
+            aminer_einorm.append((eys[i]-cxs[i])/float(cys[i]))
+
+            if sx<10:
+                aminer_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
+            elif sx<165:
+                aminer_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
+            else:
+                aminer_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
 
 
 
@@ -67,6 +70,7 @@ def importance():
     # max_dict = defaultdict(int)
     equal_dict=defaultdict(list)
     mag_percentages = defaultdict(list)
+    mag_einorm = []
     for i in range(len(cxs)):
         sx = cxs[i]
 
@@ -75,12 +79,14 @@ def importance():
         else:
             equal_dict[sx].append(0)
 
-        if sx<22:
-            mag_percentages[0].append((eys[i]-cxs[i])/float(eys[i]))
-        elif sx<260:
-            mag_percentages[1].append((eys[i]-cxs[i])/float(eys[i]))
-        else:
-            mag_percentages[2].append((eys[i]-cxs[i])/float(eys[i]))
+            mag_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
+
+            if sx<22:   
+                mag_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
+            elif sx<260:
+                mag_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
+            else:
+                mag_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
 
 
     # percentage of  cascade size = ciattion count vs citation count
@@ -111,6 +117,56 @@ def importance():
     ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
+
+
+
+    ## 两条累积曲线 
+    ## aminer_einorm mag_einorm
+    plt.figure(figsize=(6.5,4))
+    length = float(len(aminer_einorm))
+
+    einorm_counter = Counter(aminer_einorm)
+
+    xs = []
+    ys = []
+    small = 0
+    for einorm in sorted(einorm_counter.keys()):
+        xs.append(einorm)
+        v = length-small
+        ys.append(v/length)
+
+        small+=einorm_counter[einorm]
+
+    plt.plot(xs,ys,label='ArtnetMiner')
+    plt.xlabel('$e_{i-norm}$')
+    plt.ylabel('$P(X>e_{i-norm})$')
+    plt.tight_layout()
+    plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
+
+
+    ## aminer_einorm mag_einorm
+    plt.figure(figsize=(6.5,4))
+    length = float(len(mag_einorm))
+
+    einorm_counter = Counter(mag_einorm)
+
+    xs = []
+    ys = []
+    small = 0
+    for einorm in sorted(einorm_counter.keys()):
+        xs.append(einorm)
+        v = length-small
+        ys.append(v/length)
+
+        small+=einorm_counter[einorm]
+
+    plt.plot(xs,ys,label='ArtnetMiner')
+    plt.xlabel('$e_{i-norm}$')
+    plt.ylabel('$P(X>e_{i-norm})$')
+    plt.tight_layout()
+    plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
+
+
 
 
     fig,axes = plt.subplots(1,2,figsize=(12,5))
