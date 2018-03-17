@@ -169,18 +169,17 @@ def importance():
 
 
     fig,axes = plt.subplots(1,1,figsize=(6.5,4))
-    xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
     ax = axes
+    xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
+    asymmetric_error = [lower_errors, upper_errors]
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
+
+
+    xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
     asymmetric_error = [lower_errors, upper_errors]
     ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='ArtnetMiner')
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
-
-    xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
-    asymmetric_error = [lower_errors, upper_errors]
-    # ax.set_title('MAG')
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
-
     # ax.set_xticks(xs)
     # ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
     ax.legend()
