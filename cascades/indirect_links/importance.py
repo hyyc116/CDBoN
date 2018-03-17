@@ -168,24 +168,21 @@ def importance():
 
 
 
-    fig,axes = plt.subplots(1,2,figsize=(12,5))
+    fig,axes = plt.subplots(1,1,figsize=(12,5))
     xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
-    ax = axes[0]
+    ax = axes
     asymmetric_error = [lower_errors, upper_errors]
-    ax.set_title('ArnetMiner')
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o')
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='ArtnetMiner')
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
     xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
-    ax = axes[1]
-    ax.set_title('MAG-CS')
     asymmetric_error = [lower_errors, upper_errors]
-    ax.set_title('ArnetMiner')
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o')
+    # ax.set_title('MAG')
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
 
-    ax.set_xticks(xs)
-    ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
     plt.tight_layout()
     plt.savefig('pdf/error_bars.pdf',dpi=200)
