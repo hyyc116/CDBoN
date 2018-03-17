@@ -45,7 +45,7 @@ def importance():
     for cc in sorted(equal_dict.keys()):
         e_xs.append(cc)
         y = equal_dict[cc]
-        e_ys.append(sum(y)/float(len(y)))
+        e_ys.append(1- sum(y)/float(len(y)))
 
     ax.plot(e_xs,e_ys,label='ArnetMiner')
     ax.set_xscale('log')
