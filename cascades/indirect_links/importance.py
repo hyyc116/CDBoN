@@ -173,7 +173,7 @@ def importance():
     ax = axes[0]
     asymmetric_error = [lower_errors, upper_errors]
     ax.set_title('ArnetMiner')
-    ax.errorbar(x, y, yerr=asymmetric_error, fmt='-o')
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o')
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
 
@@ -182,7 +182,7 @@ def importance():
     ax.set_title('MAG-CS')
     asymmetric_error = [lower_errors, upper_errors]
     ax.set_title('ArnetMiner')
-    ax.errorbar(x, y, yerr=asymmetric_error, fmt='-o')
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o')
 
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
