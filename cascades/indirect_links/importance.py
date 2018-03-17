@@ -160,6 +160,7 @@ def importance():
     plt.plot(xs,ys,label='MAG-CS')
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
+    plt.xscale('log')
     plt.legend()
     plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
