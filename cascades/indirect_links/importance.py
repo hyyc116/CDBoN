@@ -177,11 +177,13 @@ def importance():
 
     xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
     asymmetric_error = [lower_errors, upper_errors]
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='ArtnetMiner')
+    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=4,label='ArtnetMiner')
     ax.set_xticks(xs)
     ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
     # ax.set_xticks(xs)
     # ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
+    ax.set_xlabel('Paper Impact')
+    ax.set_ylabel('$e_{i-norm}$')
     ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/error_bars.pdf',dpi=200)
