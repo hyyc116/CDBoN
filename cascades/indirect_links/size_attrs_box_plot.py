@@ -338,7 +338,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,':',c='k',label='Medium cited papers')
+    ax.plot(xs,ys,c='k',label='Medium cited papers')
 
     # x> 988
     xs = []
@@ -349,7 +349,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',
             xs.append(key)
             ys.append(mean)
 
-    ax.plot(xs,ys,c='k',label='Highly cited papers')
+    ax.plot(xs,ys,'-.',c='k',label='Highly cited papers')
 
 if __name__ == '__main__':
     plot_relation_size_attr(sys.argv[1])
