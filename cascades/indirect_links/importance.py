@@ -29,7 +29,7 @@ def importance():
             equal_dict[sx].append(0)
 
             ### 将没有indirect links的文章去掉
-            aminer_einorm.append((eys[i]-cxs[i])/float(cys[i]))
+            aminer_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
             if sx<10:
                 aminer_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
