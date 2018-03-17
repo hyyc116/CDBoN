@@ -168,7 +168,7 @@ def importance():
 
 
 
-    fig,axes = plt.subplots(1,1,figsize=(12,5))
+    fig,axes = plt.subplots(1,1,figsize=(6.5,4))
     xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
     ax = axes
     asymmetric_error = [lower_errors, upper_errors]
@@ -183,7 +183,7 @@ def importance():
 
     # ax.set_xticks(xs)
     # ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
-
+    ax.legend()
     plt.tight_layout()
     plt.savefig('pdf/error_bars.pdf',dpi=200)
 
