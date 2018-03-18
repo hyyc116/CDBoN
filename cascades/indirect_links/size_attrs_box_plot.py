@@ -119,7 +119,7 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    fig,axes = plt.subplots(4,1,figsize=(7,20))
+    fig,axes = plt.subplots(1,4,figsize=(22.5,4))
     ax = axes[0]
     ax1 = axes[1]
     ax2 = axes[2]
@@ -128,7 +128,7 @@ def plot_relation_size_attr(dataset):
     if dataset=='AMiner':
         t1 = 'publishing year\n(a)'
     elif dataset=='MAG':
-        t1 = 'publishing year\n(b)'
+        t1 = 'publishing year\n(a)'
 
     attr_size_plots(ax,fig,x_min,x_max,year_size_dict,t1,dataset=dataset)
     year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max)
@@ -273,9 +273,9 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
         t2 = 'publishing year\n(e)'
         t3 = 'publishing year\n(g)'
     elif dataset=='MAG':
-        t1 = 'publishing year\n(d)'
-        t2 = 'publishing year\n(f)'
-        t3 = 'publishing year\n(h)'
+        t1 = 'publishing year\n(b)'
+        t2 = 'publishing year\n(c)'
+        t3 = 'publishing year\n(d)'
 
     ax1.set_xlabel(t1)
     ax1.set_ylabel('$e_{i-norm}$')

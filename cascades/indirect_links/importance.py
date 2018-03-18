@@ -50,8 +50,8 @@ def importance():
         y = equal_dict[cc]
         e_ys.append(1- sum(y)/float(len(y)))
 
-    ax.plot(e_xs,e_ys,label='ArnetMiner')
-    ax.set_xscale('log')
+    # ax.plot(e_xs,e_ys,label='ArnetMiner')
+    # ax.set_xscale('log')
     # ax0.set_yscale('log')
     # ax.set_title('$P(e=n-1)$')
     ax.set_xlabel('$N(C=n)$')
@@ -121,21 +121,21 @@ def importance():
     ## 两条累积曲线 
     ## aminer_einorm mag_einorm
     plt.figure(figsize=(6.5,4))
-    length = float(len(aminer_einorm))
+    # length = float(len(aminer_einorm))
 
-    einorm_counter = Counter(aminer_einorm)
+    # einorm_counter = Counter(aminer_einorm)
 
-    xs = []
-    ys = []
-    small = 0
-    for einorm in sorted(einorm_counter.keys()):
-        xs.append(einorm)
-        v = length-small
-        ys.append(v/length)
+    # xs = []
+    # ys = []
+    # small = 0
+    # for einorm in sorted(einorm_counter.keys()):
+    #     xs.append(einorm)
+    #     v = length-small
+    #     ys.append(v/length)
 
-        small+=einorm_counter[einorm]
+    #     small+=einorm_counter[einorm]
 
-    plt.plot(xs,ys,label='ArtnetMiner')
+    # plt.plot(xs,ys,label='ArtnetMiner')
     plt.xlabel('$e_{i-norm}$')
     plt.ylabel('$P(X>e_{i-norm})$')
     # plt.tight_layout()
@@ -174,15 +174,7 @@ def importance():
     asymmetric_error = [lower_errors, upper_errors]
     ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
 
-
-    xs,ys,lower_errors,upper_errors = AD_percentage(aminer_percentages)
-    asymmetric_error = [lower_errors, upper_errors]
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=4,label='ArtnetMiner')
-    ax.set_xticks(xs)
-    ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
-    # ax.set_xticks(xs)
-    # ax.set_xticklabels(['Low-impact','Medium-impact','High-impact'])
-    ax.set_xlabel('Paper Impact')
+    ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
     ax.legend()
     plt.tight_layout()
