@@ -101,6 +101,7 @@ def importance():
         y = equal_dict[cc]
 
         if cc==10:
+            print sum(y),len(y)
             _10_y=sum(y)/float(len(y))
 
         e_ys.append(1- sum(y)/float(len(y)))
