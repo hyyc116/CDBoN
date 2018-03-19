@@ -369,7 +369,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
                 if x>=1:
                     _2_list.append(x)
 
-            if y=100:
+            if y==100:
                 _100_count+=1
                 if x>=1:
                     _100_list.append(x)
