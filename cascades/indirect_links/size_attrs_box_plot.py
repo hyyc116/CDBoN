@@ -359,6 +359,8 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
     _2_list=[]
     _3_count = 0
     _3_list = []
+    _10_count = 0
+    _10_list = []
     _100_count = 0
     _100_list = []
     for key in sorted(data_dict.keys()):
@@ -376,6 +378,11 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
                 if key>=1:
                     _3_list.append(key)
 
+            if y==10:
+                _10_count+=1
+                if key>=1:
+                    _10_list.append(key)
+
             if y==100:
                 _100_count+=1
                 if key>=1:
@@ -383,7 +390,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
 
     print 2,_2_count,len(_2_list)
     print 3,_3_count,len(_3_list)
-    print 10,_100_count,len(_100_list)        
+    print 100,_100_count,len(_100_list)        
 
 
     plot_heat_scatter(xs,ys,ax,fig)
