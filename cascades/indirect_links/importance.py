@@ -168,7 +168,7 @@ def importance():
 
 
 
-    fig,axes = plt.subplots(1,1,figsize=(6.5,4))
+    fig,axes = plt.subplots(1,1,figsize=(6,5))
     ax = axes
     xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
     asymmetric_error = [lower_errors, upper_errors]
@@ -177,6 +177,8 @@ def importance():
     for i,x in enumerate(xs):
         ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
 
+    ax.set_xticks(xs)
+    ax.set_xticklabels(['low-impact','medium-impact','highly-impact'])
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
     ax.legend()
