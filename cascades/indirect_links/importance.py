@@ -174,6 +174,9 @@ def importance():
     asymmetric_error = [lower_errors, upper_errors]
     ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
 
+    for i,x in enumerate(xs):
+        ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
+
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
     ax.legend()
