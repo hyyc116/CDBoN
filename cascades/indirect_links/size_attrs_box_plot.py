@@ -107,7 +107,7 @@ def plot_relation_size_attr(dataset):
         t2 = '$e_{i-norm}$\n(a)'
     elif dataset=='MAG':
         t1 = 'depth\n(d)'
-        t2 = '$e_{i-norm}$\n(b)'
+        t2 = '$e_{i-norm}$\n'
 
     ax2 = axes
     attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
