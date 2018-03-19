@@ -305,7 +305,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
 
 
 
-def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations',yscale='log',dataset='AMiner'):
+def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='average number of citations',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
