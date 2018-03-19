@@ -266,7 +266,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
             ys.append(mean)
 
     ax3.plot(xs,ys,'--',c='r')
-    ax3.set_title('Highly-impact papers')
+    ax3.set_title('High-impact papers')
 
     if dataset=='AMiner':
         t1 = 'publishing year\n(c)'

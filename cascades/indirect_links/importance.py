@@ -54,7 +54,7 @@ def importance():
     ax.set_xscale('log')
     # ax0.set_yscale('log')
     # ax.set_title('$P(e=n-1)$')
-    ax.set_xlabel('$N(C=n)$')
+    ax.set_xlabel('$C=n$')
     ax.set_ylabel('$P(e>n|C=n)$')
 
     plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
@@ -118,6 +118,29 @@ def importance():
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
 
+
+    change_xs=[]
+    change_ys =[]
+    last_x= -1
+    last_y = -1
+    for i,x in enumerate(e_xs):
+        y = e_ys[i]
+
+        if i>0:
+            change_xs.append(i)
+            change_ys.append(float(y-last_y)/(x-last_x))
+
+        last_x = x 
+        last_y = y
+
+
+    plt.figure(figsize=(6,5))
+    plt.plot(change_xs,change_ys)
+    plt.xlabel('$C=n$')
+    plt.ylabel('Change Rate')
+    plt.savefig('pdf/change_rate.pdf',dpi=200)
+
+
     ## 两条累积曲线 
     ## aminer_einorm mag_einorm
     plt.figure(figsize=(6.5,4))
@@ -178,7 +201,7 @@ def importance():
         ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
 
     ax.set_xticks(xs)
-    ax.set_xticklabels(['low-impact','medium-impact','highly-impact'])
+    ax.set_xticklabels(['low-impact','medium-impact','high-impact'])
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
     ax.legend()
