@@ -51,7 +51,7 @@ def importance():
         e_ys.append(1- sum(y)/float(len(y)))
 
     # ax.plot(e_xs,e_ys,label='ArnetMiner')
-    # ax.set_xscale('log')
+    ax.set_xscale('log')
     # ax0.set_yscale('log')
     # ax.set_title('$P(e=n-1)$')
     ax.set_xlabel('$N(C=n)$')
