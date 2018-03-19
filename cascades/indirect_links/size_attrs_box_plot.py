@@ -285,13 +285,13 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.set_title('High-impact papers')
 
     if dataset=='AMiner':
-        t1 = 'publishing year\n(c)'
-        t2 = 'publishing year\n(e)'
-        t3 = 'publishing year\n(g)'
+        t1 = 'published year\n(c)'
+        t2 = 'published year\n(e)'
+        t3 = 'published year\n(g)'
     elif dataset=='MAG':
-        t1 = 'publishing year\n(a)'
-        t2 = 'publishing year\n(b)'
-        t3 = 'publishing year\n(c)'
+        t1 = 'published year\n(a)'
+        t2 = 'published year\n(b)'
+        t3 = 'published year\n(c)'
 
     ax1.set_xlabel(t1)
     ax1.set_ylabel('$e_{i-norm}$')
