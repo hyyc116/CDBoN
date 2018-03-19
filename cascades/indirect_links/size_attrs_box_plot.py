@@ -355,10 +355,28 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
     ## 1<x<23
     xs = []
     ys = []
+    _2_count = 0
+    _2_list=[]
+    _100_count = 0
+    _100_list = []
     for key in sorted(data_dict.keys()):
         for y in data_dict[key]:
             xs.append(key)
             ys.append(y)
+
+            if y==2:
+                _2_count+=1
+                if x>=1:
+                    _2_list.append(x)
+
+            if y=100:
+                _100_count+=1
+                if x>=1:
+                    _100_list.append(x)
+
+    print 2,len(_2_count),len(_2_list)
+    print 10,len(_100_count),len(_100_list)        
+
 
     plot_heat_scatter(xs,ys,ax,fig)
 
