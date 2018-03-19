@@ -357,6 +357,8 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
     ys = []
     _2_count = 0
     _2_list=[]
+    _3_count = 0
+    _3_list = []
     _100_count = 0
     _100_list = []
     for key in sorted(data_dict.keys()):
@@ -369,12 +371,18 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
                 if key>0:
                     _2_list.append(key)
 
+            if y==3:
+                _3_count+=1
+                if key>=1:
+                    _3_list.append(key)
+
             if y==100:
                 _100_count+=1
                 if key>=1:
                     _100_list.append(key)
 
     print 2,_2_count,len(_2_list)
+    print 3,_3_count,len(_3_list)
     print 10,_100_count,len(_100_list)        
 
 
