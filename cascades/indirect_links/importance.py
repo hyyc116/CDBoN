@@ -138,6 +138,7 @@ def importance():
     plt.plot(change_xs,change_ys)
     plt.xlabel('$C=n$')
     plt.ylabel('Change Rate')
+    plt.xscale('log')
     plt.savefig('pdf/change_rate.pdf',dpi=200)
 
 
