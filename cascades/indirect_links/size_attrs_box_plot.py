@@ -100,7 +100,7 @@ def plot_relation_size_attr(dataset):
         citation_direct_dict[cascade_size].append(n_direct_cps)
         citation_indirect_dict[cascade_size].append(n_indirect_cps)
 
-        ### citation count 与 direct links, indirect links 的关系
+        ### Number of citations per paper 与 direct links, indirect links 的关系
         citation_direct_links[cascade_size].append(cascade_size/float(eys[i]))
         citation_indirect_links[cascade_size].append((eys[i]-cascade_size)/float(eys[i]))
 
@@ -303,7 +303,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.set_ylabel('$e_{i-norm}$')
 
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',yscale='log',dataset='AMiner'):
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Number of citations per paper',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -319,7 +319,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Citation Count',
 
 
     ## 画两条线
-    if ylabel=='Citation Count':
+    if ylabel=='Number of citations per paper':
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
