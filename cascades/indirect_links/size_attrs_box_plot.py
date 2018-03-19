@@ -383,9 +383,11 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
                 if key>=1:
                     _10_list.append(key)
 
-            if y==100:
+
+
+            if y==20:
                 _100_count+=1
-                if key>=5:
+                if key==3:
                     _100_list.append(key)
 
     # print 2,_2_count,len(_2_list)
