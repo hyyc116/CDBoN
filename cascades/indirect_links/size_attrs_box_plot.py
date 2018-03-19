@@ -48,6 +48,7 @@ def plot_relation_size_attr(dataset):
     plt.xlabel('published year')
     plt.ylabel('number of papers')
     plt.yscale('log')
+    plt.tight_layout()
     plt.savefig('pdf/{:}_year_dis.pdf'.format(dataset.lower()),dpi=200)
 
     sorted_cxs = sorted(cxs,reverse=True)
