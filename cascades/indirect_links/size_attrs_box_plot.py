@@ -101,7 +101,7 @@ def plot_relation_size_attr(dataset):
         citation_direct_dict[cascade_size].append(n_direct_cps)
         citation_indirect_dict[cascade_size].append(n_indirect_cps)
 
-        ### Number of citations per paper 与 direct links, indirect links 的关系
+        ### number of citations 与 direct links, indirect links 的关系
         citation_direct_links[cascade_size].append(cascade_size/float(eys[i]))
         citation_indirect_links[cascade_size].append((eys[i]-cascade_size)/float(eys[i]))
 
@@ -140,7 +140,7 @@ def plot_relation_size_attr(dataset):
     elif dataset=='MAG':
         t1 = 'published year'
     fig,ax = plt.subplots(figsize=(6,5))
-    attr_size_plots(ax,fig,x_min,x_max,year_size_dict,t1,dataset=dataset)
+    avg_num(ax,fig,x_min,x_max,year_size_dict,t1,dataset=dataset)
     plt.tight_layout()
     plt.savefig('pdf/{:}_year_cc.png'.format(dataset.lower()),dpi=400)
 
@@ -304,7 +304,51 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ax3.set_ylabel('$e_{i-norm}$')
 
 
-def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Number of citations per paper',yscale='log',dataset='AMiner'):
+
+def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations',yscale='log',dataset='AMiner'):
+    logging.info('Plotting {:} ...'.format(xlabel))
+    logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
+
+    # ## 1<x<23
+    # xs = []
+    # ys = []
+    # for key in sorted(data_dict.keys()):
+    #     for y in data_dict[key]:
+    #         xs.append(key)
+    #         ys.append(y)
+
+    # plot_heat_scatter(xs,ys,ax,fig)
+
+
+    # ## 画两条线
+    # if ylabel=='number of citations':
+    #     ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
+    #     ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_yscale(yscale)
+    if dataset=='AMiner':
+        ax.set_title('ArnetMiner')
+    else:
+        ax.set_title('MAG-CS')
+
+
+    # ax.legend()
+
+    ## 1<x<23
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key]])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Low cited papers')
+
+
+def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -320,7 +364,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='Number of citati
 
 
     ## 画两条线
-    if ylabel=='Number of citations per paper':
+    if ylabel=='number of citations':
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
         ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
