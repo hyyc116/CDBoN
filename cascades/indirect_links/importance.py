@@ -114,7 +114,7 @@ def importance():
     ax.set_ylim(-0.01,1.01)
 
     ax.text(12,0.85,'$({:},{:.4f})$'.format(10,1-_10_y))
-    # ax.legend()
+    # ax.()
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
 
@@ -185,7 +185,7 @@ def importance():
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
     plt.xscale('log')
-    # plt.legend()
+    # plt.()
     plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
 
@@ -205,7 +205,7 @@ def importance():
     ax.set_xticklabels(['low-impact','medium-impact','high-impact'])
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
-    # ax.legend()
+    # ax.()
     plt.tight_layout()
     plt.savefig('pdf/error_bars.pdf',dpi=200)
 

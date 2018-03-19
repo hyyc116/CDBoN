@@ -36,8 +36,21 @@ def plot_relation_size_attr(dataset):
     n_indirect_citations = plot_dict['indirect']
     n_owner_years = plot_dict['year']
 
-    sorted_cxs = sorted(cxs,reverse=True)
+    plt.figure()
+    xs = []
+    ys = []
+    year_counter = Counter(n_owner_years)
+    for year in sorted(year_counter.keys()):
+        xs.append(year)
+        ys.append(year_counter[year])
 
+    plt.plot(xs,ys)
+
+    plt.yscale('log')
+    plt.savefig('pdf/{:}_year_dis.pdf'.format(dataset.lower()),dpi=200)
+
+    sorted_cxs = sorted(cxs,reverse=True)
+    plt.figure()
     plt.plot(np.arange(len(sorted_cxs))+1,sorted_cxs)
     plt.xscale('log')
     plt.yscale('log')
@@ -119,22 +132,24 @@ def plot_relation_size_attr(dataset):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    fig,axes = plt.subplots(1,4,figsize=(24,5))
-    ax = axes[0]
-    ax1 = axes[1]
-    ax2 = axes[2]
-    ax3 = axes[3]
-
+    
     if dataset=='AMiner':
-        t1 = 'publishing year\n(a)'
+        t1 = 'publishing year'
     elif dataset=='MAG':
-        t1 = 'publishing year\n(a)'
-
+        t1 = 'published year'
+    fig,ax = plt.subplots(figsize=(6,5))
     attr_size_plots(ax,fig,x_min,x_max,year_size_dict,t1,dataset=dataset)
+    plt.tight_layout()
+    plt.savefig('pdf/{:}_year_cc.png'.format(dataset.lower()),dpi=400)
+
+    fig,axes = plt.subplots(1,3,figsize=(18,5))
+    ax1 = axes[0]
+    ax2 = axes[1]
+    ax3 = axes[2]
     year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max)
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.tight_layout()
-    plt.savefig(fig_path,dpi=200)
+    plt.savefig(fig_path,dpi=400)
     logging.info('saved to {:}.'.format(fig_path))
 
     citation_links(citation_direct_dict,citation_indirect_dict,dataset,'citations')
