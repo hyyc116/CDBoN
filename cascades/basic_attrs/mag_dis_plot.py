@@ -27,13 +27,13 @@ def stats_plot(dirpath):
         xs.append(num)
         ys.append(v/float(total))
 
-        if v==10:
+        if num==10:
             print 'cascade size:',10,'percentage:',v/float(total)
 
-        if v==20:
+        if num==20:
             print 'cascade size:',20,'percentage:',v/float(total)
 
-        if v==100:
+        if num==100:
             print 'cascade size:',100,'percentage:',v/float(total)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
@@ -69,13 +69,13 @@ def stats_plot(dirpath):
         v = enum_dict[str(num)]
         ys.append(v/total)
 
-        if v==10:
+        if num==10:
             print 'edge size:',10,'percentage:',v/float(total)
 
-        if v==20:
+        if num==20:
             print 'edge size:',20,'percentage:',v/float(total)
 
-        if v==100:
+        if num==100:
             print 'edge size:',100,'percentage:',v/float(total)
 
 
