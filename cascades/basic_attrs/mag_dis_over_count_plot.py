@@ -133,10 +133,10 @@ def plot_dis_over_count():
 
     #### percentage of connectors over citation count
     print 'percentage of connectors'
-    ax2 = axes[0,0]
+    ax2 = axes[1,0]
     plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
         
-    ax2.set_xlabel('citation count\n(a)')
+    ax2.set_xlabel('citation count\n(c)')
     ax2.set_ylabel('$P(c)$')
     ax2.set_xscale('log')
     # ax2.set_title('Percentage of Connectors')
@@ -163,19 +163,19 @@ def plot_dis_over_count():
     ax2.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-    ax2.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    # ax2.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-    ax2.plot(max_xs,max_zs,c=maximal_smooth)
+    # ax2.plot(max_xs,max_zs,c=maximal_smooth)
     ax2.plot(avg_xs,avg_zs,c=avg_smooth)
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
-    ax3 = axes[0,1]
+    ax3 = axes[1,1]
     plot_heat_scatter(po_xs,po_ys,ax3,fig)
 
-    ax3.set_xlabel('citation count\n(b)')
-    ax3.set_ylabel('$P(deg^+(v)>1)$')
+    ax3.set_xlabel('citation count\n(d)')
+    ax3.set_ylabel('$P(le)$')
     ax3.set_xscale('log')
     # ax3.set_title('Out degree > 1')
     np_po_xs = np.array([float(i) for i in sorted(po_xs) if i>1])
@@ -200,16 +200,16 @@ def plot_dis_over_count():
     ax3.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-    ax3.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    # ax3.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
-    ax3.plot(max_xs,max_zs,c=maximal_smooth)
+    # ax3.plot(max_xs,max_zs,c=maximal_smooth)
     ax3.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
     print 'plot acmv..'
     ### average connector marginal value
-    ax4 = axes[1,0]
+    ax4 = axes[0,0]
 
     xs = []
     ys = []
@@ -226,7 +226,7 @@ def plot_dis_over_count():
     plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
-    ax4.set_xlabel('citation count\n(c)')
+    ax4.set_xlabel('citation count\n(a)')
     ax4.set_ylabel('$ANLEC$')
     # ax4.set_title('ANLEC Distribution')
 
@@ -250,10 +250,10 @@ def plot_dis_over_count():
 
     ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
-    ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    # ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
 
-    ax4.plot(max_xs,max_zs,c=maximal_smooth)
+    # ax4.plot(max_xs,max_zs,c=maximal_smooth)
     ax4.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
@@ -279,10 +279,10 @@ def plot_dis_over_count():
 
             cc_crs[cc].append(crm)
 
-    ax = axes[1,1]
+    ax = axes[0,1]
     plot_heat_scatter(cxs,acr,ax,fig)
     ax.set_xscale('log')
-    ax.set_xlabel('citation count\n(V)')
+    ax.set_xlabel('citation count\n(b)')
     ax.set_ylabel('$ACR$')
     # ax.set_title('Average conversion rate')
 
@@ -310,15 +310,15 @@ def plot_dis_over_count():
 
     ax.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
-    ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    # ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
 
-    ax.plot(max_xs,max_zs,c=maximal_smooth)
+    # ax.plot(max_xs,max_zs,c=maximal_smooth)
     ax.plot(avg_xs,avg_zs,c=avg_smooth)
 
     plt.tight_layout()
     # save output
-    outpath = 'pdf/mag_compare.png'
+    outpath = 'pdf/mag_compare.jpg'
     plt.savefig(outpath,dpi=200)
     print 'figure saved to {:}'.format(outpath)
 

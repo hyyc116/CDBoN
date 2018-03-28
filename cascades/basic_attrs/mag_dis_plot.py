@@ -267,7 +267,7 @@ def stats_plot(dirpath):
     ax5.legend()
 
     plt.tight_layout()
-    plt.savefig('pdf/mag_statistics.png',dpi=300)
+    plt.savefig('pdf/mag_statistics.jpg',dpi=300)
     logging.info('figures saved to pdf/mag_statistics.png.')
 
     

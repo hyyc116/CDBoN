@@ -6,7 +6,7 @@ import graphviz as gv
 from graphviz import Digraph
 
 def viz():
-    graph = gv.Digraph(format='pdf')
+    graph = gv.Digraph(format='jpg')
     graph.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
     graph.attr('edge',arrowhead='open')
     graph.attr('graph',rankdir = 'RL')
@@ -18,7 +18,7 @@ def viz():
     graph.edge('G','A')
     graph.render('citation_count')
 
-    p = Digraph(format='pdf')
+    p = Digraph(format='jpg')
     p.attr('graph',rankdir = 'RL')
     p.attr('edge',arrowhead='open')
     p.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
@@ -38,7 +38,7 @@ def viz():
     p.render('citation_cascade')
 
 def subcascade():
-    p = gv.Digraph(format='pdf')
+    p = gv.Digraph(format='jpg')
     p.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
     p.attr('edge',arrowhead='open')
     p.attr('graph',rankdir = 'BT')
