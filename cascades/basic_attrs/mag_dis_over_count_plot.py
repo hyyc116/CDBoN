@@ -318,7 +318,7 @@ def plot_dis_over_count():
 
     plt.tight_layout()
     # save output
-    outpath = 'pdf/mag_compare.jpg'
+    outpath = 'pdf/mag_compare_no_max.jpg'
     plt.savefig(outpath,dpi=200)
     print 'figure saved to {:}'.format(outpath)
 
