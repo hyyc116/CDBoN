@@ -84,7 +84,7 @@ def plot_dis_over_count():
         pc_ys.append(pc_y)
         cc_pc_dict[sx].append(pc_y)
 
-        if sx==10 and pc_y=0.5:
+        if sx==10 and pc_y==0.5:
             print 'Percentage of connectors',sx,pc_y
 
 
