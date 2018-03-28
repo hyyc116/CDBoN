@@ -29,7 +29,7 @@ def plot_dis_over_count():
     id_ys = plot_dict['id_ys']
 
     num = len(plt.get_fignums())
-    fig,axes = plt.subplots(5,1,figsize=(5.5,20))
+    fig,axes = plt.subplots(2,2,figsize=(11,10))
     print 'length of cxs:{:},eys:{:},dcxs:{:},dys:{:},od_ys:{:},id_ys:{:}'.format(len(cxs),len(eys),len(dcxs),len(dys),len(od_ys),len(id_ys))
 
     ## 将数量少于一定值的citation count 向上靠近
@@ -60,6 +60,7 @@ def plot_dis_over_count():
     cc_po_dict = defaultdict(list)
 
 
+
     for i in range(len(cxs)):
 
          #用于生成xs,ys是 将xs替代
@@ -83,6 +84,10 @@ def plot_dis_over_count():
         pc_ys.append(pc_y)
         cc_pc_dict[sx].append(pc_y)
 
+        if sx==10 and pc_y=0.5:
+            print 'Percentage of connectors',sx,pc_y
+
+
         #percentage of out degree > 1
         po_xs.append(sx)
         po_y = od_ys[i]
@@ -90,48 +95,48 @@ def plot_dis_over_count():
         cc_po_dict[sx].append(po_y)
 
     print 'percentage of AMV'
-    ax1 = axes[0]
-    #max values
-    max_xs = []
-    max_ys = []
-    ## average 
-    avg_xs = []
-    avg_ys = []
-    for cc in sorted(cc_size_dict.keys()):
-        size_list = cc_size_dict[cc]
-        max_xs.append(cc)
-        max_ys.append(max(size_list))
+    # ax1 = axes[0]
+    # #max values
+    # max_xs = []
+    # max_ys = []
+    # ## average 
+    # avg_xs = []
+    # avg_ys = []
+    # for cc in sorted(cc_size_dict.keys()):
+    #     size_list = cc_size_dict[cc]
+    #     max_xs.append(cc)
+    #     max_ys.append(max(size_list))
 
-        avg_xs.append(cc)
-        avg_ys.append(sum(size_list)/float(len(size_list)))
+    #     avg_xs.append(cc)
+    #     avg_ys.append(sum(size_list)/float(len(size_list)))
 
-    plot_heat_scatter(rxs,rys,ax1,fig)
+    # plot_heat_scatter(rxs,rys,ax1,fig)
         
-    ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
-    avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
+    # ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    # avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
-    ax1.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
-    max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
+    # ax1.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
+    # max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac= 0.08))[1]]
 
-    ax1.plot(max_xs,max_zs,c=maximal_smooth)
-    ax1.plot(avg_xs,avg_zs,c=avg_smooth)
+    # ax1.plot(max_xs,max_zs,c=maximal_smooth)
+    # ax1.plot(avg_xs,avg_zs,c=avg_smooth)
 
 
-    ax1.set_xlabel('Citation Count\n(I)')
-    ax1.set_ylabel('Average Marginal Value')
-    ax1.set_xscale('log')
-    ax1.set_title('Average Marginal Value')
+    # ax1.set_xlabel('citation count\n(a)')
+    # ax1.set_ylabel('Average Marginal Value')
+    # ax1.set_xscale('log')
+    # ax1.set_title('Average Marginal Value')
 
 
     #### percentage of connectors over citation count
     print 'percentage of connectors'
-    ax2 = axes[1]
+    ax2 = axes[0,0]
     plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
         
-    ax2.set_xlabel('Citation Count\n(II)')
-    ax2.set_ylabel('$P(v=connector)$')
+    ax2.set_xlabel('citation count\n(a)')
+    ax2.set_ylabel('$P(c)$')
     ax2.set_xscale('log')
-    ax2.set_title('Percentage of Connectors')
+    # ax2.set_title('Percentage of Connectors')
     np_pc_xs = np.array([float(i) for i in sorted(pc_xs) if i>1])
     ax2.plot(np_pc_xs,1/np_pc_xs,'--',c=bound_color)
     ax2.plot(np_pc_xs,1-1/np_pc_xs,'--',c=bound_color)
@@ -163,13 +168,13 @@ def plot_dis_over_count():
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
-    ax3 = axes[2]
+    ax3 = axes[0,1]
     plot_heat_scatter(po_xs,po_ys,ax3,fig)
 
-    ax3.set_xlabel('Citation Count\n(III)')
+    ax3.set_xlabel('citation count\n(b)')
     ax3.set_ylabel('$P(deg^+(v)>1)$')
     ax3.set_xscale('log')
-    ax3.set_title('Out degree > 1')
+    # ax3.set_title('Out degree > 1')
     np_po_xs = np.array([float(i) for i in sorted(po_xs) if i>1])
     ax3.plot(np_po_xs,1/np.array(np_po_xs),'--',c=bound_color)
     ax3.plot(np_po_xs,1-1/np.array(np_po_xs),'--',c=bound_color)
@@ -201,7 +206,7 @@ def plot_dis_over_count():
 
     print 'plot acmv..'
     ### average connector marginal value
-    ax4 = axes[3]
+    ax4 = axes[1,0]
 
     xs = []
     ys = []
@@ -218,9 +223,9 @@ def plot_dis_over_count():
     plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
-    ax4.set_xlabel('Citation Count\n(IV)')
-    ax4.set_ylabel('ACMV')
-    ax4.set_title('ACMV Distribution')
+    ax4.set_xlabel('citation count\n(c)')
+    ax4.set_ylabel('$ANLEC$')
+    # ax4.set_title('ANLEC Distribution')
 
     max_dict = defaultdict(list)
     for i,xv in enumerate(xs):
@@ -271,12 +276,12 @@ def plot_dis_over_count():
 
             cc_crs[cc].append(crm)
 
-    ax = axes[4]
+    ax = axes[1,1]
     plot_heat_scatter(cxs,acr,ax,fig)
     ax.set_xscale('log')
-    ax.set_xlabel('Citation Count\n(V)')
-    ax.set_ylabel('ACR')
-    ax.set_title('Average Conversion Rate')
+    ax.set_xlabel('citation count\n(V)')
+    ax.set_ylabel('$ACR$')
+    # ax.set_title('Average conversion rate')
 
     max_dict = defaultdict(list)
     for i,xv in enumerate(cxs):
@@ -292,6 +297,10 @@ def plot_dis_over_count():
     for x in sorted(max_dict.keys()):
         max_xs.append(x)
         max_ys.append(np.max(max_dict[x]))
+
+        if x==40:
+            print 'ACR max value',x, max_ys
+
 
         avg_xs.append(x)
         avg_ys.append(np.mean(max_dict[x]))
