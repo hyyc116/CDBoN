@@ -77,34 +77,34 @@ def stats_plot(dirpath):
     sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y = xs,ys,_80_x,_min_y,_max_y
 
 
-    fig,axes = plt.subplots(4,1,figsize=(6,20))
+    fig,axes = plt.subplots(2,2,figsize=(10,10))
     #### node size 
-    ax1 = axes[0]
+    ax1 = axes[0,0]
     xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
     start,end = cd_start,cd_end
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('Cascade size distribution')
-    ax1.set_xlabel('$x=$cascade size\n(e)')
-    ax1.set_ylabel('$N_{size}(x)/N$')
+    ax1.set_xlabel('$cascade size$\n(a)')
+    ax1.set_ylabel('$P(cascade size)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
-    ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=25)
-    ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    # ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=25)
+    # ax1.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax1.legend()
 
     #### cascade size
-    ax2 = axes[1]
+    ax2 = axes[0,1]
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
     start,end = sd_start,sd_end
     ax2.plot(xs,ys,'o',fillstyle='none')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
+    # ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('Edge count distribution')
-    ax2.set_xlabel('$x=$edge count\n(f)')
-    ax2.set_ylabel('$N_{edge}(x)/N$')
+    ax2.set_xlabel('$edge count$\n(b)')
+    ax2.set_ylabel('$P(edge count)$')
 
     ax2.set_yscale('log')
     ax2.set_xscale('log') 
@@ -113,7 +113,7 @@ def stats_plot(dirpath):
     ####depth
     logging.info('plotting cascade depth ...')
     depth_dict = json.loads(open('{:}/depth.json'.format(dirpath)).read())
-    ax3=axes[2]
+    ax3=axes[1,0]
     xs=[]
     ys=[]
     total = float(sum(depth_dict.values()))
@@ -146,9 +146,9 @@ def stats_plot(dirpath):
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
-    ax3.set_xlabel('$x=$cascade depth\n(g)')
-    ax3.set_ylabel('$N_{depth}(x)/N$')
-    ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
+    ax3.set_xlabel('$depth$\n(c)')
+    ax3.set_ylabel('$P(depth)$')
+    # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
     ax3.set_title('Cascade depth distribution')
@@ -161,7 +161,7 @@ def stats_plot(dirpath):
     logging.info('plotting degree ...')
     in_degree_dict=json.loads(open('{:}/in_degree.json'.format(dirpath)).read())
     out_degree_dict=json.loads(open('{:}/out_degree.json'.format(dirpath)).read())
-    ax4 = axes[3]
+    ax4 = axes[1,1]
     xs=[]
     ys=[]
     total = float(sum(in_degree_dict.values()))
@@ -190,11 +190,11 @@ def stats_plot(dirpath):
 
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
-    ax4.set_xlabel('$x = degree$\n(h)')
-    ax4.set_ylabel('$N_{degree}(x)/N$')
+    ax4.set_xlabel('$degree$\n(d)')
+    ax4.set_ylabel('$P(degree)$')
     
     ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
-    ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
+    # ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
 
 
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])

@@ -15,6 +15,7 @@ def viz():
     graph.edge('D','A')
     graph.edge('E','A') 
     graph.edge('F','A')
+    graph.edge('G','A')
     graph.render('citation_count')
 
     p = Digraph(format='pdf')
@@ -26,9 +27,11 @@ def viz():
     p.edge('D','A')
     p.edge('E','A') 
     p.edge('F','A')
-    p.edge('C','D',style='dashed')
-    p.edge('F','D',style='dashed')
+    p.edge('G','A')
     p.edge('C','B',style='dashed')
+    p.edge('C','D',style='dashed')
+    p.edge('E','D',style='dashed')
+    p.edge('F','E',style='dashed')
 
     # p.subgraph(graph)
 
@@ -95,6 +98,6 @@ def plot_a_subcascade(edges,name):
 
 
 if __name__ == '__main__':
-    # viz()
-    subcascade()
+    viz()
+    # subcascade()
 

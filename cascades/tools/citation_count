@@ -1,0 +1,11 @@
+digraph {
+	node [fixedwith=true height=0.2 shape=circle width=0.2]
+	edge [arrowhead=open]
+	graph [rankdir=RL]
+	B -> A
+	C -> A
+	D -> A
+	E -> A
+	F -> A
+	G -> A
+}

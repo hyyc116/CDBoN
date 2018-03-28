@@ -32,17 +32,17 @@ def plot_citation_num(num_counter):
     total_count=0
     low_citation_count=0
     high_citation_count=0
-    for count in sorted(data.keys()):
+    for count in sorted([int(i) for i in data.keys()]):
         # if count<10:
         #     continue
         xs.append(count)
-        total_count+=data[count]
-        ys.append(data[count])
+        total_count+=data[str(count)]
+        ys.append(data[str(count)])
 
         if count<=14:
-            low_citation_count+=data[count]
+            low_citation_count+=data[str(count)]
         if count>1000:
-            high_citation_count+=data[count]
+            high_citation_count+=data[str(count)]
 
     medium_count = total_count-high_citation_count-low_citation_count
     logging.info('total number of papers:{:}'.format(total_count))
@@ -77,13 +77,13 @@ def plot_citation_num(num_counter):
 
     logging.info('plot paper distribution...')
     ax2 = axes[1]
-    xs=['$x<=x_{low}$','$x_{low}<x<x_{high}$','$x>=x_{high}$']
+    xs=['$x<=14$\nLow','$14<x<1000$\nMedium','$x>=1000$\nHigh']
     ys=[low_citation_count,medium_count,high_citation_count]
     x_pos = x_pos = np.arange(len(xs))
     rects = ax2.bar(x_pos,ys,align='center',width=0.3)
     ax2.set_xticks(x_pos)
     ax2.set_xticklabels(xs)
-    ax2.set_xlabel('Levels\n(d)',fontsize=10)
+    ax2.set_xlabel('Paper Groups\n(d)',fontsize=10)
     ax2.set_ylabel('Number of papers',fontsize=10)
     ax2.set_title('Paper distribution',fontsize=15)
     ax2.set_yscale('log')
@@ -95,7 +95,7 @@ def plot_citation_num(num_counter):
     plt.savefig(fig_path,dpi=300)
     logging.info('fig saved to {:}'.format(fig_path))
 
-    paras_square(para_xs,para_ys)
+    # paras_square(para_xs,para_ys)
 
 
 
@@ -153,5 +153,8 @@ def paras_square(xs,ys):
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+
+    num_counter = json.loads(open(sys.argv[1]).read())
+    plot_citation_num(num_counter)
 
