@@ -226,7 +226,7 @@ def stats_plot(dirpath):
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
 
-    ax5=axes[1,0]
+    ax5=axes[1,1]
     xs=[]
     ys=[]
     total = float(sum(out_degree_dict.values()))
