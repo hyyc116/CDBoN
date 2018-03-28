@@ -160,14 +160,14 @@ def plot_dis_over_count():
         avg_ys.append(sum(pc_list)/float(len(pc_list)))
 
         
-    ax2.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    ax2.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
     # ax2.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
     # ax2.plot(max_xs,max_zs,c=maximal_smooth)
-    ax2.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax2.plot(avg_xs,avg_zs,c=maximal_smooth)
 
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
@@ -197,14 +197,14 @@ def plot_dis_over_count():
         avg_xs.append(cc)
         avg_ys.append(sum(po_list)/float(len(po_list)))
 
-    ax3.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    ax3.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
     # ax3.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
     # ax3.plot(max_xs,max_zs,c=maximal_smooth)
-    ax3.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax3.plot(avg_xs,avg_zs,c=maximal_smooth)
 
 
     print 'plot acmv..'
@@ -248,13 +248,13 @@ def plot_dis_over_count():
         avg_xs.append(x)
         avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
 
-    ax4.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    ax4.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
     # ax4.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
 
     # ax4.plot(max_xs,max_zs,c=maximal_smooth)
-    ax4.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax4.plot(avg_xs,avg_zs,c=maximal_smooth)
 
 
     ### CR 
@@ -308,13 +308,13 @@ def plot_dis_over_count():
         avg_xs.append(x)
         avg_ys.append(np.mean(max_dict[x]))
 
-    ax.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
+    ax.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
     # ax.plot(max_xs,max_ys,c=maximal_bak,alpha=1)
     max_zs = [i for i in zip(*lowess(max_ys,np.log(max_xs),frac=0.1,it=1,is_sorted =True))[1]]
 
     # ax.plot(max_xs,max_zs,c=maximal_smooth)
-    ax.plot(avg_xs,avg_zs,c=avg_smooth)
+    ax.plot(avg_xs,avg_zs,c=maximal_smooth)
 
     plt.tight_layout()
     # save output
