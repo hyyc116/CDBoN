@@ -302,7 +302,7 @@ def plot_dis_over_count():
         max_ys.append(np.max(max_dict[x]))
 
         if x==40:
-            print 'ACR max value',x, max_ys
+            print 'ACR max value',x, np.max(max_dict[x])
 
 
         avg_xs.append(x)
