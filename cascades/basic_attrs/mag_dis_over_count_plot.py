@@ -60,7 +60,7 @@ def plot_dis_over_count():
     cc_po_dict = defaultdict(list)
 
 
-
+    _50_count=0
     for i in range(len(cxs)):
 
          #用于生成xs,ys是 将xs替代
@@ -85,7 +85,7 @@ def plot_dis_over_count():
         cc_pc_dict[sx].append(pc_y)
 
         if sx==10 and pc_y==0.5:
-            print 'Percentage of connectors',sx,pc_y
+            _50_count+=1
 
 
         #percentage of out degree > 1
@@ -93,6 +93,9 @@ def plot_dis_over_count():
         po_y = od_ys[i]
         po_ys.append(po_y)
         cc_po_dict[sx].append(po_y)
+
+
+    print 'percentage 0.5, 10',_50_count
 
     print 'percentage of AMV'
     # ax1 = axes[0]
