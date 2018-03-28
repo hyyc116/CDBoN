@@ -27,6 +27,14 @@ def stats_plot(dirpath):
         xs.append(num)
         ys.append(v/float(total))
 
+        if v==10:
+            print 'cascade size:',10,'percentage:',v/float(total)
+
+        if v==20:
+            print 'cascade size:',20,'percentage:',v/float(total)
+
+        if v==100:
+            print 'cascade size:',100,'percentage:',v/float(total)
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
@@ -60,6 +68,16 @@ def stats_plot(dirpath):
         xs.append(num)
         v = enum_dict[str(num)]
         ys.append(v/total)
+
+        if v==10:
+            print 'edge size:',10,'percentage:',v/float(total)
+
+        if v==20:
+            print 'edge size:',20,'percentage:',v/float(total)
+
+        if v==100:
+            print 'edge size:',100,'percentage:',v/float(total)
+
 
         if _80_total/total<0.8 and (_80_total+v)/total>0.8:
             _80_x = num
@@ -208,7 +226,7 @@ def stats_plot(dirpath):
     # ax2=axes[1]
     # ax2.scatter(cascade_sizes,cascade_depths,marker='.')
 
-    ax5=axes[3]
+    ax5=axes[1,0]
     xs=[]
     ys=[]
     total = float(sum(out_degree_dict.values()))
@@ -249,8 +267,8 @@ def stats_plot(dirpath):
     ax5.legend()
 
     plt.tight_layout()
-    plt.savefig('pdf/mag_statistics.pdf',dpi=300)
-    logging.info('figures saved to pdf/mag_statistics.pdf.')
+    plt.savefig('pdf/mag_statistics.png',dpi=300)
+    logging.info('figures saved to pdf/mag_statistics.png.')
 
     
 
