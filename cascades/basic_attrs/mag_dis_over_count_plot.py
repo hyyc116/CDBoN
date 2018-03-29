@@ -213,6 +213,8 @@ def plot_dis_over_count():
 
     xs = []
     ys = []
+    _20_5_count = 0
+    _100_7_count = 0
     for i,idy in enumerate(id_ys):
 
         if idy==0:
@@ -221,7 +223,19 @@ def plot_dis_over_count():
         sx = dcxs[i]
         
         xs.append(sx)
+
         ys.append(od_ys[i]/id_ys[i])
+
+
+        if sx==20 and od_ys[i]/id_ys[i]==5:
+            _20_5_count+=1
+
+        if sx=100 and od_ys[i]/id_ys[i]==7:
+            _100_7_count+=1
+
+
+    print '20 5',_20_5_count
+    print '100 7',_100_7_count
 
     plot_heat_scatter(xs,ys,ax4,fig)
 
@@ -247,6 +261,9 @@ def plot_dis_over_count():
 
         avg_xs.append(x)
         avg_ys.append(sum(max_dict[x])/float(len(max_dict[x])))
+
+
+
 
     ax4.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
