@@ -214,7 +214,7 @@ def plot_dis_over_count():
     xs = []
     ys = []
     _20_5_count = 0
-    _100_7_count = 0
+    _100_5_count = 0
     for i,idy in enumerate(id_ys):
 
         if idy==0:
@@ -230,12 +230,12 @@ def plot_dis_over_count():
         if sx==20 and int(od_ys[i]/id_ys[i])==5:
             _20_5_count+=1
 
-        if sx==100 and int(od_ys[i]/id_ys[i])==7:
-            _100_7_count+=1
+        if sx==100 and int(od_ys[i]/id_ys[i])==5:
+            _100_5_count+=1
 
 
     print '20 5',_20_5_count
-    print '100 7',_100_7_count
+    print '100 5',_100_5_count
 
     plot_heat_scatter(xs,ys,ax4,fig)
 
