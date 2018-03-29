@@ -318,12 +318,14 @@ def plot_dis_over_count():
         max_xs.append(x)
         max_ys.append(np.max(max_dict[x]))
 
-        if x==40:
-            print 'ACR max value',x, np.max(max_dict[x])
+        
 
 
         avg_xs.append(x)
         avg_ys.append(np.mean(max_dict[x]))
+
+        if x==40:
+            print 'ACR mean value',x, np.mean(max_dict[x])
 
     ax.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.1,it=1,is_sorted =True))[1]]
