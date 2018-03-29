@@ -230,7 +230,7 @@ def plot_dis_over_count():
         if sx==20 and od_ys[i]/id_ys[i]==5:
             _20_5_count+=1
 
-        if sx=100 and od_ys[i]/id_ys[i]==7:
+        if sx==100 and od_ys[i]/id_ys[i]==7:
             _100_7_count+=1
 
 
