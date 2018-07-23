@@ -5,7 +5,7 @@
 from basic_config import *
 
 
-def build_cc(path,N):
+def build_cc(path):
     ref_dict=defaultdict(dict)
     data = json.loads(open(path).read())
     reflist = data['RECORDS']
@@ -40,29 +40,41 @@ def build_cc(path,N):
         node_dict[pid] = len(node_dict.keys())
 
     # node_dict.append(pid)
-    out_maxtrix(edge_dict,node_dict)
+    out_maxtrix(edge_dict,node_dict,2000)
+    out_maxtrix(edge_dict,node_dict,20000)
+
+    out_maxtrix(edge_dict,node_dict,100000)
+
+
     logging.info('done')
 
 
-def out_maxtrix(edge_dict,node_dict):
-	size = len(node_dict.keys())
+def out_maxtrix(edge_dict,node_dict,N):
+    # size = len(node_dict.keys())
+    lines = []
+    logging.info('node size:{:}'.format(N))
+    for node in sortd(edge_dict.keys())[:N]:
+        ## 每一个node输出一行
+        line = [0]*len(size)
 
-	logging.info('node size:{:}'.format(size))
-	for node in edge_dict.keys():
-		## 每一个node输出一行
-		lines = [0]*len(size)
+        for n2 in edge_dict.get(node,[]):
 
-		for n2 in edge_dict.get(node,[]):
+            pos = node_dict[n2]
 
-			pos = node_dict[n2]
-			lines[pos] = 1
+            if pos >=N:
+                continue
 
-		print ','.join([str(i) for i in lines])
+            line[pos] = 1
+
+        lines.append(','.join([str(i) for i in line]))
+
+    open('cc_{:}.txt'.format(N),'w').write('\n'.join(lines))
+
 
 
 if __name__ == '__main__':
-	
-	build_cc(sys.argv[1],sys.argv[2])
+    
+    build_cc(sys.argv[1],sys.argv[2])
 
 
 
