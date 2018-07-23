@@ -39,6 +39,10 @@ def build_cc(path):
 
         node_dict[pid] = len(node_dict.keys())
 
+
+        if count > 120000:
+            break
+
     # node_dict.append(pid)
     out_maxtrix(edge_dict,node_dict,2000)
     out_maxtrix(edge_dict,node_dict,20000)
@@ -50,7 +54,7 @@ def build_cc(path):
 
 
 def out_maxtrix(edge_dict,node_dict,N):
-    # size = len(node_dict.keys())
+    size = len(node_dict.keys())
     lines = []
     logging.info('node size:{:}'.format(N))
     for node in sortd(edge_dict.keys())[:N]:
