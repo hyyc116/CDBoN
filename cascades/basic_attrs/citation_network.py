@@ -31,7 +31,7 @@ def build_cc(path,N):
             self_citation_count+=1
             continue
 
-        ## 
+        ## ∏
         # edge_list.append([citing_pid,pid])
         edge_dict[citing_pid].append(pid)
 
