@@ -59,7 +59,7 @@ def out_maxtrix(edge_dict,node_dict,N):
     logging.info('node size:{:}'.format(N))
     for node in sorted(edge_dict.keys())[:N]:
         ## 每一个node输出一行
-        line = [0]*len(size)
+        line = [0]*size
 
         for n2 in edge_dict.get(node,[]):
 
