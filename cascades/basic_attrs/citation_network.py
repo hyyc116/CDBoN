@@ -74,7 +74,7 @@ def out_maxtrix(edge_dict,node_dict,N):
 
 if __name__ == '__main__':
     
-    build_cc(sys.argv[1],sys.argv[2])
+    build_cc(sys.argv[1])
 
 
 
