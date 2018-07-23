@@ -39,8 +39,9 @@ def build_cc(path,N):
 
         node_dict[pid] = len(node_dict.keys())
 
-        # node_dict.append(pid)
-        out_maxtrix(edge_dict,node_dict)
+    # node_dict.append(pid)
+    out_maxtrix(edge_dict,node_dict)
+    logging.info('done')
 
 
 def out_maxtrix(edge_dict,node_dict):
