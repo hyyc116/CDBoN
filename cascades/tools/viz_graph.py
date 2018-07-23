@@ -94,10 +94,32 @@ def plot_a_subcascade(edges,name):
 
     p.render(name)
 
-
+def depth():
+    p = gv.Digraph(format='jpg')
+    p.attr('node', shape='circle',width='0.2',height='0.2',fixedwith='true')
+    p.attr('edge',arrowhead='open')
+    p.attr('graph',rankdir = 'RL')
+    p.edge('B','A')
+    p.edge('C','A')
+    p.edge('D','A')
+    p.edge('E','A') 
+    p.edge('F','A')
+    p.edge('G','A')
+    p.edge('H','A')
+    p.edge('I','A')
+    p.edge('J','A')
+    p.edge('C','B',style='dashed')
+    p.edge('D','C',style='dashed')
+    p.edge('E','D',style='dashed')
+    p.edge('F','E',style='dashed')
+    p.edge('G','F',style='dashed')
+    p.edge('H','G',style='dashed')
+    p.edge('I','H',style='dashed')
+    p.edge('J','I',style='dashed')
+    p.render('depth')
 
 
 if __name__ == '__main__':
-    viz()
+    # viz()
     # subcascade()
-
+    depth()

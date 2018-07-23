@@ -1,0 +1,22 @@
+digraph {
+	node [fixedwith=true height=0.2 shape=circle width=0.2]
+	edge [arrowhead=open]
+	graph [rankdir=RL]
+	B -> A
+	C -> A
+	D -> A
+	E -> A
+	F -> A
+	G -> A
+	H -> A
+	I -> A
+	J -> A
+	C -> B [style=dashed]
+	D -> C [style=dashed]
+	E -> D [style=dashed]
+	F -> E [style=dashed]
+	G -> F [style=dashed]
+	H -> G [style=dashed]
+	I -> H [style=dashed]
+	J -> I [style=dashed]
+}
