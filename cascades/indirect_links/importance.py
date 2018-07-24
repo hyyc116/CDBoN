@@ -148,7 +148,7 @@ def importance():
 
     ## 两条累积曲线 
     ## aminer_einorm mag_einorm
-    plt.figure(figsize=(6.5,4.5))
+    plt.figure(figsize=(6.5,5))
     # length = float(len(aminer_einorm))
 
     # einorm_counter = Counter(aminer_einorm)
