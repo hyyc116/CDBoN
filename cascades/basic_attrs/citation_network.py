@@ -40,7 +40,7 @@ def build_cc(path):
         node_dict[pid] = len(node_dict.keys())
 
 
-        if count > 120000:
+        if len(edge_dict.keys()) > 120000:
             break
 
     # node_dict.append(pid)
