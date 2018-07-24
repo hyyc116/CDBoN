@@ -195,7 +195,7 @@ def importance():
     plt.plot(xs,ys,label='MAG-CS')
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
-    plt.set_xscale('log')
+    plt.xscale('log')
     # plt.()
 
     ### add sub plot
