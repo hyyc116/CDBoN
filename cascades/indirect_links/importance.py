@@ -148,9 +148,7 @@ def importance():
 
     ## 两条累积曲线 
     ## aminer_einorm mag_einorm
-    fig = plt.figure(figsize=(6.5,4))
-    ax = fig.add_subplot(111)
-
+    plt.figure(figsize=(6.5,4))
     # length = float(len(aminer_einorm))
 
     # einorm_counter = Counter(aminer_einorm)
@@ -166,8 +164,8 @@ def importance():
     #     small+=einorm_counter[einorm]
 
     # plt.plot(xs,ys,label='ArtnetMiner')
-    ax.set_xlabel('$e_{i-norm}$')
-    ax.set_ylabel('$P(X>e_{i-norm})$')
+    plt.xlabel('$e_{i-norm}$')
+    plt.ylabel('$P(X>e_{i-norm})$')
     # plt.tight_layout()
     # plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
 
@@ -194,19 +192,18 @@ def importance():
 
         small+=einorm_counter[einorm]
 
-    ax.plot(xs,ys,label='MAG-CS')
+    plt.plot(xs,ys,label='MAG-CS')
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
-    ax.set_xscale('log')
+    plt.set_xscale('log')
     # plt.()
 
     ### add sub plot
-    inset_axes = inset_axes(ax, 
-                    width="50%", # width = 30% of parent_bbox
-                    height=1.0, # height : 1 inch
-                    loc=1)
-
-    plt.plot(sub_xs,sub_ys)
+    a = plt.axes([.65, .6, .2, .2], facecolor='w')
+    plt.plot(sub_xs, sub_ys)
+    plt.title('Probability')
+    # plt.xticks([])
+    # plt.yticks([])
 
     plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
