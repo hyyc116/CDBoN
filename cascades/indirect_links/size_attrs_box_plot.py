@@ -41,6 +41,12 @@ def plot_relation_size_attr(dataset):
     ys = []
     year_counter = Counter(n_owner_years)
     for year in sorted(year_counter.keys()):
+        ##### 在这里修改，如果超过1970年则略过
+
+        if year < 1970 :
+            continue
+
+            
         xs.append(year)
         ys.append(year_counter[year])
 

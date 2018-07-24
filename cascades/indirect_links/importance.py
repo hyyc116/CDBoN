@@ -1,7 +1,7 @@
 #coding:utf-8
 
 from basic_config import *
-
+from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
 def importance():   
     fig,ax = plt.subplots(figsize=(6,5))
@@ -148,7 +148,9 @@ def importance():
 
     ## 两条累积曲线 
     ## aminer_einorm mag_einorm
-    plt.figure(figsize=(6.5,4))
+    fig = plt.figure(figsize=(6.5,4))
+    ax = fig.add_subplot(111)
+
     # length = float(len(aminer_einorm))
 
     # einorm_counter = Counter(aminer_einorm)
@@ -164,8 +166,8 @@ def importance():
     #     small+=einorm_counter[einorm]
 
     # plt.plot(xs,ys,label='ArtnetMiner')
-    plt.xlabel('$e_{i-norm}$')
-    plt.ylabel('$P(X>e_{i-norm})$')
+    ax.set_xlabel('$e_{i-norm}$')
+    ax.set_ylabel('$P(X>e_{i-norm})$')
     # plt.tight_layout()
     # plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
 
@@ -178,18 +180,34 @@ def importance():
     xs = []
     ys = []
     small = 0
+    sub_xs = []
+    sub_ys = []
     for einorm in sorted(einorm_counter.keys()):
         xs.append(einorm)
         v = length-small
         ys.append(v/length)
 
+        if einorm > 0.05 and einorm<=5:
+            sub_xs.append(einorm)
+            sub_ys.append(v/length)
+
+
         small+=einorm_counter[einorm]
 
-    plt.plot(xs,ys,label='MAG-CS')
+    ax.plot(xs,ys,label='MAG-CS')
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
-    plt.xscale('log')
+    ax.set_xscale('log')
     # plt.()
+
+    ### add sub plot
+    inset_axes = inset_axes(ax, 
+                    width="50%", # width = 30% of parent_bbox
+                    height=1.0, # height : 1 inch
+                    loc=1)
+
+    plt.plot(sub_xs,sub_ys)
+
     plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
 
