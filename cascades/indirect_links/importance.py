@@ -221,6 +221,8 @@ def importance():
     # for i,x in enumerate(xs):
         # ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
 
+    mag_percentages = [[row[i] for row in mag_percentages] for i in range(len(mag_percentages[0]))]
+
     ax.boxplot(mag_percentages,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
     # ax.set_xticks(xs)
     # ax.set_xticklabels()
