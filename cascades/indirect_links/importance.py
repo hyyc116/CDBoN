@@ -196,12 +196,13 @@ def importance():
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
     plt.xscale('log')
+    plt.title('Probability')
+
     # plt.()
 
     ### add sub plot
-    a = plt.axes([.65, .6, .2, .2], facecolor='w')
+    a = plt.axes([.65, .6, .3, .3], facecolor='w')
     plt.plot(sub_xs, sub_ys)
-    plt.title('Probability')
     # plt.xticks([])
     # plt.yticks([])
 
