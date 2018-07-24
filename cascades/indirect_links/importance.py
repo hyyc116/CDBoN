@@ -228,6 +228,7 @@ def importance():
         # ys.append(mean)
 
     data = [[row[i] for row in data] for i in range(len(data[0]))]
+    print len(data)
 
     ax.boxplot(data,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
     # ax.set_xticks(xs)
