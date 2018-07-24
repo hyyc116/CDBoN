@@ -220,10 +220,16 @@ def importance():
 
     # for i,x in enumerate(xs):
         # ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
+    data = []
+    for i in sorted(mag_percentages.keys()):
+        # xs.append(i)
+        # mean = np.mean(mag_percentages[i])
+        data.append(mag_percentages[i])
+        # ys.append(mean)
 
-    mag_percentages = [[row[i] for row in mag_percentages] for i in range(len(mag_percentages[0]))]
+    data = [[row[i] for row in data] for i in range(len(data[0]))]
 
-    ax.boxplot(mag_percentages,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
+    ax.boxplot(data,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
     # ax.set_xticks(xs)
     # ax.set_xticklabels()
     ax.set_xlabel('Paper Impact Level')
