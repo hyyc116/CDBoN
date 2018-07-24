@@ -214,20 +214,21 @@ def importance():
 
     fig,axes = plt.subplots(1,1,figsize=(6,5))
     ax = axes
-    xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
-    asymmetric_error = [lower_errors, upper_errors]
-    ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
+    # xs,ys,lower_errors,upper_errors = AD_percentage(mag_percentages)
+    # asymmetric_error = [lower_errors, upper_errors]
+    # ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
 
-    for i,x in enumerate(xs):
-        ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
+    # for i,x in enumerate(xs):
+        # ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
 
-    ax.set_xticks(xs)
-    ax.set_xticklabels(['low-impact','medium-impact','high-impact'])
+    ax.boxplot(mag_percentages,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
+    # ax.set_xticks(xs)
+    # ax.set_xticklabels()
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/error_bars.pdf',dpi=200)
+    plt.savefig('pdf/boxplot_mag.pdf',dpi=200)
 
 
 
