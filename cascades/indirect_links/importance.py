@@ -201,7 +201,7 @@ def importance():
     # plt.()
 
     ### add sub plot
-    a = plt.axes([.65, .6, .3, .3], facecolor='w')
+    a = plt.axes([.6, .55, .3, .3], facecolor='w')
     plt.plot(sub_xs, sub_ys)
     # plt.xticks([])
     # plt.yticks([])
