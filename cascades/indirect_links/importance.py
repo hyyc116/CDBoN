@@ -206,7 +206,7 @@ def importance():
     # plt.xticks([])
     # plt.yticks([])
 
-    plt.tight_layout()
+    # plt.tight_layout()
     plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
 
 
