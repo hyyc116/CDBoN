@@ -1,7 +1,7 @@
 #coding:utf-8
 
 from basic_config import *
-from mpl_toolkits.axes_grid.inset_locator import inset_axes
+# from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
 def importance():   
     fig,ax = plt.subplots(figsize=(6,5))
