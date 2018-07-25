@@ -238,7 +238,7 @@ def importance():
     ax.set_yscale('log')
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/boxplot_mag.pdf',dpi=200)
+    plt.savefig('pdf/boxplot_mag.png',dpi=200)
 
 
 
