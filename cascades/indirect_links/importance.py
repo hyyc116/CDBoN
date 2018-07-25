@@ -230,11 +230,12 @@ def importance():
     # data = [[row[i] for row in data] for i in range(len(data[0]))]
     # print len(data)
 
-    ax.boxplot(data,labels=['low-impact','medium-impact','high-impact'],showfliers=False)
+    ax.boxplot(data,labels=['low-impact','medium-impact','high-impact'],showfliers=True)
     # ax.set_xticks(xs)
     # ax.set_xticklabels()
     ax.set_xlabel('Paper Impact Level')
     ax.set_ylabel('$e_{i-norm}$')
+    ax.set_yscale('log')
     # ax.()
     plt.tight_layout()
     plt.savefig('pdf/boxplot_mag.pdf',dpi=200)
