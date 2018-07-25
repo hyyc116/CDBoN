@@ -100,6 +100,12 @@ def plot_relation_size_attr(dataset='MAG'):
 
         # owner 的发布时间
         owner_year = n_owner_years[i]
+
+        ##如果owner的发布时间早于1970年，那么略过
+        if int(owner_year)<1970:
+            continue
+
+
         # owner diffusion的时间
         diff_age = citation_ages[i]
 
@@ -522,7 +528,6 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
         ax.set_title('MAG-CS')
 
 
-    ax.legend()
 
     ## 1<x<23
     xs = []
@@ -556,7 +561,8 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
             ys.append(mean)
 
     ax.plot(xs,ys,label='Highly cited papers')
-
+    ax.legend()
+    
 
 if __name__ == '__main__':
     # plot_relation_size_attr(sys.argv[1])
