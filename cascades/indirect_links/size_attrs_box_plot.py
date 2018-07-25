@@ -11,7 +11,7 @@ mag:data/mag/stats/plot_dict.json
 aminer:data/plot_dict.json
 
 '''
-def plot_relation_size_attr(dataset):
+def plot_relation_size_attr(dataset='MAG'):
 
     if dataset =='MAG':
         data_path = 'data/mag/stats/plot_dict.json'
@@ -316,20 +316,20 @@ def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='average number of citati
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
     # ## 1<x<23
-    # xs = []
-    # ys = []
-    # for key in sorted(data_dict.keys()):
-    #     for y in data_dict[key]:
-    #         xs.append(key)
-    #         ys.append(y)
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        for y in data_dict[key]:
+            xs.append(key)
+            ys.append(y)
 
-    # plot_heat_scatter(xs,ys,ax,fig)
+    plot_heat_scatter(xs,ys,ax,fig)
 
 
     # ## 画两条线
-    # if ylabel=='number of citations':
-    #     ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
-    #     ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
+    if ylabel=='number of citations':
+        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
+        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
@@ -455,7 +455,9 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
     ax.plot(xs,ys,label='Highly cited papers')
 
 if __name__ == '__main__':
-    plot_relation_size_attr(sys.argv[1])
+    # plot_relation_size_attr(sys.argv[1])
+    plot_relation_size_attr()
+
 
 
 
