@@ -43,7 +43,7 @@ def plot_relation_size_attr(dataset='MAG'):
     for year in sorted(year_counter.keys()):
         ##### 在这里修改，如果超过1970年则略过
 
-        if year < 1970 :
+        if year < 1970 or year>2016:
             continue
 
             
@@ -102,7 +102,7 @@ def plot_relation_size_attr(dataset='MAG'):
         owner_year = n_owner_years[i]
 
         ##如果owner的发布时间早于1970年，那么略过
-        if int(owner_year)<1970:
+        if int(owner_year)<1970 or owner_year>2016:
             continue
 
 
