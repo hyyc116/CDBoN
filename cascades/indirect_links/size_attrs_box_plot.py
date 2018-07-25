@@ -161,7 +161,7 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.tight_layout()
     plt.savefig('pdf/{:}_year_cc.png'.format(dataset.lower()),dpi=400)
 
-    fig,axes = plt.subplots(1,3,figsize=(18,5))
+    fig,axes = plt.subplots(3,1,figsize=(6,15))
     ax1 = axes[0]
     ax2 = axes[1]
     ax3 = axes[2]
@@ -226,6 +226,9 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     for i,cc in enumerate(cxs):
         es = eys[i]
         year = n_owner_years[i]
+
+        if year<1970 or year>2016:
+            continue
 
         if cc>=x_max:
             high_xs.append(year)
@@ -526,10 +529,10 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_yscale(yscale)
-    if dataset=='AMiner':
-        ax.set_title('ArnetMiner')
-    else:
-        ax.set_title('MAG-CS')
+    # if dataset=='AMiner':
+        # ax.set_title('ArnetMiner')
+    # else:
+        # ax.set_title('MAG-CS')
 
 
 
