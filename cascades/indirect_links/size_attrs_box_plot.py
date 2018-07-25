@@ -166,6 +166,11 @@ def plot_relation_size_attr(dataset='MAG'):
     ax2 = axes[1]
     ax3 = axes[2]
     year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max)
+    ax1.set_ylim(0,20)
+    ax2.set_ylim(0,20)
+
+    ax3.set_ylim(0,20)
+
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.tight_layout()
     plt.savefig(fig_path,dpi=400)
