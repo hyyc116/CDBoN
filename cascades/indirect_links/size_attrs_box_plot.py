@@ -122,7 +122,7 @@ def plot_relation_size_attr(dataset='MAG'):
         year_indirect_dict[owner_year].append(n_indirect_links)
 
     ## 对上述图画 画箱式图
-    fig,axes  = plt.subplots(1,1,figsize=(6,5))
+    fig,axes  = plt.subplots(1,2,figsize=(12,5))
     if dataset=='AMiner':
         t1 = 'depth\n(c)'
         t2 = '$e_{i-norm}$\n(a)'
@@ -130,8 +130,9 @@ def plot_relation_size_attr(dataset='MAG'):
         t1 = 'depth\n(d)'
         t2 = '$e_{i-norm}$'
 
-    ax2 = axes
-    attr_size_plots(ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
+    ax1 = axes[0]
+    ax2 = axes[1]
+    attr_size_plots_two(ax1,ax2,fig,x_min,x_max,indirect_dict,t2,dataset=dataset)
     # ax1 = axes[1]
     # attr_size_plots(ax1,fig,x_min,x_max,depth_size_dict,t1,dataset=dataset)
 
@@ -323,7 +324,7 @@ def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='average number of citati
             xs.append(key)
             ys.append(y)
 
-    plot_heat_scatter(xs,ys,ax,fig)
+    plot_heat_scatter(xs,ys,ax,fig) 
 
 
     # ## 画两条线
@@ -453,6 +454,109 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
             ys.append(mean)
 
     ax.plot(xs,ys,label='Highly cited papers')
+
+def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations',yscale='log',dataset='AMiner'):
+    logging.info('Plotting {:} ...'.format(xlabel))
+    logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
+
+    ## 1<x<23
+    xs = []
+    ys = []
+    _2_count = 0
+    _2_list=[]
+    _3_count = 0
+    _3_list = []
+    _10_count = 0
+    _10_list = []
+    _100_count = 0
+    _100_list = []
+    for key in sorted(data_dict.keys()):
+        for y in data_dict[key]:
+            xs.append(key)
+            ys.append(y)
+
+            if y==2:
+                _2_count+=1
+                if key>0:
+                    _2_list.append(key)
+
+            if y==3:
+                _3_count+=1
+                if key>=1:
+                    _3_list.append(key)
+
+            if y==10:
+                _10_count+=1
+                if key>=1:
+                    _10_list.append(key)
+
+
+
+            if y==20:
+                _100_count+=1
+                if key==3:
+                    _100_list.append(key)
+
+    # print 2,_2_count,len(_2_list)
+    print 3,_3_count,len(_3_list)
+    print 10,_10_count,len(_10_list)  
+    print 100,_100_count,len(_100_list)        
+
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(ylabel)
+    ax1.set_yscale(yscale)
+    plot_heat_scatter(xs,ys,ax1,fig)
+
+    ax = ax2
+    ## 画两条线
+    if ylabel=='number of citations':
+        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
+        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_yscale(yscale)
+    if dataset=='AMiner':
+        ax.set_title('ArnetMiner')
+    else:
+        ax.set_title('MAG-CS')
+
+
+    ax.legend()
+
+    ## 1<x<23
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i<x_min ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Low cited papers')
+
+    # 23 < x <988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=x_min and i < x_max ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Medium cited papers')
+
+    # x> 988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=x_max ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Highly cited papers')
+
 
 if __name__ == '__main__':
     # plot_relation_size_attr(sys.argv[1])
