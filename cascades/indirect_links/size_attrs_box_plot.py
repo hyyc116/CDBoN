@@ -335,7 +335,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
 
 
 
-def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='average number of citations',yscale='log',dataset='AMiner'):
+def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citation per paper',yscale='log',dataset='AMiner'):
     logging.info('Plotting {:} ...'.format(xlabel))
     logging.info('Sizes of X-axis:{:}'.format(len(data_dict.keys())))
 
@@ -351,31 +351,63 @@ def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='average number of citati
 
 
     # ## 画两条线
-    if ylabel=='number of citations':
-        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
-        ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
+    # if ylabel=='average number of citations':
+    ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_min]*10,'--',c='r')
+    ax.plot(np.linspace(np.min(xs),np.max(xs),10),[x_max]*10,'--',c='r')
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_yscale(yscale)
-    if dataset=='AMiner':
-        ax.set_title('ArnetMiner')
-    else:
-        ax.set_title('MAG-CS')
-
+    # if dataset=='AMiner':
+    #     ax.set_title('ArnetMiner')
+    # else:
+    #     ax.set_title('MAG-CS')
 
     # ax.legend()
+
+    ## 1<x<23
+    # xs = []
+    # ys = []
+    # for key in sorted(data_dict.keys()):
+    #     mean = np.mean([i for i in data_dict[key]])
+    #     if mean > 0:
+    #         xs.append(key)
+    #         ys.append(mean)
+
+    # ax.plot(xs,ys,label='Low cited papers')
 
     ## 1<x<23
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
-        mean = np.mean([i for i in data_dict[key]])
+        mean = np.mean([i for i in data_dict[key] if i<x_min ])
         if mean > 0:
             xs.append(key)
             ys.append(mean)
 
     ax.plot(xs,ys,label='Low cited papers')
+
+    # 23 < x <988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=x_min and i < x_max ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Medium cited papers')
+
+    # x> 988
+    xs = []
+    ys = []
+    for key in sorted(data_dict.keys()):
+        mean = np.mean([i for i in data_dict[key] if i>=x_max ])
+        if mean > 0:
+            xs.append(key)
+            ys.append(mean)
+
+    ax.plot(xs,ys,label='Highly cited papers')
 
 
 def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations',yscale='log',dataset='AMiner'):
