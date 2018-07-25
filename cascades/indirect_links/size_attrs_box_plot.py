@@ -161,7 +161,7 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.tight_layout()
     plt.savefig('pdf/{:}_year_cc.png'.format(dataset.lower()),dpi=400)
 
-    fig,axes = plt.subplots(3,1,figsize=(6,15))
+    fig,axes = plt.subplots(3,1,figsize=(6,12))
     ax1 = axes[0]
     ax2 = axes[1]
     ax3 = axes[2]
@@ -170,6 +170,11 @@ def plot_relation_size_attr(dataset='MAG'):
     ax2.set_ylim(0,20)
 
     ax3.set_ylim(0,20)
+    ax1.set_xlim(1970,2020)
+    ax2.set_xlim(1970,2020)
+
+    ax3.set_xlim(1970,2020)
+
 
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
     plt.tight_layout()
