@@ -170,10 +170,10 @@ def plot_relation_size_attr(dataset='MAG'):
     ax2.set_ylim(0,20)
 
     ax3.set_ylim(0,20)
-    ax1.set_xlim(1970,2020)
-    ax2.set_xlim(1970,2020)
+    ax1.set_xlim(1965,2020)
+    ax2.set_xlim(1965,2020)
 
-    ax3.set_xlim(1970,2020)
+    ax3.set_xlim(1965,2020)
 
 
     fig_path = 'pdf/{:}_size_year_plots.png'.format(dataset.lower())
