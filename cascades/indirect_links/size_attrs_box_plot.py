@@ -40,6 +40,7 @@ def plot_relation_size_attr(dataset='MAG'):
     xs = []
     ys = []
     year_counter = Counter(n_owner_years)
+    number_of_papers = 0
     for year in sorted(year_counter.keys()):
         ##### 在这里修改，如果超过1970年则略过
 
@@ -49,6 +50,9 @@ def plot_relation_size_attr(dataset='MAG'):
             
         xs.append(year)
         ys.append(year_counter[year])
+        number_of_papers+=year_counter[year]
+
+    logging.info('paper num between 1970 and 2016: {:}'.format(number_of_papers))
 
     plt.plot(xs,ys)
     plt.xlabel('published year')
