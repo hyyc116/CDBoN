@@ -36,7 +36,6 @@ def paper_distribution(loaded_papers_json,ax=None,index=None):
         fig_path = '{:}/{:}_{:}_citation_dis.pdf'.format(FIGDIR,PROGRAM_ID,PREFIX)
         plt.savefig(fig_path,dpi=300)
 
-
 #calculate the period of citation age
 def citation_ages(loaded_papers_json,ax=None,index=None):
     logging.info('citation age with index {:}'.format(index))
@@ -62,7 +61,7 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
         ys.append(sum(age_dict[year])/float(len(age_dict[year])))
         if year>1980:
             avg.append(sum(age_dict[year])/float(len(age_dict[year])))
-
+  
     a_avg = sum(avg)/float(len(avg))
     title = 'Average citation age over year'
     xls = 'Year'
@@ -78,7 +77,6 @@ def citation_ages(loaded_papers_json,ax=None,index=None):
         plt.tight_layout()
         fig_path = '{:}/{:}_{:}_citation_ages.pdf'.format(FIGDIR,PROGRAM_ID,PREFIX)
         plt.savefig(fig_path,dpi=300)
-
 
 def citation_dis_age(citation_network_path):
     logging.info('plot paper distribution and citation ages dis...')

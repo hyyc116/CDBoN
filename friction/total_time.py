@@ -401,7 +401,7 @@ def div(lines):
 
 if __name__ == '__main__':
     # plot_ten_ti()
-    # plot_0_1()
-    # plot_0_1(label=5)
-    # plot_0_1(label=10)
-    plot_divergence()
+    plot_0_1()
+    plot_0_1(label=5)
+    plot_0_1(label=10)
+    # plot_divergence()
