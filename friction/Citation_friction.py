@@ -28,7 +28,7 @@ def build_citation_network(path):
         count+=1
         if count%10000==1:
             print count
-        pid = ref['cpid']Ï
+        pid = ref['cpid']
         pid_year = ref['cpid_year']
         cited_pid = ref['pid']
         cited_pid_year = ref['pid_year']
