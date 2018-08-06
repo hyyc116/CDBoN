@@ -25,21 +25,21 @@ def three_cited_papers():
         if citation_num>1000:
             # high_selected.append(k)
             # high_citation_nums.append(citation_num)
-			high_cited_papers[k] = data[k]
+            high_cited_papers[k] = data[k]
 
-		elif citation_num > 14:
-			medium_cited_papers[k] = data[k]
+        elif citation_num > 14:
+            medium_cited_papers[k] = data[k]
 
-		else:
+        else:
 
-			low_cited_papers[k] = data[k]
+            low_cited_papers[k] = data[k]
 
 
 
-	open('data/all_low_cited_papers.json','w').write(json.dumps(low_cited_papers))
-	open('data/all_medium_cited_papers.json','w').write(json.dumps(medium_cited_papers))
-	open('data/all_high_cited_papers.json','w').write(json.dumps(high_cited_papers))
+    open('data/all_low_cited_papers.json','w').write(json.dumps(low_cited_papers))
+    open('data/all_medium_cited_papers.json','w').write(json.dumps(medium_cited_papers))
+    open('data/all_high_cited_papers.json','w').write(json.dumps(high_cited_papers))
 
 
 if __name__ == '__main__':
-	three_cited_papers()
+    three_cited_papers()
