@@ -309,8 +309,8 @@ def plot_ten_ti():
 
 def three_points(all_yss):
     firsts = [ys[1][0] for ys in all_yss]
-    fives = [ys[1][4] for ys in all_yss]
-    tens = [ys[1][-1] for ys in all_yss]
+    fives = [ys[1][4] for ys in all_yss  if len(ys[1])>4]
+    tens = [ys[1][-1] for ys in all_yss if len(ys[1])>9]
 
     return counter_xy(firsts),counter_xy(fives),counter_xy(tens)
 
