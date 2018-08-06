@@ -5,10 +5,16 @@ import matplotlib.pylab as pylab
 import math
 
 
-def plot_0_1(label=1):
-    low_json = 'data/low_selected_papers.json'
-    medium_json = 'data/medium_selected_papers.json'
-    high_json = 'data/high_selected_papers.json'
+def plot_0_1(label=1,isall=True):
+    if not isall:
+        low_json = 'data/low_selected_papers.json'
+        medium_json = 'data/medium_selected_papers.json'
+        high_json = 'data/high_selected_papers.json'
+    else:
+        low_json = 'data/all_low_cited_papers.json'
+        medium_json = 'data/all_medium_cited_papers.json'
+        high_json = 'data/all_high_cited_papers.json'
+
     xyfunc= co_ti_i
     i=10
     is_scale=0
@@ -160,7 +166,10 @@ def plot_0_1(label=1):
     # yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
     # plt.setp(yticklabels, visible=False)
     plt.tight_layout()
-    namepath = 'pdf/f_0_{:}.pdf'.format(label)
+    if not isall:
+        namepath = 'pdf/f_0_{:}.pdf'.format(label)
+    else:
+        namepath = 'pdf/all_f_0_{:}.pdf'.format(label)
     plt.savefig(namepath,dpi=300)
     print 'Result saved to',namepath
  
