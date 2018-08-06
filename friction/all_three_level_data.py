@@ -20,7 +20,6 @@ def three_cited_papers():
             continue
 
         citation_num = len(data[k]['citations'])
-        citation_num_list[citation_num].append(k)
 
         if citation_num>1000:
             # high_selected.append(k)
