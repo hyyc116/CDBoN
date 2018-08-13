@@ -269,7 +269,10 @@ def build_cascade_of_a_filed(dirpath,keywords='computer science',fieldname='cs')
 
 
     ## filter out paper ids in specific field
-    field_path = field_papers(dirpath,fieldname,keywords)
+    # field_path = field_papers(dirpath,fieldname,keywords)
+
+
+    field_path='data/cs_papers.txt'
     # first around build basic citation network
     citation_network = build_citation_network(dirpath,field_path,fieldname)
     ## get all nodes in citation network
