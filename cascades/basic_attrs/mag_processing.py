@@ -13,8 +13,8 @@ def field_papers(dirpath,field,keywords):
         if not filepath.endswith('txt'):
             continue
 
-        citation_network=defaultdict(list)
-        paper_year = defaultdict(int)
+        # citation_network=defaultdict(list)
+        # paper_year = defaultdict(int)
         for line in open(filepath):
             line_index+=1
 
@@ -26,6 +26,14 @@ def field_papers(dirpath,field,keywords):
             if paper.get('lang','-1')!='en':
                 continue
 
+            year = paper.get('year',-1)
+
+            if year==-1:
+                continue
+
+            if year>2016 or year<1970:
+                continue
+
             fos = paper.get('fos',-1)
             if fos!=-1:
                 fos = ','.join(fos).lower()
@@ -33,6 +41,8 @@ def field_papers(dirpath,field,keywords):
                     paper_ids.append(paper['id'])
 
     open('data/{:}_papers.txt'.format(field),'w').write('\n'.join(paper_ids))
+
+    logging.info('----total number of cs papers: {:} ..'.format(len(paper_ids)))
     # delete variables
     del paper_ids
 
@@ -273,4 +283,4 @@ def build_cascade_of_a_filed(dirpath,keywords='computer science',fieldname='cs')
 
 
 if __name__ == '__main__':
-    build_cascade_of_a_filed(sys.argv[1],sys.argv[2],sys.argv[3])
+    build_cascade_of_a_filed(sys.argv[1])
