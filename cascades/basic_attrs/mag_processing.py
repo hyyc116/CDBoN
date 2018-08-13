@@ -90,7 +90,7 @@ def build_citation_network(dirpath,field_path,fieldname):
             line_index+=1
 
             if line_index%100000==0:
-                logging.info('==== The {:} th File, total progress:{:} ====').format(file_index,line_index)
+                logging.info('==== The {:} th File, total progress:{:} ===='.format(file_index,line_index))
                 logging.info('---- length of already_in {:}, size of citation count >0 : {:}/{:}, length of citation network:{:}, number of edges:{:} ----'.format(len(already_in),n_count_papers,all_paper_count,len(citation_network.keys()),num_of_edges))
                 new_lines = []
             
