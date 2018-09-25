@@ -290,7 +290,7 @@ def check_powlaw_exponential(xs,ys,label):
 
     fit = powerlaw.Fit(data)
     print '============= power law check {:} =============='.format(label)
-    print fit.distribution_compare('power_law', 'exponential')
+    print fit.distribution_compare('power_law', 'exponential',normalized_ratio = True)
 
     print '======================================='
 
