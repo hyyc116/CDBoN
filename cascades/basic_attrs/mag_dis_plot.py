@@ -291,6 +291,7 @@ def check_powlaw_exponential(xs,ys,label):
         data.extend([x]*int(ys[i]))
 
     fit = powerlaw.Fit(data)
+    print 'xmin', fit.xmin
     print '============= power law check {:} =============='.format(label)
     print fit.distribution_compare('power_law', 'exponential', normalized_ratio = True)
 
