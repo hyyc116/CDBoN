@@ -166,11 +166,11 @@ def stats_plot(dirpath):
     # use exponential func to fit the distribution
     check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
 
-    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
+    popt,pcov = curve_fit(power_low_func,xs[5:],ys[5:])
 
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), power_low_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$depth$\n(c)')
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
@@ -178,6 +178,8 @@ def stats_plot(dirpath):
    
     ax3.set_title('Cascade depth distribution')
     ax3.set_yscale('log')
+    ax3.set_xscale('log')
+
     # ax3.set_xlim(0,13)
     ax3.set_xticks(range(14),[str(i) for i in range(14)])
     ax3.legend()
@@ -290,7 +292,7 @@ def check_powlaw_exponential(xs,ys,label):
 
     fit = powerlaw.Fit(data)
     print '============= power law check {:} =============='.format(label)
-    print fit.distribution_compare('power_law', 'exponential',normalized_ratio = True)
+    print fit.distribution_compare('power_law', 'exponential', normalized_ratio = True)
 
     print '======================================='
 
@@ -353,5 +355,29 @@ def plot_cumulative_dis(ax,alist,title,xlabel,ylabel,isxlog=True,isylog=True):
 
 
 if __name__ == '__main__':
+
+#     ============= power law check citation count ==============
+# (11.294904216533055, 1.3905557491778108e-29) citation count是一种显著的power law, p<0.05
+# =======================================
+
+# Calculating best minimal value for power law fit
+# ============= power law check edge size ==============
+# (0.24671177213646589, 0.80513129529321137)  edge size是两种都合适的分布，因为p>0.05
+# =======================================
+
+# ============= power law check depth ==============
+# (9.2058672832144133, 3.3892306051537122e-20), depth分布也是显著的power law
+# =======================================
+
+# ============= power law check in-degree ==============
+# (5.8081371871992289, 6.3171746170651354e-09), indegree 显著power law
+# =======================================
+
+
+# ============= power law check out degree ==============
+# (29.564084267525804, 4.3288680764554347e-192), out degreee是显著power law
+
+
+
     ## python tools/mag_dis_plot.py data/mag/stats/
     stats_plot(sys.argv[1])
