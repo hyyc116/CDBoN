@@ -37,6 +37,12 @@ from networkx.algorithms.core import core_number
 from networkx.algorithms.core import k_core
 from scipy.stats import pearsonr
 
+import powerlaw
+reload(sys)
+
+sys.setdefaultencoding('utf-8')
+
+
 mpl.rcParams['agg.path.chunksize'] = 10000
 
 

@@ -6,6 +6,7 @@
 '''
 from basic_config import *
 
+
 # 统计指标的分布图
 def stats_plot(dirpath):
     dirpath = dirpath[:-1] if dirpath.endswith('/') else dirpath
@@ -47,6 +48,8 @@ def stats_plot(dirpath):
 
         if v/float(total) < _min_y:
             _min_y = v/float(total)
+
+    check_powlaw_exponential(xs,ys*total,'citation count')
 
     ## 画 para space
     cd_start,cd_end = paras_square(xs,ys,'mag_cd',total)
@@ -90,6 +93,9 @@ def stats_plot(dirpath):
 
         if v/total < _min_y:
             _min_y = v/total
+
+    check_powlaw_exponential(xs,ys*total,'edge size')
+
 
     sd_start,sd_end = paras_square(xs,ys,'mag_sd',total)
     sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y = xs,ys,_80_x,_min_y,_max_y
@@ -158,6 +164,7 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     # use exponential func to fit the distribution
+    check_powlaw_exponential(xs,ys*total,'depth')
 
     popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
@@ -206,6 +213,9 @@ def stats_plot(dirpath):
         if v/total<_min_y:
             _min_y = v/total
 
+
+    check_powlaw_exponential(xs,ys*total,'in-degree')
+
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
     ax4.set_xlabel('$degree$\n(d)')
@@ -252,6 +262,8 @@ def stats_plot(dirpath):
         if v/total < _min_y:
             _min_y = v/total
 
+    check_powlaw_exponential(xs,ys*total,'out degree')
+
     popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
     ax5.plot(xs,ys,'o',fillstyle='none',label='Out-degree',c='r')
 
@@ -270,7 +282,17 @@ def stats_plot(dirpath):
     plt.savefig('pdf/mag_statistics.jpg',dpi=300)
     logging.info('figures saved to pdf/mag_statistics.png.')
 
-    
+
+def check_powlaw_exponential(xs,ys,label):
+    data = []
+    for i,x in enumerate(xs):
+        data.extend([x]*int(ys[i]))
+
+    fit = basic_fit(data)
+    print '============= power law check {:} =============='.format(label)
+    print fit.distribution_compare('power_law', 'exponential')
+
+    print '======================================='
 
 
 ### centrality
