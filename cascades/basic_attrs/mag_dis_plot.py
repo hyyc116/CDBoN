@@ -170,7 +170,7 @@ def stats_plot(dirpath):
 
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), power_low_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), power_low_func(np.linspace(5, 26, 26), *popt)*1.5,label='$\\lambda={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$depth$\n(c)')
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
