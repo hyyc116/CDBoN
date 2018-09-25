@@ -166,19 +166,19 @@ def stats_plot(dirpath):
     # use exponential func to fit the distribution
     check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
 
-    popt,pcov = curve_fit(power_low_func,xs[5:],ys[5:])
+    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), power_low_func(np.linspace(5, 26, 26), *popt)*1.5,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(5, 26, 26), *popt)*1.5,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('$depth$\n(c)')
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
    
     ax3.set_title('Cascade depth distribution')
-    # ax3.set_yscale('log')
-    ax3.set_xscale('log')
+    ax3.set_yscale('log')
+    # ax3.set_xscale('log')
 
     # ax3.set_xlim(0,13)
     ax3.set_xticks(range(14),[str(i) for i in range(14)])
@@ -290,7 +290,7 @@ def check_powlaw_exponential(xs,ys,label):
     for i,x in enumerate(xs):
         data.extend([x]*int(ys[i]))
 
-    fit = powerlaw.Fit(data)
+    fit = powerlaw.Fit(data,xmin=1)
     print 'xmin', fit.xmin
     print '============= power law check {:} =============='.format(label)
     print fit.distribution_compare('power_law', 'exponential', normalized_ratio = True)
