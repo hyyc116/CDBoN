@@ -190,7 +190,7 @@ def plot_statistics():
 
     plt.savefig('pdf/aminer_subcas_statistics.png',dpi=200)
 
-
+    logging.info('saved to pdf/aminer_subcas_statistics.png')
 
 def bin_cc(cc):
 
