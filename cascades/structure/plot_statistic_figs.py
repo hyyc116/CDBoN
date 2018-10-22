@@ -181,21 +181,21 @@ def plot_statistics():
 
     ## Size的diverisity
 
-    cc_xs = []
-    size_dives = []
+    # cc_xs = []
+    # size_dives = []
 
-    for cc in sorted(cc_size_diveristy.keys()):
+    # for cc in sorted(cc_size_diveristy.keys()):
 
-        cc_xs.append(cc)
-        size_dives.append(np.mean(cc_size_diveristy[cc]))
+    #     cc_xs.append(cc)
+    #     size_dives.append(np.mean(cc_size_diveristy[cc]))
 
-    ax13 = axes[1,2]
+    # ax13 = axes[1,2]
 
-    ax13.plot(cc_xs,size_dives)
+    # ax13.plot(cc_xs,size_dives)
 
-    ax13.set_xlabel('number of citations')
-    ax13.set_xscale('log')
-    ax13.set_ylabel('average size diversity')
+    # ax13.set_xlabel('number of citations')
+    # ax13.set_xscale('log')
+    # ax13.set_ylabel('average size diversity')
 
 
     plt.tight_layout()
