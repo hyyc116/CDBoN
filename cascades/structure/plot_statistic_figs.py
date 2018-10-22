@@ -177,7 +177,7 @@ def plot_statistics():
     for cc in sorted(cc_size_diveristy.keys()):
 
         cc_xs.append(cc)
-        size_dives.append(np.mean(cc_size_diveristy))
+        size_dives.append(np.mean(cc_size_diveristy[cc]))
 
     ax13 = axes[1,2]
 
