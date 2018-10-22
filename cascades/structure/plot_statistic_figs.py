@@ -32,6 +32,7 @@ def plot_statistics():
             cc_size[cc].extend(nodesizes)
             # cc_maxnode[cc].append(float(np.max(nodesizes)/cc))
 
+    print 0,0
     fig,axes = plt.subplots(2,4,figsize=(20,10))
     ##最基础的统计图
     ## component的数量分布图
@@ -50,7 +51,7 @@ def plot_statistics():
         # cc_bin_xs.append()
         mean_amount.append(np.mean(cc_amount[cc]))
         amount_diversities.append(gini(cc_amount[cc]))
-        cc_bin_dict[bin_cc[cc]].extend(cc_amount[cc])
+        cc_bin_dict[bin_cc(cc)].extend(cc_amount[cc])
 
         for amount in cc_amount[cc]:
 
@@ -117,7 +118,7 @@ def plot_statistics():
         size_ys.append(np.mean(cc_size[cc]))
 
 
-        ccbin_size[bin_cc[cc]].extend(cc_size[cc])
+        ccbin_size[bin_cc(cc)].extend(cc_size[cc])
 
         for size in cc_size[cc]:
 
