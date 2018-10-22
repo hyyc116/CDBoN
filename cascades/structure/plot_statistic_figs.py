@@ -98,7 +98,7 @@ def plot_statistics():
 
 
     ax3 = axes[0,2]
-
+    print cc_xs,amount_diversities
     ax3.plot(cc_xs,amount_diversities)
     ax3.set_xlabel('number of citations')
     ax3.set_ylabel('diveristy of number of sub-cascades')
@@ -106,9 +106,10 @@ def plot_statistics():
 
     ax2 = axes[0,3]
 
+    print cc_bin_xs,cc_labels
     ax2.boxplot(data)
     ax2.set_xticks(cc_bin_xs)
-    ax2.set_xticklabels(cc_labels)
+    ax2.set_xticklabels([cc_labels[i] for i in cc_bin_xs])
 
     ax2.set_xlabel('number of citations')
     ax2.set_ylabel('number of sub-cascades')
@@ -164,16 +165,18 @@ def plot_statistics():
 
     bin_cc_xs = []
     data = []
+
     for bincc in sorted(ccbin_size.keys()):
         bin_cc_xs.append(bincc)
         data.append(ccbin_size[bincc])
 
     ## bin之后的桶图
+    print bin_cc_xs,cc_labels
 
     ax12 = axes[1,3]
     ax12.boxplot(data)
     ax12.set_xticks(bin_cc_xs)
-    ax12.set_xticklabels(cc_labels)
+    ax12.set_xticklabels([cc_labels[i] for i in bin_cc_xs])
     ax12.set_ylabel('size of sub-cascades')
 
     ## Size的diverisity
