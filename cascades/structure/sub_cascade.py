@@ -154,11 +154,14 @@ def unlinked_subgraph(citation_cascade):
             plt.savefig(dis_fig,dpi=200)
 
 
+
             ## 对于某一个size对应的子图，画出来
             # plt.figure()
             # nx.draw(graph)
             # plt.text('{:}'.format(count))
             name = 'subgraph/{:}_{:}_{:}.png'.format(size,i,count)
+            plot_a_subcascade(graph.edges(),name)
+
             # plt.savefig(name,dpi=200)
             save_subgraphs[name] = [e for e in graph.edges()]
 
@@ -337,6 +340,10 @@ def plot_subgraph_pattern(ax,_20_percent):
         plot_a_subcascade(edges,new_name)
         
     # print ks[:10]
+
+
+
+
 
 def plot_size_n(ax,size_dict,n):
 
