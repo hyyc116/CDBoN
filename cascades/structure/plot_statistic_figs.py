@@ -107,13 +107,13 @@ def plot_statistics():
     ax2 = axes[0,3]
 
     print cc_bin_xs,cc_labels
-    ax2.boxplot(data)
-    ax2.set_xticks(cc_bin_xs)
-    ax2.set_xticklabels([cc_labels[i] for i in cc_bin_xs])
+    ax2.boxplot(data,labels = cc_labels,showfliers=False)
+    # ax2.set_xticks(cc_bin_xs)
+    # ax2.set_xticklabels([cc_labels[i] for i in cc_bin_xs])
 
     ax2.set_xlabel('number of citations')
     ax2.set_ylabel('number of sub-cascades')
-    ax2.set_xscale('log')
+    # ax2.set_xscale('log')
 
 
     ## compnent的size分布图
@@ -173,29 +173,29 @@ def plot_statistics():
     ## bin之后的桶图
     print bin_cc_xs,cc_labels
 
-    # ax12 = axes[1,3]
-    # ax12.boxplot(data)
+    ax12 = axes[1,3]
+    ax12.boxplot(data,labels = cc_labels,showfliers=False)
     # ax12.set_xticks(bin_cc_xs)
     # ax12.set_xticklabels([cc_labels[i] for i in bin_cc_xs])
-    # ax12.set_ylabel('size of sub-cascades')
+    ax12.set_ylabel('size of sub-cascades')
 
-    ## Size的diverisity
+    # Size的diverisity
 
-    # cc_xs = []
-    # size_dives = []
+    cc_xs = []
+    size_dives = []
 
-    # for cc in sorted(cc_size_diveristy.keys()):
+    for cc in sorted(cc_size_diveristy.keys()):
 
-    #     cc_xs.append(cc)
-    #     size_dives.append(np.mean(cc_size_diveristy[cc]))
+        cc_xs.append(cc)
+        size_dives.append(np.mean(cc_size_diveristy[cc]))
 
-    # ax13 = axes[1,2]
+    ax13 = axes[1,2]
 
-    # ax13.plot(cc_xs,size_dives)
+    ax13.plot(cc_xs,size_dives)
 
-    # ax13.set_xlabel('number of citations')
-    # ax13.set_xscale('log')
-    # ax13.set_ylabel('average size diversity')
+    ax13.set_xlabel('number of citations')
+    ax13.set_xscale('log')
+    ax13.set_ylabel('average size diversity')
 
 
     plt.tight_layout()
