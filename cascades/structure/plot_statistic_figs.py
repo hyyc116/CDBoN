@@ -70,7 +70,7 @@ def plot_statistics():
         t_cc_xs.append(amout)
         t_num_ys.append(amount_dict[amout])
 
-
+    print t_cc_xs,t_num_ys
     ax.plot(t_cc_xs,t_num_ys,'o',fillstyle='none')
 
     ax.set_xlabel('number of sub-cascades')
@@ -79,12 +79,13 @@ def plot_statistics():
     ax.set_yscale('log')
 
 
+    print cc_xs,mean_amount
     ax1 = axes[0,1]
 
     ax1.plot(cc_xs,mean_amount)
 
     ax1.set_xlabel('number of citations')
-    ax.set_xscale('log')
+    ax1.set_xscale('log')
 
     ax1.set_ylabel('average number of sub-cascades')
 
