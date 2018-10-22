@@ -185,6 +185,11 @@ def plot_statistics():
 	ax13.set_ylabel('average size diversity')
 
 
+	plt.tight_layout()
+
+	plt.savefig('pdf/aminer_subcas_statistics.png',dpi=200)
+
+
 
 def bin_cc(cc):
 
@@ -207,7 +212,8 @@ def bin_cc(cc):
 
 
 
-
+if __name__ == '__main__':
+	plot_statistics()
 
 
 

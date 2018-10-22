@@ -148,7 +148,7 @@ def unlinked_subgraph(citation_cascade):
 
             plt.plot(xs,ys)
             plt.tight_layout()
-            dis_fig = 'subgraph/{:}_{:}_{:}_dis.png'
+            dis_fig = 'subgraph/{:}_{:}_{:}_dis.png'.format(size,i,count)
             plt.savefig(dis_fig,dpi=200)
 
 
