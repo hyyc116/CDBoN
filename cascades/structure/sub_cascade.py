@@ -134,6 +134,8 @@ def unlinked_subgraph(citation_cascade):
     html = ['<html> <head> frequency of sub-cascades</head><body>']
     html.append('<table>')
     for size in sorted(subgraph_dict.keys()):
+        if size > 6:
+            continue
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
             count  = len(subgraph_dict[size][graph])
@@ -544,11 +546,11 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 if __name__ == '__main__':
     # 生成 subcascade
-    unlinked_subgraph(sys.argv[1])
+    # unlinked_subgraph(sys.argv[1])
     # # 对上面生成的sub-cascade进行统计
     # plot_unconnected_subgraphs()
     # # 重新对前20的subcascade进行同质化统计
-    # stat_subcascade_frequecy(sys.argv[1])
+    stat_subcascade_frequecy(sys.argv[1])
     # 画出前20的分布图
     # plot_sub_cascade_dis()
     
