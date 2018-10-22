@@ -134,7 +134,7 @@ def unlinked_subgraph(citation_cascade):
     html = ['<html> <head> frequency of sub-cascades</head><body>']
     html.append('<table>')
     for size in sorted(subgraph_dict.keys()):
-        if size > 6:
+        if int(size) > 6:
             continue
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
@@ -175,7 +175,7 @@ def unlinked_subgraph(citation_cascade):
             html.append('</tr>')
     html.append('</table>')
     html.append('</body></html>')
-
+    print html
     open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
     open('sub-cascade.html','w').write('\n'.join(html))
 
