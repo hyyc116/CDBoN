@@ -25,6 +25,9 @@ def plot_statistics():
 
             cc = int(cc)
 
+            if cc==0:
+            	continue
+
             cc_amount[cc].append(len(subgraph_sizes))
             nodesizes = []
             for esize,nsize in subgraph_sizes:
