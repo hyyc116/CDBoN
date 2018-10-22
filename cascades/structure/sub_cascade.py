@@ -28,6 +28,30 @@ def iso(subgraph_dict,graph):
     
     return subgraph_dict
 
+def iso_cc(subgraph_dict,graph,cc):
+    size = len(graph.edges())
+    subgraphs  = subgraph_dict.get(size,{}).keys()
+    # logging.info('length of graph: {:}, of existing subgraphs number:{:}'.format(size,len(subgraphs)))
+    # print 'length of graph',size,'existing subgraphs',len(subgraphs)
+    is_iso = False
+    if len(subgraphs)==0:
+        is_iso = False
+    else:
+        for subgraph in subgraphs:
+            # print '---'
+            # print 'exists:',subgraph.edges()
+            # print 'new:',graph.edges()
+            # print 'result:',nx.is_isomorphic(graph,subgraph)
+            if nx.is_isomorphic(graph,subgraph):
+                is_iso=True
+                subgraph_dict[size][subgraph].append(cc)
+                break
+
+    if not is_iso:
+        subgraph_dict[size][graph].append(cc)
+    
+    return subgraph_dict
+
 ## 将与根节点的链接的边去掉,相当于出度小于2的点都去掉了
 def unlinked_subgraph(citation_cascade):
     cc = json.loads(open(citation_cascade).read())
@@ -43,7 +67,7 @@ def unlinked_subgraph(citation_cascade):
     total = len(cc.keys())
 
     ### 存储subgraph的字典
-    subgraph_dict = defaultdict(dict)
+    subgraph_dict = defaultdict(lambda:defaultdict(list))
 
     for pid in cc.keys():
         progress_index+=1
@@ -94,7 +118,7 @@ def unlinked_subgraph(citation_cascade):
             # 如果边的数量小于于50，画出来
             # 判断是否同质
             if edge_size<20:
-                subgraph_dict = iso(subgraph_dict,subgraph)
+                subgraph_dict = iso_cc(subgraph_dict,subgraph,citation_count)
 
         remaining_subgraphs_dis[citation_count].append(subgraphs)
 
@@ -104,10 +128,27 @@ def unlinked_subgraph(citation_cascade):
 
     # 将已经同质化过的图形，画出来
     save_subgraphs = {}
+    html = ['<html> <head> frequency of sub-cascades</head><body>']
+    html.append('<table>')
     for size in sorted(subgraph_dict.keys()):
         subgraphs = subgraph_dict[size].keys()
         for i,graph in enumerate(subgraphs):
-            count  = subgraph_dict[size][graph]
+            count  = len(subgraph_dict[size][graph])
+
+            cc_dis = Counter(subgraph_dict[size][graph])
+            plt.figure()
+            xs = []
+            ys = []
+            for cc in sorted(cc_dis.keys()):
+                xs.append(cc)
+                ys.append(cc_dis[cc])
+
+            plt.plot(xs,ys)
+            plt.tight_layout()
+            dis_fig = 'subgraph/{:}_{:}_{:}_dis.png'
+            plt.savefig(dis_fig,dpi=200)
+
+
             ## 对于某一个size对应的子图，画出来
             # plt.figure()
             # nx.draw(graph)
@@ -116,8 +157,22 @@ def unlinked_subgraph(citation_cascade):
             # plt.savefig(name,dpi=200)
             save_subgraphs[name] = [e for e in graph.edges()]
 
-    open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
+            html.append('<tr>')
+            html.append('<td>')
+            html.append('<img src="{:}">'.format(name))
+            html.append('</td>')
+            html.append('<td>')
+            html.append('{:}'.format(count))
+            html.append('</td>')
+            html.append('<td>')
+            html.append('<img src="{:}">'.format(dis_fig))
+            html.append('</td>')
+            html.append('</tr>')
+    html.append('</table>')
+    html.append('</body></html>')
 
+    open('data/subgraphs_mapping.json','w').write(json.dumps(save_subgraphs))
+    open('sub-cascade.html','w').write('\n'.join(html))
 
 ## unconnected subgraphs plot 
 def plot_unconnected_subgraphs():
@@ -486,11 +541,11 @@ def is_iso_subcascade(subgraph,subcas_dict):
 
 if __name__ == '__main__':
     # 生成 subcascade
-    # unlinked_subgraph(sys.argv[1])
+    unlinked_subgraph(sys.argv[1])
     # # 对上面生成的sub-cascade进行统计
     # plot_unconnected_subgraphs()
     # # 重新对前20的subcascade进行同质化统计
     # stat_subcascade_frequecy(sys.argv[1])
     # 画出前20的分布图
-    plot_sub_cascade_dis()
+    # plot_sub_cascade_dis()
     
