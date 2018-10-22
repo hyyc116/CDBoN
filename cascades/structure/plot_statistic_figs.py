@@ -128,16 +128,16 @@ def plot_statistics():
 
 
     size_xs = []
-    size_ys = []
+    all_size_ys = []
 
     ax10 = axes[1,0]
 
     for x in sorted(size_dict.keys()):
         size_xs.append(x)
-        size_ys.append(size_dict[x])
+        all_size_ys.append(size_dict[x])
 
 
-    ax10.plot(size_xs,size_ys,'o',fillstyle='none')
+    ax10.plot(size_xs,all_size_ys,'o',fillstyle='none')
     ax10.set_xlabel('size of sub-cascades')
     ax10.set_ylabel('number of papers')
 
