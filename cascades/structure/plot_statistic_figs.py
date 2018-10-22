@@ -30,7 +30,7 @@ def plot_statistics():
 
             cc_size_diveristy[cc].append(gini(nodesizes))
             cc_size[cc].extend(nodesizes)
-            cc_maxnode[cc].append(float(np.max(nodesizes)/cc))
+            # cc_maxnode[cc].append(float(np.max(nodesizes)/cc))
 
     fig,axes = plt.subplots(2,4,figsize=(20,10))
     ##最基础的统计图
