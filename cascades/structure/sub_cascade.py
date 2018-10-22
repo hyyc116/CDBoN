@@ -68,7 +68,7 @@ def unlinked_subgraph(citation_cascade):
 
     ### 存储subgraph的字典
     subgraph_dict = defaultdict(lambda:defaultdict(list))
-
+    cc_count = defaultdict(int)
     for pid in cc.keys():
         progress_index+=1
 
@@ -86,6 +86,8 @@ def unlinked_subgraph(citation_cascade):
 
         if not nx.is_directed_acyclic_graph(dig):
             continue
+
+        cc_count[citation_count]+=1
 
         remaining_edges=[]
         for edge in edges:
@@ -118,7 +120,7 @@ def unlinked_subgraph(citation_cascade):
 
             # 如果边的数量小于于50，画出来
             # 判断是否同质
-            if edge_size<20:
+            if edge_size<10:
                 subgraph_dict = iso_cc(subgraph_dict,subgraph,citation_count)
 
         remaining_subgraphs_dis[citation_count].append(subgraphs)
@@ -142,7 +144,7 @@ def unlinked_subgraph(citation_cascade):
             ys = []
             for cc in sorted(cc_dis.keys()):
                 xs.append(cc)
-                ys.append(cc_dis[cc])
+                ys.append(cc_dis[cc]/float(cc_count[cc]))
 
             plt.plot(xs,ys)
             plt.tight_layout()
