@@ -173,11 +173,11 @@ def plot_statistics():
     ## bin之后的桶图
     print bin_cc_xs,cc_labels
 
-    ax12 = axes[1,3]
-    ax12.boxplot(data)
-    ax12.set_xticks(bin_cc_xs)
-    ax12.set_xticklabels([cc_labels[i] for i in bin_cc_xs])
-    ax12.set_ylabel('size of sub-cascades')
+    # ax12 = axes[1,3]
+    # ax12.boxplot(data)
+    # ax12.set_xticks(bin_cc_xs)
+    # ax12.set_xticklabels([cc_labels[i] for i in bin_cc_xs])
+    # ax12.set_ylabel('size of sub-cascades')
 
     ## Size的diverisity
 
