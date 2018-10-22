@@ -77,6 +77,8 @@ def plot_statistics():
     ax.set_ylabel('number of papers')
 
     ax.set_yscale('log')
+    ax.set_xscale('log')
+
 
 
     print cc_xs,mean_amount
@@ -86,6 +88,8 @@ def plot_statistics():
 
     ax1.set_xlabel('number of citations')
     ax1.set_xscale('log')
+    ax1.set_yscale('log')
+
 
     ax1.set_ylabel('average number of sub-cascades')
 
@@ -161,6 +165,8 @@ def plot_statistics():
     ax11.set_xlabel('number of citations')
 
     ax11.set_xscale('log')
+    ax11.set_yscale('log')
+
     ax11.set_ylabel('average size of sub-cascades')
 
     bin_cc_xs = []
