@@ -113,7 +113,8 @@ def unlinked_subgraph(citation_cascade):
         for subgraph in nx.weakly_connected_component_subgraphs(dig):
             # 获得图像子图的边的数量
             edge_size = len(subgraph.edges())
-            subgraphs.append(edge_size)
+            node_size = len(subgraph.nodes())
+            subgraphs.append([edge_size,node_size])
 
             # 如果边的数量小于于50，画出来
             # 判断是否同质
@@ -125,7 +126,7 @@ def unlinked_subgraph(citation_cascade):
     # write output
     # open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
-
+    open('data/subcascade_dict.json','w').write(json.dumps(subgraph_dict))
     # 将已经同质化过的图形，画出来
     save_subgraphs = {}
     html = ['<html> <head> frequency of sub-cascades</head><body>']
