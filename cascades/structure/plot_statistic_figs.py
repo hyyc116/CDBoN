@@ -77,8 +77,10 @@ def plot_statistics():
 
     ax1.plot(cc_xs,mean_amount)
 
-    ax1.set_xscale('number of citations')
-    ax1.set_yscale('average number of sub-cascades')
+    ax1.set_xlabel('number of citations')
+    ax.set_xscale('log')
+
+    ax1.set_ylabel('average number of sub-cascades')
 
 
     data = []
