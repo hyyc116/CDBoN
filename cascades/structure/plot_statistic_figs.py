@@ -31,7 +31,7 @@ def plot_statistics():
             cc_amount[cc].append(len(subgraph_sizes))
             nodesizes = []
             for esize,nsize in subgraph_sizes:
-                cc_amount[cc].append(nsize)
+                # cc_amount[cc].append(nsize)
                 nodesizes.append(nsize)
 
             cc_size_diveristy[cc].append(gini(nodesizes))
