@@ -128,7 +128,7 @@ def unlinked_subgraph(citation_cascade):
     # write output
     # open('data/remaining_statistics.json','w').write(json.dumps(remaining_statistics))
     open('data/remaining_subgraphs_dis.json','w').write(json.dumps(remaining_subgraphs_dis))
-    open('data/subcascade_dict.json','w').write(json.dumps(subgraph_dict))
+    # open('data/subcascade_dict.json','w').write(json.dumps(subgraph_dict))
     # 将已经同质化过的图形，画出来
     save_subgraphs = {}
     html = ['<html> <head> frequency of sub-cascades</head><body>']
