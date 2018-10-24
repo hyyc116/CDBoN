@@ -226,7 +226,7 @@ def plot_zone_delta_ti():
     
     print 'low cited papers'
     low_xy_dict = citation_order(low_json,xyfunc,i)
-    title = 'Low cited papers'
+    title = 'lowly cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax1,low_xy_dict,title,xls+"\n(a)",yls,is_scale,low,up)
     ax4.plot(xlabels,means,'-o',label='Low')
     ax5.plot(xlabels,medians,'-o',label='Low')
@@ -235,7 +235,7 @@ def plot_zone_delta_ti():
 
     print 'Medium cited papers'
     medium_xy_dict = citation_order(medium_json,xyfunc,i)
-    title = 'Medium cited papers'
+    title = 'medium cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax2,medium_xy_dict,title,xls+"\n(b)",yls,is_scale,low,up)
     ax4.plot(xlabels,means,'-^',label='Medium')
     ax5.plot(xlabels,medians,'-^',label='Medium')
@@ -243,7 +243,7 @@ def plot_zone_delta_ti():
     open('regression/zone_medium_report.txt','w').write(lr_report)
 
 
-    print 'high cited papers'
+    print 'highly cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
     title = 'High cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
@@ -253,19 +253,19 @@ def plot_zone_delta_ti():
     open('regression/zone_high_report.txt','w').write(lr_report)
 
     ax3.legend()
-    ax4.set_title('Comparison of Means')
-    ax5.set_title('Comparison of Medians')
-    ax6.set_title('Comparison of Modes')
-    ax4.set_xlabel('$i^{th}$ Zone\n(d)')
-    ax5.set_xlabel('$i^{th}$ Zone\n(e)')
-    ax6.set_xlabel('$i^{th}$ Zone\n(f)')
+    ax4.set_title('comparison of means')
+    ax5.set_title('comparison of medians')
+    ax6.set_title('comparison of modes')
+    ax4.set_xlabel('$i^{th}$ zone\n(d)')
+    ax5.set_xlabel('$i^{th}$ zone\n(e)')
+    ax6.set_xlabel('$i^{th}$ zone\n(f)')
     ax4.set_ylim(-0.2,3)
     ax5.set_ylim(-0.2,3)
     ax6.set_ylim(-0.2,3)
-    ax4.set_ylabel('Average $T_i$')
-    ax4.set_ylabel('Average $T_i$')
-    ax5.set_ylabel('Average $T_i$')
-    ax6.set_ylabel('Average $T_i$')
+    ax4.set_ylabel('average $T_i$')
+    ax4.set_ylabel('average $T_i$')
+    ax5.set_ylabel('average $T_i$')
+    ax6.set_ylabel('average $T_i$')
     ax4.legend()
     ax5.legend()
     ax6.legend()
