@@ -1,6 +1,7 @@
 #coding:utf-8
 from para_config import *
 from friction_plots import *
+import argparse
 
 #get three levels of papers
 def get_three_levels_paper(citation_network_path,N):
@@ -54,7 +55,7 @@ def get_three_levels_paper(citation_network_path,N):
     open('data/low_selected_papers.json','w').write(json.dumps(low_selected_papers))
     logging.info('low cited papers saved to data/low_selected_papers.json')
 
-    xls = 'number of citations$x$\n(a)'
+    xls = 'number of citations $x$\n(a)'
     yls = '$N(x)$'
     title = 'lowly cited papers'
     subplot_line(ax1,xs,ys,title,xls,yls)
@@ -78,7 +79,7 @@ def get_three_levels_paper(citation_network_path,N):
     logging.info('medium cited papers saved to data/medium_selected_papers.json')
 
     
-    xls = 'number of citations$x$\n(b)'
+    xls = 'number of citations $x$\n(b)'
     yls = '$N(x)$'
     title = 'medium cited papers'
     subplot_line(ax2,xs,ys,title,xls,yls)
@@ -98,7 +99,7 @@ def get_three_levels_paper(citation_network_path,N):
     open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
     logging.info('high cited papers saved to data/high_selected_papers.json')
 
-    xls = 'number of citations$x$\n(c)'
+    xls = 'number of citations $x$\n(c)'
     yls = '$N(x)$'
     title = 'highly cited papers'
     subplot_scatter(ax3,xs,ys,title,xls,yls)
@@ -111,9 +112,9 @@ def get_three_levels_paper(citation_network_path,N):
     m_xs,m_ys = citation_years(medium_selected_papers)
     h_xs,h_ys = citation_years(high_selected_papers)
     
-    plot_year_dis(ax4,low_xs,low_ys,title,xls,yls,label='low cited papers')
+    plot_year_dis(ax4,low_xs,low_ys,title,xls,yls,label='lowly cited papers')
     plot_year_dis(ax4,m_xs,m_ys,title,xls,yls,label='medium cited papers')
-    plot_year_dis(ax4,h_xs,h_ys,title,xls,yls,label='high cited papers')
+    plot_year_dis(ax4,h_xs,h_ys,title,xls,yls,label='highly cited papers')
     ax4.legend()
 
     plt.tight_layout()
@@ -121,6 +122,11 @@ def get_three_levels_paper(citation_network_path,N):
     plt.savefig(fig_path,dpi=300)
     logging.info('fig saved to {:}'.format(fig_path))
 
+def plot_year_dis(ax,xs,ys,title,xls,yls,label='low cited papers'):
+    ax.plot(xs,ys,label=label)
+    ax.set_title(title)
+    ax.set_xlabel(xls)
+    ax.set_ylabel(yls)
 def citation_years(cited_papers):
     xs=[]
     ys=[]
