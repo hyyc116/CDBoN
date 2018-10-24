@@ -54,9 +54,9 @@ def get_three_levels_paper(citation_network_path,N):
     open('data/low_selected_papers.json','w').write(json.dumps(low_selected_papers))
     logging.info('low cited papers saved to data/low_selected_papers.json')
 
-    xls = 'Citation Count $x$\n(a)'
+    xls = 'number of citations$x$\n(a)'
     yls = '$N(x)$'
-    title = 'low cited papers'
+    title = 'lowly cited papers'
     subplot_line(ax1,xs,ys,title,xls,yls)
 
     ax2 = axes[1]
@@ -78,7 +78,7 @@ def get_three_levels_paper(citation_network_path,N):
     logging.info('medium cited papers saved to data/medium_selected_papers.json')
 
     
-    xls = 'Citation Count $x$\n(b)'
+    xls = 'number of citations$x$\n(b)'
     yls = '$N(x)$'
     title = 'medium cited papers'
     subplot_line(ax2,xs,ys,title,xls,yls)
@@ -98,15 +98,15 @@ def get_three_levels_paper(citation_network_path,N):
     open('data/high_selected_papers.json','w').write(json.dumps(high_selected_papers))
     logging.info('high cited papers saved to data/high_selected_papers.json')
 
-    xls = 'Citation Count $x$\n(c)'
+    xls = 'number of citations$x$\n(c)'
     yls = '$N(x)$'
-    title = 'high cited papers'
+    title = 'highly cited papers'
     subplot_scatter(ax3,xs,ys,title,xls,yls)
 
     ax4= axes[3]
     xls = '$year x$\n(d)'
-    yls = 'Percentage $P(x)$'
-    title = 'Selected paper distribution'
+    yls = 'percentage $P(x)$'
+    title = 'selected paper distribution'
     low_xs,low_ys = citation_years(low_selected_papers)
     m_xs,m_ys = citation_years(medium_selected_papers)
     h_xs,h_ys = citation_years(high_selected_papers)
