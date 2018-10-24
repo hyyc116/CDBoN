@@ -245,7 +245,7 @@ def plot_zone_delta_ti():
 
     print 'highly cited papers'
     high_xy_dict = citation_order(high_json,xyfunc,i)
-    title = 'High cited papers'
+    title = 'highly cited papers'
     xlabels,means,medians,modes,lr_report = boxplot_zone(ax3,high_xy_dict,title,xls+"\n(c)",yls,is_scale,low,up)
     ax4.plot(xlabels,means,'-*',label='High')
     ax5.plot(xlabels,medians,'-*',label='High')
