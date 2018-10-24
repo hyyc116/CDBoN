@@ -275,7 +275,7 @@ def plot_zone_delta_ti():
     # yticklabels = ax2.get_yticklabels() + ax3.get_yticklabels()
     # plt.setp(yticklabels, visible=False)
     plt.tight_layout()
-    namepath = 'pdf/zone_three_levels.png'
+    namepath = 'pdf/zone_three_levels.jpg'
     plt.savefig(namepath,dpi=300)
     print 'Result saved to',namepath
 
