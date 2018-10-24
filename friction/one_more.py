@@ -208,7 +208,7 @@ def plot_zone_delta_ti():
     up=40
 
     yls = 'average $T_i$'
-    xls = '$i^{th}$ z one'
+    xls = '$i^{th}$ zone'
     low = float(low)
     up = int(up)
 
