@@ -109,7 +109,7 @@ def stats_plot(dirpath):
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     start,end = cd_start,cd_end
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-    ax1.plot(xs,ys,'o',fillstyle='none')
+    ax1.plot(xs,ys,'-')
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('cascade size distribution')
     ax1.set_xlabel('cascade$ size\n(a)')
@@ -126,7 +126,7 @@ def stats_plot(dirpath):
     start,end = sd_start,sd_end
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     
-    ax2.plot(xs,ys,'o',fillstyle='none')
+    ax2.plot(xs,ys,'-')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     # ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
@@ -224,7 +224,7 @@ def stats_plot(dirpath):
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
-    ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
+    ax4.plot(xs,ys,'-',label='In-degree')
     ax4.set_xlabel('degree\n(d)')
     ax4.set_ylabel('$P(degree)$')
     
@@ -273,7 +273,7 @@ def stats_plot(dirpath):
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     
     popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
-    ax5.plot(xs,ys,'o',fillstyle='none',label='Out-degree',c='r')
+    ax5.plot(xs,ys,'-',label='Out-degree',c='r')
 
 
     ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[7])
