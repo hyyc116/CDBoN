@@ -49,7 +49,7 @@ def stats_plot(dirpath):
         if v/float(total) < _min_y:
             _min_y = v/float(total)
 
-    check_powlaw_exponential(xs,[y*int(total) for y in ys],'citation count')
+    # check_powlaw_exponential(xs,[y*int(total) for y in ys],'citation count')
 
     ## 画 para space
     cd_start,cd_end = paras_square(xs,ys,'mag_cd',total)
@@ -94,7 +94,7 @@ def stats_plot(dirpath):
         if v/total < _min_y:
             _min_y = v/total
 
-    check_powlaw_exponential(xs,[y*int(total) for y in ys],'edge size')
+    # check_powlaw_exponential(xs,[y*int(total) for y in ys],'edge size')
 
 
     sd_start,sd_end = paras_square(xs,ys,'mag_sd',total)
@@ -168,7 +168,7 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     # use exponential func to fit the distribution
-    check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
+    # check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
 
     popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
 
@@ -220,7 +220,7 @@ def stats_plot(dirpath):
             _min_y = v/total
 
 
-    check_powlaw_exponential(xs,[y*int(total) for y in ys],'in-degree')
+    # check_powlaw_exponential(xs,[y*int(total) for y in ys],'in-degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
@@ -269,7 +269,7 @@ def stats_plot(dirpath):
         if v/total < _min_y:
             _min_y = v/total
 
-    check_powlaw_exponential(xs,[y*int(total) for y in ys],'out degree')
+    # check_powlaw_exponential(xs,[y*int(total) for y in ys],'out degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
     
     popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
