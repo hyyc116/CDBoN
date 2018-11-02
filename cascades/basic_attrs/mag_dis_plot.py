@@ -105,12 +105,14 @@ def stats_plot(dirpath):
     #### node size 
     ax1 = axes[0,0]
     xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
+
+    xs,ys = convert_pdf_2_ccdf(xs,ys)
     start,end = cd_start,cd_end
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'o',fillstyle='none')
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax1.set_title('Cascade size distribution')
-    ax1.set_xlabel('$cascade$ $size$\n(a)')
+    ax1.set_title('cascade size distribution')
+    ax1.set_xlabel('cascade$ size\n(a)')
     ax1.set_ylabel('$P(cascade$ $size)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -122,12 +124,14 @@ def stats_plot(dirpath):
     ax2 = axes[0,1]
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
     start,end = sd_start,sd_end
+    xs,ys = convert_pdf_2_ccdf(xs,ys)
+    
     ax2.plot(xs,ys,'o',fillstyle='none')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     # ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
-    ax2.set_title('Edge count distribution')
-    ax2.set_xlabel('$edge$ $count$\n(b)')
+    ax2.set_title('edge count distribution')
+    ax2.set_xlabel('edge count\n(b)')
     ax2.set_ylabel('$P(edge$ $count)$')
 
     ax2.set_yscale('log')
@@ -171,7 +175,7 @@ def stats_plot(dirpath):
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
     ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(5, 26, 26), *popt)*1.5,label='$\\alpha={:.2f}$'.format(popt[0]))
-    ax3.set_xlabel('$depth$\n(c)')
+    ax3.set_xlabel('depth\n(c)')
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
@@ -217,10 +221,11 @@ def stats_plot(dirpath):
 
 
     check_powlaw_exponential(xs,[y*int(total) for y in ys],'in-degree')
-
+    xs,ys = convert_pdf_2_ccdf(xs,ys)
+    
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'o',fillstyle='none',label='In-degree')
-    ax4.set_xlabel('$degree$\n(d)')
+    ax4.set_xlabel('degree\n(d)')
     ax4.set_ylabel('$P(degree)$')
     
     ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
@@ -265,7 +270,8 @@ def stats_plot(dirpath):
             _min_y = v/total
 
     check_powlaw_exponential(xs,[y*int(total) for y in ys],'out degree')
-
+    xs,ys = convert_pdf_2_ccdf(xs,ys)
+    
     popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
     ax5.plot(xs,ys,'o',fillstyle='none',label='Out-degree',c='r')
 

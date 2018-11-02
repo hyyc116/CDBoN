@@ -36,6 +36,7 @@ from matplotlib.colors import LinearSegmentedColormap
 from networkx.algorithms.core import core_number
 from networkx.algorithms.core import k_core
 from scipy.stats import pearsonr
+from cycler import cycler
 
 import powerlaw
 reload(sys)
@@ -45,11 +46,17 @@ sys.setdefaultencoding('utf-8')
 
 mpl.rcParams['agg.path.chunksize'] = 10000
 
+# color_sequence = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c',
+#                   '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5',
+#                   '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f',
+#                   '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+# mpl.rcParams['axes.prop_cycle'] = cycler('color', color_sequence)
 
-color_sequence = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c',
-                  '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5',
-                  '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f',
-                  '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+color = plt.cm.viridis(np.linspace(0.01,0.99,6)) # This returns RGBA; convert:
+hexcolor = map(lambda rgb:'#%02x%02x%02x' % (rgb[0]*255,rgb[1]*255,rgb[2]*255),
+               tuple(color[:,0:-1]))
+
+mpl.rcParams['axes.prop_cycle'] = cycler('color', hexcolor)
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.DEBUG)
 PREFIX='all'
@@ -201,4 +208,17 @@ def paras_square(xs,ys,tag,total):
     plt.savefig('pdf/para_space_{:}.pdf'.format(tag),dpi=200)
     print max_start,max_end,max_z
     return max_start[-1],max_end[-1]
+
+def convert_pdf_2_ccdf(xs,ys):
+    ccdf_xs = []
+    ccdf_ys = []
+    for i,x in enumerate(xs):
+        ccdf_xs.append(x)
+        ccdf_ys.append(np.sum(ys[i:]))
+
+    return ccdf_xs,ccdf_ys
+
+
+
+
 
