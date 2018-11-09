@@ -276,7 +276,7 @@ def stats_plot(dirpath):
     ax5.plot(xs,ys,'-',label='Out-degree',c='r')
 
 
-    ax5.plot(np.linspace(10, 100, 10), power_low_func(np.linspace(10, 100, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[7])
+    # ax5.plot(np.linspace(10, 100, 10), power_low_func(np.linspace(10, 100, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[7])
     # ax5.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
     # ax5.set_title('out degree distribution')
