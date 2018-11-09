@@ -160,7 +160,7 @@ def plot_hexbin(xs,ys,ax):
             zs.append(z)
 
     ax.hexbin(xs, ys, C=zs, gridsize=50, marginals=True, cmap=plt.cm.RdBu,xscale='log')
-    plt.colorbar(ax=ax)
+    plt.colorbar()
 
 
 
