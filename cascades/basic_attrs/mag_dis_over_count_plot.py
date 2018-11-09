@@ -237,8 +237,7 @@ def plot_dis_over_count():
     print '20 5',_20_5_count
     print '100 5',_100_5_count
 
-    # plot_heat_scatter(xs,ys,ax4,fig)
-    plot_hexbin(xs,ys,ax4)
+    plot_heat_scatter(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(a)')
