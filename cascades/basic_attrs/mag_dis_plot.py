@@ -102,7 +102,7 @@ def stats_plot(dirpath):
 
 
     fig,axes = plt.subplots(2,2,figsize=(10,10))
-    #### node size 
+    #### node size
     ax1 = axes[0,0]
     xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
 
@@ -125,7 +125,7 @@ def stats_plot(dirpath):
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
     start,end = sd_start,sd_end
     xs,ys = convert_pdf_2_ccdf(xs,ys)
-    
+
     ax2.plot(xs,ys,'-')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
@@ -135,9 +135,9 @@ def stats_plot(dirpath):
     ax2.set_ylabel('$P(edge$ $count)$')
 
     ax2.set_yscale('log')
-    ax2.set_xscale('log') 
+    ax2.set_xscale('log')
     ax2.legend()
-    
+
     ####depth
     logging.info('plotting cascade depth ...')
     depth_dict = json.loads(open('{:}/depth.json'.format(dirpath)).read())
@@ -179,7 +179,7 @@ def stats_plot(dirpath):
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
-   
+
     ax3.set_title('Cascade depth distribution')
     ax3.set_yscale('log')
     # ax3.set_xscale('log')
@@ -202,7 +202,7 @@ def stats_plot(dirpath):
     _max_y = 0
     _min_y = 1
     for ind in sorted([int(i) for i in in_degree_dict.keys()]):
-            
+
         xs.append(ind+1)
         v = in_degree_dict[str(ind)]
         ys.append(v/total)
@@ -222,12 +222,12 @@ def stats_plot(dirpath):
 
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'in-degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
-    
+
     popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax4.plot(xs,ys,'-',label='In-degree')
     ax4.set_xlabel('degree\n(d)')
     ax4.set_ylabel('$P(degree)$')
-    
+
     ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
     # ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
 
@@ -271,8 +271,8 @@ def stats_plot(dirpath):
 
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'out degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
-    
-    popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40]) 
+
+    popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40])
     ax5.plot(xs,ys,'-',label='Out-degree',c='r')
 
 
@@ -309,11 +309,11 @@ def plot_centrality():
     num = len(plt.get_fignums())
     # plt.figure(num)
     fig,axes = plt.subplots(1,5,figsize=(25,5))
-    #### node size 
-    # logging.info('plot node size ...')sz 
+    #### node size
+    # logging.info('plot node size ...')sz
     centrality_dict = json.loads(open('data/centrality.json').read())
 
-    # degree 
+    # degree
     indegree_list = centrality_dict['indegree']
     ax1 = axes[0]
     plot_cumulative_dis(ax1,indegree_list,'in degree centrality','$x$','$P_x$',False,False)
@@ -321,7 +321,7 @@ def plot_centrality():
     outdegree_list = centrality_dict['outdegree']
     ax2 = axes[1]
     plot_cumulative_dis(ax2,outdegree_list,'out degree centrality','$x$','$P_x$',False,True)
-    # closeness 
+    # closeness
     closeness_list = centrality_dict['closeness']
     ax3 = axes[2]
     plot_cumulative_dis(ax3,closeness_list,'closeness','$x$','$P_x$',False,False)
