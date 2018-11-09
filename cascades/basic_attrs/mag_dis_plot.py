@@ -112,7 +112,7 @@ def stats_plot(dirpath):
     ax1.plot(xs,ys,'-')
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('cascade size distribution')
-    ax1.set_xlabel('cascade$ size\n(a)')
+    ax1.set_xlabel('cascade size\n(a)')
     ax1.set_ylabel('$P(cascade$ $size)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
@@ -170,11 +170,11 @@ def stats_plot(dirpath):
     # use exponential func to fit the distribution
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
 
-    popt,pcov = curve_fit(exponential_func,xs[5:],ys[5:])
+    popt,pcov = curve_fit(exponential_func,xs[:20],ys[:20])
 
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
-    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(5, 26, 26), *popt)*1.5,label='$\\alpha={:.2f}$'.format(popt[0]))
+    ax3.plot(np.linspace(1, 26, 26), exponential_func(np.linspace(1, 26, 26), *popt)*1.5,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax3.set_xlabel('depth\n(c)')
     ax3.set_ylabel('$P(depth)$')
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
