@@ -159,11 +159,12 @@ def plot_hexbin(xs,ys,ax):
             ys.append(y)
             zs.append(z)
 
-    ax.hexbin(xs, ys, C=zs, gridsize=50, marginals=True, cmap=plt.cm.RdBu,xscale='log')
-    plt.colorbar()
+    ax.hexbin(xs, ys, C=zs, gridsize=50, marginals=True,bins='log', cmap=plt.cm.viridis,xscale='log')
 
-
-
+    norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
+    colmap = CM.ScalarMappable(norm=norm, cmap=plt.cm.viridis)
+    colmap.set_array(zs)
+    plt.colorbar(colmap,ax=ax)
 
 
 
