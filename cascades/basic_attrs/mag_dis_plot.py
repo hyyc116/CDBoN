@@ -123,7 +123,7 @@ def stats_plot(dirpath):
     #### cascade size
     ax2 = axes[0,1]
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
-    start,end = 100,1000
+    start,end = 500,5000
     xs,ys = convert_pdf_2_ccdf(xs,ys)
 
     ax2.plot(xs,ys,'-')
