@@ -42,7 +42,7 @@ def plot_dis_over_count():
             last_count = x
         else:
             count_mapping[x] = last_count
-    
+
     rxs = []
     rys = []
     # max_dict = defaultdict(int)
@@ -102,7 +102,7 @@ def plot_dis_over_count():
     # #max values
     # max_xs = []
     # max_ys = []
-    # ## average 
+    # ## average
     # avg_xs = []
     # avg_ys = []
     # for cc in sorted(cc_size_dict.keys()):
@@ -114,7 +114,7 @@ def plot_dis_over_count():
     #     avg_ys.append(sum(size_list)/float(len(size_list)))
 
     # plot_heat_scatter(rxs,rys,ax1,fig)
-        
+
     # ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     # avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
 
@@ -135,7 +135,7 @@ def plot_dis_over_count():
     print 'percentage of connectors'
     ax2 = axes[1,0]
     plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
-        
+
     ax2.set_xlabel('citation count\n(c)')
     ax2.set_ylabel('$P(c)$')
     ax2.set_xscale('log')
@@ -159,7 +159,7 @@ def plot_dis_over_count():
         avg_xs.append(cc)
         avg_ys.append(sum(pc_list)/float(len(pc_list)))
 
-        
+
     ax2.plot(avg_xs,avg_ys,c=maximal_bak,alpha=1)
     avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac=0.05,it=1,is_sorted =True))[1]]
 
@@ -219,9 +219,9 @@ def plot_dis_over_count():
 
         if idy==0:
             continue
-        
+
         sx = dcxs[i]
-        
+
         xs.append(sx)
 
         ys.append(od_ys[i]/id_ys[i])
@@ -237,7 +237,8 @@ def plot_dis_over_count():
     print '20 5',_20_5_count
     print '100 5',_100_5_count
 
-    plot_heat_scatter(xs,ys,ax4,fig)
+    # plot_heat_scatter(xs,ys,ax4,fig)
+    plot_hexbin(xs,ys,ax4)
 
     ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(a)')
@@ -274,7 +275,7 @@ def plot_dis_over_count():
     ax4.plot(avg_xs,avg_zs,c=maximal_smooth)
 
 
-    ### CR 
+    ### CR
     mag_connector_obj = json.loads(open('data/mag/mag_connector.json').read())
     nc_list = mag_connector_obj['nc']
     cr_list = mag_connector_obj['cr']
@@ -318,7 +319,7 @@ def plot_dis_over_count():
         max_xs.append(x)
         max_ys.append(np.max(max_dict[x]))
 
-        
+
 
 
         avg_xs.append(x)

@@ -139,6 +139,34 @@ def plot_heat_scatter(xs,ys,ax,fig):
     colmap.set_array(zs)
     plt.colorbar(colmap,ax=ax)
 
+
+def plot_hexbin(xs,ys,ax):
+    xyz = defaultdict(lambda: defaultdict(int))
+    for i,x in enumerate(xs):
+        y = ys[i]
+
+        xyz[x][y]+=1
+
+    xs = []
+    ys = []
+    zs = []
+    for x in xyz.keys():
+        yz = xyz[x]
+        for y in yz.keys():
+            z = xyz[x][y]
+
+            xs.append(x)
+            ys.append(y)
+            zs.append(z)
+
+    ax.hexbin(xs, ys, C=zs, gridsize=(50,50), marginals=True, cmap=plt.cm.RdBu,xscale='log')
+    plt.colorbar(ax=ax)
+
+
+
+
+
+
 def paras_square(xs,ys,tag,total):
 
     rxs=[]
