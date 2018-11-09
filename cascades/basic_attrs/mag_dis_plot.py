@@ -110,7 +110,7 @@ def stats_plot(dirpath):
     start,end = 100,1000
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'-')
-    ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    # ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('cascade size distribution')
     ax1.set_xlabel('cascade size\n(a)')
     ax1.set_ylabel('$P(x>=N)$')
@@ -128,7 +128,7 @@ def stats_plot(dirpath):
 
     ax2.plot(xs,ys,'-')
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
-    ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
+    # ax2.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     # ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('edge count distribution')
     ax2.set_xlabel('edge count\n(b)')
@@ -228,12 +228,12 @@ def stats_plot(dirpath):
     ax4.set_xlabel('degree\n(d)')
     ax4.set_ylabel('$P(x>=N)$')
 
-    ax4.plot(np.linspace(50, 400, 10), power_low_func(np.linspace(50, 400, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
+    # ax4.plot(np.linspace(50, 400, 10), power_low_func(np.linspace(50, 400, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
     # ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
 
 
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
-    ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2],marker='^')
+    # ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2],marker='^')
 
     ax4.set_title('degree distribution')
     ax4.set_yscale('log')
