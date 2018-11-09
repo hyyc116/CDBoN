@@ -107,7 +107,7 @@ def stats_plot(dirpath):
     xs,ys,_80_x,_min_y,_max_y = cd_xs,cd_ys,cd_80_x,cd_min_y,cd_max_y
 
     xs,ys = convert_pdf_2_ccdf(xs,ys)
-    start,end = cd_start,cd_end
+    start,end = 100,1000
     popt,pcov = curve_fit(power_low_func,xs[start:end],ys[start:end])
     ax1.plot(xs,ys,'-')
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
@@ -123,7 +123,7 @@ def stats_plot(dirpath):
     #### cascade size
     ax2 = axes[0,1]
     xs,ys,_80_x,_min_y,_max_y = sd_xs,sd_ys,sd_80_x,sd_min_y,sd_max_y
-    start,end = sd_start,sd_end
+    start,end = 100,1000
     xs,ys = convert_pdf_2_ccdf(xs,ys)
 
     ax2.plot(xs,ys,'-')
@@ -170,7 +170,7 @@ def stats_plot(dirpath):
     # use exponential func to fit the distribution
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'depth')
 
-    popt,pcov = curve_fit(exponential_func,xs[:20],ys[:20])
+    popt,pcov = curve_fit(exponential_func,xs[5:20],ys[5:20])
 
     ax3.plot(xs,ys,'o',fillstyle='none')
     mean  = 1/popt[0]
@@ -223,12 +223,12 @@ def stats_plot(dirpath):
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'in-degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
 
-    popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
+    popt,pcov = curve_fit(power_low_func,xs[30:200],ys[30:200])
     ax4.plot(xs,ys,'-',label='In-degree')
     ax4.set_xlabel('degree\n(d)')
     ax4.set_ylabel('$P(degree)$')
 
-    ax4.plot(np.linspace(20, 200, 10), power_low_func(np.linspace(20, 200, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
+    ax4.plot(np.linspace(50, 400, 10), power_low_func(np.linspace(50, 400, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
     # ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
 
 
@@ -272,11 +272,11 @@ def stats_plot(dirpath):
     # check_powlaw_exponential(xs,[y*int(total) for y in ys],'out degree')
     xs,ys = convert_pdf_2_ccdf(xs,ys)
 
-    popt,pcov = curve_fit(power_low_func,xs[10:40],ys[10:40])
+    popt,pcov = curve_fit(power_low_func,xs[10:100],ys[10:100])
     ax5.plot(xs,ys,'-',label='Out-degree',c='r')
 
 
-    ax5.plot(np.linspace(10, 30, 10), power_low_func(np.linspace(10, 30, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[7])
+    ax5.plot(np.linspace(10, 100, 10), power_low_func(np.linspace(10, 100, 10), *popt)/10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[7])
     # ax5.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
 
     # ax5.set_title('out degree distribution')
