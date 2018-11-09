@@ -113,7 +113,7 @@ def stats_plot(dirpath):
     ax1.plot(np.linspace(start, end, 10), power_low_func(np.linspace(start, end, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]))
     ax1.set_title('cascade size distribution')
     ax1.set_xlabel('cascade size\n(a)')
-    ax1.set_ylabel('$P(cascade$ $size)$')
+    ax1.set_ylabel('$P(x>=N)$')
     ax1.set_yscale('log')
     ax1.set_xscale('log')
     # ax1.text(1,0.001,'MAG',color='k',fontweight='bold',size=25)
@@ -132,7 +132,7 @@ def stats_plot(dirpath):
     # ax2.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x))
     ax2.set_title('edge count distribution')
     ax2.set_xlabel('edge count\n(b)')
-    ax2.set_ylabel('$P(edge$ $count)$')
+    ax2.set_ylabel('$P(x>=N)$')
 
     ax2.set_yscale('log')
     ax2.set_xscale('log')
@@ -226,7 +226,7 @@ def stats_plot(dirpath):
     popt,pcov = curve_fit(power_low_func,xs[30:200],ys[30:200])
     ax4.plot(xs,ys,'-',label='In-degree')
     ax4.set_xlabel('degree\n(d)')
-    ax4.set_ylabel('$P(degree)$')
+    ax4.set_ylabel('$P(x>=N)$')
 
     ax4.plot(np.linspace(50, 400, 10), power_low_func(np.linspace(50, 400, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[9])
     # ax4.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='$x={:}$'.format(_80_x),c='g')
