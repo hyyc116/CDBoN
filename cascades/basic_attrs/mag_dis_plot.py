@@ -180,7 +180,7 @@ def stats_plot(dirpath):
     # ax3.plot([_80_x]*10,np.linspace(_min_y,_max_y,10),'--',label='x={:}'.format(_80_x))
     # ax3.plot([mean]*10,np.linspace(10,100000,10),'--',label='mean={:.2f}'.format(mean))
 
-    ax3.set_title('Cascade depth distribution')
+    ax3.set_title('cascade depth distribution')
     ax3.set_yscale('log')
     # ax3.set_xscale('log')
 
@@ -235,7 +235,7 @@ def stats_plot(dirpath):
     popt,pcov = curve_fit(power_low_func,xs[:10],ys[:10])
     ax4.plot(np.linspace(1, 10, 10), power_low_func(np.linspace(1, 10, 10), *popt)*10,label='$\\alpha={:.2f}$'.format(popt[0]),c=color_sequence[2],marker='^')
 
-    ax4.set_title('Degree distribution')
+    ax4.set_title('degree distribution')
     ax4.set_yscale('log')
     ax4.set_xscale('log')
     ax4.legend()
