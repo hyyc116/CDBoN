@@ -140,31 +140,39 @@ def plot_heat_scatter(xs,ys,ax,fig):
     plt.colorbar(colmap,ax=ax)
 
 
-def plot_hexbin(xs,ys,ax):
+def plot_hexbin(xs,ys,ax,fig):
     xyz = defaultdict(lambda: defaultdict(int))
+    x_set = []
+    y_set = []
     for i,x in enumerate(xs):
+
         y = ys[i]
 
         xyz[x][y]+=1
 
+        x_set.append(x)
+        y_set.append(y)
+
+
+    x_set = set(x_set)
+    y_set = set(y_set)
+
     xs = []
     ys = []
     zs = []
-    for x in xyz.keys():
-        yz = xyz[x]
-        for y in yz.keys():
-            z = xyz[x][y]
+
+    for x in x_set:
+        for y in y_set:
+
+            z = xyz[x].get(y,0)
 
             xs.append(x)
             ys.append(y)
             zs.append(z)
 
-    ax.hexbin(xs, ys, C=zs, gridsize=50, marginals=True,bins='log', cmap=plt.cm.viridis,xscale='log')
 
-    norm = mpl.colors.LogNorm(vmin=min(zs),vmax=max(zs))
-    colmap = CM.ScalarMappable(norm=norm, cmap=plt.cm.viridis)
-    colmap.set_array(zs)
-    plt.colorbar(colmap,ax=ax)
+    hb = ax.hexbin(xs, ys, C=zs, gridsize=30, marginals=False,bins='log', cmap=plt.cm.viridis,xscale='log')
+    plt.colorbar(hb,ax=ax)
 
 
 

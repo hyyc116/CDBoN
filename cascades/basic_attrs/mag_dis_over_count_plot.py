@@ -113,7 +113,7 @@ def plot_dis_over_count():
     #     avg_xs.append(cc)
     #     avg_ys.append(sum(size_list)/float(len(size_list)))
 
-    # plot_heat_scatter(rxs,rys,ax1,fig)
+    # plot_hexbin(rxs,rys,ax1,fig)
 
     # ax1.plot(avg_xs,avg_ys,c=avg_bak,alpha=1)
     # avg_zs = [i for i in zip(*lowess(avg_ys,np.log(avg_xs),frac= 0.08))[1]]
@@ -134,7 +134,7 @@ def plot_dis_over_count():
     #### percentage of connectors over citation count
     print 'percentage of connectors'
     ax2 = axes[1,0]
-    plot_heat_scatter(pc_xs,pc_ys,ax2,fig)
+    plot_hexbin(pc_xs,pc_ys,ax2,fig)
 
     ax2.set_xlabel('citation count\n(c)')
     ax2.set_ylabel('$P(c)$')
@@ -172,7 +172,7 @@ def plot_dis_over_count():
     print 'percentage of out-degree > 1'
     ### out degree > 1 over citation count
     ax3 = axes[1,1]
-    plot_heat_scatter(po_xs,po_ys,ax3,fig)
+    plot_hexbin(po_xs,po_ys,ax3,fig)
 
     ax3.set_xlabel('citation count\n(d)')
     ax3.set_ylabel('$P(le)$')
@@ -237,7 +237,7 @@ def plot_dis_over_count():
     print '20 5',_20_5_count
     print '100 5',_100_5_count
 
-    plot_heat_scatter(xs,ys,ax4,fig)
+    plot_hexbin(xs,ys,ax4,fig)
 
     ax4.set_xscale('log')
     ax4.set_xlabel('citation count\n(a)')
@@ -297,7 +297,7 @@ def plot_dis_over_count():
             cc_crs[cc].append(crm)
 
     ax = axes[0,1]
-    plot_heat_scatter(cxs,acr,ax,fig)
+    plot_hexbin(cxs,acr,ax,fig)
     ax.set_xscale('log')
     ax.set_xlabel('citation count\n(b)')
     ax.set_ylabel('$ACR$')
