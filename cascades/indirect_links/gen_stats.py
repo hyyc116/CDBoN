@@ -173,4 +173,4 @@ def gen_statistics_data(citation_cascade,paper_year_path):
     open('data/plot_dict.json','w').write(json.dumps(plot_dict))
 
 if __name__ == '__main__':
-    gen_statistics_data(sys.argv[1])
+    gen_statistics_data(sys.argv[1],sys.argv[2])
