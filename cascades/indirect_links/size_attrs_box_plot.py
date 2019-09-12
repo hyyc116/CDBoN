@@ -59,14 +59,14 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.ylabel('number of papers')
     plt.yscale('log')
     plt.tight_layout()
-    plt.savefig('pdf/{:}_year_dis.pdf'.format(dataset.lower()),dpi=200)
+    plt.savefig('pdf/{:}_year_dis.png'.format(dataset.lower()),dpi=400)
 
     sorted_cxs = sorted(cxs,reverse=True)
     plt.figure()
     plt.plot(np.arange(len(sorted_cxs))+1,sorted_cxs)
     plt.xscale('log')
     plt.yscale('log')
-    plt.savefig('pdf/{:}_citation_PLE.pdf'.format(dataset),dpi=200)
+    plt.savefig('pdf/{:}_citation_PLE.png'.format(dataset),dpi=400)
 
     logging.info('length of cascade size {:}, edge size {:}, depth {:}, citation ages {:}, direct citations {:}, owner years {:}, n_indirect_citations {:}'.format(len(cxs),len(eys),len(dys),len(citation_ages),len(n_direct_citations),len(n_owner_years),len(n_indirect_citations)))
     
@@ -148,7 +148,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
-    plt.savefig(fig_path,dpi=200)
+    plt.savefig(fig_path,dpi=400)
     logging.info('saved to {:}.'.format(fig_path))
 
     
@@ -218,8 +218,8 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.xscale('log')
     plt.legend()
     plt.tight_layout()
-    out_path = 'pdf/{:}_types_curves_{:}.pdf'.format(dataset.lower(),name)
-    plt.savefig(out_path,dpi=200)
+    out_path = 'pdf/{:}_types_curves_{:}.png'.format(dataset.lower(),name)
+    plt.savefig(out_path,dpi=400)
     logging.info('fig saved to {:}'.format(out_path))
 
 def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):

@@ -120,7 +120,7 @@ def importance():
     ax.text(12,0.85,'$({:},{:.4f})$'.format(30,1-_10_y))
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/importance.pdf',dpi=200)
+    plt.savefig('pdf/importance.png',dpi=400)
 
 
     change_xs=[]
@@ -143,7 +143,7 @@ def importance():
     plt.xlabel('$C=n$')
     plt.ylabel('Change Rate')
     plt.xscale('log')
-    plt.savefig('pdf/change_rate.pdf',dpi=200)
+    plt.savefig('pdf/change_rate.png',dpi=400)
 
 
     ## 两条累积曲线 
@@ -167,7 +167,7 @@ def importance():
     plt.xlabel('$e_{i-norm}$')
     plt.ylabel('$P(X>e_{i-norm})$')
     # plt.tight_layout()
-    # plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
+    # plt.savefig('pdf/ccdf_aminer.png',dpi=400)
 
     ## aminer_einorm mag_einorm
     # plt.figure(figsize=(6.5,4))
@@ -207,7 +207,7 @@ def importance():
     # plt.yticks([])
 
     # plt.tight_layout()
-    plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
+    plt.savefig('pdf/ccdf_mag.png',dpi=400)
 
 
 
@@ -238,7 +238,7 @@ def importance():
     ax.set_yscale('log')
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/boxplot_mag.png',dpi=200)
+    plt.savefig('pdf/boxplot_mag.png',dpi=400)
 
 
 
