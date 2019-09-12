@@ -100,8 +100,8 @@ def importance():
 
         y = equal_dict[cc]
 
-        if cc==10:
-            print 10,sum(y),len(y)
+        if cc==30:
+            print 30,sum(y),len(y)
             _10_y=sum(y)/float(len(y))
 
         # if cc==2:
@@ -112,12 +112,12 @@ def importance():
     ax.plot(e_xs,e_ys,label='MAG-CS')
 
     print 1-_10_y
-    ax.plot(np.linspace(0.6,10,10),[1-_10_y]*10,'--',c='r')
-    ax.plot([10]*10,np.linspace(-0.5,1-_10_y,10),'--',c='r')
+    ax.plot(np.linspace(0.6,30,10),[1-_10_y]*10,'--',c='r')
+    ax.plot([30]*10,np.linspace(-0.5,1-_10_y,30),'--',c='r')
     ax.set_xlim(0.9,e_xs[-1])
     ax.set_ylim(-0.01,1.01)
 
-    ax.text(12,0.85,'$({:},{:.4f})$'.format(10,1-_10_y))
+    ax.text(12,0.85,'$({:},{:.4f})$'.format(30,1-_10_y))
     # ax.()
     plt.tight_layout()
     plt.savefig('pdf/importance.pdf',dpi=200)
