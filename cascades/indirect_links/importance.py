@@ -100,7 +100,7 @@ def importance():
 
         y = equal_dict[cc]
 
-        if cc==30:
+        if cc==10:
             print 30,sum(y),len(y)
             _10_y=sum(y)/float(len(y))
 
