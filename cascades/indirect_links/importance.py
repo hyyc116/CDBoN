@@ -113,7 +113,7 @@ def importance():
 
     print 1-_10_y
     ax.plot(np.linspace(0.6,30,10),[1-_10_y]*10,'--',c='r')
-    ax.plot([30]*10,np.linspace(-0.5,1-_10_y,30),'--',c='r')
+    ax.plot([30]*10,np.linspace(-0.5,1-_10_y,10),'--',c='r')
     ax.set_xlim(0.9,e_xs[-1])
     ax.set_ylim(-0.01,1.01)
 
