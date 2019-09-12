@@ -14,9 +14,9 @@ aminer:data/plot_dict.json
 def plot_relation_size_attr(dataset='MAG'):
 
     if dataset =='MAG':
-        data_path = 'data/mag/stats/plot_dict.json'
-        x_min = 22
-        x_max = 260
+        data_path = 'data/plot_dict.json'
+        x_min = 12
+        x_max = 695
 
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
