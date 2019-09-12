@@ -4,7 +4,7 @@
 '''
 from basic_config import *
 
-def gen_statistics_data(citation_cascade):
+def gen_statistics_data(citation_cascade,paper_year_path):
 
     cc = {}
 
@@ -12,7 +12,10 @@ def gen_statistics_data(citation_cascade):
         cc.update(json.loads(line.strip()))
 
 
+    pid_year = json.loads(open(paper_year_path).read())
+
     logging.info('data loaded...')
+
     # general indicators
     cnum_dict=defaultdict(int)
     enum_dict=defaultdict(int)
@@ -61,28 +64,27 @@ def gen_statistics_data(citation_cascade):
         
 
         diG = nx.DiGraph()
-        edges = cc[pid]['edges']
+        edges = cc[pid]
         diG.add_edges_from(edges)
+
+        nodes = list(diG.nodes)
 
         # if citation cascade is not acyclic graph
         if not nx.is_directed_acyclic_graph(diG):
             continue
+
         ## DEPTH
         depth=nx.dag_longest_path_length(diG)
 
-        year = cc[pid]['year']
+        year = int(pid_year[pid])
 
         n_owner_years.append(year) 
 
         ## citing age
-
-        citing_age = np.max(cc[pid]['citations'].values())-year
+        citing_age = np.max([int(pid_year[p]) for p in nodes])-year
 
         # print year,citing_age    
         citation_ages.append(citing_age)   
-
-
-
 
         # cascade_depths.append(depth)
         depth_dict[depth]+=1
@@ -90,14 +92,14 @@ def gen_statistics_data(citation_cascade):
         size_depth_dict[len(edges)].append(depth)
 
         #number of nodes
-        cnum_dict[cc[pid]['cnum']]+=1
-        cxs.append(cc[pid]['cnum'])
+        cnum_dict[len(nodes)-1]+=1
+        cxs.append(len(nodes)-1)
         #number of edges
-        enum_dict[cc[pid]['enum']]+=1
-        eys.append(cc[pid]['enum'])
+        enum_dict[len(edges)]+=1
+        eys.append(len(edges))
         
         dys.append(depth)
-        dcxs.append(cc[pid]['cnum'])
+        dcxs.append(len(nodes)-1)
 
         #degree
         outdegree_dict = diG.out_degree()
@@ -125,12 +127,12 @@ def gen_statistics_data(citation_cascade):
                 ##如果出度等于1， 就是直接引文
                 direct_count +=1
 
-        od_ys.append(od_count/float(cc[pid]['cnum']))
-        id_ys.append(id_count/float(cc[pid]['cnum']))
+        od_ys.append(od_count/float(len(nodes)-1))
+        id_ys.append(id_count/float(len(nodes)-1))
 
         ## od 就是indirect  
-        n_direct_citations.append(direct_count/float(cc[pid]['cnum']))
-        n_indirect_citations.append(od_count/float(cc[pid]['cnum']))
+        n_direct_citations.append(direct_count/float(len(nodes)-1))
+        n_indirect_citations.append(od_count/float(len(nodes)-1))
 
 
 
