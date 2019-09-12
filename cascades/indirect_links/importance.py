@@ -57,7 +57,7 @@ def importance():
     ax.set_xlabel('$C=n$')
     ax.set_ylabel('$P(e>n|C=n)$')
 
-    plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
+    plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
     cxs= plot_dict['cxs']
     eys= plot_dict['eys']
