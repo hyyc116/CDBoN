@@ -16,7 +16,7 @@ def build_cascade_from_pid_refs(pid_ref_path):
             logging.info('reading %d citation relations....' % progress)
 
         line = line.strip()
-        citing_pid,pid = line.split("\t")
+        citing_pid,pid = line.split(",")
 
         pid_citations[pid].append(citing_id)
 
