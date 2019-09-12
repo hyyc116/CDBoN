@@ -59,7 +59,7 @@ def gen_statistics_data(citation_cascade,paper_year_path):
 
         #progress 
         logi+=1
-        if logi%10000==1:
+        if logi%1000000==1:
             logging.info('progress {:}'.format(logi))
         
 
