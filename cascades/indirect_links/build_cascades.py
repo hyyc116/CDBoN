@@ -26,7 +26,7 @@ def build_cascade_from_pid_refs(pid_ref_path):
     citnum_list = []
 
     length = len(pids)
-    logging.info('{:} papers has citations, start to build cascade ...'.format(length))
+    logging.info('{:} papers has citations with {} citation relations, start to build cascade ...'.format(length,progress))
     progress = 0
     saved_path = 'data/mag_cascade.txt'
     os.remove(saved_path) if os.path.exists(saved_path) else None
