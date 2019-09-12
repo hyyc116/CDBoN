@@ -67,6 +67,8 @@ def build_cascade_from_pid_refs(pid_ref_path):
                 citation_cascade[pid].append([inter_pid,cit])
 
     outfile.write(json.dumps(citation_cascade)+"\n")
+
+    total_num+=len(citation_cascade)
     logging.info("{:} citation cascade has been build, and saved to {:}".format(total_num,saved_path))
 
     open('data/citnum_list.txt','w').write('\n'.join(citnum_list))

@@ -499,7 +499,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
 
     ax.plot(xs,ys,label='Medium cited papers')
 
-    # x> 988
+    # x> 98d8
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
@@ -517,14 +517,19 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     ## 1<x<23
     xs = []
     ys = []
+
     _2_count = 0
     _2_list=[]
+
     _3_count = 0
     _3_list = []
+
     _10_count = 0
     _10_list = []
+
     _100_count = 0
     _100_list = []
+
     for key in sorted(data_dict.keys()):
         for y in data_dict[key]:
             xs.append(key)
@@ -560,7 +565,11 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     ax1.set_xlabel(xlabel)
     ax1.set_ylabel(ylabel)
     ax1.set_yscale(yscale)
-    plot_heat_scatter(xs,ys,ax1,fig)
+    plot_heat_scatter(ys,xs,ax1,fig)
+
+    ## xs ys分别是ei-norm citation_count
+
+    
 
     ax = ax2
     ## 画两条线
