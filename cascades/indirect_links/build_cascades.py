@@ -37,7 +37,7 @@ def build_cascade_from_pid_refs(pid_ref_path):
     for pid in pids:
         progress+=1
 
-        if progress%100000==0:
+        if progress%1000000==0:
             total_num += len(citation_cascade.keys())
             outfile.write(json.dumps(citation_cascade)+'\n')
             logging.info('Building progress {:}/{:}, {:} citation cascades saved to {:}...'.format(progress,length,total_num,saved_path))
