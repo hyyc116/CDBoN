@@ -150,7 +150,7 @@ def plot_relation_size_attr(dataset='MAG'):
     fig,axes  = plt.subplots(1,2,figsize=(12,5))
 
     ax1 = axes[0]
-    plot_heat_scatter(ys,xs,ax1,fig)
+    plot_heat_scatter(all_sizes,all_eins,ax1,fig)
 
     ax1.set_xlabel('number of citations')
     ax1.set_ylabel('$e_{i-norm}$')
