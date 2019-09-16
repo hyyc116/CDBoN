@@ -81,9 +81,9 @@ def importance():
 
             mag_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
-            if sx<12:   
+            if sx<23:   
                 mag_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
-            elif sx<695:
+            elif sx<95:
                 mag_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
             else:
                 mag_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
