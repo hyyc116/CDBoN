@@ -84,14 +84,21 @@ def plot_relation_size_attr(dataset='MAG'):
     citation_direct_links = defaultdict(list)
     citation_indirect_links = defaultdict(list)
 
+    # size_indirect_dict = defaultdict(list)
+
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
     normed_direct_cps = n_direct_citations
+
+    all_sizes = []
+    all_eins = []
+
     for i,depth in enumerate(dys):
         # cascade 的大小
         cascade_size = cxs[i]
 
+        all_sizes.append(cascade_size)
         # ### citation  count数量为10以下的都抛弃，只看中高被引的论文
         # if cascade_size<900:
         #     continue 
@@ -101,6 +108,9 @@ def plot_relation_size_attr(dataset='MAG'):
         n_indirect_cps = n_indirect_citations[i]
         ## indirect links的数量
         n_indirect_links = float('{:.1f}'.format((eys[i]-cascade_size)/float(cascade_size)))
+
+
+        all_eins.append(n_indirect_links)
 
         # owner 的发布时间
         owner_year = n_owner_years[i]
@@ -130,6 +140,28 @@ def plot_relation_size_attr(dataset='MAG'):
         indirect_dict[n_indirect_links].append(cascade_size)
 
         year_indirect_dict[owner_year].append(n_indirect_links)
+
+
+
+    logging.info('Size of indirect links {}'.format(len(all_eins)))
+
+
+    ## 随着citation count的增加，e-in如何变化
+    fig,axes  = plt.subplots(1,2,figsize=(12,5))
+
+    ax1 = axes[0]
+    plot_heat_scatter(ys,xs,ax1,fig)
+
+    ax1.set_xlabel('number of citations')
+    ax1.set_ylabel('$e_{i-norm}$')
+
+    ax1.set_xscale('log')
+
+    plt.tight_layout()
+
+    plt.savefig('pdf/{}_new_size_indirect.png',dpi=300)
+
+
 
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(1,2,figsize=(12,5))
