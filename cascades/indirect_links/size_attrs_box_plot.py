@@ -159,7 +159,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
     plt.tight_layout()
 
-    plt.savefig('pdf/{}_new_size_indirect.png',dpi=300)
+    plt.savefig('pdf/{}_new_size_indirect.png'.format(dataset),dpi=300)
 
 
 
