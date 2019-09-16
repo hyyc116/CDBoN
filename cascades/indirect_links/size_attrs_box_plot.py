@@ -15,8 +15,8 @@ def plot_relation_size_attr(dataset='MAG'):
 
     if dataset =='MAG':
         data_path = 'data/plot_dict.json'
-        x_min = 12
-        x_max = 695
+        x_min = 23
+        x_max = 95
 
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'

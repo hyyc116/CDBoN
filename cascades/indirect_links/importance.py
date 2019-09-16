@@ -31,9 +31,9 @@ def importance():
             ### 将没有indirect links的文章去掉
             aminer_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
-            if sx<10:
+            if sx<23:
                 aminer_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
-            elif sx<165:
+            elif sx<95:
                 aminer_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
             else:
                 aminer_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
