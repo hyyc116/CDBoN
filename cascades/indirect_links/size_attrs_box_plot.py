@@ -93,6 +93,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
     all_sizes = []
     all_eins = []
+    citation_ils = defaultdict(list)
 
     for i,depth in enumerate(dys):
         # cascade 的大小
@@ -109,7 +110,7 @@ def plot_relation_size_attr(dataset='MAG'):
         ## indirect links的数量
         n_indirect_links = float('{:.1f}'.format((eys[i]-cascade_size)/float(cascade_size)))
 
-
+        citation_ils[cascade_size].append(n_indirect_links)
         all_eins.append(n_indirect_links)
 
         # owner 的发布时间
@@ -146,10 +147,20 @@ def plot_relation_size_attr(dataset='MAG'):
     logging.info('Size of indirect links {}'.format(len(all_eins)))
 
 
-    ## 随着citation count的增加，e-in如何变化
-    fig,axes  = plt.subplots(1,2,figsize=(12,5))
+    cns = []
+    max_ein = []
+    mean_ein = []
+    min_ein = []
+    for cn in sorted(citation_ils.keys()):
+        cns.append(cn)
+        max_ein.append(np.max(citation_ils[cn]))
+        mean_ein.append(np.mean(citation_ils[cn]))
+        min_ein.append(np.mean(citation_ils[cn]))
 
-    ax1 = axes[0]
+    ## 随着citation count的增加，e-in如何变化
+    fig,axes  = plt.subplots(figsize=(6,5))
+
+    ax1 = axes
     plot_heat_scatter(all_sizes,all_eins,ax1,fig)
 
     ax1.set_xlabel('number of citations')
@@ -157,6 +168,11 @@ def plot_relation_size_attr(dataset='MAG'):
 
     ax1.set_xscale('log')
 
+
+    ax1.plot(cns,mean_ein,label='mean of $e_{i-norm}$',c='r')
+    ax1.plot(cns,max_ein,label='maximum of  $e_{i-norm}$',c='b')
+
+    ax1.legend()
     plt.tight_layout()
 
     plt.savefig('pdf/{}_new_size_indirect.png'.format(dataset),dpi=300)
