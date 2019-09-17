@@ -610,10 +610,10 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     print 10,_10_count,len(_10_list)  
     print 100,_100_count,len(_100_list)        
 
-    ax1.set_xlabel(ylabel)
-    ax1.set_ylabel(xlabel)
-    ax1.set_xscale('log')
-    plot_heat_scatter(ys,xs,ax1,fig)
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(ylabel)
+    ax1.set_yscale(yscale)
+    plot_heat_scatter(xs,ys,ax1,fig)
 
     ## xs ys分别是ei-norm citation_count
 
