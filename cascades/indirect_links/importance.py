@@ -31,9 +31,9 @@ def importance():
             ### 将没有indirect links的文章去掉
             aminer_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
-            if sx<10:
+            if sx<23:
                 aminer_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
-            elif sx<165:
+            elif sx<95:
                 aminer_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
             else:
                 aminer_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
@@ -57,7 +57,7 @@ def importance():
     ax.set_xlabel('$C=n$')
     ax.set_ylabel('$P(e>n|C=n)$')
 
-    plot_dict = json.loads(open('data/mag/stats/plot_dict.json').read())
+    plot_dict = json.loads(open('data/plot_dict.json').read())
     ###plot the comparison figure
     cxs= plot_dict['cxs']
     eys= plot_dict['eys']
@@ -81,9 +81,9 @@ def importance():
 
             mag_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
-            if sx<22:   
+            if sx<23:   
                 mag_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
-            elif sx<260:
+            elif sx<95:
                 mag_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
             else:
                 mag_percentages[2].append((eys[i]-cxs[i])/float(cxs[i]))
@@ -101,7 +101,7 @@ def importance():
         y = equal_dict[cc]
 
         if cc==10:
-            print 10,sum(y),len(y)
+            print 30,sum(y),len(y)
             _10_y=sum(y)/float(len(y))
 
         # if cc==2:
@@ -120,7 +120,7 @@ def importance():
     ax.text(12,0.85,'$({:},{:.4f})$'.format(10,1-_10_y))
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/importance.pdf',dpi=200)
+    plt.savefig('pdf/importance.png',dpi=400)
 
 
     change_xs=[]
@@ -143,7 +143,7 @@ def importance():
     plt.xlabel('$C=n$')
     plt.ylabel('Change Rate')
     plt.xscale('log')
-    plt.savefig('pdf/change_rate.pdf',dpi=200)
+    plt.savefig('pdf/change_rate.png',dpi=400)
 
 
     ## 两条累积曲线 
@@ -167,7 +167,7 @@ def importance():
     plt.xlabel('$e_{i-norm}$')
     plt.ylabel('$P(X>e_{i-norm})$')
     # plt.tight_layout()
-    # plt.savefig('pdf/ccdf_aminer.pdf',dpi=200)
+    # plt.savefig('pdf/ccdf_aminer.png',dpi=400)
 
     ## aminer_einorm mag_einorm
     # plt.figure(figsize=(6.5,4))
@@ -196,7 +196,7 @@ def importance():
     # plt.xlabel('$e_{i-norm}$')
     # plt.ylabel('$P(X>e_{i-norm})$')
     plt.xscale('log')
-    plt.title('Probability')
+    # plt.title('Probability')
 
     # plt.()
 
@@ -207,7 +207,7 @@ def importance():
     # plt.yticks([])
 
     # plt.tight_layout()
-    plt.savefig('pdf/ccdf_mag.pdf',dpi=200)
+    plt.savefig('pdf/ccdf_mag.png',dpi=400)
 
 
 
@@ -238,7 +238,7 @@ def importance():
     ax.set_yscale('log')
     # ax.()
     plt.tight_layout()
-    plt.savefig('pdf/boxplot_mag.png',dpi=200)
+    plt.savefig('pdf/boxplot_mag.png',dpi=400)
 
 
 

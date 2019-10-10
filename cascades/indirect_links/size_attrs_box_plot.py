@@ -14,9 +14,9 @@ aminer:data/plot_dict.json
 def plot_relation_size_attr(dataset='MAG'):
 
     if dataset =='MAG':
-        data_path = 'data/mag/stats/plot_dict.json'
-        x_min = 22
-        x_max = 260
+        data_path = 'data/plot_dict.json'
+        x_min = 23
+        x_max = 95
 
     elif dataset == 'AMiner':
         data_path = 'data/plot_dict.json'
@@ -59,14 +59,14 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.ylabel('number of papers')
     plt.yscale('log')
     plt.tight_layout()
-    plt.savefig('pdf/{:}_year_dis.pdf'.format(dataset.lower()),dpi=200)
+    plt.savefig('pdf/{:}_year_dis.png'.format(dataset.lower()),dpi=400)
 
     sorted_cxs = sorted(cxs,reverse=True)
     plt.figure()
     plt.plot(np.arange(len(sorted_cxs))+1,sorted_cxs)
     plt.xscale('log')
     plt.yscale('log')
-    plt.savefig('pdf/{:}_citation_PLE.pdf'.format(dataset),dpi=200)
+    plt.savefig('pdf/{:}_citation_PLE.png'.format(dataset),dpi=400)
 
     logging.info('length of cascade size {:}, edge size {:}, depth {:}, citation ages {:}, direct citations {:}, owner years {:}, n_indirect_citations {:}'.format(len(cxs),len(eys),len(dys),len(citation_ages),len(n_direct_citations),len(n_owner_years),len(n_indirect_citations)))
 
@@ -84,14 +84,22 @@ def plot_relation_size_attr(dataset='MAG'):
     citation_direct_links = defaultdict(list)
     citation_indirect_links = defaultdict(list)
 
+    # size_indirect_dict = defaultdict(list)
+
     ## 对 n_direct_citations 是一个比例列表
     # 使用最大的值进行归一化
 
     normed_direct_cps = n_direct_citations
+
+    all_sizes = []
+    all_eins = []
+    citation_ils = defaultdict(list)
+
     for i,depth in enumerate(dys):
         # cascade 的大小
         cascade_size = cxs[i]
 
+        all_sizes.append(cascade_size)
         # ### citation  count数量为10以下的都抛弃，只看中高被引的论文
         # if cascade_size<900:
         #     continue
@@ -101,6 +109,9 @@ def plot_relation_size_attr(dataset='MAG'):
         n_indirect_cps = n_indirect_citations[i]
         ## indirect links的数量
         n_indirect_links = float('{:.1f}'.format((eys[i]-cascade_size)/float(cascade_size)))
+
+        citation_ils[cascade_size].append(n_indirect_links)
+        all_eins.append(n_indirect_links)
 
         # owner 的发布时间
         owner_year = n_owner_years[i]
@@ -131,6 +142,43 @@ def plot_relation_size_attr(dataset='MAG'):
 
         year_indirect_dict[owner_year].append(n_indirect_links)
 
+
+
+    logging.info('Size of indirect links {}'.format(len(all_eins)))
+
+
+    cns = []
+    max_ein = []
+    mean_ein = []
+    min_ein = []
+    for cn in sorted(citation_ils.keys()):
+        cns.append(cn)
+        max_ein.append(np.max(citation_ils[cn]))
+        mean_ein.append(np.mean(citation_ils[cn]))
+        min_ein.append(np.mean(citation_ils[cn]))
+
+    ## 随着citation count的增加，e-in如何变化
+    fig,axes  = plt.subplots(figsize=(6,5))
+
+    ax1 = axes
+    plot_heat_scatter(all_sizes,all_eins,ax1,fig)
+
+    ax1.set_xlabel('number of citations')
+    ax1.set_ylabel('$e_{i-norm}$')
+
+    ax1.set_xscale('log')
+
+
+    ax1.plot(cns,mean_ein,label='mean of $e_{i-norm}$',c='r')
+    ax1.plot(cns,max_ein,label='maximum of  $e_{i-norm}$',c='b')
+
+    ax1.legend()
+    plt.tight_layout()
+
+    plt.savefig('pdf/{}_new_size_indirect.png'.format(dataset),dpi=300)
+
+
+
     ## 对上述图画 画箱式图
     fig,axes  = plt.subplots(1,2,figsize=(12,5))
     if dataset=='AMiner':
@@ -148,7 +196,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
     plt.tight_layout()
     fig_path = 'pdf/{:}_attr_size_plots.png'.format(dataset.lower())
-    plt.savefig(fig_path,dpi=200)
+    plt.savefig(fig_path,dpi=400)
     logging.info('saved to {:}.'.format(fig_path))
 
 
@@ -218,8 +266,8 @@ def citation_links(direct_links,indirect_links,dataset,name):
     plt.xscale('log')
     plt.legend()
     plt.tight_layout()
-    out_path = 'pdf/{:}_types_curves_{:}.pdf'.format(dataset.lower(),name)
-    plt.savefig(out_path,dpi=200)
+    out_path = 'pdf/{:}_types_curves_{:}.png'.format(dataset.lower(),name)
+    plt.savefig(out_path,dpi=400)
     logging.info('fig saved to {:}'.format(out_path))
 
 def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
@@ -499,7 +547,7 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
 
     ax.plot(xs,ys,label='Medium cited papers')
 
-    # x> 988
+    # x> 98d8
     xs = []
     ys = []
     for key in sorted(data_dict.keys()):
@@ -517,14 +565,19 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     ## 1<x<23
     xs = []
     ys = []
+
     _2_count = 0
     _2_list=[]
+
     _3_count = 0
     _3_list = []
+
     _10_count = 0
     _10_list = []
+
     _100_count = 0
     _100_list = []
+
     for key in sorted(data_dict.keys()):
         for y in data_dict[key]:
             xs.append(key)
@@ -561,6 +614,10 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
     ax1.set_ylabel(ylabel)
     ax1.set_yscale(yscale)
     plot_heat_scatter(xs,ys,ax1,fig)
+
+    ## xs ys分别是ei-norm citation_count
+
+    
 
     ax = ax2
     ## 画两条线
