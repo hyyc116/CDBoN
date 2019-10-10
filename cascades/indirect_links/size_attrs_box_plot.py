@@ -617,7 +617,7 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
 
     ## xs ys分别是ei-norm citation_count
 
-    
+
 
     ax = ax2
     ## 画两条线

@@ -3,7 +3,7 @@
 from basic_config import *
 # from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
-def importance():   
+def importance():
     fig,ax = plt.subplots(figsize=(6,5))
 
     plot_dict = json.loads(open('data/plot_dict.json').read())
@@ -81,7 +81,7 @@ def importance():
 
             mag_einorm.append((eys[i]-cxs[i])/float(cxs[i]))
 
-            if sx<23:   
+            if sx<23:
                 mag_percentages[0].append((eys[i]-cxs[i])/float(cxs[i]))
             elif sx<95:
                 mag_percentages[1].append((eys[i]-cxs[i])/float(cxs[i]))
@@ -96,7 +96,7 @@ def importance():
     _10_y=0
     for cc in sorted(equal_dict.keys()):
         e_xs.append(cc)
-        
+
 
         y = equal_dict[cc]
 
@@ -134,7 +134,7 @@ def importance():
             change_xs.append(i)
             change_ys.append(float(y-last_y)/(x-last_x))
 
-        last_x = x 
+        last_x = x
         last_y = y
 
 
@@ -146,7 +146,7 @@ def importance():
     plt.savefig('pdf/change_rate.png',dpi=400)
 
 
-    ## 两条累积曲线 
+    ## 两条累积曲线
     ## aminer_einorm mag_einorm
     plt.figure(figsize=(6.5,5))
     # length = float(len(aminer_einorm))
@@ -223,8 +223,9 @@ def importance():
     data = []
     for i in sorted(mag_percentages.keys()):
         # xs.append(i)
-        # mean = np.mean(mag_percentages[i])
+        mean = np.mean(mag_percentages[i])
         data.append(mag_percentages[i])
+        print(i,'===',mean)
         # ys.append(mean)
 
     # data = [[row[i] for row in data] for i in range(len(data[0]))]
@@ -243,7 +244,7 @@ def importance():
 
 
 def AD_percentage(pc):
-    
+
     # num = len(percentage)
     xs = []
     ys = []
@@ -273,4 +274,4 @@ if __name__ == '__main__':
 
 
 
-    
+
