@@ -169,7 +169,11 @@ def plot_relation_size_attr(dataset='MAG'):
     ax1.set_xscale('log')
 
 
-    ax1.plot(cns,mean_ein,label='mean of $e_{i-norm}$',c='r')
+
+    avg_zs = [i for i in zip(*lowess(mean_ein,np.log(cns),frac=0.1,it=1,is_sorted =True))[1]]
+
+    ax1.plot(cns,avg_zs,label='mean of $e_{i-norm}$',c='r')
+
     # ax1.plot(cns,max_ein,label='maximum of  $e_{i-norm}$',c='b')
 
     ax1.legend()
