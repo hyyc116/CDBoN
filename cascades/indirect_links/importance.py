@@ -219,7 +219,7 @@ def importance():
     # ax.errorbar(xs, ys, yerr=asymmetric_error, fmt='-o',capsize=2,label='MAG-CS')
 
     # for i,x in enumerate(xs):
-        # ax.text(x,ys[i],'({:.2f})'.format(ys[i]))
+        # ax.text(x,ys[i],'({:.2git f})'.format(ys[i]))
     data = []
     for i in sorted(mag_percentages.keys()):
         # xs.append(i)

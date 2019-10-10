@@ -485,19 +485,19 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
 
             if y==3:
                 _3_count+=1
-                if key>=1:
+                if key==1:
                     _3_list.append(key)
 
             if y==10:
                 _10_count+=1
-                if key>=1:
+                if key==1:
                     _10_list.append(key)
 
 
 
             if y==20:
                 _100_count+=1
-                if key==3:
+                if key==1:
                     _100_list.append(key)
 
     # print 2,_2_count,len(_2_list)
