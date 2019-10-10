@@ -158,7 +158,7 @@ def plot_relation_size_attr(dataset='MAG'):
         min_ein.append(np.mean(citation_ils[cn]))
 
     ## 随着citation count的增加，e-in如何变化
-    fig,axes  = plt.subplots(figsize=(6,5))
+    fig,axes  = plt.subplots(figsize=(6,4))
 
     ax1 = axes
     plot_heat_scatter(all_sizes,all_eins,ax1,fig)
@@ -170,7 +170,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
 
     ax1.plot(cns,mean_ein,label='mean of $e_{i-norm}$',c='r')
-    ax1.plot(cns,max_ein,label='maximum of  $e_{i-norm}$',c='b')
+    # ax1.plot(cns,max_ein,label='maximum of  $e_{i-norm}$',c='b')
 
     ax1.legend()
     plt.tight_layout()
