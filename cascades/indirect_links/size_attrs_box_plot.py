@@ -602,13 +602,13 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
 
             if y==20:
                 _100_count+=1
-                if key==3:
+                if key>=1:
                     _100_list.append(key)
 
     # print 2,_2_count,len(_2_list)
     print 3,_3_count,len(_3_list)
     print 10,_10_count,len(_10_list)
-    print 100,_100_count,len(_100_list)
+    print 20,_100_count,len(_100_list)
 
     ax1.set_xlabel(xlabel)
     ax1.set_ylabel(ylabel)
