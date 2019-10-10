@@ -32,7 +32,7 @@ def plot_relation_size_attr(dataset='MAG'):
     eys = plot_dict['eys']
     dys = plot_dict['dys']
     citation_ages = plot_dict['age']
-    n_direct_citations = plot_dict['direct'] 
+    n_direct_citations = plot_dict['direct']
     n_indirect_citations = plot_dict['indirect']
     n_owner_years = plot_dict['year']
 
@@ -47,7 +47,7 @@ def plot_relation_size_attr(dataset='MAG'):
         if year < 1970 or year>2016:
             continue
 
-            
+
         xs.append(year)
         ys.append(year_counter[year])
         number_of_papers+=year_counter[year]
@@ -69,7 +69,7 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.savefig('pdf/{:}_citation_PLE.pdf'.format(dataset),dpi=200)
 
     logging.info('length of cascade size {:}, edge size {:}, depth {:}, citation ages {:}, direct citations {:}, owner years {:}, n_indirect_citations {:}'.format(len(cxs),len(eys),len(dys),len(citation_ages),len(n_direct_citations),len(n_owner_years),len(n_indirect_citations)))
-    
+
     depth_size_dict = defaultdict(list)
     direct_cp_size_dict = defaultdict(list)
     year_size_dict = defaultdict(list)
@@ -94,7 +94,7 @@ def plot_relation_size_attr(dataset='MAG'):
 
         # ### citation  count数量为10以下的都抛弃，只看中高被引的论文
         # if cascade_size<900:
-        #     continue 
+        #     continue
 
         # owner 直接引文, 是一个比例，如何归一化呢
         n_direct_cps = normed_direct_cps[i]
@@ -151,7 +151,7 @@ def plot_relation_size_attr(dataset='MAG'):
     plt.savefig(fig_path,dpi=200)
     logging.info('saved to {:}.'.format(fig_path))
 
-    
+
     if dataset=='AMiner':
         t1 = 'publishing year'
     elif dataset=='MAG':
@@ -198,7 +198,7 @@ def citation_links(direct_links,indirect_links,dataset,name):
 
     plt.plot(d_xs,d_ys,alpha=0.5,c=color_sequence[0])
     d_zs = [i for i in zip(*lowess(d_ys,np.log(d_xs),frac=0.5,it=1,is_sorted =True))[1]]
-    
+
     xs = []
     ys = []
     for size in sorted(indirect_links.keys()):
@@ -224,7 +224,7 @@ def citation_links(direct_links,indirect_links,dataset,name):
 
 def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     ## 首先对于三种类别的文章进行分析
-    high_xs =[] 
+    high_xs =[]
     high_ys = []
 
     medium_xs = []
@@ -253,8 +253,8 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
             low_ys.append((es-cc)/float(cc))
 
     print 'high:',len(high_xs),', medium:',len(medium_xs),', low:',len(low_xs)
-    
-    
+
+
 
     plot_heat_scatter(low_xs,low_ys,ax1,fig)
     plot_heat_scatter(medium_xs,medium_ys,ax2,fig)
@@ -267,7 +267,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     data_dict = defaultdict(list)
     for i,x in enumerate(low_xs):
         y = low_ys[i]
-        data_dict[x].append(y) 
+        data_dict[x].append(y)
 
     print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
@@ -285,7 +285,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     data_dict = defaultdict(list)
     for i,x in enumerate(medium_xs):
         y = medium_ys[i]
-        data_dict[x].append(y) 
+        data_dict[x].append(y)
 
     print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
@@ -303,7 +303,7 @@ def year_analysis(ax1,ax2,ax3,fig,cxs,eys,n_owner_years,dataset,x_min,x_max):
     data_dict = defaultdict(list)
     for i,x in enumerate(high_xs):
         y = high_ys[i]
-        data_dict[x].append(y) 
+        data_dict[x].append(y)
 
     print 'length of data_dict:',len(data_dict.keys())
     for key in sorted(data_dict.keys()):
@@ -347,7 +347,7 @@ def avg_num(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citations per 
             xs.append(key)
             ys.append(y)
 
-    plot_heat_scatter(xs,ys,ax,fig) 
+    plot_heat_scatter(xs,ys,ax,fig)
 
 
     # ## 画两条线
@@ -454,8 +454,8 @@ def attr_size_plots(ax,fig,x_min,x_max,data_dict,xlabel,ylabel='number of citati
 
     # print 2,_2_count,len(_2_list)
     print 3,_3_count,len(_3_list)
-    print 10,_10_count,len(_10_list)  
-    print 100,_100_count,len(_100_list)        
+    print 10,_10_count,len(_10_list)
+    print 100,_100_count,len(_100_list)
 
 
     plot_heat_scatter(xs,ys,ax,fig)
@@ -554,8 +554,8 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
 
     # print 2,_2_count,len(_2_list)
     print 3,_3_count,len(_3_list)
-    print 10,_10_count,len(_10_list)  
-    print 100,_100_count,len(_100_list)        
+    print 10,_10_count,len(_10_list)
+    print 100,_100_count,len(_100_list)
 
     ax1.set_xlabel(xlabel)
     ax1.set_ylabel(ylabel)
@@ -611,7 +611,7 @@ def attr_size_plots_two(ax1,ax2,fig,x_min,x_max,data_dict,xlabel,ylabel='number 
 
     ax.plot(xs,ys,label='Highly cited papers')
     ax.legend()
-    
+
 
 if __name__ == '__main__':
     # plot_relation_size_attr(sys.argv[1])
