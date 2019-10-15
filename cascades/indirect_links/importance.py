@@ -231,7 +231,7 @@ def importance():
     # data = [[row[i] for row in data] for i in range(len(data[0]))]
     # print len(data)
 
-    ax.boxplot(data,labels=['low-impact','medium-impact','high-impact'],showfliers=True)
+    ax.boxplot(data,labels=['lowly-cited','medium-cited','highly-cited'],showfliers=True)
     # ax.set_xticks(xs)
     # ax.set_xticklabels()
     ax.set_xlabel('Paper Impact Level')
